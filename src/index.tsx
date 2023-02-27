@@ -5,21 +5,26 @@ import { ErrorPage, FreeCompany, Home, Player } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Home />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/FreeCompany/:fcId",
+      element: <FreeCompany />,
+    },
+    {
+      path: "/Player/:playerId",
+      element: <Player />,
+    },
+  ],
   {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/FreeCompany/:fcId",
-    element: <FreeCompany />,
-  },
-  {
-    path: "/Player/:playerId",
-    element: <Player />,
-  },
-]);
+    basename: "/yggxiv",
+  }
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
