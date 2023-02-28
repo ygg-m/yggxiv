@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { ErrorPage, FreeCompany, Home, Player } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
@@ -31,7 +32,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FreeCompanyProvider>
+      <RouterProvider router={router} />
+    </FreeCompanyProvider>
   </React.StrictMode>
 );
 
