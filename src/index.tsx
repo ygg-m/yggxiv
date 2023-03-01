@@ -1,31 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { ErrorPage, FreeCompany, Home, Player } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <Home />,
-      errorElement: <ErrorPage />,
-    },
-    {
-      path: "/FreeCompany/:fcId",
-      element: <FreeCompany />,
-    },
-    {
-      path: "/Player/:playerId",
-      element: <Player />,
-    },
-  ],
+const router = createHashRouter([
   {
-    basename: "/yggxiv",
-  }
-);
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/FreeCompany/:fcId",
+    element: <FreeCompany />,
+  },
+  {
+    path: "/Player/:playerId",
+    element: <Player />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
