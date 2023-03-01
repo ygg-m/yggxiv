@@ -22,21 +22,21 @@ export const Footer = () => {
         </p>
       </div>
       <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-        <a className="btn btn-square hover:bg-rose-900">
+        <a className="btn btn-square hover:bg-rose-900 hover:text-neutral-200">
           <GithubIcon className="h-8 w-8" />
         </a>
         <div className="divider divider-horizontal m-0"></div>
-        <a className="btn btn-square hover:bg-rose-900">
+        <a className="btn btn-square hover:bg-rose-900 hover:text-neutral-200">
           <TwitterIcon className="h-8 w-8" />
         </a>
-        <a className="btn btn-square hover:bg-rose-900">
+        <a className="btn btn-square hover:bg-rose-900 hover:text-neutral-200">
           <DiscordIcon className="h-8 w-8" />
         </a>
         <div className="divider divider-horizontal m-0"></div>
-        <a className="btn btn-square hover:bg-rose-900">
+        <a className="btn btn-square hover:bg-rose-900 hover:text-neutral-200">
           <KofiIcon className="h-8 w-8" />
         </a>
-        <a className="btn btn-square hover:bg-rose-900">
+        <a className="btn btn-square hover:bg-rose-900 hover:text-neutral-200">
           <PaypalIcon className="h-8 w-8" />
         </a>
       </div>
