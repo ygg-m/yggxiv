@@ -17,16 +17,15 @@ interface FreeCompany {
   Server: string;
 }
 
-interface FreeCompanySearchResult {
+export interface FreeCompanySearchResult {
   Pagination: Pagination;
   Results: FreeCompany[];
 }
 
-export async function searchFreeCompany(
-  name: string,
-  server: string
+export async function getFreeCompanies(
+  name: string
 ): Promise<FreeCompanySearchResult> {
-  const url = `https://xivapi.com/freecompany/search?name=${name}&server=${server}`;
+  const url = `https://xivapi.com/freecompany/search?name=${name}`;
   const response = await axios.get(url);
   const data = response.data;
 
