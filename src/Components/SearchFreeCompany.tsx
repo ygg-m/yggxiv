@@ -40,7 +40,7 @@ export const SearchFreeCompany = () => {
       const Server = parse[0];
       const DataCenter = parse[1];
       return (
-        <div className="flex flex-col gap-6 items-center justify-center bg-gray-800 rounded-xl pt-6 w-[20rem]">
+        <div className="flex flex-col gap-6 items-center justify-center bg-gray-800 rounded-xl pt-6 w-[20rem] overflow-hidden">
           <div className="relative w-16 h-16 overflow-hidden rounded-xl">
             <div className="absolute">
               <img src={crest[0]} alt="" />
@@ -62,7 +62,9 @@ export const SearchFreeCompany = () => {
               </div>
             </div>
           </div>
-          <button className="btn w-full">See More</button>
+          <button className="btn w-full hover:bg-rose-900 rounded-none hover:text-neutral-200">
+            See More
+          </button>
         </div>
       );
     };
