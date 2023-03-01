@@ -1,9 +1,15 @@
+import { Link } from "react-router-dom";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 import { throttle } from "../Helpers/trottle";
 
 export const SearchFreeCompany = () => {
-  const { searchFreeCompany, searchInput, setSearchInput, fetchLoad } =
-    useFreeCompanyContext();
+  const {
+    searchFreeCompany,
+    searchInput,
+    setSearchInput,
+    fetchLoad,
+    fetchFreeCompany,
+  } = useFreeCompanyContext();
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -62,9 +68,14 @@ export const SearchFreeCompany = () => {
               </div>
             </div>
           </div>
-          <button className="btn w-full hover:bg-rose-900 rounded-none hover:text-neutral-200">
-            See More
-          </button>
+          <Link className="w-full" to={`/FreeCompany/${ID}`}>
+            <button
+              onClick={() => fetchFreeCompany(ID)}
+              className="btn w-full hover:bg-rose-900 rounded-none hover:text-neutral-200"
+            >
+              See More
+            </button>
+          </Link>
         </div>
       );
     };

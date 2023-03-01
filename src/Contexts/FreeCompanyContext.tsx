@@ -1,5 +1,10 @@
 import { createContext, useContext, useState } from "react";
-import { FreeCompanySearchResult, getFreeCompanies } from "../Helpers/xviapi";
+import {
+  FreeCompanyFull,
+  FreeCompanySearchResult,
+  getFreeCompanies,
+  getFreeCompany,
+} from "../Helpers/xviapi";
 
 type FreeCompanyContextType = {
   searchInput: string;
@@ -7,6 +12,7 @@ type FreeCompanyContextType = {
   searchResult: FreeCompanySearchResult;
   setSearchResult: any;
   searchFreeCompany: any;
+  fetchFreeCompany: any;
   fetchLoad: boolean;
 };
 
@@ -27,6 +33,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   },
   setSearchResult: () => {},
   searchFreeCompany: () => {},
+  fetchFreeCompany: () => {},
   fetchLoad: false,
 });
 
@@ -52,6 +59,30 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     },
     Results: [],
   });
+  const [freeCompany, setFreeCompany] = useState<FreeCompanyFull>({
+    FreeCompany: {
+      Active: "",
+      ActiveMemberCount: 0,
+      Crest: [],
+      DC: "",
+      Estate: {},
+      Focus: [],
+      Formed: 0,
+      GrandCompany: "",
+      ID: "",
+      Name: "",
+      ParseDate: 0,
+      Rank: 0,
+      Ranking: [],
+      Recruitment: "",
+      Reputation: [],
+      Seeking: [],
+      Server: "",
+      Slogan: "",
+      Tag: "",
+    },
+    FreeCompanyMembers: [],
+  });
   const [fetchLoad, setFetchLoad] = useState<boolean>(false);
 
   async function searchFreeCompany() {
@@ -63,12 +94,20 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     setFetchLoad(false);
   }
 
+  async function fetchFreeCompany(FreeCompanyID: string) {
+    setFetchLoad(true);
+    const result = (await getFreeCompany(FreeCompanyID)) as FreeCompanyFull;
+    setFreeCompany(result);
+    setFetchLoad(false);
+  }
+
   const value: FreeCompanyContextType = {
     searchInput,
     setSearchInput,
     searchResult,
     setSearchResult,
     searchFreeCompany,
+    fetchFreeCompany,
     fetchLoad,
   };
 
