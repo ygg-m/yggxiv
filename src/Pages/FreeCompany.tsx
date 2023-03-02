@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 import {
   parseAlliedGC,
@@ -207,20 +207,22 @@ export const FreeCompany = () => {
       RankIcon,
     }) => {
       return (
-        <article className="flex gap-4 p-6 outline outline-1 outline-gray-700 rounded-lg hover:bg-rose-900 hover:outline-rose-900 hover:text-rose-200 duration-300 cursor-pointer">
-          <img
-            src={Avatar}
-            alt={`Profile Picture from ${Name}`}
-            className="h-16 w-16 rounded-full"
-          />
-          <div className="flex flex-col gap-2 justify-center">
-            <span className="font-bold">{Name}</span>
-            <span className="flex gap-2 items-center">
-              <img src={RankIcon} alt={"Rank Icon"} />
-              {Rank}
-            </span>
-          </div>
-        </article>
+        <Link to={`/Character/${ID}`}>
+          <article className="flex gap-4 p-6 outline outline-1 outline-gray-700 rounded-lg hover:bg-rose-900 hover:outline-rose-900 hover:text-rose-200 duration-300 cursor-pointer">
+            <img
+              src={Avatar}
+              alt={`Profile Picture from ${Name}`}
+              className="h-16 w-16 rounded-full"
+            />
+            <div className="flex flex-col gap-2 justify-center">
+              <span className="font-bold">{Name}</span>
+              <span className="flex gap-2 items-center">
+                <img src={RankIcon} alt={"Rank Icon"} />
+                {Rank}
+              </span>
+            </div>
+          </article>
+        </Link>
       );
     };
 
