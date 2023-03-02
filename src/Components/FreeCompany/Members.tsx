@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { FreeCompanyMembersSmall } from "../../Types/FreeCompanyData";
+import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { Card } from "./CharacterCard";
 
-type MembersProps = {
-  MemberList: FreeCompanyMembersSmall[];
-};
-
-export const Members: React.FC<MembersProps> = ({ MemberList }) => {
+export const Members = () => {
+  const { freeCompany } = useFreeCompanyContext();
+  const { FreeCompanyMembers } = freeCompany;
   const [filterOpen, setFilterOpen] = useState<boolean>();
 
   const MemberFilter = () => {
@@ -90,7 +88,7 @@ export const Members: React.FC<MembersProps> = ({ MemberList }) => {
   const List = () => {
     return (
       <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {MemberList.map((member) => {
+        {FreeCompanyMembers.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           return (
             <Card
