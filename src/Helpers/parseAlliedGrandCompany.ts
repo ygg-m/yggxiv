@@ -1,7 +1,7 @@
 import GridaniaFlag from "../Assets/Images/UI/GridaniaFlag.png";
 import LimsaLominsaFlag from "../Assets/Images/UI/LimsaLominsaFlag.png";
 import UlDahFlag from "../Assets/Images/UI/Ul'dahFlag.png";
-import { FreeCompanyReputation } from "./xviapi";
+import { FreeCompanyReputation } from "../Types/FreeCompanyData";
 
 export const parseAlliedGC = (Reputation: FreeCompanyReputation[]) => {
   const AlliedGC = Reputation.filter((e) => e.Rank === "Allied")[0];

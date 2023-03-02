@@ -1,10 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import {
-  FreeCompanyFull,
-  FreeCompanySearchResult,
-  getFreeCompanies,
-  getFreeCompany,
-} from "../Helpers/xviapi";
+import { getFreeCompanies, getFreeCompany } from "../Helpers/xviapi";
+import { FreeCompanyFull, FreeCompanySearchResult } from "../Types/index";
 
 type FreeCompanyContextType = {
   searchInput: string;
