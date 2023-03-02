@@ -14,11 +14,14 @@ export const parseStaff = (Members: MemberType[]) => {
   const staffList: object[] = [];
 
   for (let member of Members) {
-    if (!uniqueRanks.includes(member.Rank) && uniqueRanks.length <= 2) {
+    const rankNotOnList = !uniqueRanks.includes(member.Rank);
+    const rankOnList = uniqueRanks.includes(member.Rank);
+
+    if (rankNotOnList && uniqueRanks.length <= 2) {
       uniqueRanks.push(member.Rank);
       staffList.push(member);
     }
-    if (uniqueRanks.includes(member.Rank)) staffList.push(member);
+    if (rankOnList) staffList.push(member);
   }
 
   return staffList;
