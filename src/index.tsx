@@ -21,7 +21,7 @@ const router = createHashRouter([
     element: <FreeCompany />,
   },
   {
-    path: "/Player/:playerId",
+    path: "/Character/:playerId",
     element: <Player />,
   },
 ]);
