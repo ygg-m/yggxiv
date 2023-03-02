@@ -46,7 +46,7 @@ export const SearchFreeCompany = () => {
       const Server = parse[0];
       const DataCenter = parse[1];
       return (
-        <div className="flex flex-col gap-6 items-center justify-center bg-gray-800 rounded-xl pt-6 w-[20rem] overflow-hidden">
+        <div className="flex flex-col gap-6 items-center justify-center bg-base-100 rounded-xl pt-6 w-[20rem] overflow-hidden">
           <div className="relative w-16 h-16 overflow-hidden rounded-xl">
             <div className="absolute">
               <img src={crest[0]} alt="" />
@@ -108,7 +108,7 @@ export const SearchFreeCompany = () => {
               className="input input-bordered w-full"
             />
             <button
-              className="btn btn-square bg-gray-800 hover:bg-rose-900"
+              className="btn btn-square bg-base-100 hover:bg-rose-900"
               onClick={sendSearch}
             >
               <svg

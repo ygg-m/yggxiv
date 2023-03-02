@@ -21,7 +21,7 @@ export const Navbar = () => {
         <input
           type="text"
           placeholder="Search"
-          className="input input-bordered bg-gray-800 focus:bg-gray-900"
+          className="input input-bordered bg-base-100 focus:bg-gray-900"
         />
       </div>
     );
@@ -70,7 +70,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-gray-800">
+    <div className="navbar bg-base-100">
       <Logo />
       <div className="flex-none gap-2">
         <Input />
@@ -78,7 +78,7 @@ export const Navbar = () => {
           <MenuButton />
           <ul
             tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-gray-800 rounded-box w-52"
+            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
             <Option
               name="Free Company"
