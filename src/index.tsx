@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
-import { ErrorPage, FreeCompany, Home, Player } from "./Pages";
+import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
 
@@ -19,10 +19,11 @@ const router = createHashRouter([
   {
     path: "/FreeCompany/:fcId",
     element: <FreeCompany />,
+    children: [{ path: "Members", element: <FreeCompany /> }],
   },
   {
     path: "/Character/:playerId",
-    element: <Player />,
+    element: <Character />,
   },
 ]);
 
