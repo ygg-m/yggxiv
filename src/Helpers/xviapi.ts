@@ -67,7 +67,7 @@ interface FreeCompanyRanking {
   Weekly: number;
 }
 
-interface FreeCompanyReputation {
+export interface FreeCompanyReputation {
   Name: string;
   Progress: number;
   Rank: string;
