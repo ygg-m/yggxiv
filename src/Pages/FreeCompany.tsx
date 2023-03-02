@@ -267,7 +267,7 @@ export const FreeCompany = () => {
     };
 
     return (
-      <section className="grid gap-4 pb-8">
+      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
         <BasicInfo />
         <Estate />
         <Staff />
@@ -277,12 +277,18 @@ export const FreeCompany = () => {
 
   const Members = () => {
     return (
-      <section className="grid gap-4 pb-8">Content for Members Tab</section>
+      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
+        Content for Members Tab
+      </section>
     );
   };
 
   const Ranks = () => {
-    return <section className="grid gap-4 pb-8">Content for Ranks Tab</section>;
+    return (
+      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
+        Content for Ranks Tab
+      </section>
+    );
   };
 
   const Stats = () => {
