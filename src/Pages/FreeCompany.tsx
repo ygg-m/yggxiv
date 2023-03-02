@@ -1,6 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
-import { parseDate, parseEstatePlot, parseStaff } from "../Helpers/index";
+import {
+  parseAlliedGC,
+  parseDate,
+  parseEstatePlot,
+  parseStaff,
+} from "../Helpers/index";
 import { FreeCompanyMembersSmall } from "../Helpers/xviapi";
 
 export const FreeCompany = () => {
@@ -111,19 +116,17 @@ export const FreeCompany = () => {
     const Ranks = () => {
       const { Reputation, Ranking } = FreeCompany;
       const { Monthly, Weekly } = Ranking;
-      const AlliedGC = Reputation.filter((e) => e.Rank === "Allied")[0].Name;
+      const AlliedGC = parseAlliedGC(Reputation);
 
       return (
         <section className="flex flex-col basis-1/2 bg-gray-700 rounded-lg p-6">
           <div className="flex flex-col">
             <div className="text-sm opacity-60">Allied Grand Company</div>
             <div className="flex gap-2">
-              {AlliedGC}
-              <img
-                src="https://ffxiv.gamerescape.com/w/images/f/fe/Gridania_Icon.png"
-                alt=""
-                className="h-6 rounded-lg"
-              />
+              {AlliedGC.Name}
+              {AlliedGC.Icon && (
+                <img src={AlliedGC.Icon} alt="" className="h-6 rounded-lg" />
+              )}
             </div>
           </div>
           <div className="divider"></div>
