@@ -84,7 +84,7 @@ interface FreeCompanyData {
   ActiveMemberCount: number;
   Crest: string[];
   DC: string;
-  Estate: object;
+  Estate: { Greeting: string; Name: string; Plot: string };
   Focus: FreeCompanyFocus[];
   Formed: number;
   GrandCompany: string;
@@ -92,7 +92,7 @@ interface FreeCompanyData {
   Name: string;
   ParseDate: number;
   Rank: number;
-  Ranking: FreeCompanyRanking[];
+  Ranking: FreeCompanyRanking;
   Recruitment: string;
   Reputation: FreeCompanyReputation[];
   Seeking: FreeCompanySeeking[];
