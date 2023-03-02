@@ -63,7 +63,7 @@ export const SearchFreeCompany = () => {
             <h3 className="italic text-sm text-neutral-500">{ID}</h3>
             <div className="flex gap-2">
               <div className="py-3 badge badge-md">{DataCenter}</div>
-              <div className="py-3 badge badge-md bg-rose-900 text-rose-200">
+              <div className="py-3 badge badge-md bg-primary text-rose-200">
                 {Server}
               </div>
             </div>
@@ -71,7 +71,7 @@ export const SearchFreeCompany = () => {
           <Link className="w-full" to={`/FreeCompany/${ID}`}>
             <button
               onClick={() => fetchFreeCompany(ID)}
-              className="btn w-full hover:bg-rose-900 rounded-none hover:text-neutral-200"
+              className="btn w-full hover:bg-primary rounded-none hover:text-neutral-200"
             >
               See More
             </button>
@@ -108,7 +108,7 @@ export const SearchFreeCompany = () => {
               className="input input-bordered w-full"
             />
             <button
-              className="btn btn-square bg-base-100 hover:bg-rose-900"
+              className="btn btn-square bg-base-100 hover:bg-primary"
               onClick={sendSearch}
             >
               <svg
