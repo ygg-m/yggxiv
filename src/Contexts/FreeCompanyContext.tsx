@@ -13,6 +13,7 @@ type FreeCompanyContextType = {
   setSearchResult: any;
   searchFreeCompany: any;
   fetchFreeCompany: any;
+  freeCompany: FreeCompanyFull;
   fetchLoad: boolean;
 };
 
@@ -34,6 +35,30 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   setSearchResult: () => {},
   searchFreeCompany: () => {},
   fetchFreeCompany: () => {},
+  freeCompany: {
+    FreeCompany: {
+      Active: "",
+      ActiveMemberCount: 0,
+      Crest: [],
+      DC: "",
+      Estate: { Greeting: "", Name: "", Plot: "" },
+      Focus: [{ Icon: "", Name: "", Status: false }],
+      Formed: 0,
+      GrandCompany: "",
+      ID: "",
+      Name: "",
+      ParseDate: 0,
+      Rank: 0,
+      Ranking: { Monthly: 0, Weekly: 0 },
+      Recruitment: "",
+      Reputation: [{ Name: "", Progress: 0, Rank: "" }],
+      Seeking: [{ Icon: "", Name: "", Status: false }],
+      Server: "",
+      Slogan: "",
+      Tag: "",
+    },
+    FreeCompanyMembers: [],
+  },
   fetchLoad: false,
 });
 
@@ -65,7 +90,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
       ActiveMemberCount: 0,
       Crest: [],
       DC: "",
-      Estate: {},
+      Estate: { Greeting: "", Name: "", Plot: "" },
       Focus: [],
       Formed: 0,
       GrandCompany: "",
@@ -73,7 +98,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
       Name: "",
       ParseDate: 0,
       Rank: 0,
-      Ranking: [],
+      Ranking: { Monthly: 0, Weekly: 0 },
       Recruitment: "",
       Reputation: [],
       Seeking: [],
@@ -108,6 +133,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     setSearchResult,
     searchFreeCompany,
     fetchFreeCompany,
+    freeCompany,
     fetchLoad,
   };
 
