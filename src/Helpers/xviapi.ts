@@ -101,7 +101,7 @@ interface FreeCompanyData {
   Tag: string;
 }
 
-interface FreeCompanyMembersSmall {
+export interface FreeCompanyMembersSmall {
   Avatar: string;
   FeastMatches: number;
   ID: number;
