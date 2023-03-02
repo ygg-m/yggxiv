@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
-import { throttle } from "../Helpers/trottle";
+import { throttle } from "../Helpers/index";
 
 export const SearchFreeCompany = () => {
   const {
