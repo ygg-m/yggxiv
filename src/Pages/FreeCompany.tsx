@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 import { parseDate, parseEstatePlot, parseStaff } from "../Helpers/index";
+import { FreeCompanyMembersSmall } from "../Helpers/xviapi";
 
 export const FreeCompany = () => {
   const { freeCompany, fetchFreeCompany, fetchLoad } = useFreeCompanyContext();
@@ -185,7 +186,7 @@ export const FreeCompany = () => {
   };
 
   const Staff = () => {
-    const Staffs = parseStaff(Members);
+    const Staffs = parseStaff(Members) as FreeCompanyMembersSmall[];
 
     type CardProps = {
       Avatar: string;
@@ -203,7 +204,7 @@ export const FreeCompany = () => {
       RankIcon,
     }) => {
       return (
-        <article className="flex gap-4 p-6 outline outline-1 outline-gray-700 rounded-lg basis-full hover:bg-gray-700 duration-300 cursor-pointer md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+        <article className="flex gap-4 p-6 outline outline-1 outline-gray-700 rounded-lg hover:bg-rose-900 hover:outline-rose-900 hover:text-rose-200 duration-300 cursor-pointer">
           <img
             src={Avatar}
             alt={`Profile Picture from ${Name}`}
@@ -221,7 +222,7 @@ export const FreeCompany = () => {
     };
 
     return (
-      <section className="mt-4 pb-8 flex flex-wrap">
+      <section className="mt-4 pb-8 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {Staffs.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           return (
@@ -234,13 +235,6 @@ export const FreeCompany = () => {
             />
           );
         })}
-        <Card
-          Avatar="https://img2.finalfantasyxiv.com/f/a23316227544639e9625a73b5ccc453c_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1677690297"
-          ID={19210263}
-          Name="Kurohane Enki"
-          Rank="President"
-          RankIcon="https://img.finalfantasyxiv.com/lds/h/Z/W5a6yeRyN2eYiaV-AGU7mJKEhs.png"
-        />
       </section>
     );
   };
