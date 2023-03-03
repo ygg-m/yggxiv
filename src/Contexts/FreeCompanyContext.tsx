@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getRanks } from "../Helpers";
-import { getFreeCompanies, getFreeCompany } from "../Helpers/xviapi";
 import {
+  getCharacterList,
+  getFreeCompanies,
+  getFreeCompany,
+} from "../Helpers/xviapi";
+import {
+  CharacterData,
   FreeCompanyFull,
   FreeCompanySearchResult,
   MembersListTypes,
@@ -26,6 +31,8 @@ type FreeCompanyContextType = {
   filterMemberOpen: boolean;
   setFilterMemberOpen: any;
   RankList: RankListTypes[];
+  fetchMembersData: any;
+  MembersFullData: CharacterData[];
 };
 
 const FreeCompanyContext = createContext<FreeCompanyContextType>({
@@ -80,6 +87,8 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   filterMemberOpen: false,
   setFilterMemberOpen: () => {},
   RankList: [],
+  fetchMembersData: () => {},
+  MembersFullData: [],
 });
 
 export const useFreeCompanyContext = () => useContext(FreeCompanyContext);
@@ -118,6 +127,215 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     FreeCompanyMembers: [],
   });
   const { FreeCompanyMembers } = freeCompany;
+  const [MembersFullData, setMembersFullData] = useState<CharacterData[]>([
+    {
+      Achievements: { List: [], Points: 0 },
+      AchievementsPublic: false,
+      Character: {
+        ActiveClassJob: {
+          ClassID: 0,
+          ExpLevel: 0,
+          ExpLevelMax: 0,
+          ExpLevelTogo: 0,
+          IsSpecialised: false,
+          JobID: 0,
+          Level: 0,
+          Name: "",
+          UnlockedState: {
+            ID: 0,
+            Name: "",
+          },
+        },
+        Avatar: "",
+        Bio: "",
+        ClassJobs: [],
+        ClassJobsBozjan: { Level: 0, Mettle: 0, Name: "" },
+        ClassJobsElemental: {
+          ExpLevel: 0,
+          ExpLevelMax: 0,
+          ExpLevelTogo: 0,
+          Level: 0,
+          Name: "",
+        },
+        DC: "",
+        FreeCompanyId: "",
+        FreeCompanyName: "",
+        GearSet: {
+          Attributes: {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0,
+            "7": 0,
+            "8": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "24": 0,
+            "27": 0,
+            "33": 0,
+            "34": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+          },
+          ClassID: 0,
+          Gear: {
+            Body: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Bracelets: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Earrings: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Feet: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Hands: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Head: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Legs: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            MainHand: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Necklace: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Ring1: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            Ring2: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+            SoulCrystal: {
+              Creator: 0,
+              Dye: 0,
+              ID: 0,
+              Materia: [],
+              Mirage: 0,
+            },
+          },
+          GearKey: "",
+          JobID: 0,
+          Level: 0,
+        },
+        Gender: 0,
+        GrandCompany: { NameID: 0, RankID: 0 },
+        GuardianDeity: 0,
+        ID: 0,
+        Lang: null,
+        Name: "",
+        Nameday: "",
+        ParseData: 0,
+        Portrait: "",
+        PvPTeamId: "",
+        Race: 0,
+        Server: "",
+        Title: 0,
+        TitleTop: false,
+        Town: 0,
+        Tribe: 0,
+      },
+      FreeCompany: {
+        Active: "",
+        ActiveMemberCount: 0,
+        Crest: [],
+        DC: "",
+        Estate: { Greeting: "", Name: "", Plot: "" },
+        Focus: [],
+        Formed: 0,
+        GrandCompany: "",
+        ID: "",
+        Name: "",
+        ParseDate: 0,
+        Rank: 0,
+        Ranking: { Monthly: 0, Weekly: 0 },
+        Recruitment: "",
+        Reputation: [],
+        Seeking: [],
+        Server: "",
+        Slogan: "",
+        Tag: "",
+      },
+      FreeCompanyMembers: [],
+      Friends: [],
+      FriendsPublic: false,
+      Minions: [],
+      Mounts: [],
+      PvPTeam: {
+        ID: "",
+        Pagination: {
+          Page: 0,
+          PageNext: 0,
+          PagePrev: 0,
+          PageTotal: 0,
+          Results: 0,
+          ResultsPerPage: 0,
+          ResultsTotal: 0,
+        },
+        Profile: {
+          Crest: [],
+          Name: "",
+          Server: "",
+        },
+        Results: [],
+      },
+    },
+  ]);
 
   // Search
   const [searchInput, setSearchInput] = useState<string>("");
@@ -150,6 +368,15 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     setFetchLoad(true);
     const result = (await getFreeCompany(FreeCompanyID)) as FreeCompanyFull;
     setFreeCompany(result);
+    setFetchLoad(false);
+  }
+
+  async function fetchMembersData() {
+    setFetchLoad(true);
+    const result = (await getCharacterList(
+      FreeCompanyMembers
+    )) as CharacterData[];
+    setMembersFullData(result);
     setFetchLoad(false);
   }
 
@@ -220,6 +447,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     fetchFreeCompany,
     freeCompany,
     fetchLoad,
+    fetchMembersData,
     filteredMembers,
     setFilteredMembers,
     changeCheckFilter,
@@ -229,6 +457,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     filterMemberOpen,
     setFilterMemberOpen,
     RankList,
+    MembersFullData,
   };
 
   return (

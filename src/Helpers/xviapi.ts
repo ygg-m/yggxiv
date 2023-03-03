@@ -10,7 +10,7 @@ import {
   Pagination,
 } from "../Types/index";
 
-const limit = pLimit(15);
+const limit = pLimit(1);
 
 export async function getFreeCompanies(
   name: string
