@@ -1,15 +1,6 @@
-type MemberType = {
-  Avatar: string;
-  FeastMatches: number;
-  ID: number;
-  Lang: any;
-  Name: string;
-  Rank: string;
-  RankIcon: string;
-  Server: string;
-};
+import { FreeCompanyMembersSmall } from "../Types/index";
 
-export const parseStaff = (Members: MemberType[]) => {
+export const parseStaff = (Members: FreeCompanyMembersSmall[]) => {
   const uniqueRanks: string[] = [];
   const staffList: object[] = [];
 
