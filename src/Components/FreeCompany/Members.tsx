@@ -82,7 +82,7 @@ export const Members = () => {
     }, [filteredMembers]);
 
     return (
-      <nav className="navbar grid bg-base-100 rounded-lg">
+      <nav className="navbar grid bg-base-100 rounded-lg h-fit">
         <div className="flex justify-between">
           <FilterButton />
           <div className="form-control">
@@ -101,9 +101,9 @@ export const Members = () => {
     );
   };
 
-  const List = () => {
+  const MemberList = () => {
     return (
-      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 h-full">
         {filteredMembers.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           if (ID === 0)
@@ -125,9 +125,9 @@ export const Members = () => {
   };
 
   return (
-    <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
+    <section className="flex flex-col gap-4 pb-8 min-h-[calc(100vh-448px)]">
       <MemberFilter />
-      <List />
+      <MemberList />
     </section>
   );
 };
