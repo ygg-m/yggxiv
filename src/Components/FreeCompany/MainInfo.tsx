@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
+
 import {
   parseAlliedGC,
   parseDate,
@@ -11,7 +13,6 @@ import { FreeCompanyMembersSmall } from "../../Types";
 export const MainInfo = () => {
   const { freeCompany } = useFreeCompanyContext();
   const { FreeCompany, FreeCompanyMembers: Members } = freeCompany;
-
   const { Name, Tag, Formed, Rank, Slogan } = FreeCompany;
   const [FormedDate, FormedTime] = parseDate(Formed);
 
@@ -75,7 +76,6 @@ export const MainInfo = () => {
     return (
       <article className="grid md:grid-cols-2 p-4 gap-4 bg-base-100 rounded-b-lg rounded-tr-lg">
         <span className="col-span-2 p-4 text-center">{Slogan}</span>
-
         <Info />
         <Ranks />
       </article>
@@ -162,6 +162,7 @@ export const MainInfo = () => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           return (
             <Card
+              key={uuidv4()}
               Avatar={Avatar}
               ID={ID}
               Name={Name}

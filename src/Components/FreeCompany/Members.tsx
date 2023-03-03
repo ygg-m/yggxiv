@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { Card } from "./CharacterCard";
 
@@ -54,7 +55,7 @@ export const Members = () => {
             {RankList.map((rank) => {
               const { Rank, RankIcon } = rank;
               return (
-                <div className="form-control">
+                <div className="form-control" key={uuidv4()}>
                   <label className="label cursor-pointer gap-2 px-3 rounded-lg bg-base-300">
                     <img src={RankIcon} alt="" />
                     <span className="label-text">{Rank}</span>
@@ -110,6 +111,7 @@ export const Members = () => {
 
           return (
             <Card
+              key={uuidv4()}
               Avatar={Avatar}
               ID={ID}
               Name={Name}
