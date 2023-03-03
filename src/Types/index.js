@@ -1,3 +1,4 @@
+export { CharacterData } from "./CharacterData";
 export {
   FreeCompanyData,
   FreeCompanyEstate,
