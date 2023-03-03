@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { Footer } from "../Components";
+import { MainInfo, Members, Ranking, Stats } from "../Components/FreeCompany";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
-
-import { MainInfo, Members, Ranks, Stats } from "../Components/FreeCompany";
 
 export const FreeCompany = () => {
   const { freeCompany, fetchFreeCompany, fetchLoad } = useFreeCompanyContext();
@@ -83,7 +83,7 @@ export const FreeCompany = () => {
         <div className="tabs">
           {tabs.map((tab, index) => (
             <span
-              key={index}
+              key={uuidv4()}
               className={`tab tab-lg tab-lifted duration-300 ${
                 index === activeTab ? "tab-active" : ""
               }`}
@@ -107,8 +107,8 @@ export const FreeCompany = () => {
       content: <Members />,
     },
     {
-      label: "Ranks",
-      content: <Ranks />,
+      label: "Ranking",
+      content: <Ranking />,
     },
     {
       label: "Stats",
@@ -129,7 +129,7 @@ export const FreeCompany = () => {
       <div className="w-screen max-w-screen-2xl flex flex-col px-8">
         <Header />
         <Navigator />
-        <div className="tab-content">{tabs[activeTab].content}</div>
+        <article className="tab-content">{tabs[activeTab].content}</article>
       </div>
       <Footer />
     </div>
