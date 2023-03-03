@@ -118,5 +118,6 @@ export async function getCharacterList(
   const newList = await Promise.all(
     list.map((char) => limit(() => getCharacter(char.ID)))
   );
+
   return newList;
 }
