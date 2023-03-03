@@ -1,4 +1,4 @@
-import { FreeCompanyMembersSmall as MemberTypes, RankListTypes } from "../Types/index";
+import { MembersListTypes as MemberTypes, RankListTypes } from "../Types/index";
 
 export const getRanks = (Members: MemberTypes[]) => {
   const uniqueRanks: RankListTypes[] = Members.reduce(

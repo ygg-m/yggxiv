@@ -8,7 +8,7 @@ import {
   parseEstatePlot,
   parseStaff,
 } from "../../Helpers";
-import { FreeCompanyMembersSmall } from "../../Types";
+import { MembersListTypes } from "../../Types";
 
 export const MainInfo = () => {
   const { freeCompany } = useFreeCompanyContext();
@@ -102,13 +102,12 @@ export const MainInfo = () => {
             <div className="text-sm opacity-60 italic">City</div>
             <div className="text-lg font-bold">{City}</div>
           </div>
-          <div className="divider divider-horizontal m-0"></div>
+          <div className="divider divider-horizontal m-0 after:border-2 before:border-2 before:border-base-100 after:border-base-100"></div>
           <div className="flex flex-col items-center justify-center py-4 px-8 basis-full">
             <div className="text-sm opacity-60 italic">Ward</div>
             <div className="text-lg font-bold">{Ward}</div>
           </div>
-          <div className="divider divider-horizontal m-0"></div>
-
+          <div className="divider divider-horizontal m-0 after:border-2 before:border-2 before:border-base-100 after:border-base-100"></div>
           <div className="flex flex-col items-center justify-center p-4 basis-full">
             <div className="text-sm opacity-60 italic">Plot</div>
             <div className="text-lg font-bold">{Plot}</div>
@@ -119,7 +118,7 @@ export const MainInfo = () => {
   };
 
   const Staff = () => {
-    const Staffs = parseStaff(Members) as FreeCompanyMembersSmall[];
+    const Staffs = parseStaff(Members) as MembersListTypes[];
 
     type CardProps = {
       Avatar: string;

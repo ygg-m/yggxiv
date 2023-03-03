@@ -3,8 +3,8 @@ import { getRanks } from "../Helpers";
 import { getFreeCompanies, getFreeCompany } from "../Helpers/xviapi";
 import {
   FreeCompanyFull,
-  FreeCompanyMembersSmall,
   FreeCompanySearchResult,
+  MembersListTypes,
   RankListTypes,
 } from "../Types/index";
 
@@ -17,7 +17,7 @@ type FreeCompanyContextType = {
   fetchFreeCompany: any;
   freeCompany: FreeCompanyFull;
   fetchLoad: boolean;
-  filteredMembers: FreeCompanyMembersSmall[];
+  filteredMembers: MembersListTypes[];
   setFilteredMembers: any;
   changeCheckFilter: any;
   changeSearchFilter: any;
@@ -176,11 +176,11 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     setSearchQuery(value);
   };
 
-  const filterByCheck = (members: FreeCompanyMembersSmall[]) => {
+  const filterByCheck = (members: MembersListTypes[]) => {
     return members.filter((member) => checkedKeys.includes(member.Rank));
   };
 
-  const filterBySearch = (members: FreeCompanyMembersSmall[]) => {
+  const filterBySearch = (members: MembersListTypes[]) => {
     return members.filter((member) =>
       member.Name.toLowerCase().includes(searchQuery.toLowerCase())
     );

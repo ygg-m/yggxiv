@@ -1,6 +1,6 @@
-import { FreeCompanyMembersSmall } from "../Types/index";
+import { MembersListTypes } from "../Types/index";
 
-export const parseStaff = (Members: FreeCompanyMembersSmall[]) => {
+export const parseStaff = (Members: MembersListTypes[]) => {
   const uniqueRanks: string[] = [];
   const staffList: object[] = [];
 

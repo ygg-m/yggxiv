@@ -2,10 +2,10 @@ import axios from "axios";
 import {
   FreeCompanyData,
   FreeCompanyFull,
-  FreeCompanyMembersSmall,
   FreeCompanySearchResult,
   FreeCompanySmall,
-  Pagination
+  MembersListTypes,
+  Pagination,
 } from "../Types/index";
 
 export async function getFreeCompanies(
@@ -69,7 +69,7 @@ export async function getFreeCompany(
     Tag: data.FreeCompany.Tag,
   };
 
-  const members: FreeCompanyMembersSmall[] = data.FreeCompanyMembers.map(
+  const members: MembersListTypes[] = data.FreeCompanyMembers.map(
     (result: any) => {
       return {
         Avatar: result.Avatar,

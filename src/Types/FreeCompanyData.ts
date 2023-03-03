@@ -56,7 +56,7 @@ export interface FreeCompanyData {
   Tag: string;
 }
 
-export interface FreeCompanyMembersSmall {
+export interface MembersListTypes {
   Avatar: string;
   FeastMatches: number;
   ID: number;
@@ -69,7 +69,7 @@ export interface FreeCompanyMembersSmall {
 
 export interface FreeCompanyFull {
   FreeCompany: FreeCompanyData;
-  FreeCompanyMembers: FreeCompanyMembersSmall[];
+  FreeCompanyMembers: MembersListTypes[];
 }
 
 export interface RankListTypes {
