@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Footer } from "../Components";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 
-import { MainInfo, Members } from "../Components/FreeCompany";
+import { MainInfo, Members, Ranks, Stats } from "../Components/FreeCompany";
 
 export const FreeCompany = () => {
   const { freeCompany, fetchFreeCompany, fetchLoad } = useFreeCompanyContext();
@@ -95,18 +95,6 @@ export const FreeCompany = () => {
         </div>
       </nav>
     );
-  };
-
-  const Ranks = () => {
-    return (
-      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
-        Content for Ranks Tab
-      </section>
-    );
-  };
-
-  const Stats = () => {
-    return <section className="grid gap-4 pb-8">Content for Stats Tab</section>;
   };
 
   const tabs = [
