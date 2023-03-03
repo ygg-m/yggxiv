@@ -8,5 +8,6 @@ export {
   FreeCompanyReputation,
   FreeCompanySeeking,
   FreeCompanySmall,
+  RankListTypes,
 } from "./FreeCompanyData";
 export { FreeCompanySearchResult, Pagination } from "./FreeCompanySearch";

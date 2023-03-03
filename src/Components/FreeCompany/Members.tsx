@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { Card } from "./CharacterCard";
 
 export const Members = () => {
-  const { freeCompany } = useFreeCompanyContext();
-  const { FreeCompanyMembers } = freeCompany;
-  const [filterOpen, setFilterOpen] = useState<boolean>();
+  const {
+    filteredMembers,
+    changeCheckFilter,
+    changeSearchFilter,
+    checkedKeys,
+    searchQuery,
+    filterMemberOpen,
+    setFilterMemberOpen,
+    RankList,
+  } = useFreeCompanyContext();
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const MemberFilter = () => {
     const FilterButton = () => {
       return (
         <button
           className={`btn gap-4 ${
-            filterOpen ? "bg-primary hover:bg-primary" : ""
+            filterMemberOpen ? "bg-primary hover:bg-primary" : ""
           }`}
           onClick={() => {
-            setFilterOpen(!filterOpen);
+            setFilterMemberOpen(!filterMemberOpen);
           }}
         >
           <svg
@@ -36,48 +45,54 @@ export const Members = () => {
       return (
         <div
           className={`duration-300 ${
-            filterOpen ? "h-fit visible mt-2" : "h-0 invisible"
+            filterMemberOpen ? "h-fit visible px-2 mt-2" : "h-0 invisible"
           }`}
         >
-          Filters content
+          <div className="flex gap-2 items-center flex-wrap">
+            <span className="">Ranks</span>
+
+            {RankList.map((rank) => {
+              const { Rank, RankIcon } = rank;
+              return (
+                <div className="form-control">
+                  <label className="label cursor-pointer gap-2 px-3 rounded-lg bg-base-300">
+                    <img src={RankIcon} alt="" />
+                    <span className="label-text">{Rank}</span>
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      value={Rank}
+                      checked={checkedKeys.includes(Rank)}
+                      onChange={changeCheckFilter}
+                    />
+                  </label>
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     };
 
-    const SearchButton = () => {
-      return (
-        <button className="btn btn-square hover:bg-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
-      );
-    };
+    useEffect(() => {
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }, [filteredMembers]);
 
     return (
       <nav className="navbar grid bg-base-100 rounded-lg">
         <div className="flex justify-between">
           <FilterButton />
           <div className="form-control">
-            <div className="input-group">
-              <input
-                type="text"
-                placeholder="Search Member"
-                className="input input-bordered"
-              />
-              <SearchButton />
-            </div>
+            <input
+              type="text"
+              placeholder="Search Member"
+              value={searchQuery}
+              onChange={changeSearchFilter}
+              ref={searchInputRef}
+              className="input input-bordered"
+            />
           </div>
         </div>
         <FilterContent />
@@ -88,8 +103,11 @@ export const Members = () => {
   const List = () => {
     return (
       <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {FreeCompanyMembers.map((member) => {
+        {filteredMembers.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
+          if (ID === 0)
+            return <div className="grid-cols-2">No Character found.</div>;
+
           return (
             <Card
               Avatar={Avatar}

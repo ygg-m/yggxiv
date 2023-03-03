@@ -71,3 +71,9 @@ export interface FreeCompanyFull {
   FreeCompany: FreeCompanyData;
   FreeCompanyMembers: FreeCompanyMembersSmall[];
 }
+
+export interface RankListTypes {
+  Rank: string;
+  RankIcon: string;
+  isChecked?: boolean;
+}
