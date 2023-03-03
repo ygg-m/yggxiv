@@ -1,10 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  createHashRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
+import { CharacterProvider } from "./Contexts/CharacterContext";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
@@ -22,7 +19,7 @@ const router = createHashRouter([
     children: [{ path: "Members", element: <FreeCompany /> }],
   },
   {
-    path: "/Character/:playerId",
+    path: "/Character/:charId",
     element: <Character />,
   },
 ]);
@@ -33,7 +30,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <FreeCompanyProvider>
-      <RouterProvider router={router} />
+      <CharacterProvider>
+        <RouterProvider router={router} />
+      </CharacterProvider>
     </FreeCompanyProvider>
   </React.StrictMode>
 );
