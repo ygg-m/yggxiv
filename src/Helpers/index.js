@@ -1,3 +1,4 @@
+export { getRanks } from "./getFreeCompanyRanks";
 export { loadFromLocalStorage, saveToLocalStorage } from "./localStorage";
 export { parseAlliedGC } from "./parseAlliedGrandCompany";
 export { parseDate } from "./parseDate";
