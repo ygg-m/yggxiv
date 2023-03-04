@@ -6,7 +6,8 @@ import { MainInfo, Members, Ranking, Stats } from "../Components/FreeCompany";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
-  const { freeCompany, fetchFreeCompany, fetchLoad } = useFreeCompanyContext();
+  const { freeCompany, fetchFreeCompany, baseFetchLoad } =
+    useFreeCompanyContext();
   const { FreeCompany } = freeCompany;
   const { ActiveMemberCount } = FreeCompany;
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -116,7 +117,7 @@ export const FreeCompany = () => {
     },
   ];
 
-  if (fetchLoad)
+  if (baseFetchLoad)
     return (
       <div className="flex items-center justify-center w-screen h-screen">
         <button className="btn btn-square loading"></button>

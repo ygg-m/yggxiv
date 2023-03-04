@@ -21,7 +21,7 @@ type FreeCompanyContextType = {
   searchFreeCompany: any;
   fetchFreeCompany: any;
   freeCompany: FreeCompanyFull;
-  fetchLoad: boolean;
+  baseFetchLoad: boolean;
   filteredMembers: MembersListTypes[];
   setFilteredMembers: any;
   changeCheckFilter: any;
@@ -77,7 +77,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
     },
     FreeCompanyMembers: [],
   },
-  fetchLoad: false,
+  baseFetchLoad: false,
   filteredMembers: [],
   setFilteredMembers: () => {},
   changeCheckFilter: () => {},
@@ -353,31 +353,31 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   });
 
   // Fetch
-  const [fetchLoad, setFetchLoad] = useState<boolean>(false);
+  const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
 
   async function searchFreeCompany() {
-    setFetchLoad(true);
+    setBaseFetchLoad(true);
     const search = (await getFreeCompanies(
       searchInput
     )) as FreeCompanySearchResult;
     setSearchResult(search);
-    setFetchLoad(false);
+    setBaseFetchLoad(false);
   }
 
   async function fetchFreeCompany(FreeCompanyID: string) {
-    setFetchLoad(true);
+    setBaseFetchLoad(true);
     const result = (await getFreeCompany(FreeCompanyID)) as FreeCompanyFull;
     setFreeCompany(result);
-    setFetchLoad(false);
+    setBaseFetchLoad(false);
   }
 
   async function fetchMembersData() {
-    setFetchLoad(true);
+    setBaseFetchLoad(true);
     const result = (await getCharacterList(
       FreeCompanyMembers
     )) as CharacterData[];
     setMembersFullData(result);
-    setFetchLoad(false);
+    setBaseFetchLoad(false);
   }
 
   // Rank List
@@ -446,7 +446,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     searchFreeCompany,
     fetchFreeCompany,
     freeCompany,
-    fetchLoad,
+    baseFetchLoad,
     fetchMembersData,
     filteredMembers,
     setFilteredMembers,

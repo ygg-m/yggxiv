@@ -7,7 +7,7 @@ export const SearchFreeCompany = () => {
     searchFreeCompany,
     searchInput,
     setSearchInput,
-    fetchLoad,
+    baseFetchLoad,
     fetchFreeCompany,
   } = useFreeCompanyContext();
 
@@ -79,7 +79,8 @@ export const SearchFreeCompany = () => {
         </div>
       );
     };
-    if (fetchLoad) return <button className="btn btn-square loading"></button>;
+    if (baseFetchLoad)
+      return <button className="btn btn-square loading"></button>;
     if (!searchResult) return null;
     else {
       return (
