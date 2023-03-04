@@ -2,6 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    colors: {
+      gold: "#FFD700",
+      silver: "#COCOCO",
+      bronze: "#CD7F32",
+    },
     extend: {},
   },
   daisyui: {
