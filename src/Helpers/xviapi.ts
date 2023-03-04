@@ -10,7 +10,7 @@ import {
   Pagination,
 } from "../Types/index";
 
-const limit = pLimit(1);
+const limit = pLimit(2);
 
 export async function getFreeCompanies(
   name: string
@@ -93,8 +93,24 @@ export async function getFreeCompany(
   };
 }
 
-export async function getCharacter(ID: number): Promise<CharacterData> {
-  const url = `https://xivapi.com/character/${ID}?data=AC,FR,FC,FCM,MIMO,PVP`;
+export async function getCharacter(
+  ID: number,
+  AC?: boolean, // Achievements
+  FR?: boolean, // Friend List
+  FC?: boolean, // Free Company
+  FCM?: boolean, // Free Company Members
+  MIMO?: boolean, // Minions / Mounts
+  PVP?: boolean // PVP Team
+): Promise<CharacterData> {
+  const params = [];
+  if (AC) params.push("AC");
+  if (FR) params.push("FR");
+  if (FC) params.push("FC");
+  if (FCM) params.push("FCM");
+  if (MIMO) params.push("MIMO");
+  if (PVP) params.push("PVP");
+
+  const url = `https://xivapi.com/character/${ID}?data=${params.join(",")}`;
   const response = await axios.get(url);
   const data = response.data;
 
@@ -116,7 +132,9 @@ export async function getCharacterList(
   list: MembersListTypes[]
 ): Promise<CharacterData[]> {
   const newList = await Promise.all(
-    list.map((char) => limit(() => getCharacter(char.ID)))
+    list.map((char) =>
+      limit(() => getCharacter(char.ID, true, false, false, false, true, false))
+    )
   );
 
   return newList;
