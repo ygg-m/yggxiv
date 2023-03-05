@@ -6,6 +6,7 @@ import { formatNumber } from "../../../Helpers";
 
 export const Achievement = () => {
   const { MembersFullData } = useFreeCompanyContext();
+
   const placement = useMemo(
     () =>
       MembersFullData.sort((a, b) => {

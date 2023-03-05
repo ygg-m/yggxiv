@@ -33,6 +33,8 @@ type FreeCompanyContextType = {
   RankList: RankListTypes[];
   fetchMembersData: any;
   MembersFullData: CharacterData[];
+  membersFetchLoad: boolean;
+  setMembersFetchLoad: any;
 };
 
 const FreeCompanyContext = createContext<FreeCompanyContextType>({
@@ -89,6 +91,8 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   RankList: [],
   fetchMembersData: () => {},
   MembersFullData: [],
+  membersFetchLoad: false,
+  setMembersFetchLoad: () => {},
 });
 
 export const useFreeCompanyContext = () => useContext(FreeCompanyContext);
@@ -354,6 +358,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
 
   // Fetch
   const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
+  const [membersFetchLoad, setMembersFetchLoad] = useState<boolean>(false);
 
   async function searchFreeCompany() {
     setBaseFetchLoad(true);
@@ -372,12 +377,12 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   }
 
   async function fetchMembersData() {
-    setBaseFetchLoad(true);
+    setMembersFetchLoad(true);
     const result = (await getCharacterList(
       FreeCompanyMembers
     )) as CharacterData[];
     setMembersFullData(result);
-    setBaseFetchLoad(false);
+    setMembersFetchLoad(false);
   }
 
   // Rank List
@@ -421,6 +426,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   };
 
   useEffect(() => {
+    fetchMembersData();
     setRankList(getRanks(FreeCompanyMembers));
   }, [freeCompany]);
 
@@ -458,6 +464,8 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     setFilterMemberOpen,
     RankList,
     MembersFullData,
+    membersFetchLoad,
+    setMembersFetchLoad,
   };
 
   return (

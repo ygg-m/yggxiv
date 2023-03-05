@@ -6,18 +6,24 @@ import { MainInfo, Members, Ranking, Stats } from "../Components/FreeCompany";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
-  const { freeCompany, fetchFreeCompany, baseFetchLoad } =
+  const { freeCompany, fetchFreeCompany, baseFetchLoad, MembersFullData } =
     useFreeCompanyContext();
   const { FreeCompany } = freeCompany;
   const { ActiveMemberCount } = FreeCompany;
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const { fcId } = useParams();
-  if (freeCompany.FreeCompany.ID === "") {
+
+  const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
+  const isFCDataEmpty = freeCompany.FreeCompany.ID === "0";
+  const isFCDataDifferent = freeCompany.FreeCompany.ID !== fcId;
+
+  if (isMemberDataEmpty || isFCDataDifferent || isFCDataEmpty) {
     fetchFreeCompany(fcId);
+
     return (
       <div className="flex items-center justify-center w-screen h-screen">
-        <button className="btn btn-square loading"></button>
+        <button className="btn loading">Getting free company info</button>
       </div>
     );
   }

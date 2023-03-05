@@ -88,8 +88,6 @@ export const Mount = () => {
             Character: { Name, Avatar },
           } = member;
 
-          console.log(member);
-
           return (
             <article
               key={uuidv4()}

@@ -4,23 +4,16 @@ import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { Achievement, Minion, Mount } from "./Ranking/index";
 
 export const Ranking = () => {
-  const { fetchMembersData, MembersFullData } = useFreeCompanyContext();
+  const { fetchMembersData, MembersFullData, membersFetchLoad } =
+    useFreeCompanyContext();
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const isMemberDataEmpty = MembersFullData[0].Character.ID === 0;
-  if (isMemberDataEmpty)
+  const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
+  if (isMemberDataEmpty || membersFetchLoad)
     return (
       <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
         <nav className="navbar grid bg-base-100 rounded-lg h-fit">
-          <button
-            className="btn hover:bg-primary gap-2 flex-col py-4 h-fit"
-            onClick={fetchMembersData}
-          >
-            Pull Character data{" "}
-            <span className="lowercase font-normal opacity-60">
-              (may take a while)
-            </span>
-          </button>
+          <button className="btn loading">Getting members info</button>
         </nav>
       </section>
     );
