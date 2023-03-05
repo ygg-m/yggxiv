@@ -29,7 +29,7 @@ export const Stats = () => {
   ];
 
   return (
-    <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
+    <section className="grid pb-8 min-h-[calc(100vh-448px)]">
       <nav className="p-2 grid md:grid-cols-3 bg-base-100 rounded-lg h-fit">
         {tabs.map((tab, index) => (
           <a
