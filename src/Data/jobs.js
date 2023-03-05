@@ -1,0 +1,101 @@
+import {
+  Alchemist,
+  Armorer,
+  Botanist,
+  Carpenter,
+  Culinarian,
+  Fisher,
+  Goldsmith,
+  Leatherworker,
+  Miner,
+  Paladin,
+  Warrior,
+  Weaver,
+} from "../Assets/Images/Jobs";
+
+export const jobs = [
+  {
+    Job: "Alchemist",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/alchemist.png",
+    SVG: <Alchemist />,
+  },
+  {
+    Job: "Armorer",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/armorer.png",
+    SVG: <Armorer />,
+  },
+  {
+    Job: "Carpenter",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/carpenter.png",
+    SVG: <Carpenter />,
+  },
+  {
+    Job: "Culinarian",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/culinarian.png",
+    SVG: <Culinarian />,
+  },
+  {
+    Job: "Goldsmith",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/goldsmith.png",
+    SVG: <Goldsmith />,
+  },
+  {
+    Job: "Leatherworker",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/leatherworker.png",
+    SVG: <Leatherworker />,
+  },
+  {
+    Job: "Weaver",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/weaver.png",
+    SVG: <Weaver />,
+  },
+  {
+    Job: "Botanist",
+    Role: "Gatherer",
+    ImageSrc: "https://xivapi.com/cj/1/botanist.png",
+    SVG: <Botanist />,
+  },
+  {
+    Job: "Fisher",
+    Role: "Gatherer",
+    ImageSrc: "https://xivapi.com/cj/1/fisher.png",
+    SVG: <Fisher />,
+  },
+  {
+    Job: "Miner",
+    Role: "Gatherer",
+    ImageSrc: "https://xivapi.com/cj/1/miner.png",
+    SVG: <Miner />,
+  },
+  {
+    Job: "Paladin",
+    Role: "Tank",
+    ImageSrc: "https://xivapi.com/cj/1/paladin.png",
+    SVG: <Paladin />,
+  },
+  {
+    Job: "Warrior",
+    Role: "Tank",
+    ImageSrc: "https://xivapi.com/cj/1/warrior.png",
+    SVG: <Warrior />,
+  },
+  {
+    Job: "Dark Knight",
+    Role: "Tank",
+    ImageSrc: "https://xivapi.com/cj/1/Dark_Knight.png",
+    SVG: <DarkKnight />,
+  },
+  {
+    Job: "Gunbreaker",
+    Role: "Tank",
+    ImageSrc: "https://xivapi.com/cj/1/gunbreaker.png",
+    // SVG: <Gunbreaker />,
+  },
+];
