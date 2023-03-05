@@ -8,7 +8,17 @@ export const Jobs = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const level90Counts: {
-    [className: string]: { count: number; classId: number };
+    [className: string]: {
+      count: number;
+      classId: number;
+      jobData: {
+        Job: string;
+        ImageSrc: string;
+        Role: string;
+        Position?: string;
+        SVG?: object;
+      };
+    };
   } = {};
 
   // Count the number of Level 90 jobs for each class
@@ -19,9 +29,9 @@ export const Jobs = () => {
         const className = job.Name.split(" / ")[1];
         const jobData = jobs.filter(
           (e) => e.Job.toLowerCase() === className.toLowerCase()
-        );
+        )[0];
         if (!level90Counts[className]) {
-          level90Counts[className] = { count: 0, classId };
+          level90Counts[className] = { count: 0, classId, jobData };
         }
         level90Counts[className].count++;
       }
@@ -30,10 +40,11 @@ export const Jobs = () => {
 
   // Convert the counts to an array of objects with Name, Count, and classId properties
   const countsArray = Object.entries(level90Counts).map(
-    ([className, { count, classId }]) => ({
+    ([className, { count, classId, jobData }]) => ({
       Name: className,
       Count: count,
       classId,
+      jobData,
     })
   );
 
@@ -48,19 +59,19 @@ export const Jobs = () => {
   const everyoneElse = useMemo(() => placement.slice(3), placement);
 
   const FirstPlace = () => {
-    const { Name, Count, classId } = firstPlace;
+    const {
+      Name,
+      Count,
+      jobData: { Job, ImageSrc, Role },
+    } = firstPlace;
+    console.log(firstPlace);
 
     return (
       <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-gold hover:bg-primary duration-300 hover:border-transparent">
-        {" "}
-        <div className="p-3 mask mask-squircle bg-base-300">
-          <img
-            src={`https://xivapi.com/cj/1/${Name.replace(" ", "")}.png`}
-            className="w-10"
-            alt={Name}
-          />
+        <div className={`p-3 mask mask-squircle bg-${Role}`}>
+          <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
-        <h3 className="text-2xl font-bold capitalize">{Name}</h3>
+        <h3 className="text-2xl font-bold capitalize">{Job}</h3>
         <span className="text-2xl">{Count}</span>
       </article>
     );
@@ -71,7 +82,6 @@ export const Jobs = () => {
 
     return (
       <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-silver hover:bg-primary duration-300 hover:border-transpar3nt">
-        {" "}
         <div className="p-3 mask mask-squircle bg-base-300">
           <img
             src={`https://xivapi.com/cj/1/${Name.replace(" ", "")}.png`}
@@ -90,7 +100,6 @@ export const Jobs = () => {
 
     return (
       <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-bronze hover:bg-primary duration-300 hover:border-transparent">
-        {" "}
         <div className="p-3 mask mask-squircle bg-base-300">
           <img
             src={`https://xivapi.com/cj/1/${Name.replace(" ", "")}.png`}
