@@ -58,17 +58,17 @@ export const Jobs = () => {
   const thirdPlace = useMemo(() => placement.slice(2, 3)[0], placement);
   const everyoneElse = useMemo(() => placement.slice(3), placement);
 
+  console.log(everyoneElse);
+
   const FirstPlace = () => {
     const {
-      Name,
       Count,
       jobData: { Job, ImageSrc, Role },
     } = firstPlace;
-    console.log(firstPlace);
 
     return (
       <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-gold hover:bg-primary duration-300 hover:border-transparent">
-        <div className={`p-3 mask mask-squircle bg-${Role}`}>
+        <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
         <h3 className="text-2xl font-bold capitalize">{Job}</h3>
@@ -78,36 +78,34 @@ export const Jobs = () => {
   };
 
   const SecondPlace = () => {
-    const { Name, Count, classId } = secondPlace;
+    const {
+      Count,
+      jobData: { Job, ImageSrc, Role },
+    } = secondPlace;
 
     return (
       <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-silver hover:bg-primary duration-300 hover:border-transpar3nt">
-        <div className="p-3 mask mask-squircle bg-base-300">
-          <img
-            src={`https://xivapi.com/cj/1/${Name.replace(" ", "")}.png`}
-            className="w-10"
-            alt={Name}
-          />
+        <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
+          <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
-        <span className="text-2xl font-bold capitalize">{Name}</span>
+        <span className="text-2xl font-bold capitalize">{Job}</span>
         <span className="text-2xl">{Count}</span>
       </article>
     );
   };
 
   const ThirdPlace = () => {
-    const { Name, Count, classId } = thirdPlace;
+    const {
+      Count,
+      jobData: { Job, ImageSrc, Role },
+    } = thirdPlace;
 
     return (
       <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-bronze hover:bg-primary duration-300 hover:border-transparent">
-        <div className="p-3 mask mask-squircle bg-base-300">
-          <img
-            src={`https://xivapi.com/cj/1/${Name.replace(" ", "")}.png`}
-            className="w-10"
-            alt={Name}
-          />
+        <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
+          <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
-        <h3 className="text-2xl font-bold capitalize">{Name}</h3>
+        <h3 className="text-2xl font-bold capitalize">{Job}</h3>
         <span className="text-2xl">{Count}</span>
       </article>
     );
@@ -116,22 +114,24 @@ export const Jobs = () => {
   const Table = () => {
     return (
       <div className="grid gap-3 w-full">
-        {everyoneElse.map((job, index) => {
-          const { Name, Count, classId } = job;
+        {everyoneElse.map((jobinfo, index) => {
+          const {
+            Count,
+            jobData: { Job, ImageSrc, Role },
+          } = jobinfo;
 
           return (
             <article
               key={uuidv4()}
               className="cursor-pointer flex flex-col md:flex-row border border-base-100 rounded-lg p-4 gap-4 items-center hover:bg-primary duration-300 hover:border-transparent"
             >
-              <div className="p-2 mask mask-squircle bg-base-100">
-                <img
-                  src={`https://xivapi.com/cj/1/${Name.replace(" ", "")}.png`}
-                  className="w-8"
-                  alt={Name}
-                />
+              <span className="w-8">{index + 4}º</span>
+              <div
+                className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}
+              >
+                <img src={ImageSrc} className="w-8" alt={Job} />
               </div>
-              <span className="text-lg font-bold capitalize">{Name}</span>
+              <span className="text-lg font-bold capitalize">{Job}</span>
               <span className="text-lg">{Count}</span>
             </article>
           );
