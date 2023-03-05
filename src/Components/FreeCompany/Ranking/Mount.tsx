@@ -5,6 +5,7 @@ import { useFreeCompanyContext } from "../../../Contexts/FreeCompanyContext";
 
 export const Mount = () => {
   const { MembersFullData } = useFreeCompanyContext();
+  
   const placement = useMemo(
     () =>
       MembersFullData.sort(
@@ -13,6 +14,7 @@ export const Mount = () => {
       ),
     MembersFullData
   );
+
   const firstPlace = useMemo(() => placement.slice(0, 1)[0], placement);
   const secondPlace = useMemo(() => placement.slice(1, 2)[0], placement);
   const thirdPlace = useMemo(() => placement.slice(2, 3)[0], placement);

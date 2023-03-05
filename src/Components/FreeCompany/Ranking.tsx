@@ -4,8 +4,7 @@ import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { Achievement, Minion, Mount } from "./Ranking/index";
 
 export const Ranking = () => {
-  const { fetchMembersData, MembersFullData, membersFetchLoad } =
-    useFreeCompanyContext();
+  const { MembersFullData, membersFetchLoad } = useFreeCompanyContext();
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
