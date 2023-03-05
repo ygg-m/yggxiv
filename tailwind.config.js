@@ -9,6 +9,8 @@ module.exports = {
       tank: "#3e51b1",
       healer: "#3c672f",
       dps: "#743333",
+      gatherer: "#a28838",
+      crafter: "#6748ad",
     },
     extend: {},
   },
