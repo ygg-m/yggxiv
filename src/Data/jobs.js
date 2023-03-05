@@ -4,6 +4,7 @@ import {
   Astrologian,
   Bard,
   BlackMage,
+  Blacksmith,
   BlueMage,
   Botanist,
   Carpenter,
@@ -39,6 +40,12 @@ export const jobs = [
     Role: "Crafter",
     ImageSrc: "https://xivapi.com/cj/1/armorer.png",
     SVG: <Armorer />,
+  },
+  {
+    Job: "Blacksmith",
+    Role: "Crafter",
+    ImageSrc: "https://xivapi.com/cj/1/blacksmith.png",
+    SVG: <Blacksmith />,
   },
   {
     Job: "Carpenter",
