@@ -5,7 +5,7 @@ import { useFreeCompanyContext } from "../../../Contexts/FreeCompanyContext";
 
 export const Mount = () => {
   const { MembersFullData } = useFreeCompanyContext();
-  
+
   const placement = useMemo(
     () =>
       MembersFullData.sort(
@@ -95,9 +95,7 @@ export const Mount = () => {
               key={uuidv4()}
               className="cursor-pointer flex flex-col md:flex-row border border-base-100 rounded-lg p-4 gap-4 items-center hover:bg-primary duration-300 hover:border-transparent"
             >
-              <div className="px-4 grid justify-center">
-                <span className="text-center">{index + 4}º</span>
-              </div>
+              <span className="w-8">{index + 4}º</span>
               <img
                 src={Avatar}
                 alt={Name}
