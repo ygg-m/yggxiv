@@ -4,7 +4,7 @@ export { ReactComponent as Astrologian } from "./Astrologian.svg";
 export { ReactComponent as Bard } from "./Bard.svg";
 export { ReactComponent as BlackMage } from "./BlackMage.svg";
 export { ReactComponent as Blacksmith } from "./Blacksmith.svg";
-export { ReactComponent as Blue_Mage } from "./BlueMage.svg";
+export { ReactComponent as BlueMage } from "./BlueMage.svg";
 export { ReactComponent as Botanist } from "./Botanist.svg";
 export { ReactComponent as Carpenter } from "./Carpenter.svg";
 export { ReactComponent as Culinarian } from "./Culinarian.svg";
