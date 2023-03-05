@@ -6,19 +6,29 @@ import { MainInfo, Members, Ranking, Stats } from "../Components/FreeCompany";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
-  const { freeCompany, fetchFreeCompany, baseFetchLoad, MembersFullData } =
-    useFreeCompanyContext();
+  const {
+    freeCompany,
+    fetchFreeCompany,
+    baseFetchLoad,
+    MembersFullData,
+    fetchMembersData,
+  } = useFreeCompanyContext();
   const { FreeCompany } = freeCompany;
   const { ActiveMemberCount } = FreeCompany;
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const { fcId } = useParams();
 
-  const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
+  const isMemberDataEmpty =
+    MembersFullData[0]?.Character?.ID === 0 || MembersFullData.length === 0;
   const isFCDataEmpty = freeCompany.FreeCompany.ID === "0";
   const isFCDataDifferent = freeCompany.FreeCompany.ID !== fcId;
+  const isMemberDataDifferent =
+    freeCompany.FreeCompanyMembers.filter(
+      (e) => e.ID === MembersFullData[0]?.Character?.ID
+    ).length === 0;
 
-  if (isMemberDataEmpty || isFCDataDifferent || isFCDataEmpty) {
+  if (isFCDataDifferent || isFCDataEmpty) {
     fetchFreeCompany(fcId);
 
     return (
@@ -27,6 +37,8 @@ export const FreeCompany = () => {
       </div>
     );
   }
+
+  if (isMemberDataEmpty || isMemberDataDifferent) fetchMembersData();
 
   const CoverImage = () => {
     return (
@@ -43,15 +55,9 @@ export const FreeCompany = () => {
       const { Crest } = FreeCompany;
       return (
         <div className="relative w-32 h-32 overflow-hidden rounded-xl -mt-16 shadow-2xl outline outline-1 outline-neutral-500">
-          <div className="absolute">
-            <img src={Crest[0]} alt="" />
-          </div>
-          <div className="absolute">
-            <img src={Crest[1]} alt="" />
-          </div>
-          <div className="absolute">
-            <img src={Crest[2]} alt="" />
-          </div>
+          <img src={Crest[0]} alt="" className="absolute" />
+          <img src={Crest[1]} alt="" className="absolute" />
+          <img src={Crest[2]} alt="" className="absolute" />
         </div>
       );
     };
@@ -67,7 +73,7 @@ export const FreeCompany = () => {
       const { Server, DC } = FreeCompany;
       const DataCenter = DC.replace("]", "");
       return (
-        <div className="mt-4 flex gap-2 items-center">
+        <div className="md:mt-4 flex gap-2 items-center">
           <div className="py-3 badge badge-md bg-neutral-800">{DataCenter}</div>
           <div className="py-3 badge badge-md bg-primary text-rose-200">
             {Server}
@@ -76,7 +82,7 @@ export const FreeCompany = () => {
       );
     };
     return (
-      <header className="w-full flex gap-8 items-center mb-4">
+      <header className="w-full flex flex-col md:flex-row md:gap-8 gap-4 items-center mb-8">
         <ProfileImage />
         <FC_Name />
         <Server />
