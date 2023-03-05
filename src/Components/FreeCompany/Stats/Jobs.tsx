@@ -38,6 +38,19 @@ export const Jobs = () => {
     });
   });
 
+  interface jobData {
+    Name: string;
+    Count: number;
+    classId: number;
+    jobData: {
+      Job: string;
+      Role: string;
+      Position?: string;
+      ImageSrc: string;
+      SVG?: object;
+    };
+  }
+
   // Convert the counts to an array of objects with Name, Count, and classId properties
   const countsArray = Object.entries(level90Counts).map(
     ([className, { count, classId, jobData }]) => ({
@@ -48,17 +61,16 @@ export const Jobs = () => {
     })
   );
 
-  const placement = useMemo(
-    () => countsArray.sort((a, b) => b.Count - a.Count),
-    MembersFullData
-  );
+  const sortPlacement = (list: jobData[]) => {
+    return list.sort((a, b) => b.Count - a.Count);
+  };
 
-  const firstPlace = useMemo(() => placement.slice(0, 1)[0], placement);
-  const secondPlace = useMemo(() => placement.slice(1, 2)[0], placement);
-  const thirdPlace = useMemo(() => placement.slice(2, 3)[0], placement);
-  const everyoneElse = useMemo(() => placement.slice(3), placement);
+  const [placement, setPlacement] = useState(() => sortPlacement(countsArray));
 
-  console.log(everyoneElse);
+  const firstPlace = placement.slice(0, 1)[0];
+  const secondPlace = placement.slice(1, 2)[0];
+  const thirdPlace = placement.slice(2, 3)[0];
+  const everyoneElse = placement.slice(3);
 
   const FirstPlace = () => {
     const {
@@ -67,7 +79,7 @@ export const Jobs = () => {
     } = firstPlace;
 
     return (
-      <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-gold hover:bg-primary duration-300 hover:border-transparent">
+      <article className="flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg px-4 py-2 gap-4 items-center text-gold ">
         <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
@@ -84,7 +96,7 @@ export const Jobs = () => {
     } = secondPlace;
 
     return (
-      <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-silver hover:bg-primary duration-300 hover:border-transpar3nt">
+      <article className="flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg px-4 py-2 gap-4 items-center text-silver">
         <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
@@ -101,7 +113,7 @@ export const Jobs = () => {
     } = thirdPlace;
 
     return (
-      <article className="cursor-pointer flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg p-4 gap-4 items-center text-bronze hover:bg-primary duration-300 hover:border-transparent">
+      <article className="flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg px-4 py-2 gap-4 items-center text-bronze ">
         <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
@@ -123,7 +135,7 @@ export const Jobs = () => {
           return (
             <article
               key={uuidv4()}
-              className="cursor-pointer flex flex-col md:flex-row border border-base-100 rounded-lg p-4 gap-4 items-center hover:bg-primary duration-300 hover:border-transparent"
+              className="flex flex-col md:flex-row border border-base-100 rounded-lg px-4 gap-4 items-center "
             >
               <span className="w-8">{index + 4}º</span>
               <div
@@ -143,17 +155,35 @@ export const Jobs = () => {
   const tabs = [
     {
       label: "All",
-      content: <></>,
+      filterJobs: () => setPlacement(sortPlacement(countsArray)),
     },
     {
       label: "Battle Jobs",
-      content: <></>,
+      filterJobs: () => {
+        const filter = countsArray.filter(
+          (e) =>
+            e.jobData.Role === "DPS" ||
+            e.jobData.Role === "Tank" ||
+            e.jobData.Role === "Healer"
+        );
+        setPlacement(sortPlacement(filter));
+      },
     },
     {
       label: "Craft / Gather",
-      content: <></>,
+      filterJobs: () => {
+        const filter = countsArray.filter(
+          (e) => e.jobData.Role === "Crafter" || e.jobData.Role === "Gatherer"
+        );
+        setPlacement(sortPlacement(filter));
+      },
     },
   ];
+
+  function handleClick(index: number) {
+    tabs[index].filterJobs();
+    setActiveTab(index);
+  }
 
   return (
     <section className="flex flex-col items-center">
@@ -164,19 +194,21 @@ export const Jobs = () => {
             className={`tab tab-lg tabs-boxed duration-300 ${
               index === activeTab ? "tab-active bg-base-100" : "bg-transparent"
             }`}
-            onClick={() => setActiveTab(index)}
+            onClick={() => handleClick(index)}
           >
             {tab.label}
           </a>
         ))}
       </nav>
-      <div className="grid gap-4 w-full">
-        <FirstPlace />
-        <SecondPlace />
-        <ThirdPlace />
-      </div>
-      <div className="divider"></div>
-      <Table />
+      <>
+        <div className="grid gap-4 w-full">
+          <FirstPlace />
+          <SecondPlace />
+          <ThirdPlace />
+        </div>
+        <div className="divider"></div>
+        <Table />
+      </>
     </section>
   );
 };
