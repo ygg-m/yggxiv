@@ -72,6 +72,13 @@ export const Jobs = () => {
   const thirdPlace = placement.slice(2, 3)[0];
   const everyoneElse = placement.slice(3);
 
+  // declare dinamic variables so TailwindCSS recognize it.
+  // bg-dps
+  // bg-tank
+  // bg-healer
+  // bg-gatherer
+  // bg-crafter
+
   const FirstPlace = () => {
     const {
       Count,
@@ -79,7 +86,8 @@ export const Jobs = () => {
     } = firstPlace;
 
     return (
-      <article className="flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg px-4 py-2 gap-4 items-center text-gold ">
+      <article className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center text-gold ">
+        1rst
         <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
@@ -96,7 +104,8 @@ export const Jobs = () => {
     } = secondPlace;
 
     return (
-      <article className="flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg px-4 py-2 gap-4 items-center text-silver">
+      <article className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center text-silver">
+        2nd
         <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
@@ -113,7 +122,8 @@ export const Jobs = () => {
     } = thirdPlace;
 
     return (
-      <article className="flex flex-col md:flex-row border border-base-100 bg-base-100 rounded-lg px-4 py-2 gap-4 items-center text-bronze ">
+      <article className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center text-bronze">
+        3rd
         <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
           <img src={ImageSrc} className="w-10" alt={Job} />
         </div>
@@ -125,7 +135,7 @@ export const Jobs = () => {
 
   const Table = () => {
     return (
-      <div className="grid gap-3 w-full">
+      <div className="grid w-full">
         {everyoneElse.map((jobinfo, index) => {
           const {
             Count,
@@ -133,19 +143,24 @@ export const Jobs = () => {
           } = jobinfo;
 
           return (
-            <article
-              key={uuidv4()}
-              className="flex flex-col md:flex-row border border-base-100 rounded-lg px-4 gap-4 items-center "
-            >
-              <span className="w-8">{index + 4}º</span>
-              <div
-                className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}
+            <>
+              <article
+                key={uuidv4()}
+                className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center"
               >
-                <img src={ImageSrc} className="w-8" alt={Job} />
-              </div>
-              <span className="text-lg font-bold capitalize">{Job}</span>
-              <span className="text-lg">{Count}</span>
-            </article>
+                <span className="w-8">{index + 4}º</span>
+                <div
+                  className={`p-1 mask mask-squircle bg-${Role.toLowerCase()}`}
+                >
+                  <img src={ImageSrc} className="w-8" alt={Job} />
+                </div>
+                <span className="text-lg font-bold capitalize">{Job}</span>
+                <span className="text-lg">{Count}</span>
+              </article>
+              {index !== everyoneElse.length - 1 && (
+                <div className="divider m-0 h-1"></div>
+              )}
+            </>
           );
         })}
       </div>
@@ -200,15 +215,17 @@ export const Jobs = () => {
           </a>
         ))}
       </nav>
-      <>
-        <div className="grid gap-4 w-full">
+      <div className="border border-base-100 rounded-xl w-full">
+        <div className="grid w-full">
           <FirstPlace />
+          <div className="divider m-0 h-1"></div>
           <SecondPlace />
+          <div className="divider m-0 h-1"></div>
           <ThirdPlace />
+          <div className="divider m-0 h-1"></div>
         </div>
-        <div className="divider"></div>
         <Table />
-      </>
+      </div>
     </section>
   );
 };
