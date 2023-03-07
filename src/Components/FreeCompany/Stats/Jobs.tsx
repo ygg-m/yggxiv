@@ -7,7 +7,7 @@ export const Jobs = () => {
   const { MembersFullData } = useFreeCompanyContext();
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const level90Counts: {
+  const maxLevelCounts: {
     [className: string]: {
       count: number;
       classId: number;
@@ -21,7 +21,6 @@ export const Jobs = () => {
     };
   } = {};
 
-  // Count the number of Level 90 jobs for each class
   Object.values(MembersFullData).forEach((character) => {
     character.Character.ClassJobs.forEach((job) => {
       const isBlueLvMax = job.JobID === 36 && job.Level === 70;
@@ -31,10 +30,12 @@ export const Jobs = () => {
         const jobData = jobs.filter(
           (e) => e.Job.toLowerCase() === className.toLowerCase()
         )[0];
-        if (!level90Counts[className]) {
-          level90Counts[className] = { count: 0, classId, jobData };
+
+        if (!maxLevelCounts[className]) {
+          maxLevelCounts[className] = { count: 0, classId, jobData };
         }
-        level90Counts[className].count++;
+
+        maxLevelCounts[className].count++;
       }
     });
   });
@@ -52,8 +53,7 @@ export const Jobs = () => {
     };
   }
 
-  // Convert the counts to an array of objects with Name, Count, and classId properties
-  const countsArray = Object.entries(level90Counts).map(
+  const countsArray = Object.entries(maxLevelCounts).map(
     ([className, { count, classId, jobData }]) => ({
       Name: className,
       Count: count,
@@ -79,6 +79,55 @@ export const Jobs = () => {
   // bg-healer
   // bg-gatherer
   // bg-crafter
+
+  const tabs = [
+    {
+      label: "All",
+      filterJobs: () => setPlacement(sortPlacement(countsArray)),
+    },
+    {
+      label: "Battle Jobs",
+      filterJobs: () => {
+        const filter = countsArray.filter(
+          (e) =>
+            e.jobData.Role === "DPS" ||
+            e.jobData.Role === "Tank" ||
+            e.jobData.Role === "Healer"
+        );
+        setPlacement(sortPlacement(filter));
+      },
+    },
+    {
+      label: "Craft / Gather",
+      filterJobs: () => {
+        const filter = countsArray.filter(
+          (e) => e.jobData.Role === "Crafter" || e.jobData.Role === "Gatherer"
+        );
+        setPlacement(sortPlacement(filter));
+      },
+    },
+    {
+      label: "Tank",
+      filterJobs: () => {
+        const filter = countsArray.filter((e) => e.jobData.Role === "Tank");
+        setPlacement(sortPlacement(filter));
+      },
+    },
+    {
+      label: "Healer",
+      filterJobs: () => {
+        const filter = countsArray.filter((e) => e.jobData.Role === "Healer");
+        setPlacement(sortPlacement(filter));
+      },
+    },
+    {
+      label: "DPS",
+      filterJobs: () => {
+        const filter = countsArray.filter((e) => e.jobData.Role === "DPS");
+        setPlacement(sortPlacement(filter));
+      },
+    },
+  ];
 
   const FirstPlace = () => {
     const {
@@ -195,55 +244,6 @@ export const Jobs = () => {
       </div>
     );
   };
-
-  const tabs = [
-    {
-      label: "All",
-      filterJobs: () => setPlacement(sortPlacement(countsArray)),
-    },
-    {
-      label: "Battle Jobs",
-      filterJobs: () => {
-        const filter = countsArray.filter(
-          (e) =>
-            e.jobData.Role === "DPS" ||
-            e.jobData.Role === "Tank" ||
-            e.jobData.Role === "Healer"
-        );
-        setPlacement(sortPlacement(filter));
-      },
-    },
-    {
-      label: "Craft / Gather",
-      filterJobs: () => {
-        const filter = countsArray.filter(
-          (e) => e.jobData.Role === "Crafter" || e.jobData.Role === "Gatherer"
-        );
-        setPlacement(sortPlacement(filter));
-      },
-    },
-    {
-      label: "Tank",
-      filterJobs: () => {
-        const filter = countsArray.filter((e) => e.jobData.Role === "Tank");
-        setPlacement(sortPlacement(filter));
-      },
-    },
-    {
-      label: "Healer",
-      filterJobs: () => {
-        const filter = countsArray.filter((e) => e.jobData.Role === "Healer");
-        setPlacement(sortPlacement(filter));
-      },
-    },
-    {
-      label: "DPS",
-      filterJobs: () => {
-        const filter = countsArray.filter((e) => e.jobData.Role === "DPS");
-        setPlacement(sortPlacement(filter));
-      },
-    },
-  ];
 
   function handleClick(index: number) {
     tabs[index].filterJobs();
