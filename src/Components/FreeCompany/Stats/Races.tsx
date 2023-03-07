@@ -219,10 +219,12 @@ export const Races = () => {
                     alt={Name}
                     className="mask mask-squircle w-14"
                   />
-                  <span className="text-lg font-bold">{Name}</span>
+                  <span className="text-lg">{Name}</span>
                 </div>
                 <div className="grid">
-                  <span className="text-lg text-gold">{raceCount}</span>
+                  <span className="text-lg text-gold font-bold">
+                    {raceCount}
+                  </span>
                 </div>
               </article>
               <div className="divider m-0 h-0"></div>

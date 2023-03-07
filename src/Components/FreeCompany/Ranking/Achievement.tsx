@@ -139,10 +139,10 @@ export const Achievement = () => {
                     alt={Name}
                     className="mask mask-squircle h-12"
                   />
-                  <span className="text-lg font-bold">{Name}</span>
+                  <span className="text-lg">{Name}</span>
                 </div>
                 <div className="grid">
-                  <span className="text-lg text-gold">
+                  <span className="text-lg font-bold text-gold">
                     {formatNumber(Points)}
                   </span>
                 </div>

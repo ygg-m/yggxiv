@@ -231,10 +231,10 @@ export const Jobs = () => {
                   >
                     <img src={ImageSrc} alt={Job} className="w-8" />
                   </div>
-                  <span className="text-lg font-bold">{Job}</span>
+                  <span className="text-lg">{Job}</span>
                 </div>
                 <div className="grid">
-                  <span className="text-lg text-gold">{Count}</span>
+                  <span className="text-lg text-gold font-bold">{Count}</span>
                 </div>
               </article>
               <div className="divider m-0 h-0"></div>

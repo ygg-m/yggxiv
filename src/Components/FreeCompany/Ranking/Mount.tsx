@@ -120,6 +120,8 @@ export const Mount = () => {
             Character: { Name, Avatar },
           } = member;
 
+          if (Mounts?.length === undefined) return null;
+
           return (
             <>
               <article
@@ -135,11 +137,11 @@ export const Mount = () => {
                     alt={Name}
                     className="mask mask-squircle h-12"
                   />
-                  <span className="text-lg font-bold">{Name}</span>
+                  <span className="text-lg">{Name}</span>
                 </div>
                 <div className="grid">
-                  <span className="text-lg text-gold">
-                    {Mounts?.length || 0} Mounts
+                  <span className="text-lg text-gold font-bold">
+                    {Mounts?.length || 0}
                   </span>
                 </div>
               </article>

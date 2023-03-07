@@ -114,6 +114,8 @@ export const Minion = () => {
             Character: { Name, Avatar },
           } = member;
 
+          if (Minions?.length === undefined) return null;
+
           return (
             <>
               <article
@@ -129,11 +131,11 @@ export const Minion = () => {
                     alt={Name}
                     className="mask mask-squircle h-12"
                   />
-                  <span className="text-lg font-bold">{Name}</span>
+                  <span className="text-lg">{Name}</span>
                 </div>
                 <div className="grid">
-                  <span className="text-lg text-gold">
-                    {Minions?.length || 0} Minions
+                  <span className="text-lg text-gold font-bold">
+                    {Minions?.length || 0}
                   </span>
                 </div>
               </article>
