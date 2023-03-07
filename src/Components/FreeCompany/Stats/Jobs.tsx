@@ -24,7 +24,9 @@ export const Jobs = () => {
   // Count the number of Level 90 jobs for each class
   Object.values(MembersFullData).forEach((character) => {
     character.Character.ClassJobs.forEach((job) => {
-      if (job.Level === 90) {
+      const isBlueLvMax = job.JobID === 36 && job.Level === 70;
+      console.log(isBlueLvMax);
+      if (job.Level === 90 || isBlueLvMax) {
         const classId = job.UnlockedState.ID;
         const className = job.Name.split(" / ")[1];
         const jobData = jobs.filter(
@@ -86,13 +88,21 @@ export const Jobs = () => {
     } = firstPlace;
 
     return (
-      <article className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center text-gold ">
-        1rst
-        <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
-          <img src={ImageSrc} className="w-10" alt={Job} />
+      <article className="gap-3 w-52 text-center grid justify-center rounded-lg p-4 items-center">
+        <div className="px-4 grid justify-center text-gold pb-2">
+          <span className="font-extrabold text-lg text-center ">
+            1<span className="font-normal">rst</span>
+          </span>
         </div>
-        <h3 className="text-2xl font-bold capitalize">{Job}</h3>
-        <span className="text-2xl">{Count}</span>
+        <div
+          className={`mask p-4 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
+        >
+          <img src={ImageSrc} alt={Job} className="w-24" />
+        </div>
+        <div className="grid">
+          <h3 className="text-2xl">{Job}</h3>
+          <h3 className="text-4xl font-bold text-gold">{Count}</h3>
+        </div>
       </article>
     );
   };
@@ -104,13 +114,21 @@ export const Jobs = () => {
     } = secondPlace;
 
     return (
-      <article className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center text-silver">
-        2nd
-        <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
-          <img src={ImageSrc} className="w-10" alt={Job} />
+      <article className="gap-3 w-40 text-center flex flex-col justify-center rounded-lg p-4 items-center translate-y-10">
+        <div className="px-4 grid justify-center text-silver pb-2">
+          <span className="font-extrabold text-lg text-center ">
+            2<span className="font-normal">nd</span>
+          </span>
         </div>
-        <span className="text-2xl font-bold capitalize">{Job}</span>
-        <span className="text-2xl">{Count}</span>
+        <div
+          className={`mask p-4 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
+        >
+          <img src={ImageSrc} alt={Job} className="w-16" />
+        </div>
+        <div className="grid">
+          <h3 className="text-2xl">{Job}</h3>
+          <h3 className="text-4xl font-bold text-gold">{Count}</h3>
+        </div>
       </article>
     );
   };
@@ -122,20 +140,28 @@ export const Jobs = () => {
     } = thirdPlace;
 
     return (
-      <article className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center text-bronze">
-        3rd
-        <div className={`p-3 mask mask-squircle bg-${Role.toLowerCase()}`}>
-          <img src={ImageSrc} className="w-10" alt={Job} />
+      <article className="gap-3 w-40 text-center flex flex-col justify-center rounded-lg p-4 items-center translate-y-10">
+        <div className="px-4 grid justify-center text-bronze pb-2">
+          <span className="font-extrabold text-lg text-center ">
+            3<span className="font-normal">rd</span>
+          </span>
         </div>
-        <h3 className="text-2xl font-bold capitalize">{Job}</h3>
-        <span className="text-2xl">{Count}</span>
+        <div
+          className={`mask p-4 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
+        >
+          <img src={ImageSrc} alt={Job} className="w-16" />
+        </div>
+        <div className="grid">
+          <h3 className="text-2xl">{Job}</h3>
+          <h3 className="text-4xl font-bold text-gold">{Count}</h3>
+        </div>
       </article>
     );
   };
 
   const Table = () => {
     return (
-      <div className="grid w-full">
+      <div className="grid rounded-lg bg-base-300 outline outline-base-100 w-full">
         {everyoneElse.map((jobinfo, index) => {
           const {
             Count,
@@ -146,20 +172,24 @@ export const Jobs = () => {
             <>
               <article
                 key={uuidv4()}
-                className="flex flex-col md:flex-row px-4 py-2 gap-4 items-center"
+                className="justify-between flex flex-col sm:flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent"
               >
-                <span className="w-8">{index + 4}º</span>
-                <div
-                  className={`p-1 mask mask-squircle bg-${Role.toLowerCase()}`}
-                >
-                  <img src={ImageSrc} className="w-8" alt={Job} />
+                <div className="flex items-center gap-4 flex-col sm:flex-row">
+                  <span className="w-8 text-center sm:text-left">
+                    {index + 4}º
+                  </span>
+                  <div
+                    className={`mask p-2 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
+                  >
+                    <img src={ImageSrc} alt={Job} className="w-8" />
+                  </div>
+                  <span className="text-lg font-bold">{Job}</span>
                 </div>
-                <span className="text-lg font-bold capitalize">{Job}</span>
-                <span className="text-lg">{Count}</span>
+                <div className="grid">
+                  <span className="text-lg text-gold">{Count}</span>
+                </div>
               </article>
-              {index !== everyoneElse.length - 1 && (
-                <div className="divider m-0 h-1"></div>
-              )}
+              <div className="divider m-0 h-0"></div>
             </>
           );
         })}
@@ -193,6 +223,27 @@ export const Jobs = () => {
         setPlacement(sortPlacement(filter));
       },
     },
+    {
+      label: "Tank",
+      filterJobs: () => {
+        const filter = countsArray.filter((e) => e.jobData.Role === "Tank");
+        setPlacement(sortPlacement(filter));
+      },
+    },
+    {
+      label: "Healer",
+      filterJobs: () => {
+        const filter = countsArray.filter((e) => e.jobData.Role === "Healer");
+        setPlacement(sortPlacement(filter));
+      },
+    },
+    {
+      label: "DPS",
+      filterJobs: () => {
+        const filter = countsArray.filter((e) => e.jobData.Role === "DPS");
+        setPlacement(sortPlacement(filter));
+      },
+    },
   ];
 
   function handleClick(index: number) {
@@ -202,7 +253,7 @@ export const Jobs = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <nav className="w-11/12 grid md:grid-cols-3 rounded-b-lg h-fit mb-4 outline outline-base-100 p-2">
+      <nav className="w-11/12 grid md:grid-cols-6 rounded-b-lg h-fit mb-4 outline outline-base-100 p-2">
         {tabs.map((tab, index) => (
           <a
             key={uuidv4()}
@@ -215,17 +266,12 @@ export const Jobs = () => {
           </a>
         ))}
       </nav>
-      <div className="border border-base-100 rounded-xl w-full">
-        <div className="grid w-full">
-          <FirstPlace />
-          <div className="divider m-0 h-1"></div>
-          <SecondPlace />
-          <div className="divider m-0 h-1"></div>
-          <ThirdPlace />
-          <div className="divider m-0 h-1"></div>
-        </div>
-        <Table />
+      <div className="flex w-full justify-center mb-4 pb-12">
+        <SecondPlace />
+        <FirstPlace />
+        <ThirdPlace />
       </div>
+      <Table />
     </section>
   );
 };
