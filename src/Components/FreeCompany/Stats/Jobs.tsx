@@ -25,7 +25,6 @@ export const Jobs = () => {
   Object.values(MembersFullData).forEach((character) => {
     character.Character.ClassJobs.forEach((job) => {
       const isBlueLvMax = job.JobID === 36 && job.Level === 70;
-      console.log(isBlueLvMax);
       if (job.Level === 90 || isBlueLvMax) {
         const classId = job.UnlockedState.ID;
         const className = job.Name.split(" / ")[1];
