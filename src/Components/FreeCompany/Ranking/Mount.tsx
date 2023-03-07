@@ -4,12 +4,6 @@ import { MedalIcon, TrophyIcon } from "../../../Assets/Images/UI";
 import { useFreeCompanyContext } from "../../../Contexts/FreeCompanyContext";
 
 export const Mount = () => {
-  const [isRendered, setIsRendered] = useState(false);
-
-  useEffect(() => {
-    setIsRendered(true);
-  }, []);
-
   const { MembersFullData } = useFreeCompanyContext();
 
   const placement = useMemo(
