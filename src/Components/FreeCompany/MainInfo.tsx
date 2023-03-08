@@ -122,7 +122,7 @@ export const MainInfo = () => {
     const Staffs = parseStaff(Members) as MembersListTypes[];
 
     return (
-      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {Staffs.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           return (

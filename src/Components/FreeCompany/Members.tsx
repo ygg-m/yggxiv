@@ -103,7 +103,7 @@ export const Members = () => {
 
   const MemberList = () => {
     return (
-      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 h-full">
+      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 h-full">
         {filteredMembers.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           if (ID === 0)
