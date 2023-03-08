@@ -4,7 +4,8 @@ import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { Achievement, Minion, Mount } from "./Ranking/index";
 
 export const Ranking = () => {
-  const { MembersFullData, membersFetchLoad } = useFreeCompanyContext();
+  const { MembersFullData, membersFetchLoad, fetchProgress } =
+    useFreeCompanyContext();
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
@@ -12,7 +13,9 @@ export const Ranking = () => {
     return (
       <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
         <nav className="navbar grid bg-base-100 rounded-lg h-fit">
-          <button className="btn loading">Getting members info</button>
+          <button className="btn loading">
+            Getting members info ({fetchProgress}%)
+          </button>
         </nav>
       </section>
     );

@@ -35,6 +35,7 @@ type FreeCompanyContextType = {
   MembersFullData: CharacterData[];
   membersFetchLoad: boolean;
   setMembersFetchLoad: any;
+  fetchProgress: number;
 };
 
 const FreeCompanyContext = createContext<FreeCompanyContextType>({
@@ -93,6 +94,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   MembersFullData: [],
   membersFetchLoad: false,
   setMembersFetchLoad: () => {},
+  fetchProgress: 0,
 });
 
 export const useFreeCompanyContext = () => useContext(FreeCompanyContext);
@@ -359,6 +361,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   // Fetch
   const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
   const [membersFetchLoad, setMembersFetchLoad] = useState<boolean>(false);
+  const [fetchProgress, setFetchProgress] = useState<number>(0);
 
   async function searchFreeCompany() {
     setBaseFetchLoad(true);
@@ -378,9 +381,10 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
 
   async function fetchMembersData() {
     setMembersFetchLoad(true);
-    const result = (await getCharacterList(
-      FreeCompanyMembers
-    )) as CharacterData[];
+    const result = (await getCharacterList(FreeCompanyMembers, (progress) => {
+      setFetchProgress(Math.trunc(progress));
+      // Update progress bar or display message to user
+    })) as CharacterData[];
     setMembersFullData(result);
     setMembersFetchLoad(false);
   }
@@ -466,6 +470,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     MembersFullData,
     membersFetchLoad,
     setMembersFetchLoad,
+    fetchProgress,
   };
 
   return (

@@ -129,13 +129,26 @@ export async function getCharacter(
 }
 
 export async function getCharacterList(
-  list: MembersListTypes[]
+  list: MembersListTypes[],
+  progressCallback: (progress: number) => void
 ): Promise<CharacterData[]> {
+  const total = list.length;
+  let completed = 0;
+
   const newList = await Promise.all(
     list.map((char) =>
       limit(() => getCharacter(char.ID, true, false, false, false, true, false))
+        .then((character) => {
+          completed++;
+          progressCallback((completed / total) * 100);
+          return character; // Return the CharacterData value
+        })
+        .catch((error) => {
+          console.error(error);
+          return undefined; // Return undefined if getCharacter throws an error
+        })
     )
   );
 
-  return newList;
+  return newList.filter((character) => !!character) as CharacterData[]; // Filter out undefined values
 }
