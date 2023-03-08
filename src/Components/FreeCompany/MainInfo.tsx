@@ -9,6 +9,7 @@ import {
   parseStaff,
 } from "../../Helpers";
 import { MembersListTypes } from "../../Types";
+import { Card } from "./CharacterCard";
 
 export const MainInfo = () => {
   const { freeCompany } = useFreeCompanyContext();
@@ -119,41 +120,6 @@ export const MainInfo = () => {
 
   const Staff = () => {
     const Staffs = parseStaff(Members) as MembersListTypes[];
-
-    type CardProps = {
-      Avatar: string;
-      ID: number;
-      Name: string;
-      Rank: string;
-      RankIcon: string;
-    };
-
-    const Card: React.FC<CardProps> = ({
-      Avatar,
-      ID,
-      Name,
-      Rank,
-      RankIcon,
-    }) => {
-      return (
-        <Link to={`/Character/${ID}`}>
-          <article className="flex gap-4 p-6 outline outline-1 outline-base-300 rounded-lg hover:bg-primary hover:outline-primary hover:text-rose-200 duration-300 cursor-pointer">
-            <img
-              src={Avatar}
-              alt={`Profile Picture from ${Name}`}
-              className="h-16 w-16 rounded-full"
-            />
-            <div className="flex flex-col gap-2 justify-center">
-              <span className="font-bold">{Name}</span>
-              <span className="flex gap-2 items-center">
-                <img src={RankIcon} alt={"Rank Icon"} />
-                {Rank}
-              </span>
-            </div>
-          </article>
-        </Link>
-      );
-    };
 
     return (
       <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
