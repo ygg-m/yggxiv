@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
+import { FCStatsProvider } from "../../Contexts/StatsContext";
 import { MemoizedFetchProgress } from "../LoadingComponents/FetchProgress";
 import { Achievement, Minion, Mount } from "./Leaderboard/index";
 
@@ -28,21 +29,23 @@ export const Leaderboard = () => {
   ];
 
   return (
-    <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
-      <nav className="p-2 grid md:grid-cols-3 bg-base-100 rounded-lg h-fit">
-        {tabs.map((tab, index) => (
-          <a
-            key={uuidv4()}
-            className={`tab tab-lg tabs-boxed duration-300 bg-base-100 ${
-              index === activeTab ? "tab-active bg-base-300" : ""
-            }`}
-            onClick={() => setActiveTab(index)}
-          >
-            {tab.label}
-          </a>
-        ))}
-      </nav>
-      <article>{tabs[activeTab].content}</article>
-    </section>
+    <FCStatsProvider>
+      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
+        <nav className="p-2 grid md:grid-cols-3 bg-base-100 rounded-lg h-fit">
+          {tabs.map((tab, index) => (
+            <a
+              key={uuidv4()}
+              className={`tab tab-lg tabs-boxed duration-300 bg-base-100 ${
+                index === activeTab ? "tab-active bg-base-300" : ""
+              }`}
+              onClick={() => setActiveTab(index)}
+            >
+              {tab.label}
+            </a>
+          ))}
+        </nav>
+        <article>{tabs[activeTab].content}</article>
+      </section>
+    </FCStatsProvider>
   );
 };
