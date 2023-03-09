@@ -136,7 +136,7 @@ export const Jobs = () => {
     } = firstPlace;
 
     return (
-      <article className="gap-3 w-52 text-center grid justify-center rounded-lg p-4 items-center">
+      <article className="-order-1 bg-base-100 sm:order-2 gap-3 w-52 text-center grid justify-center rounded-lg p-4 items-center">
         <div className="px-4 grid justify-center text-gold pb-2">
           <span className="font-extrabold text-lg text-center ">
             1<span className="font-normal">rst</span>
@@ -162,8 +162,8 @@ export const Jobs = () => {
     } = secondPlace;
 
     return (
-      <article className="gap-3 w-40 text-center flex flex-col justify-center rounded-lg p-4 items-center translate-y-10">
-        <div className="px-4 grid justify-center text-silver pb-2">
+      <article className="order-1 self-end bg-base-100 gap-3 sm:h-[240px] w-40 text-center flex flex-col justify-center rounded-lg p-4 items-center">
+        <div className="px-4 grid justify-center text-silver">
           <span className="font-extrabold text-lg text-center ">
             2<span className="font-normal">nd</span>
           </span>
@@ -171,11 +171,11 @@ export const Jobs = () => {
         <div
           className={`mask p-4 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
         >
-          <img src={ImageSrc} alt={Job} className="w-16" />
+          <img src={ImageSrc} alt={Job} className="w-14" />
         </div>
         <div className="grid">
-          <h3 className="text-2xl">{Job}</h3>
-          <h3 className="text-4xl font-bold text-gold">{Count}</h3>
+          <h3 className="text-xl">{Job}</h3>
+          <h3 className="text-2xl font-bold text-gold">{Count}</h3>
         </div>
       </article>
     );
@@ -188,20 +188,20 @@ export const Jobs = () => {
     } = thirdPlace;
 
     return (
-      <article className="gap-3 w-40 text-center flex flex-col justify-center rounded-lg p-4 items-center translate-y-10">
-        <div className="px-4 grid justify-center text-bronze pb-2">
+      <article className="order-3 self-end bg-base-100 gap-3 w-40 sm:h-[200px] text-center flex flex-col justify-center rounded-lg p-4 items-center">
+        <div className="px-4 grid justify-center text-bronze">
           <span className="font-extrabold text-lg text-center ">
             3<span className="font-normal">rd</span>
           </span>
         </div>
         <div
-          className={`mask p-4 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
+          className={`mask p-2 mask-squircle flex justify-center bg-${Role.toLowerCase()}`}
         >
-          <img src={ImageSrc} alt={Job} className="w-16" />
+          <img src={ImageSrc} alt={Job} className="w-10" />
         </div>
         <div className="grid">
-          <h3 className="text-2xl">{Job}</h3>
-          <h3 className="text-4xl font-bold text-gold">{Count}</h3>
+          <h3 className="text-xl">{Job}</h3>
+          <h3 className="text-2xl font-bold text-gold">{Count}</h3>
         </div>
       </article>
     );
@@ -209,7 +209,7 @@ export const Jobs = () => {
 
   const Table = () => {
     return (
-      <div className="grid rounded-lg bg-base-300 outline outline-base-100 w-full">
+      <div className="grid rounded-lg bg-base-300 w-full max-w-[672px] outline outline-base-100">
         {everyoneElse.map((jobinfo, index) => {
           const {
             Count,
@@ -251,8 +251,8 @@ export const Jobs = () => {
   }
 
   return (
-    <section className="flex flex-col items-center">
-      <nav className="w-11/12 grid md:grid-cols-6 rounded-b-lg h-fit mb-4 outline outline-base-100 p-2">
+    <section className="flex flex-col items-center gap-4">
+      <nav className="w-11/12 grid md:grid-cols-6 rounded-b-lg h-fit outline outline-base-100 p-2">
         {tabs.map((tab, index) => (
           <a
             key={uuidv4()}
@@ -265,7 +265,7 @@ export const Jobs = () => {
           </a>
         ))}
       </nav>
-      <div className="flex w-full justify-center mb-4 pb-12">
+      <div className="flex w-full justify-center gap-2">
         <SecondPlace />
         <FirstPlace />
         <ThirdPlace />
