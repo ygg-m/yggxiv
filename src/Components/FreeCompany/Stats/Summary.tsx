@@ -1,4 +1,4 @@
-export const Resume = () => {
+export const Summary = () => {
   const Divider = () => {
     return <div className="divider m-0"></div>;
   };
@@ -99,7 +99,7 @@ export const Resume = () => {
         </div>
 
         <Divider />
-        <ShowData name="Level 90" value={24} />
+        <ShowData name="Max Level" value={24} />
         <Divider />
         <ShowData name="Level 80" value={24} />
         <ShowData name="Level 70" value={24} />
@@ -697,36 +697,42 @@ export const Resume = () => {
   };
 
   return (
-    <section className="rounded-lg bg-base-100 p-8 mt-4 grid gap-4">
-      <PopularRaces />
+    <section className="grid gap-4 mt-4">
+      <div className="rounded-lg bg-base-100 p-8">
+        <h2 className="text-3xl font-bold">Character</h2>
+        <div className="divider"></div>
+        <PopularRaces />
+        <div className="divider"></div>
+        <PopularGender />
+      </div>
 
-      <div className="divider"></div>
+      <div className="rounded-lg bg-base-100 p-8">
+        <h2 className="text-3xl font-bold">Job</h2>
+        <div className="divider"></div>
+        <PopularJobs />
+      </div>
 
-      <PopularGender />
+      <div className="rounded-lg bg-base-100 p-8">
+        <h2 className="text-3xl font-bold">Mount</h2>
+        <div className="divider"></div>
+        <PopularMounts />
+        <div className="divider"></div>
+        <RarestMounts />
+      </div>
 
-      <div className="divider"></div>
+      <div className="rounded-lg bg-base-100 p-8">
+        <h2 className="text-3xl font-bold">Minion</h2>
+        <div className="divider"></div>
+        <PopularMinions />
+        <div className="divider"></div>
+        <RarestMinions />
+      </div>
 
-      <PopularJobs />
-
-      <div className="divider"></div>
-
-      <PopularMounts />
-
-      <div className="divider"></div>
-
-      <RarestMounts />
-
-      <div className="divider"></div>
-
-      <PopularMinions />
-
-      <div className="divider"></div>
-
-      <RarestMinions />
-
-      <div className="divider"></div>
-
-      <RarestAchievements />
+      <div className="rounded-lg bg-base-100 p-8">
+        <h2 className="text-3xl font-bold">Achievement</h2>
+        <div className="divider"></div>
+        <RarestAchievements />
+      </div>
     </section>
   );
 };
