@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
-import { Jobs, Races, Resume } from "./Stats/index";
+import { FCStatsProvider } from "../../Contexts/StatsContext";
+import { Jobs, Races, Summary } from "./Stats/index";
 
 export const Stats = () => {
   const { MembersFullData, membersFetchLoad, fetchProgress } =
@@ -22,35 +23,49 @@ export const Stats = () => {
 
   const tabs = [
     {
-      label: "Resume",
-      content: <Resume />,
+      label: "Summary",
+      content: <Summary />,
     },
     {
-      label: "Jobs Max Level",
+      label: "Race",
+      content: <Races />,
+    },
+    {
+      label: "Job",
       content: <Jobs />,
     },
     {
-      label: "Races",
-      content: <Races />,
+      label: "Mount",
+      content: <Jobs />,
+    },
+    {
+      label: "Minion",
+      content: <Jobs />,
+    },
+    {
+      label: "Achievement",
+      content: <Jobs />,
     },
   ];
 
   return (
-    <section className="grid pb-8 min-h-[calc(100vh-448px)]">
-      <nav className="p-2 grid md:grid-cols-3 bg-base-100 rounded-lg h-fit">
-        {tabs.map((tab, index) => (
-          <a
-            key={uuidv4()}
-            className={`tab tab-lg tabs-boxed duration-300 bg-base-100 ${
-              index === activeTab ? "tab-active bg-base-300" : ""
-            }`}
-            onClick={() => setActiveTab(index)}
-          >
-            {tab.label}
-          </a>
-        ))}
-      </nav>
-      <article>{tabs[activeTab].content}</article>
-    </section>
+    <FCStatsProvider>
+      <section className="grid pb-8 min-h-[calc(100vh-448px)]">
+        <nav className="p-2 grid md:grid-cols-6 bg-base-100 rounded-lg h-fit">
+          {tabs.map((tab, index) => (
+            <a
+              key={uuidv4()}
+              className={`tab tab-lg tabs-boxed duration-300 bg-base-100 ${
+                index === activeTab ? "tab-active bg-base-300" : ""
+              }`}
+              onClick={() => setActiveTab(index)}
+            >
+              {tab.label}
+            </a>
+          ))}
+        </nav>
+        <article>{tabs[activeTab].content}</article>
+      </section>
+    </FCStatsProvider>
   );
 };
