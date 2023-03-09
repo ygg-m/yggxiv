@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 import { MemoizedFetchProgress } from "../LoadingComponents/FetchProgress";
 import { Achievement, Minion, Mount } from "./Leaderboard/index";
 
 export const Leaderboard = () => {
-  const { MembersFullData, membersFetchLoad, fetchProgress } =
-    useFreeCompanyContext();
+  const { MembersFullData, membersFetchLoad, fetchProgress } = useFreeCompany();
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;

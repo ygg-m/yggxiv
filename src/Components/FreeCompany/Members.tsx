@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 import { Card } from "./CharacterCard";
 
 export const Members = () => {
@@ -13,7 +13,7 @@ export const Members = () => {
     filterMemberOpen,
     setFilterMemberOpen,
     RankList,
-  } = useFreeCompanyContext();
+  } = useFreeCompany();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 

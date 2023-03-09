@@ -8,7 +8,7 @@ import {
   Members,
   Stats,
 } from "../Components/FreeCompany";
-import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
   const {
@@ -17,7 +17,7 @@ export const FreeCompany = () => {
     baseFetchLoad,
     MembersFullData,
     fetchMembersData,
-  } = useFreeCompanyContext();
+  } = useFreeCompany();
   const { FreeCompany } = freeCompany;
   const { ActiveMemberCount } = FreeCompany;
   const [activeTab, setActiveTab] = useState<number>(0);

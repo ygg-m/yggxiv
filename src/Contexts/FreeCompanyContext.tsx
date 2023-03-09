@@ -99,7 +99,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   setMembersFullData: () => {},
 });
 
-export const useFreeCompanyContext = () => useContext(FreeCompanyContext);
+export const useFreeCompany = () => useContext(FreeCompanyContext);
 
 type FreeCompanyProviderProps = {
   children: React.ReactNode;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompanyContext } from "../../../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 import { races } from "../../../Data/races";
 
 export const Races = () => {
-  const { MembersFullData } = useFreeCompanyContext();
+  const { MembersFullData } = useFreeCompany();
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const raceCounts: {

@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MedalIcon, TrophyIcon } from "../../../Assets/Images/UI";
-import { useFreeCompanyContext } from "../../../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 
 export const Minion = () => {
-  const { MembersFullData } = useFreeCompanyContext();
+  const { MembersFullData } = useFreeCompany();
   const placement = useMemo(
     () =>
       MembersFullData.sort(

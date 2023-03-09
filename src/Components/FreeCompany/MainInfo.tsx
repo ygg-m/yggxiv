@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 
 import {
   parseAlliedGC,
@@ -12,7 +12,7 @@ import { MembersListTypes } from "../../Types";
 import { Card } from "./CharacterCard";
 
 export const MainInfo = () => {
-  const { freeCompany } = useFreeCompanyContext();
+  const { freeCompany } = useFreeCompany();
   const { FreeCompany, FreeCompanyMembers: Members } = freeCompany;
   const { Name, Tag, Formed, Rank, Slogan } = FreeCompany;
   const [FormedDate, FormedTime] = parseDate(Formed);
