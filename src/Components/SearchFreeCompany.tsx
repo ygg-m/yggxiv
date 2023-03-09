@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
-import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
+import { v4 as uuidv4 } from "uuid";
+import { useSearch } from "../Contexts/SearchContext";
 import { throttle } from "../Helpers/index";
 
 export const SearchFreeCompany = () => {
-  const {
-    searchFreeCompany,
-    searchInput,
-    setSearchInput,
-    baseFetchLoad,
-    fetchFreeCompany,
-  } = useFreeCompanyContext();
+  const { searchFreeCompany, searchInput, setSearchInput, searchLoad } =
+    useSearch();
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -23,7 +19,7 @@ export const SearchFreeCompany = () => {
   };
 
   const Results = () => {
-    const { searchResult } = useFreeCompanyContext();
+    const { searchResult } = useSearch();
 
     type CardProps = {
       ID: string;
@@ -69,25 +65,31 @@ export const SearchFreeCompany = () => {
             </div>
           </div>
           <Link className="w-full" to={`/FreeCompany/${ID}`}>
-            <button
-              onClick={() => fetchFreeCompany(ID)}
-              className="btn w-full hover:bg-primary rounded-none hover:text-neutral-200"
-            >
+            <button className="btn w-full hover:bg-primary rounded-none hover:text-neutral-200">
               See More
             </button>
           </Link>
         </div>
       );
     };
-    if (baseFetchLoad)
-      return <button className="btn btn-square loading"></button>;
+
+    if (searchLoad) return <button className="btn btn-square loading"></button>;
+
     if (!searchResult) return null;
     else {
       return (
         <div className="flex w-full gap-8 justify-center flex-wrap">
           {searchResult.Results.map((fc) => {
             const { Crest, ID, Name, Server } = fc;
-            return <Card crest={Crest} ID={ID} name={Name} server={Server} />;
+            return (
+              <Card
+                key={uuidv4()}
+                crest={Crest}
+                ID={ID}
+                name={Name}
+                server={Server}
+              />
+            );
           })}
         </div>
       );
@@ -96,7 +98,7 @@ export const SearchFreeCompany = () => {
 
   return (
     <div className="flex flex-col gap-8 w-screen items-center px-16">
-      <div className="flex flex-col gap-4 justify-center outline outline-1 outline-gray-700 rounded-xl p-8 max-w-[450px]">
+      <div className="flex flex-col gap-4 justify-center bg-base-300 rounded-xl p-8 max-w-[450px]">
         <h2 className="text-4xl uppercase font-thin">Search Free Company</h2>
         <div className="form-control">
           <div className="input-group">
@@ -106,10 +108,10 @@ export const SearchFreeCompany = () => {
               onKeyDown={handleKeyDown}
               value={searchInput}
               placeholder="Name"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-neutral"
             />
             <button
-              className="btn btn-square bg-base-100 hover:bg-primary"
+              className="btn btn-square bg-neutral hover:bg-primary border border-neutral-50 border-opacity-5 border-1"
               onClick={sendSearch}
             >
               <svg

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getRanks } from "../Helpers";
 import {
   getCharacterList,
@@ -36,6 +36,7 @@ type FreeCompanyContextType = {
   membersFetchLoad: boolean;
   setMembersFetchLoad: any;
   fetchProgress: number;
+  setMembersFullData: any;
 };
 
 const FreeCompanyContext = createContext<FreeCompanyContextType>({
@@ -95,6 +96,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   membersFetchLoad: false,
   setMembersFetchLoad: () => {},
   fetchProgress: 0,
+  setMembersFullData: () => {},
 });
 
 export const useFreeCompanyContext = () => useContext(FreeCompanyContext);
@@ -361,7 +363,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   // Fetch
   const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
   const [membersFetchLoad, setMembersFetchLoad] = useState<boolean>(false);
-  const [fetchProgress, setFetchProgress] = useState<number>(0);
+  let [fetchProgress, setFetchProgress] = useState(0);
 
   async function searchFreeCompany() {
     setBaseFetchLoad(true);
@@ -382,7 +384,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   async function fetchMembersData() {
     setMembersFetchLoad(true);
     const result = (await getCharacterList(FreeCompanyMembers, (progress) => {
-      setFetchProgress(Math.trunc(progress));
+      // setFetchProgress(Math.trunc(progress));
       // Update progress bar or display message to user
     })) as CharacterData[];
     setMembersFullData(result);
@@ -471,6 +473,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     membersFetchLoad,
     setMembersFetchLoad,
     fetchProgress,
+    setMembersFullData,
   };
 
   return (

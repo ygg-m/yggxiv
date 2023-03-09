@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { CharacterProvider } from "./Contexts/CharacterContext";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
+import { SearchProvider } from "./Contexts/SearchContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
@@ -15,7 +16,11 @@ const router = createHashRouter([
   },
   {
     path: "/FreeCompany/:fcId",
-    element: <FreeCompany />,
+    element: (
+      <FreeCompanyProvider>
+        <FreeCompany />
+      </FreeCompanyProvider>
+    ),
     children: [{ path: "Members", element: <FreeCompany /> }],
   },
   {
@@ -29,11 +34,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <FreeCompanyProvider>
-      <CharacterProvider>
-        <RouterProvider router={router} />
-      </CharacterProvider>
-    </FreeCompanyProvider>
+    <SearchProvider>
+      <RouterProvider router={router} />
+    </SearchProvider>
   </React.StrictMode>
 );
 

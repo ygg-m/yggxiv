@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
+import { MemoizedFetchProgress } from "../LoadingComponents/FetchProgress";
 import { Achievement, Minion, Mount } from "./Ranking/index";
 
 export const Ranking = () => {
@@ -10,15 +11,7 @@ export const Ranking = () => {
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
   if (isMemberDataEmpty || membersFetchLoad)
-    return (
-      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
-        <nav className="navbar grid bg-base-100 rounded-lg h-fit">
-          <button className="btn loading">
-            Getting members info ({fetchProgress}%)
-          </button>
-        </nav>
-      </section>
-    );
+    return <MemoizedFetchProgress value={fetchProgress} />;
 
   const tabs = [
     {
