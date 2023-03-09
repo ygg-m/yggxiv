@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
-import { Jobs, Races } from "./Stats/index";
+import { Jobs, Races, Resume } from "./Stats/index";
 
 export const Stats = () => {
   const { MembersFullData, membersFetchLoad, fetchProgress } =
@@ -21,6 +21,10 @@ export const Stats = () => {
     );
 
   const tabs = [
+    {
+      label: "Resume",
+      content: <Resume />,
+    },
     {
       label: "Jobs Max Level",
       content: <Jobs />,
