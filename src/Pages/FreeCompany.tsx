@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Footer } from "../Components";
-import { MainInfo, Members, Ranking, Stats } from "../Components/FreeCompany";
+import {
+  Leaderboard,
+  MainInfo,
+  Members,
+  Stats,
+} from "../Components/FreeCompany";
 import { useFreeCompanyContext } from "../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
@@ -120,8 +125,8 @@ export const FreeCompany = () => {
       content: <Members />,
     },
     {
-      label: "Ranking",
-      content: <Ranking />,
+      label: "Leaderboard",
+      content: <Leaderboard />,
     },
     {
       label: "Stats",

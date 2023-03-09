@@ -2,9 +2,9 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompanyContext } from "../../Contexts/FreeCompanyContext";
 import { MemoizedFetchProgress } from "../LoadingComponents/FetchProgress";
-import { Achievement, Minion, Mount } from "./Ranking/index";
+import { Achievement, Minion, Mount } from "./Leaderboard/index";
 
-export const Ranking = () => {
+export const Leaderboard = () => {
   const { MembersFullData, membersFetchLoad, fetchProgress } =
     useFreeCompanyContext();
   const [activeTab, setActiveTab] = useState<number>(0);
