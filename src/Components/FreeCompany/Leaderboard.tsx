@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
-import { FCStatsProvider } from "../../Contexts/StatsContext";
+import { StatsProvider } from "../../Contexts/StatsContext";
 import { MemoizedFetchProgress } from "../LoadingComponents/FetchProgress";
 import { Achievement, Minion, Mount } from "./Leaderboard/index";
 
@@ -29,7 +29,7 @@ export const Leaderboard = () => {
   ];
 
   return (
-    <FCStatsProvider>
+    <StatsProvider>
       <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
         <nav className="p-2 grid md:grid-cols-3 bg-base-100 rounded-lg h-fit">
           {tabs.map((tab, index) => (
@@ -46,6 +46,6 @@ export const Leaderboard = () => {
         </nav>
         <article>{tabs[activeTab].content}</article>
       </section>
-    </FCStatsProvider>
+    </StatsProvider>
   );
 };

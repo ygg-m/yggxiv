@@ -1,18 +1,25 @@
 import { createContext, useContext, useState } from "react";
+import { CharacterData, CharacterDataDeclaration } from "../Types";
 import { useFreeCompany } from "./FreeCompanyContext";
 
-type FCStatsContextType = {};
+type StatsContextType = {
+  getMountLeaderboard: any;
+};
 
-const FCStatsContext = createContext<FCStatsContextType>({});
+const StatsContext = createContext<StatsContextType>({
+  getMountLeaderboard: {},
+});
 
-export const useSearch = () => useContext(FCStatsContext);
+export const useStats = () => useContext(StatsContext);
 
 type CharacterContextProps = { children: React.ReactNode };
 
-export const FCStatsProvider: React.FC<CharacterContextProps> = ({
+export const StatsProvider: React.FC<CharacterContextProps> = ({
   children,
 }) => {
   const { MembersFullData } = useFreeCompany();
+
+  // States
 
   // Leaderboards
   const [leaderboardMount, setLeaderboardMount] = useState();
@@ -37,9 +44,34 @@ export const FCStatsProvider: React.FC<CharacterContextProps> = ({
   // Achievement
   const [rarestAchievement, setRarestAchievement] = useState();
 
-  const value: FCStatsContextType = {};
+  // Functions
+
+  // Leaderboard
+  // Mount
+  function getMountLeaderboard(): {
+    FirstPlace: CharacterData;
+    SecondPlace: CharacterData;
+    ThirdPlace: CharacterData;
+    EveryoneElse: CharacterData[];
+  } {
+    const sortedMembers = MembersFullData.sort(
+      (a, b) =>
+        (b.Mounts ? b.Mounts.length : 0) - (a.Mounts ? a.Mounts.length : 0)
+    ).filter((e) => e.Mounts?.length !== undefined);
+
+    return {
+      FirstPlace: sortedMembers.slice(0, 1)[0],
+      SecondPlace: sortedMembers.slice(1, 2)[0],
+      ThirdPlace: sortedMembers.slice(1, 3)[0],
+      EveryoneElse: sortedMembers.slice(3),
+    };
+  }
+
+  const value: StatsContextType = {
+    getMountLeaderboard,
+  };
 
   return (
-    <FCStatsContext.Provider value={value}>{children}</FCStatsContext.Provider>
+    <StatsContext.Provider value={value}>{children}</StatsContext.Provider>
   );
 };

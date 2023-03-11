@@ -1,4 +1,4 @@
-export { CharacterData } from "./CharacterData";
+export { CharacterData, CharacterDataDeclaration } from "./CharacterData";
 export {
   FreeCompanyData,
   FreeCompanyEstate,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
-import { FCStatsProvider } from "../../Contexts/StatsContext";
+import { StatsProvider } from "../../Contexts/StatsContext";
 import { Jobs, Races, Summary } from "./Stats/index";
 
 export const Stats = () => {
@@ -48,7 +48,7 @@ export const Stats = () => {
   ];
 
   return (
-    <FCStatsProvider>
+    <StatsProvider>
       <section className="grid pb-8 min-h-[calc(100vh-448px)]">
         <nav className="p-2 grid md:grid-cols-6 bg-base-100 rounded-lg h-fit">
           {tabs.map((tab, index) => (
@@ -65,6 +65,6 @@ export const Stats = () => {
         </nav>
         <article>{tabs[activeTab].content}</article>
       </section>
-    </FCStatsProvider>
+    </StatsProvider>
   );
 };
