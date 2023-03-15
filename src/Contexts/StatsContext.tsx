@@ -1,10 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { jobs } from "../Data/jobs";
+import { races } from "../Data/races";
+
 import {
   CharacterData,
   CharacterDataDeclaration,
   jobData,
   LeaderBoardType,
+  raceData,
 } from "../Types";
 import { useFreeCompany } from "./FreeCompanyContext";
 
@@ -14,6 +17,7 @@ type StatsContextType = {
   getAchievementLeaderboard: any;
   getPopularJobs: any;
   popularJobs: jobData[];
+  popularRaces: raceData[];
 };
 
 const StatsContext = createContext<StatsContextType>({
@@ -22,6 +26,7 @@ const StatsContext = createContext<StatsContextType>({
   getAchievementLeaderboard: {},
   getPopularJobs: {},
   popularJobs: [],
+  popularRaces: [],
 });
 
 export const useStats = () => useContext(StatsContext);
@@ -42,7 +47,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     useState<LeaderBoardType>();
 
   // Character
-  const [popularRaces, setPopularRaces] = useState();
+  const [popularRaces, setPopularRaces] = useState<raceData[]>(
+    getPopularRaces()
+  );
   const [popularGender, setPopularGender] = useState();
 
   // Jobs
@@ -63,24 +70,75 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Stats
   // Race
-  function getPopularRaces(): {
-    FirstPlace: CharacterData;
-    SecondPlace: CharacterData;
-    ThirdPlace: CharacterData;
-    EveryoneElse: CharacterData[];
-  } {
-    const sortedMembers = MembersFullData.sort((a, b) => {
-      if (a.Achievements.Points || b.Achievements.Points)
-        return b.Achievements.Points - a.Achievements.Points;
-      else return 0;
+  function getPopularRaces() {
+    const raceCount: {
+      [raceName: string]: {
+        RaceCount: number;
+        TribeCount_1: number;
+        TribeCount_2: number;
+        MaleCount: number;
+        FemaleCount: number;
+        raceData: {
+          ID: number;
+          Icon: string;
+          Name: string;
+          Tribes: {
+            Tribe1: { ID: number; Icon: string; Name: string };
+            Tribe2: { ID: number; Icon: string; Name: string };
+          };
+        };
+      };
+    } = {};
+
+    Object.values(MembersFullData).forEach((character) => {
+      const raceID = character.Character.Race;
+      const tribeID = character.Character.Tribe;
+      const raceData = races.filter((e) => e.ID === raceID)[0];
+      const gender = character.Character.Gender;
+
+      if (!raceCount[raceID]) {
+        raceCount[raceID] = {
+          RaceCount: 0,
+          TribeCount_1: 0,
+          TribeCount_2: 0,
+          MaleCount: 0,
+          FemaleCount: 0,
+          raceData,
+        };
+      }
+
+      if (gender === 1) raceCount[raceID].MaleCount++;
+      if (gender === 2) raceCount[raceID].FemaleCount++;
+      if (raceID === raceCount[raceID].raceData.ID)
+        raceCount[raceID].RaceCount++;
+      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID)
+        raceCount[raceID].TribeCount_1++;
+      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID)
+        raceCount[raceID].TribeCount_2++;
     });
 
-    return {
-      FirstPlace: sortedMembers[0],
-      SecondPlace: sortedMembers[1],
-      ThirdPlace: sortedMembers[2],
-      EveryoneElse: sortedMembers.slice(3),
-    };
+    const countsArray = Object.entries(raceCount).map(
+      ([
+        raceName,
+        {
+          RaceCount,
+          MaleCount,
+          FemaleCount,
+          TribeCount_1,
+          TribeCount_2,
+          raceData,
+        },
+      ]) => ({
+        RaceCount: RaceCount,
+        TribeCount_1: TribeCount_1,
+        TribeCount_2: TribeCount_2,
+        MaleCount: MaleCount,
+        FemaleCount: FemaleCount,
+        raceData,
+      })
+    );
+
+    return countsArray.sort((a, b) => b.RaceCount - a.RaceCount);
   }
 
   // Jobs
@@ -128,12 +186,12 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         }
 
         if (isBlueLvMax) jobCount[className].LvMax++;
-        if (job.Level === 90) jobCount[className].LvMax++;
-        if (job.Level === 80) jobCount[className].Lv80++;
-        if (job.Level === 70) jobCount[className].Lv70++;
-        if (job.Level === 60) jobCount[className].Lv60++;
-        if (job.Level === 50) jobCount[className].Lv50++;
-        if (job.Level === 30) jobCount[className].Lv30++;
+        else if (job.Level === 90) jobCount[className].LvMax++;
+        else if (job.Level >= 80 && job.Level < 90) jobCount[className].Lv80++;
+        else if (job.Level >= 70 && job.Level < 80) jobCount[className].Lv70++;
+        else if (job.Level >= 60 && job.Level < 70) jobCount[className].Lv60++;
+        else if (job.Level >= 50 && job.Level < 60) jobCount[className].Lv50++;
+        else if (job.Level >= 30 && job.Level < 50) jobCount[className].Lv30++;
       });
     });
 
@@ -225,6 +283,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     getAchievementLeaderboard,
     getPopularJobs,
     popularJobs,
+    popularRaces,
   };
 
   return (

@@ -1,4 +1,10 @@
+import { v4 as uuidv4 } from "uuid";
+import { useStats } from "../../../Contexts/StatsContext";
+import { jobData, raceData } from "../../../Types";
+
 export const Summary = () => {
+  const { popularJobs, popularRaces } = useStats();
+
   const Divider = () => {
     return <div className="divider m-0"></div>;
   };
@@ -7,48 +13,58 @@ export const Summary = () => {
     return (
       <div className="flex justify-between">
         <span className="opacity-50">{name}</span>
-        <span>{value}</span>
+        <span>{value === 0 ? "-" : value}</span>
       </div>
     );
   };
 
-  const Race = () => {
+  interface raceProps {
+    data: raceData;
+  }
+
+  const Race = ({ data }: raceProps) => {
+    const { RaceCount, TribeCount_1, TribeCount_2, MaleCount, FemaleCount } =
+      data;
+    const {
+      Icon,
+      Name,
+      Tribes: { Tribe1, Tribe2 },
+    } = data.raceData;
+
     return (
       <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
         <div className="grid justify-center gap-2">
-          <img
-            src="http://localhost:3000/yggxiv/static/media/MiqoteMoonMale.27edbfc94beb8e10269f.png"
-            alt="Miqo'te"
-            className="mask mask-squircle w-24"
-          />
-          <h4 className="text-lg text-center">Miqo'te</h4>
+          <img src={Icon} alt={Name} className="mask mask-squircle w-24" />
+          <h4 className="text-lg text-center">{Name}</h4>
         </div>
 
         <Divider />
 
-        <ShowData name="Characters" value={49} />
+        <ShowData name="Characters" value={RaceCount} />
 
         <Divider />
 
-        <ShowData name="Seekers of the Sun" value={24} />
-        <ShowData name="Keeper of the Moon" value={24} />
+        <ShowData name={Tribe1.Name} value={TribeCount_1} />
+        <ShowData name={Tribe2.Name} value={TribeCount_2} />
 
         <Divider />
 
-        <ShowData name="Male" value={24} />
-        <ShowData name="Female" value={24} />
+        <ShowData name="Male" value={MaleCount} />
+        <ShowData name="Female" value={FemaleCount} />
       </div>
     );
   };
 
   const PopularRaces = () => {
+    const top3 = popularRaces.slice(0, 3);
+
     return (
       <div className="grid gap-2">
         <h2 className="text-2xl">Most popular Races</h2>
         <div className="grid md:grid-cols-3 gap-2">
-          <Race />
-          <Race />
-          <Race />
+          {top3.map((race) => (
+            <Race key={uuidv4()} data={race} />
+          ))}
         </div>
         <button className="btn">See full List →</button>
       </div>
@@ -86,39 +102,47 @@ export const Summary = () => {
     );
   };
 
-  const Job = () => {
+  interface JobProps {
+    data: jobData;
+  }
+
+  const Job = ({ data }: JobProps) => {
+    const { LvMax, Lv80, Lv70, Lv60, Lv50, Lv30 } = data;
+    const { Job, Role, ImageSrc } = data.jobData;
+
     return (
       <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
         <div className="grid justify-center gap-2">
           <img
-            src="https://xivapi.com/cj/1/bluemage.png"
-            alt="Blue Mage"
-            className="mask mask-squircle w-24 bg-dps"
+            src={ImageSrc}
+            alt={Job}
+            className={`mask mask-squircle p-2 w-24 bg-${Role.toLowerCase()}`}
           />
-          <h4 className="text-lg text-center">Blue Mage</h4>
+          <h4 className="text-lg text-center">{Job}</h4>
         </div>
 
         <Divider />
-        <ShowData name="Max Level" value={24} />
+        <ShowData name="Max Level" value={LvMax} />
         <Divider />
-        <ShowData name="Level 80" value={24} />
-        <ShowData name="Level 70" value={24} />
-        <ShowData name="Level 60" value={24} />
-        <ShowData name="Level 50" value={24} />
-        <ShowData name="Level 30" value={24} />
-        <ShowData name="Unlocked" value={49} />
+        <ShowData name="Level 80+" value={Lv80} />
+        <ShowData name="Level 70+" value={Lv70} />
+        <ShowData name="Level 60+" value={Lv60} />
+        <ShowData name="Level 50+" value={Lv50} />
+        <ShowData name="Level 30+" value={Lv30} />
       </div>
     );
   };
 
   const PopularJobs = () => {
+    const top3 = popularJobs.slice(0, 3);
+
     return (
       <div className="grid gap-2">
         <h2 className="text-2xl">Most popular Jobs</h2>
         <div className="grid md:grid-cols-3 gap-2">
-          <Job />
-          <Job />
-          <Job />
+          {top3.map((job: jobData) => (
+            <Job key={uuidv4()} data={job} />
+          ))}
         </div>
         <button className="btn">See full List →</button>
       </div>

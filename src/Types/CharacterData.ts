@@ -468,3 +468,20 @@ export interface jobData {
     SVG?: object;
   };
 }
+
+export interface raceData {
+  RaceCount: number;
+  TribeCount_1: number;
+  TribeCount_2: number;
+  MaleCount: number;
+  FemaleCount: number;
+  raceData: {
+    ID: number;
+    Icon: string;
+    Name: string;
+    Tribes: {
+      Tribe1: { ID: number; Icon: string; Name: string };
+      Tribe2: { ID: number; Icon: string; Name: string };
+    };
+  };
+}
