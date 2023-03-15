@@ -2,13 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { jobs } from "../Data/jobs";
 import { races } from "../Data/races";
 
-import {
-  CharacterData,
-  CharacterDataDeclaration,
-  jobData,
-  LeaderBoardType,
-  raceData,
-} from "../Types";
+import { CharacterData, jobData, LeaderBoardType, raceData } from "../Types";
 import { useFreeCompany } from "./FreeCompanyContext";
 
 type StatsContextType = {
@@ -89,6 +83,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
             Tribe2: { ID: number; Icon: string; Name: string };
           };
         };
+        memberList: CharacterData[];
       };
     } = {};
 
@@ -106,8 +101,14 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
           MaleCount: 0,
           FemaleCount: 0,
           raceData,
+          memberList: [],
         };
       }
+
+      raceCount[raceID].memberList = [
+        ...raceCount[raceID].memberList,
+        character,
+      ];
 
       if (gender === 1) raceCount[raceID].MaleCount++;
       if (gender === 2) raceCount[raceID].FemaleCount++;
@@ -129,6 +130,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
           TribeCount_1,
           TribeCount_2,
           raceData,
+          memberList,
         },
       ]) => ({
         RaceCount: RaceCount,
@@ -137,6 +139,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         MaleCount: MaleCount,
         FemaleCount: FemaleCount,
         raceData,
+        memberList: memberList,
       })
     );
 
@@ -245,6 +248,78 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     );
 
     return countsArray.sort((a, b) => b.count - a.count);
+  }
+
+  // Mounts
+  function getPopularMounts() {
+    const raceCount: {
+      [raceName: string]: {
+        RaceCount: number;
+        TribeCount_1: number;
+        TribeCount_2: number;
+        MaleCount: number;
+        FemaleCount: number;
+        raceData: {
+          ID: number;
+          Icon: string;
+          Name: string;
+          Tribes: {
+            Tribe1: { ID: number; Icon: string; Name: string };
+            Tribe2: { ID: number; Icon: string; Name: string };
+          };
+        };
+      };
+    } = {};
+
+    Object.values(MembersFullData).forEach((character) => {
+      const raceID = character.Character.Race;
+      const tribeID = character.Character.Tribe;
+      const raceData = races.filter((e) => e.ID === raceID)[0];
+      const gender = character.Character.Gender;
+
+      if (!raceCount[raceID]) {
+        raceCount[raceID] = {
+          RaceCount: 0,
+          TribeCount_1: 0,
+          TribeCount_2: 0,
+          MaleCount: 0,
+          FemaleCount: 0,
+          raceData,
+        };
+      }
+
+      if (gender === 1) raceCount[raceID].MaleCount++;
+      if (gender === 2) raceCount[raceID].FemaleCount++;
+      if (raceID === raceCount[raceID].raceData.ID)
+        raceCount[raceID].RaceCount++;
+      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID)
+        raceCount[raceID].TribeCount_1++;
+      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID)
+        raceCount[raceID].TribeCount_2++;
+    });
+
+    const countsArray = Object.entries(raceCount).map(
+      ([
+        raceName,
+        {
+          RaceCount,
+          MaleCount,
+          FemaleCount,
+          TribeCount_1,
+          TribeCount_2,
+          raceData,
+        },
+      ]) => ({
+        RaceCount: RaceCount,
+        TribeCount_1: TribeCount_1,
+        TribeCount_2: TribeCount_2,
+        MaleCount: MaleCount,
+        FemaleCount: FemaleCount,
+        raceData,
+      })
+    );
+
+    return countsArray.sort((a, b) => b.RaceCount - a.RaceCount);
   }
 
   // Leaderboard
