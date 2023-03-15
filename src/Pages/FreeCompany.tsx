@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Footer } from "../Components";
@@ -115,6 +115,8 @@ export const FreeCompany = () => {
     );
   };
 
+  const MemoizedNavigator = memo(Navigator);
+
   const tabs = [
     {
       label: "Info",
@@ -146,7 +148,7 @@ export const FreeCompany = () => {
       <CoverImage />
       <div className="w-screen max-w-screen-2xl flex flex-col px-8">
         <Header />
-        <Navigator />
+        <MemoizedNavigator />
         <article className="tab-content">{tabs[activeTab].content}</article>
       </div>
       <Footer />
