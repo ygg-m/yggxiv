@@ -1,34 +1,19 @@
-import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MedalIcon, TrophyIcon } from "../../../Assets/Images/UI";
-import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
+import { useStats } from "../../../Contexts/StatsContext";
 import { formatNumber } from "../../../Helpers";
+import { CharacterData } from "../../../Types";
 
 export const Achievement = () => {
-  const { MembersFullData } = useFreeCompany();
+  const { getMinionLeaderboard } = useStats();
 
-  const placement = useMemo(
-    () =>
-      MembersFullData.sort((a, b) => {
-        if (a.Achievements.Points || b.Achievements.Points)
-          return b.Achievements.Points - a.Achievements.Points;
-        else return 0;
-      }),
-    MembersFullData
-  );
-
-  const firstPlace = placement.slice(0, 1)[0];
-  const secondPlace = placement.slice(1, 2)[0];
-  const thirdPlace = placement.slice(2, 3)[0];
-  const everyoneElse = placement
-    .slice(3)
-    .filter((e) => e.Achievements.Points !== 0);
+  const placement = getMinionLeaderboard();
 
   const FirstPlace = () => {
     const {
       Achievements: { Points },
       Character: { Name, Portrait },
-    } = firstPlace;
+    } = placement.FirstPlace;
 
     return (
       <article className="-order-1 sm:order-2 gap-3 sm:w-64 p-2 sm:h-[530px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
@@ -60,7 +45,7 @@ export const Achievement = () => {
     const {
       Achievements: { Points },
       Character: { Name, Portrait },
-    } = secondPlace;
+    } = placement.SecondPlace;
     return (
       <article className="order-1 self-end sm:order-2 gap-3 sm:w-52 p-2 sm:h-[430px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
         <div className="px-4 grid justify-center text-silver pb-2">
@@ -91,7 +76,7 @@ export const Achievement = () => {
     const {
       Achievements: { Points },
       Character: { Name, Portrait },
-    } = thirdPlace;
+    } = placement.ThirdPlace;
     return (
       <article className="order-3 self-end sm:order-2 gap-3 sm:w-52 p-2 sm:h-[380px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
         <div className="px-4 grid justify-center text-bronze pb-2">
@@ -121,7 +106,7 @@ export const Achievement = () => {
   const Table = () => {
     return (
       <div className="grid rounded-lg bg-base-300 w-full max-w-[672px] outline outline-base-100">
-        {everyoneElse.map((member, index) => {
+        {placement.EveryoneElse.map((member: CharacterData, index: number) => {
           const {
             Achievements: { Points },
             Character: { Name, Avatar },
@@ -150,8 +135,8 @@ export const Achievement = () => {
                   </span>
                 </div>
               </article>
-              {everyoneElse[index] !==
-                everyoneElse[everyoneElse.length - 1] && (
+              {placement.EveryoneElse[index] !==
+                placement.EveryoneElse[placement.EveryoneElse.length - 1] && (
                 <div className="divider m-0 h-0"></div>
               )}
             </>

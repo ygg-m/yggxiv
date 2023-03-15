@@ -106,11 +106,8 @@ export const Mount = () => {
           } = member;
 
           return (
-            <>
-              <article
-                key={uuidv4()}
-                className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent"
-              >
+            <div key={uuidv4()}>
+              <article className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent">
                 <div className="flex items-center gap-4 flex-row w-24">
                   <span className="w-8 text-center sm:text-left">
                     {index + 4}º
@@ -132,7 +129,7 @@ export const Mount = () => {
                 placement.EveryoneElse[placement.EveryoneElse.length - 1] && (
                 <div className="divider m-0 h-0"></div>
               )}
-            </>
+            </div>
           );
         })}
       </div>

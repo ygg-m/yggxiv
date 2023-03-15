@@ -1,32 +1,18 @@
-import { useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { MedalIcon, TrophyIcon } from "../../../Assets/Images/UI";
-import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
+import { useStats } from "../../../Contexts/StatsContext";
+import { CharacterData } from "../../../Types";
 
 export const Minion = () => {
-  const { MembersFullData } = useFreeCompany();
-  const placement = useMemo(
-    () =>
-      MembersFullData.sort(
-        (a, b) =>
-          (b.Minions ? b.Minions.length : 0) -
-          (a.Minions ? a.Minions.length : 0)
-      ),
-    MembersFullData
-  );
+  const { getMinionLeaderboard } = useStats();
 
-  const firstPlace = placement.slice(0, 1)[0];
-  const secondPlace = placement.slice(1, 2)[0];
-  const thirdPlace = placement.slice(2, 3)[0];
-  const everyoneElse = placement
-    .slice(3)
-    .filter((e) => e.Minions?.length !== undefined);
+  const placement = getMinionLeaderboard();
 
   const FirstPlace = () => {
     const {
       Minions,
       Character: { Name, Portrait },
-    } = firstPlace;
+    } = placement.FirstPlace;
 
     return (
       <article className="-order-1 sm:order-2 gap-3 sm:w-64 p-2 sm:h-[530px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
@@ -56,7 +42,7 @@ export const Minion = () => {
     const {
       Minions,
       Character: { Name, Portrait },
-    } = secondPlace;
+    } = placement.SecondPlace;
     return (
       <article className="order-1 self-end sm:order-2 gap-3 sm:w-52 p-2 sm:h-[430px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
         <div className="px-4 grid justify-center text-silver pb-2">
@@ -85,7 +71,7 @@ export const Minion = () => {
     const {
       Minions,
       Character: { Name, Portrait },
-    } = thirdPlace;
+    } = placement.ThirdPlace;
     return (
       <article className="order-3 self-end sm:order-2 gap-3 sm:w-52 p-2 sm:h-[380px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
         <div className="px-4 grid justify-center text-bronze pb-2">
@@ -113,18 +99,15 @@ export const Minion = () => {
   const Table = () => {
     return (
       <div className="grid rounded-lg bg-base-300 w-full max-w-[672px] outline outline-base-100">
-        {everyoneElse.map((member, index) => {
+        {placement.EveryoneElse.map((member: CharacterData, index: number) => {
           const {
             Minions,
             Character: { Name, Avatar },
           } = member;
 
           return (
-            <>
-              <article
-                key={uuidv4()}
-                className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent"
-              >
+            <div key={uuidv4()}>
+              <article className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent">
                 <div className="flex items-center gap-4 flex-row w-24">
                   <span className="w-8 text-center sm:text-left">
                     {index + 4}º
@@ -142,11 +125,11 @@ export const Minion = () => {
                   </span>
                 </div>
               </article>
-              {everyoneElse[index] !==
-                everyoneElse[everyoneElse.length - 1] && (
+              {placement.EveryoneElse[index] !==
+                placement.EveryoneElse[placement.EveryoneElse.length - 1] && (
                 <div className="divider m-0 h-0"></div>
               )}
-            </>
+            </div>
           );
         })}
       </div>
