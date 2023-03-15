@@ -15,18 +15,18 @@ type StatsContextType = {
   getMountLeaderboard: any;
   getMinionLeaderboard: any;
   getAchievementLeaderboard: any;
-  getPopularJobs: any;
   popularJobs: jobData[];
   popularRaces: raceData[];
+  popularGender: { count: number }[];
 };
 
 const StatsContext = createContext<StatsContextType>({
   getMountLeaderboard: {},
   getMinionLeaderboard: {},
   getAchievementLeaderboard: {},
-  getPopularJobs: {},
   popularJobs: [],
   popularRaces: [],
+  popularGender: [],
 });
 
 export const useStats = () => useContext(StatsContext);
@@ -50,7 +50,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   const [popularRaces, setPopularRaces] = useState<raceData[]>(
     getPopularRaces()
   );
-  const [popularGender, setPopularGender] = useState();
+  const [popularGender, setPopularGender] = useState<{ count: number }[]>(
+    getPopularGenders()
+  );
 
   // Jobs
   const [popularJobs, setPopularJobs] = useState<jobData[]>(getPopularJobs());
@@ -215,6 +217,36 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     return countsArray.sort((a, b) => b.LvMax - a.LvMax);
   }
 
+  // Gender
+  function getPopularGenders() {
+    const genderCount: {
+      [raceName: string]: {
+        count: number;
+      };
+    } = {};
+
+    Object.values(MembersFullData).forEach((character) => {
+      const gender = character.Character.Gender;
+
+      if (!genderCount[gender]) {
+        genderCount[gender] = {
+          count: 0,
+        };
+      }
+
+      if (gender === 1) genderCount[gender].count++;
+      if (gender === 2) genderCount[gender].count++;
+    });
+
+    const countsArray = Object.entries(genderCount).map(
+      ([gender, { count }]) => ({
+        count: count,
+      })
+    );
+
+    return countsArray.sort((a, b) => b.count - a.count);
+  }
+
   // Leaderboard
   // Mount
   function getMountLeaderboard(): {
@@ -281,9 +313,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     getMountLeaderboard,
     getMinionLeaderboard,
     getAchievementLeaderboard,
-    getPopularJobs,
     popularJobs,
     popularRaces,
+    popularGender,
   };
 
   return (

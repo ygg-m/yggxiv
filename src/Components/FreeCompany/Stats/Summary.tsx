@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
+import { FemaleIcon, MaleIcon } from "../../../Assets/Images/UI";
 import { useStats } from "../../../Contexts/StatsContext";
 import { jobData, raceData } from "../../../Types";
 
 export const Summary = () => {
-  const { popularJobs, popularRaces } = useStats();
+  const { popularJobs, popularRaces, popularGender } = useStats();
 
   const Divider = () => {
     return <div className="divider m-0"></div>;
@@ -71,32 +72,45 @@ export const Summary = () => {
     );
   };
 
-  const Gender = ({ name, value }: { name: string; value: number }) => {
+  interface GenderProps {
+    name: string;
+    count: number;
+    Icon: any;
+  }
+
+  const Gender = ({ name, count, Icon }: GenderProps) => {
     return (
       <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
         <div className="grid justify-center gap-2">
-          <img
-            src="http://localhost:3000/yggxiv/static/media/MiqoteMoonMale.27edbfc94beb8e10269f.png"
-            alt="Miqo'te"
-            className="mask mask-squircle w-24"
-          />
-          <h4 className="text-lg text-center">Male</h4>
+          {Icon}
+          <h4 className="text-lg text-center">{name}</h4>
         </div>
 
         <Divider />
 
-        <ShowData name="Characters" value={49} />
+        <ShowData name="Characters" value={count} />
       </div>
     );
   };
 
   const PopularGender = () => {
+    const male = popularGender[0];
+    const female = popularGender[1];
+
     return (
       <div className="grid gap-2">
         <h2 className="text-2xl">Most popular Gender</h2>
         <div className="grid sm:grid-cols-2 gap-2">
-          <Gender name="Male" value={64} />
-          <Gender name="Female" value={86} />
+          <Gender
+            Icon={<MaleIcon className="w-16 h-16" />}
+            name="Male"
+            count={male.count}
+          />
+          <Gender
+            Icon={<FemaleIcon className="w-16 h-16" />}
+            name="Female"
+            count={female.count}
+          />
         </div>
       </div>
     );
