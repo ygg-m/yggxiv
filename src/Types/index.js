@@ -8,6 +8,7 @@ export {
   FreeCompanyReputation,
   FreeCompanySeeking,
   FreeCompanySmall,
+  LeaderBoardType,
   MembersListTypes,
   RankListTypes,
 } from "./FreeCompanyData";

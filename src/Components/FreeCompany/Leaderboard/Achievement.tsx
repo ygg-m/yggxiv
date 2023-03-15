@@ -5,9 +5,9 @@ import { formatNumber } from "../../../Helpers";
 import { CharacterData } from "../../../Types";
 
 export const Achievement = () => {
-  const { getMinionLeaderboard } = useStats();
+  const { getAchievementLeaderboard } = useStats();
 
-  const placement = getMinionLeaderboard();
+  const placement = getAchievementLeaderboard();
 
   const FirstPlace = () => {
     const {

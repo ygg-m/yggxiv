@@ -2,7 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 import { StatsProvider } from "../../Contexts/StatsContext";
-import { MemoizedFetchProgress } from "../LoadingComponents/FetchProgress";
+import { FetchProgress } from "../LoadingComponents/FetchProgress";
 import { Achievement, Minion, Mount } from "./Leaderboard/index";
 
 export const Leaderboard = () => {
@@ -11,7 +11,7 @@ export const Leaderboard = () => {
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
   if (isMemberDataEmpty || membersFetchLoad)
-    return <MemoizedFetchProgress value={fetchProgress} />;
+    return <FetchProgress value={fetchProgress} />;
 
   const tabs = [
     {

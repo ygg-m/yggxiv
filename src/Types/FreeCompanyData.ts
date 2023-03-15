@@ -77,3 +77,10 @@ export interface RankListTypes {
   RankIcon: string;
   isChecked?: boolean;
 }
+
+export interface LeaderBoardType {
+  FirstPlace: CharacterData;
+  SecondPlace: CharacterData;
+  ThirdPlace: CharacterData;
+  EveryoneElse: CharacterData[];
+}
