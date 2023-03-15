@@ -384,7 +384,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   async function fetchMembersData() {
     setMembersFetchLoad(true);
     const result = (await getCharacterList(FreeCompanyMembers, (progress) => {
-      // setFetchProgress(Math.trunc(progress));
+      setFetchProgress(Math.trunc(progress));
       // Update progress bar or display message to user
     })) as CharacterData[];
     setMembersFullData(result);

@@ -1,48 +1,21 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
-import { jobs } from "../../../Data/jobs";
+import { useStats } from "../../../Contexts/StatsContext";
 
 export const Jobs = () => {
-  const { MembersFullData } = useFreeCompany();
+  const { popularJobs } = useStats();
+
   const [activeTab, setActiveTab] = useState<number>(0);
-
-  const maxLevelCounts: {
-    [className: string]: {
-      count: number;
-      classId: number;
-      jobData: {
-        Job: string;
-        ImageSrc: string;
-        Role: string;
-        Position?: string;
-        SVG?: object;
-      };
-    };
-  } = {};
-
-  Object.values(MembersFullData).forEach((character) => {
-    character.Character.ClassJobs.forEach((job) => {
-      const isBlueLvMax = job.JobID === 36 && job.Level === 70;
-      if (job.Level === 90 || isBlueLvMax) {
-        const classId = job.UnlockedState.ID;
-        const className = job.Name.split(" / ")[1];
-        const jobData = jobs.filter(
-          (e) => e.Job.toLowerCase() === className.toLowerCase()
-        )[0];
-
-        if (!maxLevelCounts[className]) {
-          maxLevelCounts[className] = { count: 0, classId, jobData };
-        }
-
-        maxLevelCounts[className].count++;
-      }
-    });
-  });
+  const [placement, setPlacement] = useState(popularJobs);
 
   interface jobData {
     Name: string;
-    Count: number;
+    LvMax: number;
+    Lv80: number;
+    Lv70: number;
+    Lv60: number;
+    Lv50: number;
+    Lv30: number;
     classId: number;
     jobData: {
       Job: string;
@@ -53,26 +26,6 @@ export const Jobs = () => {
     };
   }
 
-  const countsArray = Object.entries(maxLevelCounts).map(
-    ([className, { count, classId, jobData }]) => ({
-      Name: className,
-      Count: count,
-      classId,
-      jobData,
-    })
-  );
-
-  const sortPlacement = (list: jobData[]) => {
-    return list.sort((a, b) => b.Count - a.Count);
-  };
-
-  const [placement, setPlacement] = useState(() => sortPlacement(countsArray));
-
-  const firstPlace = placement.slice(0, 1)[0];
-  const secondPlace = placement.slice(1, 2)[0];
-  const thirdPlace = placement.slice(2, 3)[0];
-  const everyoneElse = placement.slice(3);
-
   // declare dinamic variables so TailwindCSS recognize it.
   // bg-dps
   // bg-tank
@@ -80,58 +33,64 @@ export const Jobs = () => {
   // bg-gatherer
   // bg-crafter
 
+  const firstPlace = placement[0];
+  const secondPlace = placement[1];
+  const thirdPlace = placement[2];
+  const everyoneElse = placement.slice(3);
+
   const tabs = [
     {
       label: "All",
-      filterJobs: () => setPlacement(sortPlacement(countsArray)),
+      filterJobs: () => setPlacement(popularJobs),
     },
     {
       label: "Battle Jobs",
-      filterJobs: () => {
-        const filter = countsArray.filter(
-          (e) =>
-            e.jobData.Role === "DPS" ||
-            e.jobData.Role === "Tank" ||
-            e.jobData.Role === "Healer"
-        );
-        setPlacement(sortPlacement(filter));
-      },
+      filterJobs: () =>
+        setPlacement(
+          popularJobs.filter(
+            (e: jobData) =>
+              e.jobData.Role === "DPS" ||
+              e.jobData.Role === "Tank" ||
+              e.jobData.Role === "Healer"
+          )
+        ),
     },
     {
       label: "Craft / Gather",
-      filterJobs: () => {
-        const filter = countsArray.filter(
-          (e) => e.jobData.Role === "Crafter" || e.jobData.Role === "Gatherer"
-        );
-        setPlacement(sortPlacement(filter));
-      },
+      filterJobs: () =>
+        setPlacement(
+          popularJobs.filter(
+            (e: jobData) =>
+              e.jobData.Role === "Gatherer" || e.jobData.Role === "Crafter"
+          )
+        ),
     },
     {
       label: "Tank",
-      filterJobs: () => {
-        const filter = countsArray.filter((e) => e.jobData.Role === "Tank");
-        setPlacement(sortPlacement(filter));
-      },
+      filterJobs: () =>
+        setPlacement(
+          popularJobs.filter((e: jobData) => e.jobData.Role === "Tank")
+        ),
     },
     {
       label: "Healer",
-      filterJobs: () => {
-        const filter = countsArray.filter((e) => e.jobData.Role === "Healer");
-        setPlacement(sortPlacement(filter));
-      },
+      filterJobs: () =>
+        setPlacement(
+          popularJobs.filter((e: jobData) => e.jobData.Role === "Healer")
+        ),
     },
     {
       label: "DPS",
-      filterJobs: () => {
-        const filter = countsArray.filter((e) => e.jobData.Role === "DPS");
-        setPlacement(sortPlacement(filter));
-      },
+      filterJobs: () =>
+        setPlacement(
+          popularJobs.filter((e: jobData) => e.jobData.Role === "DPS")
+        ),
     },
   ];
 
   const FirstPlace = () => {
     const {
-      Count,
+      LvMax,
       jobData: { Job, ImageSrc, Role },
     } = firstPlace;
 
@@ -149,7 +108,7 @@ export const Jobs = () => {
         </div>
         <div className="grid">
           <h3 className="text-2xl">{Job}</h3>
-          <h3 className="text-4xl font-bold text-gold">{Count}</h3>
+          <h3 className="text-4xl font-bold text-gold">{LvMax}</h3>
         </div>
       </article>
     );
@@ -157,7 +116,7 @@ export const Jobs = () => {
 
   const SecondPlace = () => {
     const {
-      Count,
+      LvMax,
       jobData: { Job, ImageSrc, Role },
     } = secondPlace;
 
@@ -175,7 +134,7 @@ export const Jobs = () => {
         </div>
         <div className="grid">
           <h3 className="text-xl">{Job}</h3>
-          <h3 className="text-2xl font-bold text-gold">{Count}</h3>
+          <h3 className="text-2xl font-bold text-gold">{LvMax}</h3>
         </div>
       </article>
     );
@@ -183,7 +142,7 @@ export const Jobs = () => {
 
   const ThirdPlace = () => {
     const {
-      Count,
+      LvMax,
       jobData: { Job, ImageSrc, Role },
     } = thirdPlace;
 
@@ -201,7 +160,7 @@ export const Jobs = () => {
         </div>
         <div className="grid">
           <h3 className="text-xl">{Job}</h3>
-          <h3 className="text-2xl font-bold text-gold">{Count}</h3>
+          <h3 className="text-2xl font-bold text-gold">{LvMax}</h3>
         </div>
       </article>
     );
@@ -210,9 +169,9 @@ export const Jobs = () => {
   const Table = () => {
     return (
       <div className="grid rounded-lg bg-base-300 w-full max-w-[672px] outline outline-base-100">
-        {everyoneElse.map((jobinfo, index) => {
+        {everyoneElse.map((jobinfo: jobData, index: number) => {
           const {
-            Count,
+            LvMax,
             jobData: { Job, ImageSrc, Role },
           } = jobinfo;
 
@@ -234,7 +193,7 @@ export const Jobs = () => {
                   <span className="text-lg">{Job}</span>
                 </div>
                 <div className="grid">
-                  <span className="text-lg text-gold font-bold">{Count}</span>
+                  <span className="text-lg text-gold font-bold">{LvMax}</span>
                 </div>
               </article>
               <div className="divider m-0 h-0"></div>

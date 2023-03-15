@@ -450,3 +450,21 @@ interface PvPTeam {
   };
   Results: MembersListTypes[];
 }
+
+export interface jobData {
+  Name: string;
+  LvMax: number;
+  Lv80: number;
+  Lv70: number;
+  Lv60: number;
+  Lv50: number;
+  Lv30: number;
+  classId: number;
+  jobData: {
+    Job: string;
+    Role: string;
+    Position?: string;
+    ImageSrc: string;
+    SVG?: object;
+  };
+}
