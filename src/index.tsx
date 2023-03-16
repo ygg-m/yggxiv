@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import { CharacterProvider } from "./Contexts/CharacterContext";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
+import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import reportWebVitals from "./reportWebVitals";
@@ -34,9 +35,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <SearchProvider>
-      <RouterProvider router={router} />
-    </SearchProvider>
+    <GameDataProvider>
+      <SearchProvider>
+        <RouterProvider router={router} />
+      </SearchProvider>
+    </GameDataProvider>
   </React.StrictMode>
 );
 

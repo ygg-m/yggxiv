@@ -152,3 +152,47 @@ export async function getCharacterList(
 
   return newList.filter((character) => !!character) as CharacterData[]; // Filter out undefined values
 }
+
+export async function getMounts() {
+  const url = "https://xivapi.com/Mount?limit=3000";
+  const response = await axios.get(url);
+  const data = response.data;
+
+  return data.Results.filter(
+    (e: { ID: number; Icon: string; Name: string; Url: string }) =>
+      e.Icon !== ""
+  );
+}
+
+export async function getMinions() {
+  const url = "https://xivapi.com/Companion?limit=3000";
+  const response = await axios.get(url);
+  const data = response.data;
+
+  return data.Results.filter(
+    (e: { ID: number; Icon: string; Name: string; Url: string }) =>
+      e.Icon !== ""
+  );
+}
+
+export async function getAchievements() {
+  const urls = [
+    "https://xivapi.com/Achievement?limit=3000",
+    "https://xivapi.com/Achievement?limit=3000&Page=2",
+  ];
+  const response = await Promise.all(
+    urls.map((url) =>
+      axios
+        .get(url)
+        .then((res) => res.data)
+        .catch((err) => undefined)
+    )
+  );
+
+  const data = [...response[0].Results, ...response[1].Results].filter(
+    (e: { ID: number; Icon: string; Name: string; Url: string }) =>
+      e.Icon !== ""
+  );
+
+  return data;
+}

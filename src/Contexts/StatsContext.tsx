@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { jobs } from "../Data/jobs";
 import { races } from "../Data/races";
+import { useGameData } from "./GameDataContext";
 
 import { CharacterData, jobData, LeaderBoardType, raceData } from "../Types";
 import { useFreeCompany } from "./FreeCompanyContext";
@@ -31,6 +32,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   children,
 }) => {
   const { MembersFullData } = useFreeCompany();
+  const { mounts, minions, achievements } = useGameData();
 
   // States
 
@@ -52,15 +54,15 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   const [popularJobs, setPopularJobs] = useState<jobData[]>(getPopularJobs());
 
   // Mount
-  const [popularMount, setPopularMount] = useState();
+  const [popularMount, setPopularMount] = useState(mounts);
   const [rarestMount, setRarestMount] = useState();
 
   // Minion
-  const [popularMinion, setPopularMinion] = useState();
-  const [rarestMinion, setRarestMinion] = useState();
+  const [popularMinion, setPopularMinion] = useState(minions);
+  const [rarestMinion, setRarestMinion] = useState(minions);
 
   // Achievement
-  const [rarestAchievement, setRarestAchievement] = useState();
+  const [rarestAchievement, setRarestAchievement] = useState(achievements);
 
   // Functions
 
@@ -255,9 +257,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Mounts
   function getPopularMounts() {
-    const raceCount: {
-      [raceName: string]: {
-        RaceCount: number;
+    const mountCount: {
+      [mountCount: string]: {
+        count: number;
         TribeCount_1: number;
         TribeCount_2: number;
         MaleCount: number;
@@ -280,9 +282,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
       const raceData = races.filter((e) => e.ID === raceID)[0];
       const gender = character.Character.Gender;
 
-      if (!raceCount[raceID]) {
-        raceCount[raceID] = {
-          RaceCount: 0,
+      if (!mountCount[raceID]) {
+        mountCount[raceID] = {
+          count: 0,
           TribeCount_1: 0,
           TribeCount_2: 0,
           MaleCount: 0,
@@ -291,29 +293,22 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         };
       }
 
-      if (gender === 1) raceCount[raceID].MaleCount++;
-      if (gender === 2) raceCount[raceID].FemaleCount++;
-      if (raceID === raceCount[raceID].raceData.ID)
-        raceCount[raceID].RaceCount++;
-      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID)
-        raceCount[raceID].TribeCount_1++;
-      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID)
-        raceCount[raceID].TribeCount_2++;
+      // if (gender === 1) raceCount[raceID].MaleCount++;
+      // if (gender === 2) raceCount[raceID].FemaleCount++;
+      // if (raceID === raceCount[raceID].raceData.ID)
+      //   raceCount[raceID].RaceCount++;
+      // if (tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID)
+      //   raceCount[raceID].TribeCount_1++;
+      // if (tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID)
+      //   raceCount[raceID].TribeCount_2++;
     });
 
-    const countsArray = Object.entries(raceCount).map(
+    const countsArray = Object.entries(mountCount).map(
       ([
         raceName,
-        {
-          RaceCount,
-          MaleCount,
-          FemaleCount,
-          TribeCount_1,
-          TribeCount_2,
-          raceData,
-        },
+        { count, MaleCount, FemaleCount, TribeCount_1, TribeCount_2, raceData },
       ]) => ({
-        RaceCount: RaceCount,
+        count: count,
         TribeCount_1: TribeCount_1,
         TribeCount_2: TribeCount_2,
         MaleCount: MaleCount,
@@ -322,7 +317,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
       })
     );
 
-    return countsArray.sort((a, b) => b.RaceCount - a.RaceCount);
+    return countsArray.sort((a, b) => b.count - a.count);
   }
 
   // Leaderboard
