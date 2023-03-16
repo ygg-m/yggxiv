@@ -384,8 +384,8 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   async function fetchMembersData() {
     setMembersFetchLoad(true);
     const result = (await getCharacterList(FreeCompanyMembers, (progress) => {
-      setFetchProgress(Math.trunc(progress));
-      // Update progress bar or display message to user
+      // setFetchProgress(Math.trunc(progress));
+      // Update progress bar
     })) as CharacterData[];
     setMembersFullData(result);
     setMembersFetchLoad(false);
@@ -432,7 +432,11 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   };
 
   useEffect(() => {
-    fetchMembersData();
+    const isMemberDataEmpty =
+      MembersFullData[0]?.Character?.ID === 0 || MembersFullData.length === 0;
+
+    if (isMemberDataEmpty) fetchMembersData();
+
     setRankList(getRanks(FreeCompanyMembers));
   }, [freeCompany]);
 

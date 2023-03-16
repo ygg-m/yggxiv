@@ -10,6 +10,7 @@ export const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
+  
   if (isMemberDataEmpty || membersFetchLoad)
     return <FetchProgress value={fetchProgress} />;
 

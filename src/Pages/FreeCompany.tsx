@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Footer } from "../Components";
@@ -29,21 +29,7 @@ export const FreeCompany = () => {
   const isFCDataEmpty = freeCompany.FreeCompany.ID === "0";
   const isFCDataDifferent = freeCompany.FreeCompany.ID !== fcId;
   const isMemberDataDifferent =
-    freeCompany.FreeCompanyMembers.filter(
-      (e) => e.ID === MembersFullData[0]?.Character?.ID
-    ).length === 0;
-
-  if (isFCDataDifferent || isFCDataEmpty) {
-    fetchFreeCompany(fcId);
-
-    return (
-      <div className="flex items-center justify-center w-screen h-screen">
-        <button className="btn loading">Getting free company info</button>
-      </div>
-    );
-  }
-
-  if (isMemberDataEmpty || isMemberDataDifferent) fetchMembersData();
+    freeCompany.FreeCompanyMembers[0]?.ID !== MembersFullData[0]?.Character?.ID;
 
   const CoverImage = () => {
     return (
@@ -135,6 +121,15 @@ export const FreeCompany = () => {
       content: <Stats />,
     },
   ];
+
+  if (isFCDataDifferent || isFCDataEmpty) {
+    fetchFreeCompany(fcId);
+    return (
+      <div className="flex items-center justify-center w-screen h-screen">
+        <button className="btn loading">Getting free company info</button>
+      </div>
+    );
+  }
 
   if (baseFetchLoad)
     return (

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 import { StatsProvider } from "../../Contexts/StatsContext";
+import { FetchProgress } from "../LoadingComponents/FetchProgress";
 import { Jobs, Races, Summary } from "./Stats/index";
 
 export const Stats = () => {
@@ -10,15 +11,7 @@ export const Stats = () => {
 
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
   if (isMemberDataEmpty || membersFetchLoad)
-    return (
-      <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
-        <nav className="navbar grid bg-base-100 rounded-lg h-fit">
-          <button className="btn loading">
-            Getting members info ({fetchProgress}%)
-          </button>
-        </nav>
-      </section>
-    );
+    return <FetchProgress value={fetchProgress} />;
 
   const tabs = [
     {
