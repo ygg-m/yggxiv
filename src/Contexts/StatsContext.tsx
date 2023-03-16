@@ -110,14 +110,17 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         character,
       ];
 
-      if (gender === 1) raceCount[raceID].MaleCount++;
-      if (gender === 2) raceCount[raceID].FemaleCount++;
-      if (raceID === raceCount[raceID].raceData.ID)
-        raceCount[raceID].RaceCount++;
-      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID)
-        raceCount[raceID].TribeCount_1++;
-      if (tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID)
-        raceCount[raceID].TribeCount_2++;
+      const isTribe1 = tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID;
+      const isTribe2 = tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID;
+      const isRace = raceID === raceCount[raceID].raceData.ID;
+      const isMale = gender === 1;
+      const isFemale = gender === 2;
+
+      if (isMale) raceCount[raceID].MaleCount++;
+      if (isFemale) raceCount[raceID].FemaleCount++;
+      if (isRace) raceCount[raceID].RaceCount++;
+      if (isTribe1) raceCount[raceID].TribeCount_1++;
+      if (isTribe2) raceCount[raceID].TribeCount_2++;
     });
 
     const countsArray = Object.entries(raceCount).map(
