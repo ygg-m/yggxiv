@@ -271,23 +271,89 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     const mountCount: {
       [mountName: string]: {
         count: number;
-        MainStoryMount: boolean;
+        MainStory: boolean;
+        Premium: boolean;
         mountData: CollectibleData;
         owners: CharacterData[];
       };
     } = {};
 
+    const MainStorys = [
+      "company chocobo",
+      "magitek armor",
+      "black chocobo",
+      "manacutter",
+      "midgardsormr",
+      "yol",
+      "argos",
+    ];
+
+    const Premiums = [
+      "set of ceruleum balloons",
+      "magicked parasol",
+      "magicked umbrella",
+      "mechanical lotus",
+      "megashiba",
+      "papa paissa",
+      "arion",
+      "cruise chaser",
+      "polar bear",
+      "lunar whale",
+      "chocorpokkur",
+      "snowman",
+      "chocobo carriage",
+      "rubellite carbuncle",
+      "kingly peacock",
+      "spriggan stonecarrier",
+      "sunspun cumulus",
+      "circus ahriman",
+      "grani",
+      "magicked carpet",
+      "fat black chocobo",
+      "fatter cat",
+      "sds fenrir",
+      "indigo whale",
+      "red hare",
+      "broken heart (left)",
+      "broken heart (right)",
+      "nezha chariot",
+      "citrine carbuncle",
+      "aquamarine carbuncle",
+      "starlight bear",
+      "mystic panda",
+      "managarm",
+      "syldra",
+      "eggshilaration system",
+      "fat moogle",
+      "bennu",
+      "original fat chocobo",
+      "red baron",
+      "white devil",
+      "witch's broom",
+      "twintania",
+      "amber draught chocobo",
+      "griffin",
+      "ceremony chocobo",
+      "sleipnir",
+      "draught chocobo",
+      "fat chocobo",
+      "coeurl",
+    ];
+
     Object.values(MembersFullData).forEach((character) => {
+      if (!character.Mounts) return;
+
       character.Mounts.forEach((mount) => {
         const mountName = mount.Name.toLowerCase();
         const mountData = mounts.filter(
-          (e: CollectibleData) => e.Name === mountName
+          (e: CollectibleData) => e.Name.toLowerCase() === mountName
         )[0];
 
         if (!mountCount[mountName]) {
           mountCount[mountName] = {
             count: 0,
-            MainStoryMount: false,
+            MainStory: false,
+            Premium: false,
             mountData,
             owners: [],
           };
@@ -298,13 +364,19 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
           ...mountCount[mountName].owners,
           character,
         ];
+
+        if (MainStorys.includes(mountName))
+          mountCount[mountName].MainStory = true;
+
+        if (Premiums.includes(mountName)) mountCount[mountName].Premium = true;
       });
     });
 
     const countsArray = Object.entries(mountCount).map(
-      ([mountName, { count, MainStoryMount, mountData, owners }]) => ({
+      ([mountName, { count, MainStory, Premium, mountData, owners }]) => ({
         count: count,
-        MainStoryMount: MainStoryMount,
+        MainStory: MainStory,
+        Premium: Premium,
         mountData,
         owners,
       })

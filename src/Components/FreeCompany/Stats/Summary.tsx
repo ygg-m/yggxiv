@@ -6,11 +6,13 @@ import {
   MinusIcon,
   PlusIcon,
 } from "../../../Assets/Images/UI";
+import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 import { useStats } from "../../../Contexts/StatsContext";
-import { jobData, raceData } from "../../../Types";
+import { CollectibleTypes, jobData, raceData } from "../../../Types";
 
 export const Summary = () => {
-  const { popularJobs, popularRaces, popularGender } = useStats();
+  const { popularJobs, popularRaces, popularGender, popularMount } = useStats();
+  const { MembersFullData } = useFreeCompany();
 
   const Divider = () => {
     return <div className="divider m-0"></div>;
@@ -19,10 +21,12 @@ export const Summary = () => {
   const ShowData = ({
     name,
     value,
+    strValue,
     icon,
   }: {
     name: string;
-    value: number;
+    value?: number;
+    strValue?: string;
     icon?: any;
   }) => {
     return (
@@ -31,7 +35,11 @@ export const Summary = () => {
           {icon && icon}
           <span>{name}</span>
         </div>
-        <span>{value === 0 ? "-" : value}</span>
+        {strValue ? (
+          <span>{strValue}</span>
+        ) : (
+          <span>{value === 0 ? "-" : value}</span>
+        )}
       </div>
     );
   };
@@ -204,28 +212,64 @@ export const Summary = () => {
     );
   };
 
-  const Mount = () => {
+  interface MountProps {
+    data: CollectibleTypes;
+    showOwners?: boolean;
+  }
+
+  const Mount = ({ data, showOwners }: MountProps) => {
+    const { count, MainStory, owners } = data;
+
+    const { Name, Icon } = data.mountData;
+
+    const percentage = Math.floor((count / MembersFullData.length) * 100);
+    const dataValue = `${count} (${percentage}%)`;
+
     return (
-      <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-        <div className="grid justify-center gap-2">
+      <div className="grid gap-2 bg-base-200 hover:bg-base-300 duration-200 p-4 rounded-lg">
+        <div className="grid justify-center gap-2 p-4 place-items-center">
           <img
-            src="https://xivapi.com/i/004000/004001_hr1.png"
-            alt="Chocobo"
-            className="mask mask-squircle w-24 bg-dps"
+            src={`https://xivapi.com/${Icon}`}
+            alt={Name}
+            className="mask mask-squircle w-24"
           />
-          <h4 className="text-lg text-center">Chocobo</h4>
+          <h4 className="text-lg text-center capitalize">{Name}</h4>
         </div>
 
-        <Divider />
-        <div className="flex justify-between">
-          <span>Owned</span>
-          <span>130 (76%)</span>
+        <div className="bg-neutral px-4 py-2 rounded-lg">
+          <ShowData name="Owned" strValue={dataValue} />
         </div>
+
+        {showOwners && (
+          <div className="grid bg-neutral px-4 py-2 rounded-lg">
+            <span>Owners</span>
+            <div className="flex flex-wrap justify-between">
+              {owners.map((owner) => {
+                const { Name, Avatar } = owner.Character;
+                return (
+                  <div
+                    className="tooltip cursor-pointer hover:bg-base-300 duration-200 p-2 rounded-lg"
+                    data-tip={Name}
+                  >
+                    <img
+                      src={Avatar}
+                      alt={Name}
+                      className="w-10 mask mask-squircle"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   };
 
   const PopularMounts = () => {
+    const filter = popularMount.filter((mount) => mount.MainStory !== true);
+    const top3 = filter.slice(0, 3);
+
     return (
       <div className="grid gap-2">
         <div className="flex justify-between">
@@ -239,15 +283,19 @@ export const Summary = () => {
         </button>
 
         <div className="grid md:grid-cols-3 gap-2">
-          <Mount />
-          <Mount />
-          <Mount />
+          {top3.map((mount) => {
+            return <Mount key={uuidv4()} data={mount} />;
+          })}
         </div>
       </div>
     );
   };
 
   const RarestMounts = () => {
+    const reverse = [...popularMount].reverse();
+    const filter = reverse.filter((mount) => mount.Premium !== true);
+    const top3 = filter.slice(0, 3);
+
     return (
       <div className="grid gap-2">
         <div className="flex justify-between">
@@ -255,164 +303,10 @@ export const Summary = () => {
           <button className="btn btn-primary">See full List →</button>
         </div>
         <div className="grid md:grid-cols-3 gap-2">
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004001_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-lg text-center">Chocobo</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004001_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-lg text-center">Chocobo</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004001_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-lg text-center">Chocobo</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          {top3.map((mount) => {
+            return <Mount key={uuidv4()} data={mount} showOwners />;
+          })}
         </div>
-        <button className="btn">See full List →</button>
       </div>
     );
   };
