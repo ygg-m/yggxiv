@@ -141,7 +141,7 @@ export const FreeCompany = () => {
   return (
     <div className="w-screen bg-neutral-900 min-h-screen flex flex-col items-center">
       <CoverImage />
-      <div className="w-screen max-w-screen-2xl flex flex-col px-8">
+      <div className="w-screen max-w-screen-2xl flex flex-col sm:px-8 px-2 pr-4">
         <Header />
         <MemoizedNavigator />
         <article className="tab-content">{tabs[activeTab].content}</article>

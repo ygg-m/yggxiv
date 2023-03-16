@@ -1,5 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
-import { FemaleIcon, MaleIcon } from "../../../Assets/Images/UI";
+import {
+  ChevronDownIcon,
+  FemaleIcon,
+  MaleIcon,
+  MinusIcon,
+  PlusIcon,
+} from "../../../Assets/Images/UI";
 import { useStats } from "../../../Contexts/StatsContext";
 import { jobData, raceData } from "../../../Types";
 
@@ -23,25 +29,8 @@ export const Summary = () => {
       <div className="flex justify-between hover:text-accent duration-200">
         <div className="flex items-center gap-2">
           {icon && icon}
-          <span className="opacity-50">{name}</span>
+          <span>{name}</span>
         </div>
-        <span>{value === 0 ? "-" : value}</span>
-      </div>
-    );
-  };
-
-  const ShowDataCollapse = ({
-    name,
-    value,
-    list,
-  }: {
-    name: string;
-    value: number;
-    list?: [];
-  }) => {
-    return (
-      <div className="flex justify-between">
-        <span className="opacity-50">{name}</span>
         <span>{value === 0 ? "-" : value}</span>
       </div>
     );
@@ -71,15 +60,15 @@ export const Summary = () => {
 
     return (
       <div className="grid gap-2 bg-base-200 p-4 rounded-lg hover:bg-base-300 duration-200">
-        <div className="grid justify-center gap-2">
+        <div className="grid justify-center gap-2 p-4">
           <div className="tooltip" data-tip={CharName}>
             <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />
           </div>
           <h4 className="text-lg text-center">{Name}</h4>
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg">
-          <ShowDataCollapse name="Characters" value={RaceCount} />
+        <div className="bg-neutral px-4 py-2 rounded-lg w-full">
+          <ShowData name="Characters" value={RaceCount} />
         </div>
 
         <div className="bg-neutral px-4 py-2 rounded-lg">
@@ -129,15 +118,15 @@ export const Summary = () => {
 
   const Gender = ({ name, count, Icon }: GenderProps) => {
     return (
-      <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
+      <div className="flex gap-4 bg-base-200 duration-200 hover:bg-base-300 p-8 rounded-lg hover:text-accent">
         <div className="grid justify-center gap-2">
           {Icon}
           <h4 className="text-lg text-center">{name}</h4>
         </div>
-
-        <Divider />
-
-        <ShowData name="Characters" value={count} />
+        <div className="divider divider-horizontal"></div>
+        <h3 className="flex w-full h-full items-center justify-center text-2xl sm:text-6xl font-bold">
+          {count}
+        </h3>
       </div>
     );
   };
@@ -148,15 +137,14 @@ export const Summary = () => {
 
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Most popular Gender</h2>
-        <div className="grid sm:grid-cols-2 gap-2">
+        <div className="flex gap-4 sm:flex-row flex-col justify-center">
           <Gender
-            Icon={<MaleIcon className="w-16 h-16" />}
+            Icon={<MaleIcon className="h-8 w-8 sm:w-16 sm:h-16" />}
             name="Male"
             count={male.count}
           />
           <Gender
-            Icon={<FemaleIcon className="w-16 h-16" />}
+            Icon={<FemaleIcon className="h-8 w-8 sm:w-16 sm:h-16" />}
             name="Female"
             count={female.count}
           />
@@ -175,23 +163,25 @@ export const Summary = () => {
 
     return (
       <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-        <div className="grid justify-center gap-2">
+        <div className="grid justify-center gap-2 p-4">
           <img
             src={ImageSrc}
             alt={Job}
-            className={`mask mask-squircle p-2 w-24 bg-${Role.toLowerCase()}`}
+            className={`mask mask-squircle p-4 w-24 bg-${Role.toLowerCase()}`}
           />
           <h4 className="text-lg text-center">{Job}</h4>
         </div>
 
-        <Divider />
-        <ShowData name="Max Level" value={LvMax} />
-        <Divider />
-        <ShowData name="Level 80+" value={Lv80} />
-        <ShowData name="Level 70+" value={Lv70} />
-        <ShowData name="Level 60+" value={Lv60} />
-        <ShowData name="Level 50+" value={Lv50} />
-        <ShowData name="Level 30+" value={Lv30} />
+        <div className="bg-neutral px-4 py-2 rounded-lg">
+          <ShowData name="Max Level" value={LvMax} />
+        </div>
+        <div className="bg-neutral px-4 py-2 rounded-lg">
+          <ShowData name="Level 80+" value={Lv80} />
+          <ShowData name="Level 70+" value={Lv70} />
+          <ShowData name="Level 60+" value={Lv60} />
+          <ShowData name="Level 50+" value={Lv50} />
+          <ShowData name="Level 30+" value={Lv30} />
+        </div>
       </div>
     );
   };
@@ -201,13 +191,15 @@ export const Summary = () => {
 
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Most popular Jobs</h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Most popular Jobs</h2>
+          <button className="btn btn-primary">See full List →</button>
+        </div>
         <div className="grid md:grid-cols-3 gap-2">
           {top3.map((job: jobData) => (
             <Job key={uuidv4()} data={job} />
           ))}
         </div>
-        <button className="btn">See full List →</button>
       </div>
     );
   };
@@ -226,7 +218,7 @@ export const Summary = () => {
 
         <Divider />
         <div className="flex justify-between">
-          <span className="opacity-50">Owned</span>
+          <span>Owned</span>
           <span>130 (76%)</span>
         </div>
       </div>
@@ -236,13 +228,21 @@ export const Summary = () => {
   const PopularMounts = () => {
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Most popular Mounts</h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Most popular Mounts</h2>
+          <button className="btn btn-primary">See full List →</button>
+        </div>
+
+        <button className="btn w-fit gap-2">
+          <PlusIcon className="w-4" />
+          Show Main Story Quest Mounts
+        </button>
+
         <div className="grid md:grid-cols-3 gap-2">
           <Mount />
           <Mount />
           <Mount />
         </div>
-        <button className="btn">See full List →</button>
       </div>
     );
   };
@@ -250,7 +250,10 @@ export const Summary = () => {
   const RarestMounts = () => {
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Rarest Mounts</h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Rarest Mounts</h2>
+          <button className="btn btn-primary">See full List →</button>
+        </div>
         <div className="grid md:grid-cols-3 gap-2">
           <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
             <div className="grid justify-center gap-2">
@@ -264,12 +267,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -316,12 +319,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -368,12 +371,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -428,7 +431,7 @@ export const Summary = () => {
 
         <Divider />
         <div className="flex justify-between">
-          <span className="opacity-50">Owned</span>
+          <span>Owned</span>
           <span>130 (76%)</span>
         </div>
       </div>
@@ -466,12 +469,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -518,12 +521,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -570,12 +573,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -633,12 +636,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -685,12 +688,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
@@ -737,12 +740,12 @@ export const Summary = () => {
 
             <Divider />
             <div className="flex justify-between">
-              <span className="opacity-50">Owned</span>
+              <span>Owned</span>
               <span>3 (2%)</span>
             </div>
             <Divider />
             <div className="grid">
-              <span className="opacity-50">Owners</span>
+              <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
                   className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
