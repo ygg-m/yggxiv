@@ -1,6 +1,8 @@
 export {
   CharacterData,
   CharacterDataDeclaration,
+  CollectibleData,
+  CollectibleTypes,
   jobData,
   raceData,
 } from "./CharacterData";

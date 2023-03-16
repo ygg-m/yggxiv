@@ -486,3 +486,17 @@ export interface raceData {
   };
   memberList: CharacterData[];
 }
+
+export interface CollectibleData {
+  ID: number;
+  Icon: string;
+  Name: string;
+  Url: string;
+}
+
+export interface CollectibleTypes {
+  count: number;
+  MainStoryMount: boolean;
+  mountData: CollectibleData;
+  owners: CharacterData[];
+}

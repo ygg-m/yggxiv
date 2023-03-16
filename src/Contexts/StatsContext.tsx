@@ -3,7 +3,14 @@ import { jobs } from "../Data/jobs";
 import { races } from "../Data/races";
 import { useGameData } from "./GameDataContext";
 
-import { CharacterData, jobData, LeaderBoardType, raceData } from "../Types";
+import {
+  CharacterData,
+  CollectibleData,
+  CollectibleTypes,
+  jobData,
+  LeaderBoardType,
+  raceData,
+} from "../Types";
 import { useFreeCompany } from "./FreeCompanyContext";
 
 type StatsContextType = {
@@ -13,6 +20,7 @@ type StatsContextType = {
   popularJobs: jobData[];
   popularRaces: raceData[];
   popularGender: { count: number }[];
+  popularMount: CollectibleTypes[];
 };
 
 const StatsContext = createContext<StatsContextType>({
@@ -22,6 +30,7 @@ const StatsContext = createContext<StatsContextType>({
   popularJobs: [],
   popularRaces: [],
   popularGender: [],
+  popularMount: [],
 });
 
 export const useStats = () => useContext(StatsContext);
@@ -54,7 +63,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   const [popularJobs, setPopularJobs] = useState<jobData[]>(getPopularJobs());
 
   // Mount
-  const [popularMount, setPopularMount] = useState(mounts);
+  const [popularMount, setPopularMount] = useState<CollectibleTypes[]>(
+    getPopularMounts()
+  );
   const [rarestMount, setRarestMount] = useState();
 
   // Minion
@@ -258,62 +269,44 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   // Mounts
   function getPopularMounts() {
     const mountCount: {
-      [mountCount: string]: {
+      [mountName: string]: {
         count: number;
-        TribeCount_1: number;
-        TribeCount_2: number;
-        MaleCount: number;
-        FemaleCount: number;
-        raceData: {
-          ID: number;
-          Icon: string;
-          Name: string;
-          Tribes: {
-            Tribe1: { ID: number; Icon: string; Name: string };
-            Tribe2: { ID: number; Icon: string; Name: string };
-          };
-        };
+        MainStoryMount: boolean;
+        mountData: CollectibleData;
+        owners: CharacterData[];
       };
     } = {};
 
     Object.values(MembersFullData).forEach((character) => {
-      const raceID = character.Character.Race;
-      const tribeID = character.Character.Tribe;
-      const raceData = races.filter((e) => e.ID === raceID)[0];
-      const gender = character.Character.Gender;
+      character.Mounts.forEach((mount) => {
+        const mountName = mount.Name.toLowerCase();
+        const mountData = mounts.filter(
+          (e: CollectibleData) => e.Name === mountName
+        )[0];
 
-      if (!mountCount[raceID]) {
-        mountCount[raceID] = {
-          count: 0,
-          TribeCount_1: 0,
-          TribeCount_2: 0,
-          MaleCount: 0,
-          FemaleCount: 0,
-          raceData,
-        };
-      }
+        if (!mountCount[mountName]) {
+          mountCount[mountName] = {
+            count: 0,
+            MainStoryMount: false,
+            mountData,
+            owners: [],
+          };
+        }
 
-      // if (gender === 1) raceCount[raceID].MaleCount++;
-      // if (gender === 2) raceCount[raceID].FemaleCount++;
-      // if (raceID === raceCount[raceID].raceData.ID)
-      //   raceCount[raceID].RaceCount++;
-      // if (tribeID === raceCount[raceID].raceData.Tribes.Tribe1.ID)
-      //   raceCount[raceID].TribeCount_1++;
-      // if (tribeID === raceCount[raceID].raceData.Tribes.Tribe2.ID)
-      //   raceCount[raceID].TribeCount_2++;
+        mountCount[mountName].count++;
+        mountCount[mountName].owners = [
+          ...mountCount[mountName].owners,
+          character,
+        ];
+      });
     });
 
     const countsArray = Object.entries(mountCount).map(
-      ([
-        raceName,
-        { count, MaleCount, FemaleCount, TribeCount_1, TribeCount_2, raceData },
-      ]) => ({
+      ([mountName, { count, MainStoryMount, mountData, owners }]) => ({
         count: count,
-        TribeCount_1: TribeCount_1,
-        TribeCount_2: TribeCount_2,
-        MaleCount: MaleCount,
-        FemaleCount: FemaleCount,
-        raceData,
+        MainStoryMount: MainStoryMount,
+        mountData,
+        owners,
       })
     );
 
@@ -389,6 +382,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     popularJobs,
     popularRaces,
     popularGender,
+    popularMount,
   };
 
   return (

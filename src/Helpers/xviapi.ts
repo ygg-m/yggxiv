@@ -2,6 +2,7 @@ import axios from "axios";
 import pLimit from "p-limit";
 import {
   CharacterData,
+  CollectibleData,
   FreeCompanyData,
   FreeCompanyFull,
   FreeCompanySearchResult,
@@ -153,29 +154,23 @@ export async function getCharacterList(
   return newList.filter((character) => !!character) as CharacterData[]; // Filter out undefined values
 }
 
-export async function getMounts() {
+export async function getMounts(): Promise<CollectibleData[]> {
   const url = "https://xivapi.com/Mount?limit=3000";
   const response = await axios.get(url);
   const data = response.data;
 
-  return data.Results.filter(
-    (e: { ID: number; Icon: string; Name: string; Url: string }) =>
-      e.Icon !== ""
-  );
+  return data.Results.filter((e: CollectibleData) => e.Icon !== "");
 }
 
-export async function getMinions() {
+export async function getMinions(): Promise<CollectibleData[]> {
   const url = "https://xivapi.com/Companion?limit=3000";
   const response = await axios.get(url);
   const data = response.data;
 
-  return data.Results.filter(
-    (e: { ID: number; Icon: string; Name: string; Url: string }) =>
-      e.Icon !== ""
-  );
+  return data.Results.filter((e: CollectibleData) => e.Icon !== "");
 }
 
-export async function getAchievements() {
+export async function getAchievements(): Promise<CollectibleData[]> {
   const urls = [
     "https://xivapi.com/Achievement?limit=3000",
     "https://xivapi.com/Achievement?limit=3000&Page=2",
@@ -190,8 +185,7 @@ export async function getAchievements() {
   );
 
   const data = [...response[0].Results, ...response[1].Results].filter(
-    (e: { ID: number; Icon: string; Name: string; Url: string }) =>
-      e.Icon !== ""
+    (e: CollectibleData) => e.Icon !== ""
   );
 
   return data;

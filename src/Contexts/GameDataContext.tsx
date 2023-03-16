@@ -20,16 +20,16 @@ type GameDataContextProps = { children: React.ReactNode };
 export const GameDataProvider: React.FC<GameDataContextProps> = ({
   children,
 }) => {
-  const [mounts, setMounts] = useState([]);
-  const [minions, setMinions] = useState([]);
-  const [achievements, setAchievements] = useState<
-    {
-      ID: number;
-      Icon: string;
-      Name: string;
-      Url: string;
-    }[]
-  >([]);
+  interface CollectibleData {
+    ID: number;
+    Icon: string;
+    Name: string;
+    Url: string;
+  }
+
+  const [mounts, setMounts] = useState<CollectibleData[]>([]);
+  const [minions, setMinions] = useState<CollectibleData[]>([]);
+  const [achievements, setAchievements] = useState<CollectibleData[]>([]);
 
   useMemo(async () => {
     const data = await getMounts();
