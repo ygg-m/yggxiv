@@ -67,7 +67,7 @@ export const Summary = () => {
           <h4 className="text-lg text-center">{Name}</h4>
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg w-full">
+        <div className="bg-neutral px-4 py-2 rounded-lg">
           <ShowData name="Characters" value={RaceCount} />
         </div>
 
