@@ -484,4 +484,5 @@ export interface raceData {
       Tribe2: { ID: number; Icon: string; Name: string };
     };
   };
+  memberList: CharacterData[];
 }

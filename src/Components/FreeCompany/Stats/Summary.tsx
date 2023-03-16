@@ -24,18 +24,29 @@ export const Summary = () => {
   }
 
   const Race = ({ data }: raceProps) => {
-    const { RaceCount, TribeCount_1, TribeCount_2, MaleCount, FemaleCount } =
-      data;
     const {
-      Icon,
+      RaceCount,
+      TribeCount_1,
+      TribeCount_2,
+      MaleCount,
+      FemaleCount,
+      memberList,
+    } = data;
+
+    const {
       Name,
       Tribes: { Tribe1, Tribe2 },
     } = data.raceData;
 
+    const { Avatar, Name: CharName } =
+      memberList[Math.floor(Math.random() * memberList.length)].Character;
+
     return (
       <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
         <div className="grid justify-center gap-2">
-          <img src={Icon} alt={Name} className="mask mask-squircle w-24" />
+          <div className="tooltip" data-tip={CharName}>
+            <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />
+          </div>
           <h4 className="text-lg text-center">{Name}</h4>
         </div>
 
