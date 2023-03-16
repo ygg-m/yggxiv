@@ -10,7 +10,35 @@ export const Summary = () => {
     return <div className="divider m-0"></div>;
   };
 
-  const ShowData = ({ name, value }: { name: string; value: number }) => {
+  const ShowData = ({
+    name,
+    value,
+    icon,
+  }: {
+    name: string;
+    value: number;
+    icon?: any;
+  }) => {
+    return (
+      <div className="flex justify-between hover:text-accent duration-200">
+        <div className="flex items-center gap-2">
+          {icon && icon}
+          <span className="opacity-50">{name}</span>
+        </div>
+        <span>{value === 0 ? "-" : value}</span>
+      </div>
+    );
+  };
+
+  const ShowDataCollapse = ({
+    name,
+    value,
+    list,
+  }: {
+    name: string;
+    value: number;
+    list?: [];
+  }) => {
     return (
       <div className="flex justify-between">
         <span className="opacity-50">{name}</span>
@@ -42,7 +70,7 @@ export const Summary = () => {
       memberList[Math.floor(Math.random() * memberList.length)].Character;
 
     return (
-      <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
+      <div className="grid gap-2 bg-base-200 p-4 rounded-lg hover:bg-base-300 duration-200">
         <div className="grid justify-center gap-2">
           <div className="tooltip" data-tip={CharName}>
             <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />
@@ -50,19 +78,27 @@ export const Summary = () => {
           <h4 className="text-lg text-center">{Name}</h4>
         </div>
 
-        <Divider />
+        <div className="bg-neutral px-4 py-2 rounded-lg">
+          <ShowDataCollapse name="Characters" value={RaceCount} />
+        </div>
 
-        <ShowData name="Characters" value={RaceCount} />
+        <div className="bg-neutral px-4 py-2 rounded-lg">
+          <ShowData name={Tribe1.Name} value={TribeCount_1} />
+          <ShowData name={Tribe2.Name} value={TribeCount_2} />
+        </div>
 
-        <Divider />
-
-        <ShowData name={Tribe1.Name} value={TribeCount_1} />
-        <ShowData name={Tribe2.Name} value={TribeCount_2} />
-
-        <Divider />
-
-        <ShowData name="Male" value={MaleCount} />
-        <ShowData name="Female" value={FemaleCount} />
+        <div className="bg-neutral px-4 py-2 rounded-lg">
+          <ShowData
+            name="Male"
+            value={MaleCount}
+            icon={<MaleIcon className="w-4 h-4" />}
+          />
+          <ShowData
+            name="Female"
+            value={FemaleCount}
+            icon={<FemaleIcon className="w-4 h-4" />}
+          />
+        </div>
       </div>
     );
   };
@@ -72,13 +108,15 @@ export const Summary = () => {
 
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Most popular Races</h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Most popular Races</h2>
+          <button className="btn btn-primary">See full List →</button>
+        </div>
         <div className="grid md:grid-cols-3 gap-2">
           {top3.map((race) => (
             <Race key={uuidv4()} data={race} />
           ))}
         </div>
-        <button className="btn">See full List →</button>
       </div>
     );
   };

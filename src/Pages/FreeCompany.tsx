@@ -66,7 +66,7 @@ export const FreeCompany = () => {
       return (
         <div className="md:mt-4 flex gap-2 items-center">
           <div className="py-3 badge badge-md bg-neutral-800">{DataCenter}</div>
-          <div className="py-3 badge badge-md bg-primary text-rose-200">
+          <div className="py-3 badge badge-md badge-primary text-rose-200">
             {Server}
           </div>
         </div>

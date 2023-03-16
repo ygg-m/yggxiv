@@ -10,7 +10,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="bg-neutral-900 text-gray-200 w-full min-h-screen">
+    <div className="bg-neutral-900 w-full min-h-screen">
       <div className="flex flex-col gap-8 items-center justify-between min-h-screen h-full">
         <div className="flex flex-col gap-8 items-center h-full">
           <Logo />

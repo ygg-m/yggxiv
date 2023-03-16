@@ -42,7 +42,10 @@ export const SearchFreeCompany = () => {
       const Server = parse[0];
       const DataCenter = parse[1];
       return (
-        <div className="flex flex-col gap-6 items-center justify-center bg-base-100 rounded-xl pt-6 w-[20rem] overflow-hidden">
+        <div
+          className="flex flex-col gap-6 items-center justify-center bg-base-100 rounded-xl pt-6 w-[20rem] overflow-hidden"
+          key={uuidv4()}
+        >
           <div className="relative w-16 h-16 overflow-hidden rounded-xl">
             <div className="absolute">
               <img src={crest[0]} alt="" />
@@ -54,18 +57,18 @@ export const SearchFreeCompany = () => {
               <img src={crest[2]} alt="" />
             </div>
           </div>
-          <div className="flex items-center px-4 flex-col gap-2">
+          <div className="flex items-center px-4 flex-col gap-4">
             <h2 className="text-center font-bold text-2xl w-full">{name}</h2>
-            <h3 className="italic text-sm text-neutral-500">{ID}</h3>
+            <h3 className="italic text-sm text-neutral-500">ID: {ID}</h3>
             <div className="flex gap-2">
               <div className="py-3 badge badge-md">{DataCenter}</div>
-              <div className="py-3 badge badge-md bg-primary text-rose-200">
+              <div className="py-3 badge badge-md badge-primary text-rose-200">
                 {Server}
               </div>
             </div>
           </div>
           <Link className="w-full" to={`/FreeCompany/${ID}`}>
-            <button className="btn w-full hover:bg-primary rounded-none hover:text-neutral-200">
+            <button className="btn w-full hover:bg-primary rounded-none hover:text-neutral">
               See More
             </button>
           </Link>
