@@ -10,6 +10,7 @@ import {
 import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 import { useStats } from "../../../Contexts/StatsContext";
 import {
+  AchievementsTypes,
   CollectibleData,
   CollectibleTypes,
   jobData,
@@ -26,6 +27,11 @@ export const Summary = () => {
     rareAchievement,
   } = useStats();
   const { MembersFullData } = useFreeCompany();
+
+  let publicAchievement: number = 0;
+  MembersFullData.forEach(
+    (member) => member.Achievements.List.length > 0 && publicAchievement++
+  );
 
   const Divider = () => {
     return <div className="divider m-0"></div>;
@@ -232,7 +238,6 @@ export const Summary = () => {
 
   const Collectible = ({ data, showOwners }: CollectibleProps) => {
     const { count, MainStory, owners } = data;
-
     const { Name, Icon } = data.collectibleData;
 
     const percentage = Math.floor((count / MembersFullData.length) * 100);
@@ -263,6 +268,7 @@ export const Summary = () => {
                   <div
                     className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
                     data-tip={Name}
+                    key={uuidv4()}
                   >
                     <img
                       src={Avatar}
@@ -475,169 +481,73 @@ export const Summary = () => {
     );
   };
 
+  interface AchievementProps {
+    data: AchievementsTypes;
+    showOwners?: boolean;
+  }
+
+  const Achievement = ({ data, showOwners }: AchievementProps) => {
+    const { count, owners } = data;
+    const { Name, Icon } = data.achieveData;
+
+    return (
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">
+        <div className="grid place-items-center justify-center gap-2 p-4">
+          <img
+            src={`https://xivapi.com/${Icon}`}
+            alt={Name}
+            className="mask mask-squircle w-24"
+          />
+          <h4 className="text-center text-lg capitalize">{Name}</h4>
+        </div>
+
+        <div className="grid items-center rounded-lg bg-neutral px-4 py-2">
+          <ShowData name="Owned" value={count} />
+        </div>
+
+        {showOwners && (
+          <div className="grid rounded-lg bg-neutral px-4 py-2">
+            <span>Owners</span>
+            <div className="flex flex-wrap">
+              {owners.map((owner) => {
+                const { Name, Avatar } = owner.Character;
+                return (
+                  <div
+                    className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
+                    data-tip={Name}
+                    key={uuidv4()}
+                  >
+                    <img
+                      src={Avatar}
+                      alt={Name}
+                      className="mask mask-squircle w-10"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const RarestAchievements = () => {
+    const reverse = [...rareAchievement].reverse();
+    const top3 = reverse.slice(0, 3);
+
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Rarest Achievements</h2>
-        <div className="grid gap-2 md:grid-cols-3">
-          <div className="grid gap-2 rounded-lg bg-base-300 p-4">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/002000/002685_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24"
-              />
-              <h4 className="text-center text-lg">Endgame Hunter</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-2 rounded-lg bg-base-300 p-4">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004403_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-center text-lg">Bomb</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="grid gap-2 rounded-lg bg-base-300 p-4">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004403_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-center text-lg">Bomb</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Rarest Achievements</h2>
+          <button className="btn-primary btn">See full List →</button>
         </div>
-        <button className="btn">See full List →</button>
+
+        <div className="grid gap-2 md:grid-cols-3">
+          {top3.map((achieve) => (
+            <Achievement key={uuidv4()} data={achieve} showOwners />
+          ))}
+        </div>
       </div>
     );
   };
@@ -676,6 +586,11 @@ export const Summary = () => {
 
       <div className="rounded-lg bg-base-100 p-8">
         <h2 className="text-3xl font-bold">Achievement</h2>
+        <h4>
+          Using data of{" "}
+          <span className="text-accent">{publicAchievement} characters</span>{" "}
+          that made their Achievements Public.
+        </h4>
         <div className="divider"></div>
         <RarestAchievements />
       </div>

@@ -501,3 +501,9 @@ export interface CollectibleTypes {
   collectibleData: CollectibleData;
   owners: CharacterData[];
 }
+
+export interface AchievementsTypes {
+  count: number;
+  achieveData: CollectibleData;
+  owners: CharacterData[];
+}

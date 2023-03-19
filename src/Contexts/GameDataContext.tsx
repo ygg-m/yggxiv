@@ -54,7 +54,7 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
 
   useMemo(async () => {
     const local = loadData("MinionData");
-    if (local[0].ID !== 0) setMounts(local);
+    if (local[0].ID !== 0) setMinions(local);
     else {
       const data = await getMinions();
       setMinions(data);
@@ -64,11 +64,11 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
 
   useMemo(async () => {
     const local = loadData("AchievementData");
-    if (local[0].ID !== 0) setMounts(local);
+    if (local[0].ID !== 0) setAchievements(local);
     else {
       const data = await getAchievements();
       setAchievements(data);
-      saveData("AchievementData", data);
+      // saveData("AchievementData", data);
     }
   }, []);
 

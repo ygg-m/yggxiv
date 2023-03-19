@@ -4,6 +4,7 @@ import { races } from "../Data/races";
 import { useGameData } from "./GameDataContext";
 
 import {
+  AchievementsTypes,
   CharacterData,
   CollectibleData,
   CollectibleTypes,
@@ -22,7 +23,7 @@ type StatsContextType = {
   popularGender: { count: number }[];
   popularMount: CollectibleTypes[];
   popularMinion: CollectibleTypes[];
-  rareAchievement: CollectibleTypes[];
+  rareAchievement: AchievementsTypes[];
 };
 
 const StatsContext = createContext<StatsContextType>({
@@ -47,8 +48,6 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   const { MembersFullData } = useFreeCompany();
   const { mounts, minions, achievements } = useGameData();
 
-  // States
-
   // Leaderboards
   const [leaderboardMount, setLeaderboardMount] = useState<LeaderBoardType>();
   const [leaderboardMinion, setLeaderboardMinion] = useState<LeaderBoardType>();
@@ -56,7 +55,6 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     useState<LeaderBoardType>();
 
   // Character
-
   const popularRaces = useMemo(() => getPopularRaces(), [MembersFullData]);
   const popularGender = useMemo(() => getPopularGenders(), [MembersFullData]);
 
@@ -66,6 +64,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   // Collectibles
   const popularMount = useMemo(() => getPopularMounts(), [MembersFullData]);
   const popularMinion = useMemo(() => getPopularMinions(), [MembersFullData]);
+
   const rareAchievement = useMemo(
     () => getRareAchievements(),
     [MembersFullData]
@@ -536,119 +535,43 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   }
 
   function getRareAchievements() {
-    const mountCount: {
-      [mountName: string]: {
+    const achieveCount: {
+      [achieveID: string]: {
         count: number;
-        MainStory: boolean;
-        Premium: boolean;
-        collectibleData: CollectibleData;
+        achieveData: CollectibleData;
         owners: CharacterData[];
       };
     } = {};
 
-    const MainStorys = [
-      "company chocobo",
-      "magitek armor",
-      "black chocobo",
-      "manacutter",
-      "midgardsormr",
-      "yol",
-      "argos",
-    ];
-
-    const Premiums = [
-      "set of ceruleum balloons",
-      "magicked parasol",
-      "magicked umbrella",
-      "mechanical lotus",
-      "megashiba",
-      "papa paissa",
-      "arion",
-      "cruise chaser",
-      "polar bear",
-      "lunar whale",
-      "chocorpokkur",
-      "snowman",
-      "chocobo carriage",
-      "rubellite carbuncle",
-      "kingly peacock",
-      "spriggan stonecarrier",
-      "sunspun cumulus",
-      "circus ahriman",
-      "grani",
-      "magicked carpet",
-      "fat black chocobo",
-      "fatter cat",
-      "sds fenrir",
-      "indigo whale",
-      "red hare",
-      "broken heart (left)",
-      "broken heart (right)",
-      "nezha chariot",
-      "citrine carbuncle",
-      "aquamarine carbuncle",
-      "starlight bear",
-      "mystic panda",
-      "managarm",
-      "syldra",
-      "eggshilaration system",
-      "fat moogle",
-      "bennu",
-      "original fat chocobo",
-      "red baron",
-      "white devil",
-      "witch's broom",
-      "twintania",
-      "amber draught chocobo",
-      "griffin",
-      "ceremony chocobo",
-      "sleipnir",
-      "draught chocobo",
-      "fat chocobo",
-      "coeurl",
-    ];
-
     Object.values(MembersFullData).forEach((character) => {
       if (!character.Mounts) return;
 
-      character.Mounts.forEach((mount) => {
-        const mountName = mount.Name.toLowerCase();
-        const collectibleData = mounts.filter(
-          (e: CollectibleData) => e.Name.toLowerCase() === mountName
+      character.Achievements.List.forEach((achievement) => {
+        const achieveID = achievement.ID;
+        const achieveData = achievements.filter(
+          (e: CollectibleData) => e.ID === achieveID
         )[0];
 
-        if (!mountCount[mountName]) {
-          mountCount[mountName] = {
+        if (!achieveCount[achieveID]) {
+          achieveCount[achieveID] = {
             count: 0,
-            MainStory: false,
-            Premium: false,
-            collectibleData,
+            achieveData,
             owners: [],
           };
         }
 
-        mountCount[mountName].count++;
-        mountCount[mountName].owners = [
-          ...mountCount[mountName].owners,
+        achieveCount[achieveID].count++;
+        achieveCount[achieveID].owners = [
+          ...achieveCount[achieveID].owners,
           character,
         ];
-
-        if (MainStorys.includes(mountName))
-          mountCount[mountName].MainStory = true;
-
-        if (Premiums.includes(mountName)) mountCount[mountName].Premium = true;
       });
     });
 
-    const countsArray = Object.entries(mountCount).map(
-      ([
-        mountName,
-        { count, MainStory, Premium, collectibleData, owners },
-      ]) => ({
+    const countsArray = Object.entries(achieveCount).map(
+      ([achieveID, { count, achieveData, owners }]) => ({
         count: count,
-        MainStory: MainStory,
-        Premium: Premium,
-        collectibleData,
+        achieveData,
         owners,
       })
     );

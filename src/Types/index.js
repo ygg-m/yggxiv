@@ -1,4 +1,5 @@
 export {
+  AchievementsTypes,
   CharacterData,
   CharacterDataDeclaration,
   CollectibleData,

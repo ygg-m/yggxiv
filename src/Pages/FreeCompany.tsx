@@ -11,13 +11,8 @@ import {
 import { useFreeCompany } from "../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
-  const {
-    freeCompany,
-    fetchFreeCompany,
-    baseFetchLoad,
-    MembersFullData,
-    fetchMembersData,
-  } = useFreeCompany();
+  const { freeCompany, fetchFreeCompany, baseFetchLoad, MembersFullData } =
+    useFreeCompany();
   const { FreeCompany } = freeCompany;
   const { ActiveMemberCount } = FreeCompany;
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -35,7 +30,7 @@ export const FreeCompany = () => {
     return (
       <img
         src="https://img.finalfantasyxiv.com/lds/h/U/0P1ncRVYw3wO_6OEYE375vk-0I.jpg?_ga=2.111044928.472477140.1677699247-1091794286.1670936645"
-        className="w-screen h-60 object-cover border-b border-neutral-500"
+        className="h-60 w-screen border-b border-neutral-500 object-cover"
         alt="Cover Image"
       />
     );
@@ -45,7 +40,7 @@ export const FreeCompany = () => {
     const ProfileImage = () => {
       const { Crest } = FreeCompany;
       return (
-        <div className="relative w-32 h-32 overflow-hidden rounded-xl -mt-16 shadow-2xl outline outline-1 outline-neutral-500">
+        <div className="relative -mt-16 h-32 w-32 overflow-hidden rounded-xl shadow-2xl outline outline-1 outline-neutral-500">
           <img src={Crest[0]} alt="" className="absolute" />
           <img src={Crest[1]} alt="" className="absolute" />
           <img src={Crest[2]} alt="" className="absolute" />
@@ -56,7 +51,7 @@ export const FreeCompany = () => {
     const FC_Name = () => {
       const { Name } = FreeCompany;
       return (
-        <h1 className="text-5xl font-bold flex items-center gap-4">{Name}</h1>
+        <h1 className="flex items-center gap-4 text-5xl font-bold">{Name}</h1>
       );
     };
 
@@ -64,16 +59,16 @@ export const FreeCompany = () => {
       const { Server, DC } = FreeCompany;
       const DataCenter = DC.replace("]", "");
       return (
-        <div className="md:mt-4 flex gap-2 items-center">
-          <div className="py-3 badge badge-md bg-neutral-800">{DataCenter}</div>
-          <div className="py-3 badge badge-md badge-primary text-rose-200">
+        <div className="flex items-center gap-2 md:mt-4">
+          <div className="badge badge-md bg-neutral-800 py-3">{DataCenter}</div>
+          <div className="text-rose-200 badge-primary badge badge-md py-3">
             {Server}
           </div>
         </div>
       );
     };
     return (
-      <header className="w-full flex flex-col md:flex-row md:gap-8 gap-4 items-center mb-8">
+      <header className="mb-8 flex w-full flex-col items-center gap-4 md:flex-row md:gap-8">
         <ProfileImage />
         <FC_Name />
         <Server />
@@ -88,7 +83,7 @@ export const FreeCompany = () => {
           {tabs.map((tab, index) => (
             <span
               key={uuidv4()}
-              className={`tab tab-lg tab-lifted duration-300 ${
+              className={`tab-lifted tab tab-lg duration-300 ${
                 index === activeTab ? "tab-active" : ""
               }`}
               onClick={() => setActiveTab(index)}
@@ -125,23 +120,23 @@ export const FreeCompany = () => {
   if (isFCDataDifferent || isFCDataEmpty) {
     fetchFreeCompany(fcId);
     return (
-      <div className="flex items-center justify-center w-screen h-screen">
-        <button className="btn loading">Getting free company info</button>
+      <div className="flex h-screen w-screen items-center justify-center">
+        <button className="loading btn">Getting free company info</button>
       </div>
     );
   }
 
   if (baseFetchLoad)
     return (
-      <div className="flex items-center justify-center w-screen h-screen">
-        <button className="btn btn-square loading"></button>
+      <div className="flex h-screen w-screen items-center justify-center">
+        <button className="loading btn-square btn"></button>
       </div>
     );
 
   return (
-    <div className="w-screen bg-neutral-900 min-h-screen flex flex-col items-center">
+    <div className="flex min-h-screen w-screen flex-col items-center bg-neutral-900">
       <CoverImage />
-      <div className="w-screen max-w-screen-2xl flex flex-col sm:px-8 px-2 pr-4">
+      <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
         <Header />
         <MemoizedNavigator />
         <article className="tab-content">{tabs[activeTab].content}</article>
