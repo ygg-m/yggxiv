@@ -498,6 +498,6 @@ export interface CollectibleTypes {
   count: number;
   MainStory: boolean;
   Premium: boolean;
-  mountData: CollectibleData;
+  collectibleData: CollectibleData;
   owners: CharacterData[];
 }

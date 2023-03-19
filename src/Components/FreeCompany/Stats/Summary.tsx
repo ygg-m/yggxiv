@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   ChevronDownIcon,
@@ -8,10 +9,22 @@ import {
 } from "../../../Assets/Images/UI";
 import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 import { useStats } from "../../../Contexts/StatsContext";
-import { CollectibleTypes, jobData, raceData } from "../../../Types";
+import {
+  CollectibleData,
+  CollectibleTypes,
+  jobData,
+  raceData,
+} from "../../../Types";
 
 export const Summary = () => {
-  const { popularJobs, popularRaces, popularGender, popularMount } = useStats();
+  const {
+    popularJobs,
+    popularRaces,
+    popularGender,
+    popularMount,
+    popularMinion,
+    rareAchievement,
+  } = useStats();
   const { MembersFullData } = useFreeCompany();
 
   const Divider = () => {
@@ -30,7 +43,7 @@ export const Summary = () => {
     icon?: any;
   }) => {
     return (
-      <div className="flex justify-between hover:text-accent duration-200">
+      <div className="flex justify-between duration-200 hover:text-accent">
         <div className="flex items-center gap-2">
           {icon && icon}
           <span>{name}</span>
@@ -67,33 +80,33 @@ export const Summary = () => {
       memberList[Math.floor(Math.random() * memberList.length)].Character;
 
     return (
-      <div className="grid gap-2 bg-base-200 p-4 rounded-lg hover:bg-base-300 duration-200">
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">
         <div className="grid justify-center gap-2 p-4">
           <div className="tooltip" data-tip={CharName}>
             <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />
           </div>
-          <h4 className="text-lg text-center">{Name}</h4>
+          <h4 className="text-center text-lg">{Name}</h4>
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg">
+        <div className="rounded-lg bg-neutral px-4 py-2">
           <ShowData name="Characters" value={RaceCount} />
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg">
+        <div className="rounded-lg bg-neutral px-4 py-2">
           <ShowData name={Tribe1.Name} value={TribeCount_1} />
           <ShowData name={Tribe2.Name} value={TribeCount_2} />
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg">
+        <div className="rounded-lg bg-neutral px-4 py-2">
           <ShowData
             name="Male"
             value={MaleCount}
-            icon={<MaleIcon className="w-4 h-4" />}
+            icon={<MaleIcon className="h-4 w-4" />}
           />
           <ShowData
             name="Female"
             value={FemaleCount}
-            icon={<FemaleIcon className="w-4 h-4" />}
+            icon={<FemaleIcon className="h-4 w-4" />}
           />
         </div>
       </div>
@@ -107,9 +120,9 @@ export const Summary = () => {
       <div className="grid gap-2">
         <div className="flex justify-between">
           <h2 className="text-2xl">Most popular Races</h2>
-          <button className="btn btn-primary">See full List →</button>
+          <button className="btn-primary btn">See full List →</button>
         </div>
-        <div className="grid md:grid-cols-3 gap-2">
+        <div className="grid gap-2 md:grid-cols-3">
           {top3.map((race) => (
             <Race key={uuidv4()} data={race} />
           ))}
@@ -126,13 +139,13 @@ export const Summary = () => {
 
   const Gender = ({ name, count, Icon }: GenderProps) => {
     return (
-      <div className="flex gap-4 bg-base-200 duration-200 hover:bg-base-300 p-8 rounded-lg hover:text-accent">
+      <div className="flex gap-4 rounded-lg bg-base-200 p-8 duration-200 hover:bg-base-300 hover:text-accent">
         <div className="grid justify-center gap-2">
           {Icon}
-          <h4 className="text-lg text-center">{name}</h4>
+          <h4 className="text-center text-lg">{name}</h4>
         </div>
         <div className="divider divider-horizontal"></div>
-        <h3 className="flex w-full h-full items-center justify-center text-2xl sm:text-6xl font-bold">
+        <h3 className="flex h-full w-full items-center justify-center text-2xl font-bold sm:text-6xl">
           {count}
         </h3>
       </div>
@@ -145,14 +158,14 @@ export const Summary = () => {
 
     return (
       <div className="grid gap-2">
-        <div className="flex gap-4 sm:flex-row flex-col justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Gender
-            Icon={<MaleIcon className="h-8 w-8 sm:w-16 sm:h-16" />}
+            Icon={<MaleIcon className="h-8 w-8 sm:h-16 sm:w-16" />}
             name="Male"
             count={male.count}
           />
           <Gender
-            Icon={<FemaleIcon className="h-8 w-8 sm:w-16 sm:h-16" />}
+            Icon={<FemaleIcon className="h-8 w-8 sm:h-16 sm:w-16" />}
             name="Female"
             count={female.count}
           />
@@ -170,20 +183,20 @@ export const Summary = () => {
     const { Job, Role, ImageSrc } = data.jobData;
 
     return (
-      <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
+      <div className="grid gap-2 rounded-lg bg-base-300 p-4">
         <div className="grid justify-center gap-2 p-4">
           <img
             src={ImageSrc}
             alt={Job}
-            className={`mask mask-squircle p-4 w-24 bg-${Role.toLowerCase()}`}
+            className={`mask mask-squircle w-24 p-4 bg-${Role.toLowerCase()}`}
           />
-          <h4 className="text-lg text-center">{Job}</h4>
+          <h4 className="text-center text-lg">{Job}</h4>
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg">
+        <div className="rounded-lg bg-neutral px-4 py-2">
           <ShowData name="Max Level" value={LvMax} />
         </div>
-        <div className="bg-neutral px-4 py-2 rounded-lg">
+        <div className="rounded-lg bg-neutral px-4 py-2">
           <ShowData name="Level 80+" value={Lv80} />
           <ShowData name="Level 70+" value={Lv70} />
           <ShowData name="Level 60+" value={Lv60} />
@@ -201,9 +214,9 @@ export const Summary = () => {
       <div className="grid gap-2">
         <div className="flex justify-between">
           <h2 className="text-2xl">Most popular Jobs</h2>
-          <button className="btn btn-primary">See full List →</button>
+          <button className="btn-primary btn">See full List →</button>
         </div>
-        <div className="grid md:grid-cols-3 gap-2">
+        <div className="grid gap-2 md:grid-cols-3">
           {top3.map((job: jobData) => (
             <Job key={uuidv4()} data={job} />
           ))}
@@ -212,49 +225,49 @@ export const Summary = () => {
     );
   };
 
-  interface MountProps {
+  interface CollectibleProps {
     data: CollectibleTypes;
     showOwners?: boolean;
   }
 
-  const Mount = ({ data, showOwners }: MountProps) => {
+  const Collectible = ({ data, showOwners }: CollectibleProps) => {
     const { count, MainStory, owners } = data;
 
-    const { Name, Icon } = data.mountData;
+    const { Name, Icon } = data.collectibleData;
 
     const percentage = Math.floor((count / MembersFullData.length) * 100);
     const dataValue = `${count} (${percentage}%)`;
 
     return (
-      <div className="grid gap-2 bg-base-200 hover:bg-base-300 duration-200 p-4 rounded-lg">
-        <div className="grid justify-center gap-2 p-4 place-items-center">
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">
+        <div className="grid place-items-center justify-center gap-2 p-4">
           <img
             src={`https://xivapi.com/${Icon}`}
             alt={Name}
             className="mask mask-squircle w-24"
           />
-          <h4 className="text-lg text-center capitalize">{Name}</h4>
+          <h4 className="text-center text-lg capitalize">{Name}</h4>
         </div>
 
-        <div className="bg-neutral px-4 py-2 rounded-lg">
+        <div className="grid items-center rounded-lg bg-neutral px-4 py-2">
           <ShowData name="Owned" strValue={dataValue} />
         </div>
 
         {showOwners && (
-          <div className="grid bg-neutral px-4 py-2 rounded-lg">
+          <div className="grid rounded-lg bg-neutral px-4 py-2">
             <span>Owners</span>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap">
               {owners.map((owner) => {
                 const { Name, Avatar } = owner.Character;
                 return (
                   <div
-                    className="tooltip cursor-pointer hover:bg-base-300 duration-200 p-2 rounded-lg"
+                    className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
                     data-tip={Name}
                   >
                     <img
                       src={Avatar}
                       alt={Name}
-                      className="w-10 mask mask-squircle"
+                      className="mask mask-squircle w-10"
                     />
                   </div>
                 );
@@ -268,23 +281,45 @@ export const Summary = () => {
 
   const PopularMounts = () => {
     const filter = popularMount.filter((mount) => mount.MainStory !== true);
+    const MSQFilter = popularMount.filter((mount) => mount.MainStory === true);
     const top3 = filter.slice(0, 3);
+
+    const [showMSQ, setShowMSQ] = useState<boolean>(false);
 
     return (
       <div className="grid gap-2">
         <div className="flex justify-between">
           <h2 className="text-2xl">Most popular Mounts</h2>
-          <button className="btn btn-primary">See full List →</button>
+          <button className="btn-primary btn">See full List →</button>
         </div>
 
-        <button className="btn w-fit gap-2">
-          <PlusIcon className="w-4" />
-          Show Main Story Quest Mounts
+        <button
+          className="btn w-fit gap-2"
+          onClick={() => setShowMSQ(!showMSQ)}
+        >
+          {showMSQ ? (
+            <>
+              <MinusIcon className="w-4" /> Hide Main Story Quest Mounts
+            </>
+          ) : (
+            <>
+              <PlusIcon className="w-4" />
+              Show Main Story Quest Mounts
+            </>
+          )}
         </button>
 
-        <div className="grid md:grid-cols-3 gap-2">
+        {showMSQ && (
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4 md:grid-cols-3">
+            {MSQFilter.map((mount) => {
+              return <Collectible key={uuidv4()} data={mount} />;
+            })}
+          </div>
+        )}
+
+        <div className="grid gap-2 md:grid-cols-3">
           {top3.map((mount) => {
-            return <Mount key={uuidv4()} data={mount} />;
+            return <Collectible key={uuidv4()} data={mount} />;
           })}
         </div>
       </div>
@@ -293,222 +328,149 @@ export const Summary = () => {
 
   const RarestMounts = () => {
     const reverse = [...popularMount].reverse();
-    const filter = reverse.filter((mount) => mount.Premium !== true);
+    const filter = reverse.filter(
+      (mount) => mount.Premium !== true && mount.owners.length > 1
+    );
+    const filterSingleOwner = reverse.filter(
+      (mount) => mount.owners.length === 1
+    );
     const top3 = filter.slice(0, 3);
+
+    const [showSingle, setShowSingle] = useState<boolean>(false);
 
     return (
       <div className="grid gap-2">
         <div className="flex justify-between">
           <h2 className="text-2xl">Rarest Mounts</h2>
-          <button className="btn btn-primary">See full List →</button>
+          <button className="btn-primary btn">See full List →</button>
         </div>
-        <div className="grid md:grid-cols-3 gap-2">
+
+        <button
+          className="btn w-fit gap-2"
+          onClick={() => setShowSingle(!showSingle)}
+        >
+          {showSingle ? (
+            <>
+              <MinusIcon className="w-4" /> Hide Single Owners
+            </>
+          ) : (
+            <>
+              <PlusIcon className="w-4" />
+              Show Single Owners
+            </>
+          )}
+        </button>
+
+        {showSingle && (
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4 md:grid-cols-3">
+            {filterSingleOwner.map((mount) => {
+              return <Collectible key={uuidv4()} data={mount} showOwners />;
+            })}
+          </div>
+        )}
+        <div className="grid gap-2 md:grid-cols-3">
           {top3.map((mount) => {
-            return <Mount key={uuidv4()} data={mount} showOwners />;
+            return <Collectible key={uuidv4()} data={mount} showOwners />;
           })}
         </div>
       </div>
     );
   };
 
-  const Minion = () => {
-    return (
-      <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-        <div className="grid justify-center gap-2">
-          <img
-            src="https://xivapi.com/i/004000/004403_hr1.png"
-            alt="Bomb"
-            className="mask mask-squircle w-24 bg-dps"
-          />
-          <h4 className="text-lg text-center">Bomb</h4>
-        </div>
-
-        <Divider />
-        <div className="flex justify-between">
-          <span>Owned</span>
-          <span>130 (76%)</span>
-        </div>
-      </div>
-    );
-  };
-
   const PopularMinions = () => {
+    const filter = popularMinion.filter((mount) => mount.MainStory !== true);
+    const MSQFilter = popularMinion.filter((mount) => mount.MainStory === true);
+    const top3 = filter.slice(0, 3);
+
+    const [showMSQ, setShowMSQ] = useState<boolean>(false);
+
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Most popular Minions</h2>
-        <div className="grid md:grid-cols-3 gap-2">
-          <Minion />
-          <Minion />
-          <Minion />
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Most popular Minions</h2>
+          <button className="btn-primary btn">See full List →</button>
         </div>
-        <button className="btn">See full List →</button>
+
+        <button
+          className="btn w-fit gap-2"
+          onClick={() => setShowMSQ(!showMSQ)}
+        >
+          {showMSQ ? (
+            <>
+              <MinusIcon className="w-4" /> Hide Main Story Quest Minions
+            </>
+          ) : (
+            <>
+              <PlusIcon className="w-4" />
+              Show Main Story Quest Minions
+            </>
+          )}
+        </button>
+
+        {showMSQ && (
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4 md:grid-cols-3">
+            {MSQFilter.map((mount) => {
+              return <Collectible key={uuidv4()} data={mount} />;
+            })}
+          </div>
+        )}
+
+        <div className="grid gap-2 md:grid-cols-3">
+          {top3.map((mount) => {
+            return <Collectible key={uuidv4()} data={mount} />;
+          })}
+        </div>
       </div>
     );
   };
 
   const RarestMinions = () => {
+    const reverse = [...popularMinion].reverse();
+    const filter = reverse.filter(
+      (mount) => mount.Premium !== true && mount.owners.length > 1
+    );
+    const filterSingleOwner = reverse.filter(
+      (mount) => mount.owners.length === 1
+    );
+    const top3 = filter.slice(0, 3);
+
+    const [showSingle, setShowSingle] = useState<boolean>(false);
+
     return (
       <div className="grid gap-2">
-        <h2 className="text-2xl">Rarest Minions</h2>
-        <div className="grid md:grid-cols-3 gap-2">
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004403_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-lg text-center">Bomb</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004403_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-lg text-center">Bomb</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
-            <div className="grid justify-center gap-2">
-              <img
-                src="https://xivapi.com/i/004000/004403_hr1.png"
-                alt="Chocobo"
-                className="mask mask-squircle w-24 bg-dps"
-              />
-              <h4 className="text-lg text-center">Bomb</h4>
-            </div>
-
-            <Divider />
-            <div className="flex justify-between">
-              <span>Owned</span>
-              <span>3 (2%)</span>
-            </div>
-            <Divider />
-            <div className="grid">
-              <span>Owners</span>
-              <div className="flex flex-wrap">
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-                <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
-                  data-tip="Ygg Lart"
-                >
-                  <img
-                    src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
-                    alt=""
-                    className="w-10 mask mask-squircle"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="flex justify-between">
+          <h2 className="text-2xl">Rarest Mounts</h2>
+          <button className="btn-primary btn">See full List →</button>
         </div>
-        <button className="btn">See full List →</button>
+
+        <button
+          className="btn w-fit gap-2"
+          onClick={() => setShowSingle(!showSingle)}
+        >
+          {showSingle ? (
+            <>
+              <MinusIcon className="w-4" /> Hide Single Owners
+            </>
+          ) : (
+            <>
+              <PlusIcon className="w-4" />
+              Show Single Owners
+            </>
+          )}
+        </button>
+
+        {showSingle && (
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4 md:grid-cols-3">
+            {filterSingleOwner.map((mount) => {
+              return <Collectible key={uuidv4()} data={mount} showOwners />;
+            })}
+          </div>
+        )}
+        <div className="grid gap-2 md:grid-cols-3">
+          {top3.map((mount) => {
+            return <Collectible key={uuidv4()} data={mount} showOwners />;
+          })}
+        </div>
       </div>
     );
   };
@@ -517,15 +479,15 @@ export const Summary = () => {
     return (
       <div className="grid gap-2">
         <h2 className="text-2xl">Rarest Achievements</h2>
-        <div className="grid md:grid-cols-3 gap-2">
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
+        <div className="grid gap-2 md:grid-cols-3">
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4">
             <div className="grid justify-center gap-2">
               <img
                 src="https://xivapi.com/i/002000/002685_hr1.png"
                 alt="Chocobo"
                 className="mask mask-squircle w-24"
               />
-              <h4 className="text-lg text-center">Endgame Hunter</h4>
+              <h4 className="text-center text-lg">Endgame Hunter</h4>
             </div>
 
             <Divider />
@@ -538,46 +500,46 @@ export const Summary = () => {
               <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4">
             <div className="grid justify-center gap-2">
               <img
                 src="https://xivapi.com/i/004000/004403_hr1.png"
                 alt="Chocobo"
                 className="mask mask-squircle w-24 bg-dps"
               />
-              <h4 className="text-lg text-center">Bomb</h4>
+              <h4 className="text-center text-lg">Bomb</h4>
             </div>
 
             <Divider />
@@ -590,46 +552,46 @@ export const Summary = () => {
               <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
               </div>
             </div>
           </div>{" "}
-          <div className="grid gap-2 bg-base-300 p-4 rounded-lg">
+          <div className="grid gap-2 rounded-lg bg-base-300 p-4">
             <div className="grid justify-center gap-2">
               <img
                 src="https://xivapi.com/i/004000/004403_hr1.png"
                 alt="Chocobo"
                 className="mask mask-squircle w-24 bg-dps"
               />
-              <h4 className="text-lg text-center">Bomb</h4>
+              <h4 className="text-center text-lg">Bomb</h4>
             </div>
 
             <Divider />
@@ -642,33 +604,33 @@ export const Summary = () => {
               <span>Owners</span>
               <div className="flex flex-wrap">
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
                 <div
-                  className="tooltip cursor-pointer hover:bg-base-100 p-2 rounded-lg"
+                  className="tooltip cursor-pointer rounded-lg p-2 hover:bg-base-100"
                   data-tip="Ygg Lart"
                 >
                   <img
                     src="https://img2.finalfantasyxiv.com/f/be2bf245a304ed40ad0ca79c6ad8d7bb_be20385e18333edb329d4574f364a1f0fc0_96x96.jpg?1678372864"
                     alt=""
-                    className="w-10 mask mask-squircle"
+                    className="mask mask-squircle w-10"
                   />
                 </div>
               </div>
@@ -681,7 +643,7 @@ export const Summary = () => {
   };
 
   return (
-    <section className="grid gap-4 mt-4">
+    <section className="mt-4 grid gap-4">
       <div className="rounded-lg bg-base-100 p-8">
         <h2 className="text-3xl font-bold">Character</h2>
         <div className="divider"></div>
