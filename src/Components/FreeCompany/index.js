@@ -1,4 +1,4 @@
-export { Leaderboard } from "./Leaderboard";
-export { MainInfo } from "./MainInfo";
-export { Members } from "./Members";
-export { Stats } from "./Stats";
+export { Leaderboard } from "../../Pages/FreeCompany/Pages/Leaderboard";
+export { MainInfo } from "../../Pages/FreeCompany/Pages/MainInfo";
+export { Members } from "../../Pages/FreeCompany/Pages/Members";
+export { Stats } from "../../Pages/FreeCompany/Pages/Stats";

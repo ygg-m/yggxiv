@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
-import { StatsProvider } from "../../Contexts/StatsContext";
-import { FetchProgress } from "../LoadingComponents/FetchProgress";
-import { Achievement, Minion, Mount } from "./Leaderboard/index";
+import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
+import { StatsProvider } from "../../../Contexts/StatsContext";
+import { FetchProgress } from "../../../Components/LoadingComponents/FetchProgress";
+import { Achievement, Minion, Mount } from "../../../Components/FreeCompany/Leaderboard/index";
 
 export const Leaderboard = () => {
   const { MembersFullData, membersFetchLoad, fetchProgress } = useFreeCompany();

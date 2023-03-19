@@ -23,14 +23,6 @@ type FreeCompanyContextType = {
   fetchFreeCompany: any;
   freeCompany: FreeCompanyFull;
   baseFetchLoad: boolean;
-  filteredMembers: MembersListTypes[];
-  setFilteredMembers: any;
-  changeCheckFilter: any;
-  changeSearchFilter: any;
-  checkedKeys: string[];
-  searchQuery: string;
-  filterMemberOpen: boolean;
-  setFilterMemberOpen: any;
   RankList: RankListTypes[];
   fetchMembersData: any;
   MembersFullData: CharacterData[];
@@ -38,6 +30,7 @@ type FreeCompanyContextType = {
   setMembersFetchLoad: any;
   fetchProgress: number;
   setMembersFullData: any;
+  MemberList: MembersListTypes[];
 };
 
 const FreeCompanyContext = createContext<FreeCompanyContextType>({
@@ -83,14 +76,6 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
     FreeCompanyMembers: [],
   },
   baseFetchLoad: false,
-  filteredMembers: [],
-  setFilteredMembers: () => {},
-  changeCheckFilter: () => {},
-  changeSearchFilter: () => {},
-  checkedKeys: [],
-  searchQuery: "",
-  filterMemberOpen: false,
-  setFilterMemberOpen: () => {},
   RankList: [],
   fetchMembersData: () => {},
   MembersFullData: [],
@@ -98,6 +83,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   setMembersFetchLoad: () => {},
   fetchProgress: 0,
   setMembersFullData: () => {},
+  MemberList: [],
 });
 
 export const useFreeCompany = () => useContext(FreeCompanyContext);
@@ -144,7 +130,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
           FreeCompanyMembers: [],
         }
   );
-  const { FreeCompanyMembers } = freeCompany;
+  const { FreeCompanyMembers: MemberList } = freeCompany;
   const [MembersFullData, setMembersFullData] = useState<CharacterData[]>(
     isCorrectFC
       ? loadMembers()
@@ -418,7 +404,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
 
   async function fetchMembersData() {
     setMembersFetchLoad(true);
-    const result = (await getCharacterList(FreeCompanyMembers, (progress) => {
+    const result = (await getCharacterList(MemberList, (progress) => {
       // if (progress < 99) setFetchProgress(Math.trunc(progress));
       // Update progress bar
     })) as CharacterData[];
@@ -427,44 +413,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   }
 
   // Rank List
-  const [RankList, setRankList] = useState(getRanks(FreeCompanyMembers));
-
-  // Filter Members
-  const [filteredMembers, setFilteredMembers] = useState(FreeCompanyMembers);
-  const [filterMemberOpen, setFilterMemberOpen] = useState<boolean>(false);
-  const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
-  const changeCheckFilter = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { value, checked } = event.target;
-
-    if (checked) setCheckedKeys([...checkedKeys, value]);
-    else setCheckedKeys(checkedKeys.filter((key) => key !== value));
-  };
-
-  const changeSearchFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setSearchQuery(value);
-  };
-
-  const filterByCheck = (members: MembersListTypes[]) => {
-    return members.filter((member) => checkedKeys.includes(member.Rank));
-  };
-
-  const filterBySearch = (members: MembersListTypes[]) => {
-    return members.filter((member) =>
-      member.Name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  };
-
-  const filterByCheckAndSearch = () => {
-    const filterCheck = filterByCheck(freeCompany.FreeCompanyMembers);
-    const filterSearch = filterBySearch(filterCheck);
-
-    return filterSearch;
-  };
+  const [RankList, setRankList] = useState(getRanks(MemberList));
 
   useEffect(() => {
     const isMemberDataEmpty =
@@ -472,23 +421,10 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
 
     if (isMemberDataEmpty) fetchMembersData();
 
-    setRankList(getRanks(FreeCompanyMembers));
+    setRankList(getRanks(MemberList));
     saveFreeCompany();
     saveMembers();
   }, [freeCompany, MembersFullData]);
-
-  useEffect(() => {
-    const isCheckEmpty = checkedKeys.length === 0;
-    const isSearchEmpty = searchQuery.length === 0;
-
-    if (isCheckEmpty && isSearchEmpty) setFilteredMembers(FreeCompanyMembers);
-    if (!isCheckEmpty && isSearchEmpty)
-      setFilteredMembers(filterByCheck(FreeCompanyMembers));
-    if (isCheckEmpty && !isSearchEmpty)
-      setFilteredMembers(filterBySearch(FreeCompanyMembers));
-    if (!isCheckEmpty && !isSearchEmpty)
-      setFilteredMembers(filterByCheckAndSearch());
-  }, [checkedKeys, searchQuery, freeCompany]);
 
   // return value
   const value: FreeCompanyContextType = {
@@ -501,20 +437,13 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     freeCompany,
     baseFetchLoad,
     fetchMembersData,
-    filteredMembers,
-    setFilteredMembers,
-    changeCheckFilter,
-    changeSearchFilter,
-    checkedKeys,
-    searchQuery,
-    filterMemberOpen,
-    setFilterMemberOpen,
     RankList,
     MembersFullData,
     membersFetchLoad,
     setMembersFetchLoad,
     fetchProgress,
     setMembersFullData,
+    MemberList,
   };
 
   return (

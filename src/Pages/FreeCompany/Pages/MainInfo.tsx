@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
+import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 
 import {
   parseAlliedGC,
   parseDate,
   parseEstatePlot,
   parseStaff,
-} from "../../Helpers";
-import { MembersListTypes } from "../../Types";
-import { Card } from "./CharacterCard";
+} from "../../../Helpers";
+import { MembersListTypes } from "../../../Types";
+import { Card } from "../Components/CharacterCard";
 
 export const MainInfo = () => {
   const { freeCompany } = useFreeCompany();

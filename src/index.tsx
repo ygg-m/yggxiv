@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
-import { CharacterProvider } from "./Contexts/CharacterContext";
+import {
+  Leaderboard,
+  MainInfo,
+  Members,
+  Stats,
+} from "./Components/FreeCompany";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
@@ -16,13 +21,18 @@ const router = createHashRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/FreeCompany/:fcId",
+    path: "/FreeCompany/:fcId/*",
     element: (
       <FreeCompanyProvider>
         <FreeCompany />
       </FreeCompanyProvider>
     ),
-    children: [{ path: "Members", element: <FreeCompany /> }],
+    children: [
+      { path: "Info", element: <MainInfo /> },
+      { path: "Members", element: <Members /> },
+      { path: "Leaderboard", element: <Leaderboard /> },
+      { path: "Stats", element: <Stats /> },
+    ],
   },
   {
     path: "/Character/:charId",
