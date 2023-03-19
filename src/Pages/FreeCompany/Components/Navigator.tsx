@@ -7,8 +7,8 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
     key={uuidv4()}
     className={({ isActive }) =>
       isActive
-        ? "tab-lifted tab tab-active tab-lg duration-300"
-        : "tab-lifted tab tab-lg duration-300"
+        ? "tab tab-lifted tab-active tab-lg duration-300"
+        : "tab tab-lifted tab-lg duration-300"
     }
   >
     {name}

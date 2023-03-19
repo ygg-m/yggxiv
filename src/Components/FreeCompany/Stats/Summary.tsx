@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
-  ChevronDownIcon,
   FemaleIcon,
   MaleIcon,
   MinusIcon,
   PlusIcon,
 } from "../../../Assets/Images/UI";
+import { SimpleLoading } from "../../../Components/LoadingComponents/SimpleLoading";
 import { useFreeCompany } from "../../../Contexts/FreeCompanyContext";
 import { useStats } from "../../../Contexts/StatsContext";
 import {
   AchievementsTypes,
-  CollectibleData,
   CollectibleTypes,
   jobData,
   raceData,
@@ -32,10 +31,6 @@ export const Summary = () => {
   MembersFullData.forEach(
     (member) => member.Achievements.List.length > 0 && publicAchievement++
   );
-
-  const Divider = () => {
-    return <div className="divider m-0"></div>;
-  };
 
   const ShowData = ({
     name,
@@ -237,7 +232,9 @@ export const Summary = () => {
   }
 
   const Collectible = ({ data, showOwners }: CollectibleProps) => {
-    const { count, MainStory, owners } = data;
+    if (!data.collectibleData) return <SimpleLoading />;
+
+    const { count, owners } = data;
     const { Name, Icon } = data.collectibleData;
 
     const percentage = Math.floor((count / MembersFullData.length) * 100);
@@ -487,6 +484,8 @@ export const Summary = () => {
   }
 
   const Achievement = ({ data, showOwners }: AchievementProps) => {
+    if (!data.achieveData) return <SimpleLoading />;
+
     const { count, owners } = data;
     const { Name, Icon } = data.achieveData;
 

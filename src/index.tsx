@@ -11,6 +11,11 @@ import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
+import {
+  Achievement,
+  Minion,
+  Mount,
+} from "./Pages/FreeCompany/Pages/Leaderboard/index";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
 
@@ -30,8 +35,27 @@ const router = createHashRouter([
     children: [
       { path: "Info", element: <MainInfo /> },
       { path: "Members", element: <Members /> },
-      { path: "Leaderboard", element: <Leaderboard /> },
-      { path: "Stats", element: <Stats /> },
+      {
+        path: "Leaderboard",
+        element: <Leaderboard />,
+        children: [
+          { path: "Mount", element: <Mount /> },
+          { path: "Minion", element: <Minion /> },
+          { path: "Achievement", element: <Achievement /> },
+        ],
+      },
+      {
+        path: "Stats",
+        element: <Stats />,
+        children: [
+          { path: "Summary", element: <Mount /> },
+          { path: "Character", element: <Minion /> },
+          { path: "Job", element: <Achievement /> },
+          { path: "Mount", element: <Achievement /> },
+          { path: "Minion", element: <Achievement /> },
+          { path: "Achievement", element: <Achievement /> },
+        ],
+      },
     ],
   },
   {

@@ -1,16 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
-import { MedalIcon, TrophyIcon } from "../../../Assets/Images/UI";
-import { useStats } from "../../../Contexts/StatsContext";
-import { CharacterData } from "../../../Types";
+import { MedalIcon, TrophyIcon } from "../../../../Assets/Images/UI";
+import { useStats } from "../../../../Contexts/StatsContext";
+import { formatNumber } from "../../../../Helpers";
+import { CharacterData } from "../../../../Types";
 
-export const Minion = () => {
-  const { getMinionLeaderboard } = useStats();
+export const Achievement = () => {
+  const { getAchievementLeaderboard } = useStats();
 
-  const placement = getMinionLeaderboard();
+  const placement = getAchievementLeaderboard();
 
   const FirstPlace = () => {
     const {
-      Minions,
+      Achievements: { Points },
       Character: { Name, Portrait },
     } = placement.FirstPlace;
 
@@ -31,7 +32,9 @@ export const Minion = () => {
           />
           <div className="grid pb-2 absolute bottom-0 w-full bg-neutral bg-opacity-90 rounded-xl border-t border-t-gold px-2">
             <h3 className="text-2xl">{Name}</h3>
-            <h3 className="text-4xl font-bold text-gold">{Minions.length}</h3>
+            <h3 className="text-4xl font-bold text-gold">
+              {formatNumber(Points)}
+            </h3>
           </div>
         </div>
       </article>
@@ -40,7 +43,7 @@ export const Minion = () => {
 
   const SecondPlace = () => {
     const {
-      Minions,
+      Achievements: { Points },
       Character: { Name, Portrait },
     } = placement.SecondPlace;
     return (
@@ -60,7 +63,9 @@ export const Minion = () => {
           />
           <div className="grid pb-2 absolute bottom-0 w-full bg-neutral bg-opacity-90 rounded-xl border-t border-t-silver px-2">
             <h3 className="text-xl">{Name}</h3>
-            <h3 className="text-2xl font-bold text-gold">{Minions.length}</h3>
+            <h3 className="text-2xl font-bold text-gold">
+              {formatNumber(Points)}
+            </h3>
           </div>
         </div>
       </article>
@@ -69,7 +74,7 @@ export const Minion = () => {
 
   const ThirdPlace = () => {
     const {
-      Minions,
+      Achievements: { Points },
       Character: { Name, Portrait },
     } = placement.ThirdPlace;
     return (
@@ -89,7 +94,9 @@ export const Minion = () => {
           />
           <div className="grid pb-2 absolute bottom-0 w-full bg-neutral bg-opacity-90 rounded-xl border-t border-t-bronze px-2">
             <h3 className="text-xl">{Name}</h3>
-            <h3 className="text-2xl font-bold text-gold">{Minions.length}</h3>
+            <h3 className="text-2xl font-bold text-gold">
+              {formatNumber(Points)}
+            </h3>
           </div>
         </div>
       </article>
@@ -101,13 +108,16 @@ export const Minion = () => {
       <div className="grid rounded-lg bg-base-300 w-full max-w-[672px] outline outline-base-100">
         {placement.EveryoneElse.map((member: CharacterData, index: number) => {
           const {
-            Minions,
+            Achievements: { Points },
             Character: { Name, Avatar },
           } = member;
 
           return (
-            <div key={uuidv4()}>
-              <article className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent">
+            <>
+              <article
+                key={uuidv4()}
+                className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent"
+              >
                 <div className="flex items-center gap-4 flex-row w-24">
                   <span className="w-8 text-center sm:text-left">
                     {index + 4}º
@@ -121,7 +131,7 @@ export const Minion = () => {
                 <div className="flex sm:w-full flex-col sm:flex-row justify-between">
                   <span className="text-lg">{Name}</span>
                   <span className="text-lg text-gold font-bold">
-                    {Minions?.length || 0}
+                    {formatNumber(Points)}
                   </span>
                 </div>
               </article>
@@ -129,7 +139,7 @@ export const Minion = () => {
                 placement.EveryoneElse[placement.EveryoneElse.length - 1] && (
                 <div className="divider m-0 h-0"></div>
               )}
-            </div>
+            </>
           );
         })}
       </div>

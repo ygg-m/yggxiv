@@ -48,26 +48,27 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   const { MembersFullData } = useFreeCompany();
   const { mounts, minions, achievements } = useGameData();
 
-  // Leaderboards
-  const [leaderboardMount, setLeaderboardMount] = useState<LeaderBoardType>();
-  const [leaderboardMinion, setLeaderboardMinion] = useState<LeaderBoardType>();
-  const [leaderboardAchievement, setLeaderboardAchievement] =
-    useState<LeaderBoardType>();
-
   // Character
   const popularRaces = useMemo(() => getPopularRaces(), [MembersFullData]);
+
   const popularGender = useMemo(() => getPopularGenders(), [MembersFullData]);
 
   // Jobs
   const popularJobs = useMemo(() => getPopularJobs(), [MembersFullData]);
 
   // Collectibles
-  const popularMount = useMemo(() => getPopularMounts(), [MembersFullData]);
-  const popularMinion = useMemo(() => getPopularMinions(), [MembersFullData]);
+  const popularMount = useMemo(
+    () => getPopularMounts(),
+    [MembersFullData, mounts]
+  );
+  const popularMinion = useMemo(
+    () => getPopularMinions(),
+    [MembersFullData, minions]
+  );
 
   const rareAchievement = useMemo(
     () => getRareAchievements(),
-    [MembersFullData]
+    [MembersFullData, achievements]
   );
 
   // Achievement

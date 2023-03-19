@@ -1,4 +1,4 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useParams } from "react-router-dom";
 import { Footer } from "../../Components";
 import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 import { Header, Navigator } from "./Components";
@@ -9,6 +9,13 @@ export const FreeCompany = () => {
   const { ActiveMemberCount } = FreeCompany;
 
   const { fcId } = useParams();
+
+  const location = useLocation();
+  const currentPath = location.pathname.split("/").reverse()[0];
+  const currentPage = location.pathname.split("/").reverse()[2];
+  const paths = ["Info", "Members", "Leaderboard", "Stats"];
+  const isInDefault =
+    !paths.includes(currentPath) && currentPage === "FreeCompany";
 
   const isFCDataEmpty = freeCompany.FreeCompany.ID === "0";
   const isFCDataDifferent = freeCompany.FreeCompany.ID !== fcId;
@@ -46,6 +53,7 @@ export const FreeCompany = () => {
         <Header FreeCompany={FreeCompany} />
         <Navigator MemberCount={ActiveMemberCount} />
         <Outlet />
+        {isInDefault && <Navigate to="Info" />}
       </div>
       <Footer />
     </div>
