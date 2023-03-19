@@ -31,18 +31,45 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
   const [minions, setMinions] = useState<CollectibleData[]>([]);
   const [achievements, setAchievements] = useState<CollectibleData[]>([]);
 
+  function saveData(name: string, data: CollectibleData[]) {
+    const json = JSON.stringify(data);
+    localStorage.setItem(name, json);
+  }
+
+  function loadData(name: string): CollectibleData[] {
+    const value =
+      localStorage.getItem(name) || '[{"ID":0,"Icon":"","Name":"","Url":""}]';
+    return JSON.parse(value);
+  }
+
   useMemo(async () => {
-    const data = await getMounts();
-    setMounts(data);
+    const local = loadData("MountsData");
+    if (local[0].ID !== 0) setMounts(local);
+    else {
+      const data = await getMounts();
+      setMounts(data);
+      saveData("MountsData", data);
+    }
   }, []);
 
   useMemo(async () => {
-    const data = await getMinions();
-    setMinions(data);
+    const local = loadData("MinionData");
+    if (local[0].ID !== 0) setMounts(local);
+    else {
+      const data = await getMinions();
+      setMinions(data);
+      saveData("MinionData", data);
+    }
   }, []);
+
   useMemo(async () => {
-    const data = await getAchievements();
-    setAchievements(data);
+    const local = loadData("AchievementData");
+    if (local[0].ID !== 0) setMounts(local);
+    else {
+      const data = await getAchievements();
+      setAchievements(data);
+      saveData("AchievementData", data);
+    }
   }, []);
 
   const value: GameDataContextType = {
