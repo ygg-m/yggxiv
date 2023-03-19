@@ -1,3 +1,28 @@
+export const FreeCompanyStructure = {
+  FreeCompany: {
+    Active: "",
+    ActiveMemberCount: 0,
+    Crest: [],
+    DC: "",
+    Estate: { Greeting: "", Name: "", Plot: "" },
+    Focus: [],
+    Formed: 0,
+    GrandCompany: "",
+    ID: "",
+    Name: "",
+    ParseDate: 0,
+    Rank: 0,
+    Ranking: { Monthly: 0, Weekly: 0 },
+    Recruitment: "",
+    Reputation: [],
+    Seeking: [],
+    Server: "",
+    Slogan: "",
+    Tag: "",
+  },
+  FreeCompanyMembers: [],
+};
+
 export interface FreeCompanySmall {
   Crest: string[];
   ID: string;

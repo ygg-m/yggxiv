@@ -15,6 +15,7 @@ export {
   FreeCompanyReputation,
   FreeCompanySeeking,
   FreeCompanySmall,
+  FreeCompanyStructure,
   LeaderBoardType,
   MembersListTypes,
   RankListTypes,

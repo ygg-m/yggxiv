@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getRanks } from "../Helpers";
 import {
   getCharacterList,
@@ -109,241 +110,275 @@ type FreeCompanyProviderProps = {
 export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   children,
 }) => {
+  // Router Params
+  const { fcId } = useParams();
+
+  const isCorrectFC = loadFreeCompany().FreeCompany.ID === fcId;
+
   // Data
-  const [freeCompany, setFreeCompany] = useState<FreeCompanyFull>({
-    FreeCompany: {
-      Active: "",
-      ActiveMemberCount: 0,
-      Crest: [],
-      DC: "",
-      Estate: { Greeting: "", Name: "", Plot: "" },
-      Focus: [],
-      Formed: 0,
-      GrandCompany: "",
-      ID: "",
-      Name: "",
-      ParseDate: 0,
-      Rank: 0,
-      Ranking: { Monthly: 0, Weekly: 0 },
-      Recruitment: "",
-      Reputation: [],
-      Seeking: [],
-      Server: "",
-      Slogan: "",
-      Tag: "",
-    },
-    FreeCompanyMembers: [],
-  });
-  const { FreeCompanyMembers } = freeCompany;
-  const [MembersFullData, setMembersFullData] = useState<CharacterData[]>([
-    {
-      Achievements: { List: [], Points: 0 },
-      AchievementsPublic: false,
-      Character: {
-        ActiveClassJob: {
-          ClassID: 0,
-          ExpLevel: 0,
-          ExpLevelMax: 0,
-          ExpLevelTogo: 0,
-          IsSpecialised: false,
-          JobID: 0,
-          Level: 0,
-          Name: "",
-          UnlockedState: {
-            ID: 0,
+  const [freeCompany, setFreeCompany] = useState<FreeCompanyFull>(
+    isCorrectFC
+      ? loadFreeCompany()
+      : {
+          FreeCompany: {
+            Active: "",
+            ActiveMemberCount: 0,
+            Crest: [],
+            DC: "",
+            Estate: { Greeting: "", Name: "", Plot: "" },
+            Focus: [],
+            Formed: 0,
+            GrandCompany: "",
+            ID: "",
             Name: "",
+            ParseDate: 0,
+            Rank: 0,
+            Ranking: { Monthly: 0, Weekly: 0 },
+            Recruitment: "",
+            Reputation: [],
+            Seeking: [],
+            Server: "",
+            Slogan: "",
+            Tag: "",
           },
-        },
-        Avatar: "",
-        Bio: "",
-        ClassJobs: [],
-        ClassJobsBozjan: { Level: 0, Mettle: 0, Name: "" },
-        ClassJobsElemental: {
-          ExpLevel: 0,
-          ExpLevelMax: 0,
-          ExpLevelTogo: 0,
-          Level: 0,
-          Name: "",
-        },
-        DC: "",
-        FreeCompanyId: "",
-        FreeCompanyName: "",
-        GearSet: {
-          Attributes: {
-            "1": 0,
-            "2": 0,
-            "3": 0,
-            "4": 0,
-            "5": 0,
-            "6": 0,
-            "7": 0,
-            "8": 0,
-            "19": 0,
-            "20": 0,
-            "21": 0,
-            "22": 0,
-            "24": 0,
-            "27": 0,
-            "33": 0,
-            "34": 0,
-            "44": 0,
-            "45": 0,
-            "46": 0,
+          FreeCompanyMembers: [],
+        }
+  );
+  const { FreeCompanyMembers } = freeCompany;
+  const [MembersFullData, setMembersFullData] = useState<CharacterData[]>(
+    isCorrectFC
+      ? loadMembers()
+      : [
+          {
+            Achievements: { List: [], Points: 0 },
+            AchievementsPublic: false,
+            Character: {
+              ActiveClassJob: {
+                ClassID: 0,
+                ExpLevel: 0,
+                ExpLevelMax: 0,
+                ExpLevelTogo: 0,
+                IsSpecialised: false,
+                JobID: 0,
+                Level: 0,
+                Name: "",
+                UnlockedState: {
+                  ID: 0,
+                  Name: "",
+                },
+              },
+              Avatar: "",
+              Bio: "",
+              ClassJobs: [],
+              ClassJobsBozjan: { Level: 0, Mettle: 0, Name: "" },
+              ClassJobsElemental: {
+                ExpLevel: 0,
+                ExpLevelMax: 0,
+                ExpLevelTogo: 0,
+                Level: 0,
+                Name: "",
+              },
+              DC: "",
+              FreeCompanyId: "",
+              FreeCompanyName: "",
+              GearSet: {
+                Attributes: {
+                  "1": 0,
+                  "2": 0,
+                  "3": 0,
+                  "4": 0,
+                  "5": 0,
+                  "6": 0,
+                  "7": 0,
+                  "8": 0,
+                  "19": 0,
+                  "20": 0,
+                  "21": 0,
+                  "22": 0,
+                  "24": 0,
+                  "27": 0,
+                  "33": 0,
+                  "34": 0,
+                  "44": 0,
+                  "45": 0,
+                  "46": 0,
+                },
+                ClassID: 0,
+                Gear: {
+                  Body: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Bracelets: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Earrings: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Feet: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Hands: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Head: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Legs: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  MainHand: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Necklace: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Ring1: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  Ring2: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                  SoulCrystal: {
+                    Creator: 0,
+                    Dye: 0,
+                    ID: 0,
+                    Materia: [],
+                    Mirage: 0,
+                  },
+                },
+                GearKey: "",
+                JobID: 0,
+                Level: 0,
+              },
+              Gender: 0,
+              GrandCompany: { NameID: 0, RankID: 0 },
+              GuardianDeity: 0,
+              ID: 0,
+              Lang: null,
+              Name: "",
+              Nameday: "",
+              ParseData: 0,
+              Portrait: "",
+              PvPTeamId: "",
+              Race: 0,
+              Server: "",
+              Title: 0,
+              TitleTop: false,
+              Town: 0,
+              Tribe: 0,
+            },
+            FreeCompany: {
+              Active: "",
+              ActiveMemberCount: 0,
+              Crest: [],
+              DC: "",
+              Estate: { Greeting: "", Name: "", Plot: "" },
+              Focus: [],
+              Formed: 0,
+              GrandCompany: "",
+              ID: "",
+              Name: "",
+              ParseDate: 0,
+              Rank: 0,
+              Ranking: { Monthly: 0, Weekly: 0 },
+              Recruitment: "",
+              Reputation: [],
+              Seeking: [],
+              Server: "",
+              Slogan: "",
+              Tag: "",
+            },
+            FreeCompanyMembers: [],
+            Friends: [],
+            FriendsPublic: false,
+            Minions: [],
+            Mounts: [],
+            PvPTeam: {
+              ID: "",
+              Pagination: {
+                Page: 0,
+                PageNext: 0,
+                PagePrev: 0,
+                PageTotal: 0,
+                Results: 0,
+                ResultsPerPage: 0,
+                ResultsTotal: 0,
+              },
+              Profile: {
+                Crest: [],
+                Name: "",
+                Server: "",
+              },
+              Results: [],
+            },
           },
-          ClassID: 0,
-          Gear: {
-            Body: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Bracelets: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Earrings: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Feet: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Hands: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Head: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Legs: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            MainHand: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Necklace: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Ring1: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            Ring2: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-            SoulCrystal: {
-              Creator: 0,
-              Dye: 0,
-              ID: 0,
-              Materia: [],
-              Mirage: 0,
-            },
-          },
-          GearKey: "",
-          JobID: 0,
-          Level: 0,
-        },
-        Gender: 0,
-        GrandCompany: { NameID: 0, RankID: 0 },
-        GuardianDeity: 0,
-        ID: 0,
-        Lang: null,
-        Name: "",
-        Nameday: "",
-        ParseData: 0,
-        Portrait: "",
-        PvPTeamId: "",
-        Race: 0,
-        Server: "",
-        Title: 0,
-        TitleTop: false,
-        Town: 0,
-        Tribe: 0,
-      },
-      FreeCompany: {
-        Active: "",
-        ActiveMemberCount: 0,
-        Crest: [],
-        DC: "",
-        Estate: { Greeting: "", Name: "", Plot: "" },
-        Focus: [],
-        Formed: 0,
-        GrandCompany: "",
-        ID: "",
-        Name: "",
-        ParseDate: 0,
-        Rank: 0,
-        Ranking: { Monthly: 0, Weekly: 0 },
-        Recruitment: "",
-        Reputation: [],
-        Seeking: [],
-        Server: "",
-        Slogan: "",
-        Tag: "",
-      },
-      FreeCompanyMembers: [],
-      Friends: [],
-      FriendsPublic: false,
-      Minions: [],
-      Mounts: [],
-      PvPTeam: {
-        ID: "",
-        Pagination: {
-          Page: 0,
-          PageNext: 0,
-          PagePrev: 0,
-          PageTotal: 0,
-          Results: 0,
-          ResultsPerPage: 0,
-          ResultsTotal: 0,
-        },
-        Profile: {
-          Crest: [],
-          Name: "",
-          Server: "",
-        },
-        Results: [],
-      },
-    },
-  ]);
+        ]
+  );
+
+  // Local Storage
+  function saveFreeCompany() {
+    const json = JSON.stringify(freeCompany);
+    localStorage.setItem("FreeCompanyData", json);
+  }
+
+  function loadFreeCompany(): FreeCompanyFull {
+    const value = localStorage.getItem("FreeCompanyData") || "";
+    return JSON.parse(value);
+  }
+
+  function saveMembers() {
+    const json = JSON.stringify(MembersFullData);
+    localStorage.setItem("MembersData", json);
+  }
+
+  function loadMembers(): CharacterData[] {
+    const value = localStorage.getItem("MembersData") || "";
+    return JSON.parse(value);
+  }
 
   // Search
   const [searchInput, setSearchInput] = useState<string>("");
@@ -363,7 +398,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   // Fetch
   const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
   const [membersFetchLoad, setMembersFetchLoad] = useState<boolean>(false);
-  let [fetchProgress, setFetchProgress] = useState(0);
+  const [fetchProgress, setFetchProgress] = useState(0);
 
   async function searchFreeCompany() {
     setBaseFetchLoad(true);
@@ -384,7 +419,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   async function fetchMembersData() {
     setMembersFetchLoad(true);
     const result = (await getCharacterList(FreeCompanyMembers, (progress) => {
-      // setFetchProgress(Math.trunc(progress));
+      // if (progress < 99) setFetchProgress(Math.trunc(progress));
       // Update progress bar
     })) as CharacterData[];
     setMembersFullData(result);
@@ -438,7 +473,9 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     if (isMemberDataEmpty) fetchMembersData();
 
     setRankList(getRanks(FreeCompanyMembers));
-  }, [freeCompany]);
+    saveFreeCompany();
+    saveMembers();
+  }, [freeCompany, MembersFullData]);
 
   useEffect(() => {
     const isCheckEmpty = checkedKeys.length === 0;
