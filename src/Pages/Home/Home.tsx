@@ -1,4 +1,4 @@
-import { Footer, SearchFreeCompany } from "../Components";
+import { Footer, SearchFreeCompany } from "../../Components";
 
 export const Home = () => {
   const Logo = () => {

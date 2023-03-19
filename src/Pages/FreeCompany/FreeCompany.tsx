@@ -1,14 +1,14 @@
 import { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { Footer } from "../Components";
+import { Footer } from "../../Components";
 import {
   Leaderboard,
   MainInfo,
   Members,
   Stats,
-} from "../Components/FreeCompany";
-import { useFreeCompany } from "../Contexts/FreeCompanyContext";
+} from "../../Components/FreeCompany";
+import { useFreeCompany } from "../../Contexts/FreeCompanyContext";
 
 export const FreeCompany = () => {
   const { freeCompany, fetchFreeCompany, baseFetchLoad, MembersFullData } =
