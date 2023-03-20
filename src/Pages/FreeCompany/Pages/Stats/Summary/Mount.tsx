@@ -108,7 +108,7 @@ export const Mount = () => {
   const { popularMount } = useStats();
 
   return (
-    <div className="rounded-lg bg-base-100 p-8">
+    <div className="rounded-lg p-8">
       <h2 className="text-3xl font-bold">Mount</h2>
       <div className="divider"></div>
       <PopularMounts data={popularMount} />
