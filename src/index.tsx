@@ -16,11 +16,11 @@ import {
   Minion,
   Mount,
 } from "./Pages/FreeCompany/Pages/Leaderboard/index";
-import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/AchievementStats";
-import { Job } from "./Pages/FreeCompany/Pages/Stats/Job";
-import { MinionStats } from "./Pages/FreeCompany/Pages/Stats/MinionStats";
-import { MountStats } from "./Pages/FreeCompany/Pages/Stats/MountStats";
-import { Summary } from "./Pages/FreeCompany/Pages/Stats/Summary";
+import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/Full/AchievementStats";
+import { Job } from "./Pages/FreeCompany/Pages/Stats/Full/Job";
+import { MinionStats } from "./Pages/FreeCompany/Pages/Stats/Full/MinionStats";
+import { MountStats } from "./Pages/FreeCompany/Pages/Stats/Full/MountStats";
+import { Summary } from "./Pages/FreeCompany/Pages/Stats/Summary/Summary";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
 
