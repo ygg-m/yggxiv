@@ -1,7 +1,8 @@
-import { MinusIcon, PlusIcon } from "@/Assets/Images/UI";
+import { ChevronRightIcon, MinusIcon, PlusIcon } from "@/Assets/Images/UI";
 import { useStats } from "@/Contexts/StatsContext";
 import { CollectibleData, CollectibleTypes } from "@/Types";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Collectible } from "../Collectible";
 
@@ -13,14 +14,19 @@ const PopularMounts = ({ data }: CollectibleProps) => {
   const filter = data.filter((mount) => mount.MainStory !== true);
   const MSQFilter = data.filter((mount) => mount.MainStory === true);
   const top3 = filter.slice(0, 3);
-
   const [showMSQ, setShowMSQ] = useState<boolean>(false);
+
+  const location = useLocation();
+  const currentFC = location.pathname.split("/")[2];
+  const FullViewPath = `/FreeCompany/${currentFC}/Stats/Mount/Popular`;
 
   return (
     <div className="grid gap-2">
       <div className="flex justify-between">
         <h2 className="text-2xl">Most popular Mounts</h2>
-        <button className="btn-primary btn">See full List →</button>
+        <Link to={FullViewPath} className="btn-primary btn gap-2">
+          See full List <ChevronRightIcon className="w-2" />
+        </Link>
       </div>
 
       <button className="btn w-fit gap-2" onClick={() => setShowMSQ(!showMSQ)}>
@@ -62,14 +68,19 @@ const RarestMounts = ({ data }: CollectibleProps) => {
     (mount) => mount.owners.length === 1
   );
   const top3 = filter.slice(0, 3);
-
   const [showSingle, setShowSingle] = useState<boolean>(false);
+
+  const location = useLocation();
+  const currentFC = location.pathname.split("/")[2];
+  const FullViewPath = `/FreeCompany/${currentFC}/Stats/Mount/Rarest`;
 
   return (
     <div className="grid gap-2">
       <div className="flex justify-between">
         <h2 className="text-2xl">Rarest Mounts</h2>
-        <button className="btn-primary btn">See full List →</button>
+        <Link to={FullViewPath} className="btn-primary btn gap-2">
+          See full List <ChevronRightIcon className="w-2" />
+        </Link>
       </div>
 
       <button

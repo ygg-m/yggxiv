@@ -1,7 +1,9 @@
+import { ChevronRightIcon } from "@/Assets/Images/UI";
 import { SimpleLoading } from "@/Components/LoadingComponents/SimpleLoading";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { useStats } from "@/Contexts/StatsContext";
 import { AchievementsTypes } from "@/Types";
+import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ShowData } from "../ShowData";
 
@@ -66,11 +68,17 @@ const RarestAchievements = ({ data }: RareAchievementProps) => {
   const reverse = [...data].reverse();
   const top3 = reverse.slice(0, 3);
 
+  const location = useLocation();
+  const currentFC = location.pathname.split("/")[2];
+  const FullViewPath = `/FreeCompany/${currentFC}/Stats/Achievement`;
+
   return (
     <div className="grid gap-2">
       <div className="flex justify-between">
         <h2 className="text-2xl">Rarest Achievements</h2>
-        <button className="btn-primary btn">See full List →</button>
+        <Link to={FullViewPath} className="btn-primary btn gap-2">
+          See full List <ChevronRightIcon className="w-2" />
+        </Link>
       </div>
 
       <div className="grid gap-2 md:grid-cols-3">

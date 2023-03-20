@@ -17,6 +17,8 @@ export const Stats = () => {
     "Mount",
     "Minion",
     "Achievement",
+    "Popular",
+    "Rarest",
   ];
   const isInDefault = !paths.includes(currentPath);
 

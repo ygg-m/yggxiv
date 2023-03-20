@@ -1,4 +1,5 @@
 export { ReactComponent as ChevronDownIcon } from "./chevron-down.svg";
+export { ReactComponent as ChevronRightIcon } from "./chevron-right.svg";
 export { ReactComponent as DiscordIcon } from "./discord.svg";
 export { ReactComponent as FreeCompanyIcon } from "./FreeCompany.svg";
 export { ReactComponent as GithubIcon } from "./github.svg";

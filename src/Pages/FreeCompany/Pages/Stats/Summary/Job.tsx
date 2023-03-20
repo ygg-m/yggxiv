@@ -1,5 +1,7 @@
+import { ChevronRightIcon } from "@/Assets/Images/UI";
 import { useStats } from "@/Contexts/StatsContext";
 import { jobData } from "@/Types";
+import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ShowData } from "../ShowData";
 
@@ -43,11 +45,17 @@ const JobData = ({ data }: JobProps) => {
 const Jobs = ({ data }: JobsProps) => {
   const top3 = data.slice(0, 3);
 
+  const location = useLocation();
+  const currentFC = location.pathname.split("/")[2];
+  const FullViewPath = `/FreeCompany/${currentFC}/Stats/Job`;
+
   return (
     <div className="grid gap-2">
       <div className="flex justify-between">
         <h2 className="text-2xl">Most popular Jobs</h2>
-        <button className="btn-primary btn">See full List →</button>
+        <Link to={FullViewPath} className="btn-primary btn gap-2">
+          See full List <ChevronRightIcon className="w-2" />
+        </Link>
       </div>
       <div className="grid gap-2 md:grid-cols-3">
         {top3.map((job: jobData) => (
