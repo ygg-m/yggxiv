@@ -16,6 +16,11 @@ import {
   Minion,
   Mount,
 } from "./Pages/FreeCompany/Pages/Leaderboard/index";
+import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/AchievementStats";
+import { Job } from "./Pages/FreeCompany/Pages/Stats/Job";
+import { MinionStats } from "./Pages/FreeCompany/Pages/Stats/MinionStats";
+import { MountStats } from "./Pages/FreeCompany/Pages/Stats/MountStats";
+import { Summary } from "./Pages/FreeCompany/Pages/Stats/Summary";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
 
@@ -48,12 +53,12 @@ const router = createHashRouter([
         path: "Stats",
         element: <Stats />,
         children: [
-          { path: "Summary", element: <Mount /> },
-          { path: "Character", element: <Minion /> },
-          { path: "Job", element: <Achievement /> },
-          { path: "Mount", element: <Achievement /> },
-          { path: "Minion", element: <Achievement /> },
-          { path: "Achievement", element: <Achievement /> },
+          { path: "Summary", element: <Summary /> },
+          { path: "Character", element: <Character /> },
+          { path: "Job", element: <Job /> },
+          { path: "Mount", element: <MountStats /> },
+          { path: "Minion", element: <MinionStats /> },
+          { path: "Achievement", element: <AchievementStats /> },
         ],
       },
     ],
