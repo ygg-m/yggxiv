@@ -1,6 +1,9 @@
+import { achievements } from "@/Data/achievements";
 import axios from "axios";
 import pLimit from "p-limit";
 import {
+  AchievementData,
+  AchievementList,
   CharacterData,
   CollectibleData,
   FreeCompanyData,
@@ -170,23 +173,41 @@ export async function getMinions(): Promise<CollectibleData[]> {
   return data.Results.filter((e: CollectibleData) => e.Icon !== "");
 }
 
-export async function getAchievements(): Promise<CollectibleData[]> {
-  const urls = [
-    "https://xivapi.com/Achievement?limit=3000",
-    "https://xivapi.com/Achievement?limit=3000&Page=2",
-  ];
-  const response = await Promise.all(
-    urls.map((url) =>
-      axios
-        .get(url)
-        .then((res) => res.data)
-        .catch((err) => undefined)
+export async function getAchievementsByCategory(
+  category?: number
+): Promise<CollectibleData[]> {
+  const url = `https://xivapi.com/search?filters=AchievementCategoryTargetID=${category}`;
+  const response = await axios.get(url);
+  const data = response.data.Results;
+
+  return data.map((achiev: AchievementData) => {
+    return {
+      ID: achiev.ID,
+      Icon: achiev.Icon,
+      Name: achiev.Name,
+      Url: achiev.Url,
+    };
+  });
+}
+
+export async function getAchievements() {
+  const newList = await Promise.all(
+    achievements.map((achiev) =>
+      limit(() => getAchievementsByCategory(achiev.id))
+        .then((achievList) => {
+          return {
+            ID: achiev.id,
+            Group: achiev.group,
+            Category: achiev.category,
+            List: achievList,
+          };
+        })
+        .catch((error) => {
+          console.error(error);
+          return undefined; // Return undefined if getCharacter throws an error
+        })
     )
   );
 
-  const data = [...response[0].Results, ...response[1].Results].filter(
-    (e: CollectibleData) => e.Icon !== ""
-  );
-
-  return data;
+  return newList.filter((achiev) => !!achiev) as AchievementList[]; // Filter out undefined values
 }
