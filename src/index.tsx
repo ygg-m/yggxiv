@@ -37,6 +37,7 @@ const router = createHashRouter([
         <FreeCompany />
       </FreeCompanyProvider>
     ),
+    errorElement: <ErrorPage />,
     children: [
       { path: "Info", element: <MainInfo /> },
       { path: "Members", element: <Members /> },

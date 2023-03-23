@@ -158,56 +158,76 @@ export async function getCharacterList(
 }
 
 export async function getMounts(): Promise<CollectibleData[]> {
-  const url = "https://xivapi.com/Mount?limit=3000";
+  const url = "https://xivapi.com/Mount?columns=ID,IconHD,Name&limit=3000";
   const response = await axios.get(url);
   const data = response.data;
 
-  return data.Results.filter((e: CollectibleData) => e.Icon !== "");
+  interface MountData {
+    ID: number;
+    Name: string;
+    IconHD: string;
+  }
+
+  return data.Results.map((mount: MountData) => {
+    return {
+      ID: mount.ID,
+      Name: mount.Name,
+      Icon: mount.IconHD,
+    };
+  });
 }
 
 export async function getMinions(): Promise<CollectibleData[]> {
-  const url = "https://xivapi.com/Companion?limit=3000";
+  const url = "https://xivapi.com/Companion?columns=ID,IconHD,Name&limit=3000";
   const response = await axios.get(url);
   const data = response.data;
 
-  return data.Results.filter((e: CollectibleData) => e.Icon !== "");
-}
+  interface MountData {
+    ID: number;
+    Name: string;
+    IconHD: string;
+  }
 
-export async function getAchievementsByCategory(
-  category?: number
-): Promise<CollectibleData[]> {
-  const url = `https://xivapi.com/search?filters=AchievementCategoryTargetID=${category}`;
-  const response = await axios.get(url);
-  const data = response.data.Results;
-
-  return data.map((achiev: AchievementData) => {
+  return data.Results.map((mount: MountData) => {
     return {
-      ID: achiev.ID,
-      Icon: achiev.Icon,
-      Name: achiev.Name,
-      Url: achiev.Url,
+      ID: mount.ID,
+      Name: mount.Name,
+      Icon: mount.IconHD,
     };
   });
 }
 
 export async function getAchievements() {
-  const newList = await Promise.all(
-    achievements.map((achiev) =>
-      limit(() => getAchievementsByCategory(achiev.id))
-        .then((achievList) => {
-          return {
-            ID: achiev.id,
-            Group: achiev.group,
-            Category: achiev.category,
-            List: achievList,
-          };
-        })
-        .catch((error) => {
-          console.error(error);
-          return undefined; // Return undefined if getCharacter throws an error
-        })
+  const urls = [
+    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name&limit=3000",
+    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name&limit=3000&Page=2",
+  ];
+
+  const fetch = await Promise.all(
+    urls.map((url) =>
+      limit(async () => {
+        const response = await axios.get(url);
+        const data = response.data.Results;
+        return data;
+      })
     )
   );
 
-  return newList.filter((achiev) => !!achiev) as AchievementList[]; // Filter out undefined values
+  const List = [...fetch[0], ...fetch[1]];
+
+  const result = List.map((achievData) => {
+    const Group = achievData.AchievementCategory.AchievementKind.Name;
+    const Category = achievData.AchievementCategory.Name;
+
+    return {
+      ID: achievData.ID,
+      Name: achievData.Name,
+      Group: Group,
+      Category: Category,
+      Icon: achievData.IconHD,
+      Description: achievData.Description,
+    };
+  });
+
+  return result;
 }

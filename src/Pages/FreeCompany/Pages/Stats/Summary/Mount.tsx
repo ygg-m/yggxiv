@@ -62,10 +62,10 @@ const PopularMounts = ({ data }: CollectibleProps) => {
 const RarestMounts = ({ data }: CollectibleProps) => {
   const reverse = [...data].reverse();
   const filter = reverse.filter(
-    (mount) => mount.Premium !== true && mount.owners.length > 1
+    (mount) => mount.Premium !== true && mount.Owners.length > 1
   );
   const filterSingleOwner = reverse.filter(
-    (mount) => mount.owners.length === 1
+    (mount) => mount.Owners.length === 1
   );
   const top3 = filter.slice(0, 3);
   const [showSingle, setShowSingle] = useState<boolean>(false);

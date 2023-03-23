@@ -4,6 +4,8 @@ import { races } from "../Data/races";
 import { useGameData } from "./GameDataContext";
 
 import {
+  AchievementData,
+  AchievementList,
   AchievementsTypes,
   CharacterData,
   CollectibleData,
@@ -20,7 +22,7 @@ type StatsContextType = {
   getAchievementLeaderboard: any;
   popularJobs: jobData[];
   popularRaces: raceData[];
-  popularGender: { count: number }[];
+  popularGender: { Count: number }[];
   popularMount: CollectibleTypes[];
   popularMinion: CollectibleTypes[];
   rareAchievement: AchievementsTypes[];
@@ -50,7 +52,6 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Character
   const popularRaces = useMemo(() => getPopularRaces(), [MembersFullData]);
-
   const popularGender = useMemo(() => getPopularGenders(), [MembersFullData]);
 
   // Jobs
@@ -238,7 +239,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   function getPopularGenders() {
     const genderCount: {
       [raceName: string]: {
-        count: number;
+        Count: number;
       };
     } = {};
 
@@ -247,32 +248,32 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
       if (!genderCount[gender]) {
         genderCount[gender] = {
-          count: 0,
+          Count: 0,
         };
       }
 
-      if (gender === 1) genderCount[gender].count++;
-      if (gender === 2) genderCount[gender].count++;
+      if (gender === 1) genderCount[gender].Count++;
+      if (gender === 2) genderCount[gender].Count++;
     });
 
     const countsArray = Object.entries(genderCount).map(
-      ([gender, { count }]) => ({
-        count: count,
+      ([gender, { Count }]) => ({
+        Count: Count,
       })
     );
 
-    return countsArray.sort((a, b) => b.count - a.count);
+    return countsArray.sort((a, b) => b.Count - a.Count);
   }
 
   // Collectibles
   function getPopularMounts() {
     const mountCount: {
       [mountName: string]: {
-        count: number;
+        Count: number;
         MainStory: boolean;
         Premium: boolean;
-        collectibleData: CollectibleData;
-        owners: CharacterData[];
+        CollectibleData: CollectibleData;
+        Owners: CharacterData[];
       };
     } = {};
 
@@ -343,23 +344,23 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
       character.Mounts.forEach((mount) => {
         const mountName = mount.Name.toLowerCase();
-        const collectibleData = mounts.filter(
+        const CollectibleData = mounts.filter(
           (e: CollectibleData) => e.Name.toLowerCase() === mountName
         )[0];
 
         if (!mountCount[mountName]) {
           mountCount[mountName] = {
-            count: 0,
+            Count: 0,
             MainStory: false,
             Premium: false,
-            collectibleData,
-            owners: [],
+            CollectibleData,
+            Owners: [],
           };
         }
 
-        mountCount[mountName].count++;
-        mountCount[mountName].owners = [
-          ...mountCount[mountName].owners,
+        mountCount[mountName].Count++;
+        mountCount[mountName].Owners = [
+          ...mountCount[mountName].Owners,
           character,
         ];
 
@@ -373,27 +374,27 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     const countsArray = Object.entries(mountCount).map(
       ([
         mountName,
-        { count, MainStory, Premium, collectibleData, owners },
+        { Count, MainStory, Premium, CollectibleData, Owners },
       ]) => ({
-        count: count,
+        Count: Count,
         MainStory: MainStory,
         Premium: Premium,
-        collectibleData,
-        owners,
+        CollectibleData,
+        Owners,
       })
     );
 
-    return countsArray.sort((a, b) => b.count - a.count);
+    return countsArray.sort((a, b) => b.Count - a.Count);
   }
 
   function getPopularMinions() {
     const mountCount: {
       [minionName: string]: {
-        count: number;
+        Count: number;
         MainStory: boolean;
         Premium: boolean;
-        collectibleData: CollectibleData;
-        owners: CharacterData[];
+        CollectibleData: CollectibleData;
+        Owners: CharacterData[];
       };
     } = {};
 
@@ -491,23 +492,23 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
       character.Minions.forEach((minion) => {
         const minionName = minion.Name.toLowerCase();
-        const collectibleData = minions.filter(
+        const CollectibleData = minions.filter(
           (e: CollectibleData) => e.Name.toLowerCase() === minionName
         )[0];
 
         if (!mountCount[minionName]) {
           mountCount[minionName] = {
-            count: 0,
+            Count: 0,
             MainStory: false,
             Premium: false,
-            collectibleData,
-            owners: [],
+            CollectibleData,
+            Owners: [],
           };
         }
 
-        mountCount[minionName].count++;
-        mountCount[minionName].owners = [
-          ...mountCount[minionName].owners,
+        mountCount[minionName].Count++;
+        mountCount[minionName].Owners = [
+          ...mountCount[minionName].Owners,
           character,
         ];
 
@@ -522,62 +523,62 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     const countsArray = Object.entries(mountCount).map(
       ([
         minionName,
-        { count, MainStory, Premium, collectibleData, owners },
+        { Count, MainStory, Premium, CollectibleData, Owners },
       ]) => ({
-        count: count,
+        Count: Count,
         MainStory: MainStory,
         Premium: Premium,
-        collectibleData,
-        owners,
+        CollectibleData,
+        Owners,
       })
     );
 
-    return countsArray.sort((a, b) => b.count - a.count);
+    return countsArray.sort((a, b) => b.Count - a.Count);
   }
 
   function getRareAchievements() {
-    const achieveCount: {
-      [achieveID: string]: {
-        count: number;
-        achieveData: CollectibleData;
-        owners: CharacterData[];
+    const achievCount: {
+      [achievID: string]: {
+        Count: number;
+        Data: AchievementData;
+        Owners: CharacterData[];
       };
     } = {};
 
     Object.values(MembersFullData).forEach((character) => {
       if (!character.Mounts) return;
 
-      character.Achievements.List.forEach((achievement) => {
-        const achieveID = achievement.ID;
-        const achieveData = achievements.filter(
-          (e: CollectibleData) => e.ID === achieveID
-        )[0];
+      character.Achievements.List.forEach((achiev) => {
+        const achievID = achiev.ID;
+        const Data = achievements.find(
+          (e: CollectibleData) => e.ID === achievID
+        );
 
-        if (!achieveCount[achieveID]) {
-          achieveCount[achieveID] = {
-            count: 0,
-            achieveData,
-            owners: [],
+        if (!achievCount[achievID]) {
+          achievCount[achievID] = {
+            Count: 0,
+            Data,
+            Owners: [],
           };
         }
 
-        achieveCount[achieveID].count++;
-        achieveCount[achieveID].owners = [
-          ...achieveCount[achieveID].owners,
+        achievCount[achievID].Count++;
+        achievCount[achievID].Owners = [
+          ...achievCount[achievID].Owners,
           character,
         ];
       });
     });
 
-    const countsArray = Object.entries(achieveCount).map(
-      ([achieveID, { count, achieveData, owners }]) => ({
-        count: count,
-        achieveData,
-        owners,
+    const countsArray = Object.entries(achievCount).map(
+      ([achievID, { Count, Data, Owners }]) => ({
+        Count: Count,
+        Data,
+        Owners,
       })
     );
 
-    return countsArray.sort((a, b) => b.count - a.count);
+    return countsArray.sort((a, b) => b.Count - a.Count);
   }
 
   // Leaderboard

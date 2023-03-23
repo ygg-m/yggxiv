@@ -62,10 +62,10 @@ const PopularMinions = ({ data }: CollectibleProps) => {
 const RarestMinions = ({ data }: CollectibleProps) => {
   const reverse = [...data].reverse();
   const filter = reverse.filter(
-    (minion) => minion.Premium !== true && minion.owners.length > 1
+    (minion) => minion.Premium !== true && minion.Owners.length > 1
   );
   const filterSingleOwner = reverse.filter(
-    (minion) => minion.owners.length === 1
+    (minion) => minion.Owners.length === 1
   );
   const top3 = filter.slice(0, 3);
   const [showSingle, setShowSingle] = useState<boolean>(false);

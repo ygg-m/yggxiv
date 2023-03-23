@@ -6,7 +6,7 @@ import { Tabs } from "./Tabs";
 
 export const Stats = () => {
   const { MembersFullData, membersFetchLoad, fetchProgress } = useFreeCompany();
-  const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0;
+  const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0 || null;
 
   const location = useLocation();
   const currentPath = location.pathname.split("/").reverse()[0];

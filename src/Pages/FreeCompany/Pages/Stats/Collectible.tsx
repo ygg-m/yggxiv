@@ -16,13 +16,13 @@ export const Collectible = ({ data, showOwners }: CollectibleProps) => {
     },
   } = useFreeCompany();
 
-  const { count, owners } = data;
-  const { Name, Icon } = data.collectibleData;
+  const { Count, Owners } = data;
+  const { Name, Icon } = data.CollectibleData;
 
-  const percentage = Math.floor((count / ActiveMemberCount) * 100);
-  const dataValue = `${count} (${percentage}%)`;
+  const percentage = Math.floor((Count / ActiveMemberCount) * 100);
+  const dataValue = `${Count} (${percentage}%)`;
 
-  if (!data.collectibleData) return <SimpleLoading />;
+  if (!data.CollectibleData) return <SimpleLoading />;
 
   return (
     <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">
@@ -43,7 +43,7 @@ export const Collectible = ({ data, showOwners }: CollectibleProps) => {
         <div className="grid rounded-lg bg-neutral px-4 py-2">
           <span>Owners</span>
           <div className="flex flex-wrap">
-            {owners.map((owner) => {
+            {Owners.map((owner) => {
               const { Name, Avatar } = owner.Character;
               return (
                 <div

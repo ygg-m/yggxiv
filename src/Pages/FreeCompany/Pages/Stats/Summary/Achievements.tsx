@@ -17,10 +17,10 @@ interface RareAchievementProps {
 }
 
 const Achievement = ({ data, showOwners }: AchievementProps) => {
-  if (!data.achieveData) return <SimpleLoading />;
+  if (!data.Data) return <SimpleLoading />;
 
-  const { count, owners } = data;
-  const { Name, Icon } = data.achieveData;
+  const { Count, Owners } = data;
+  const { Name, Icon } = data.Data;
 
   return (
     <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">
@@ -34,14 +34,14 @@ const Achievement = ({ data, showOwners }: AchievementProps) => {
       </div>
 
       <div className="grid items-center rounded-lg bg-neutral px-4 py-2">
-        <ShowData name="Owned" value={count} />
+        <ShowData name="Owned" value={Count} />
       </div>
 
       {showOwners && (
         <div className="grid rounded-lg bg-neutral px-4 py-2">
           <span>Owners</span>
           <div className="flex flex-wrap">
-            {owners.map((owner) => {
+            {Owners.map((owner) => {
               const { Name, Avatar } = owner.Character;
               return (
                 <div

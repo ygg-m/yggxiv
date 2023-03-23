@@ -1,216 +1,5 @@
 import { FreeCompanyData, MembersListTypes } from "./FreeCompanyData";
-
-export const CharacterDataDeclaration = {
-  Achievements: { List: [], Points: 0 },
-  AchievementsPublic: false,
-  Character: {
-    ActiveClassJob: {
-      ClassID: 0,
-      ExpLevel: 0,
-      ExpLevelMax: 0,
-      ExpLevelTogo: 0,
-      IsSpecialised: false,
-      JobID: 0,
-      Level: 0,
-      Name: "",
-      UnlockedState: {
-        ID: 0,
-        Name: "",
-      },
-    },
-    Avatar: "",
-    Bio: "",
-    ClassJobs: [],
-    ClassJobsBozjan: { Level: 0, Mettle: 0, Name: "" },
-    ClassJobsElemental: {
-      ExpLevel: 0,
-      ExpLevelMax: 0,
-      ExpLevelTogo: 0,
-      Level: 0,
-      Name: "",
-    },
-    DC: "",
-    FreeCompanyId: "",
-    FreeCompanyName: "",
-    GearSet: {
-      Attributes: {
-        "1": 0,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "19": 0,
-        "20": 0,
-        "21": 0,
-        "22": 0,
-        "24": 0,
-        "27": 0,
-        "33": 0,
-        "34": 0,
-        "44": 0,
-        "45": 0,
-        "46": 0,
-      },
-      ClassID: 0,
-      Gear: {
-        Body: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Bracelets: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Earrings: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Feet: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Hands: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Head: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Legs: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        MainHand: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Necklace: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Ring1: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        Ring2: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-        SoulCrystal: {
-          Creator: 0,
-          Dye: 0,
-          ID: 0,
-          Materia: [],
-          Mirage: 0,
-        },
-      },
-      GearKey: "",
-      JobID: 0,
-      Level: 0,
-    },
-    Gender: 0,
-    GrandCompany: { NameID: 0, RankID: 0 },
-    GuardianDeity: 0,
-    ID: 0,
-    Lang: null,
-    Name: "",
-    Nameday: "",
-    ParseData: 0,
-    Portrait: "",
-    PvPTeamId: "",
-    Race: 0,
-    Server: "",
-    Title: 0,
-    TitleTop: false,
-    Town: 0,
-    Tribe: 0,
-  },
-  FreeCompany: {
-    Active: "",
-    ActiveMemberCount: 0,
-    Crest: [],
-    DC: "",
-    Estate: {
-      Greeting: "",
-      Name: "",
-      Plot: "",
-    },
-    Focus: [],
-    Formed: 0,
-    GrandCompany: "",
-    ID: "",
-    Name: "",
-    ParseDate: 0,
-    Rank: 0,
-    Ranking: { Monthly: 0, Weekly: 0 },
-    Recruitment: "",
-    Reputation: [],
-    Seeking: [],
-    Server: "",
-    Slogan: "",
-    Tag: "",
-  },
-  FreeCompanyMembers: [],
-  Friends: [],
-  FriendsPublic: false,
-  Minions: [],
-  Mounts: [],
-  PvPTeam: {
-    ID: "",
-    Pagination: {
-      Page: 0,
-      PageNext: 0,
-      PagePrev: 0,
-      PageTotal: 0,
-      Results: 0,
-      ResultsPerPage: 0,
-      ResultsTotal: 0,
-    },
-    Profile: {
-      Crest: [],
-      Name: "",
-      Server: "",
-    },
-    Results: [],
-  },
-};
+import { AchievementData } from "./GameData";
 
 export interface CharacterData {
   Achievements: Achievements;
@@ -336,84 +125,84 @@ interface GearSet {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Bracelets: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Earrings: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Feet: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Hands: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Head: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Legs: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     MainHand: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Necklace: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Ring1: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     Ring2: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
     SoulCrystal: {
       Creator: number;
       Dye: number;
       ID: number;
-      Materia: [];
+      Materia: number[];
       Mirage: number;
     };
   };
@@ -491,19 +280,18 @@ export interface CollectibleData {
   ID: number;
   Icon: string;
   Name: string;
-  Url: string;
 }
 
 export interface CollectibleTypes {
-  count: number;
+  Count: number;
   MainStory: boolean;
   Premium: boolean;
-  collectibleData: CollectibleData;
-  owners: CharacterData[];
+  CollectibleData: CollectibleData;
+  Owners: CharacterData[];
 }
 
 export interface AchievementsTypes {
-  count: number;
-  achieveData: CollectibleData;
-  owners: CharacterData[];
+  Count: number;
+  Data: AchievementData;
+  Owners: CharacterData[];
 }

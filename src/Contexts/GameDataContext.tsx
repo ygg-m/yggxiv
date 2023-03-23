@@ -1,4 +1,4 @@
-import { AchievementList } from "@/Types";
+import { AchievementList, CollectibleData } from "@/Types";
 import { createContext, useContext, useMemo, useState } from "react";
 import { getAchievements, getMinions, getMounts } from "../Helpers/xviapi";
 
@@ -21,13 +21,6 @@ type GameDataContextProps = { children: React.ReactNode };
 export const GameDataProvider: React.FC<GameDataContextProps> = ({
   children,
 }) => {
-  interface CollectibleData {
-    ID: number;
-    Icon: string;
-    Name: string;
-    Url: string;
-  }
-
   const [mounts, setMounts] = useState<CollectibleData[]>([]);
   const [minions, setMinions] = useState<CollectibleData[]>([]);
   const [achievements, setAchievements] = useState<AchievementList[]>([]);
@@ -66,7 +59,6 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
   useMemo(async () => {
     const data = await getAchievements();
     setAchievements(data);
-    // saveData("AchievementData", data);
   }, []);
 
   const value: GameDataContextType = {
