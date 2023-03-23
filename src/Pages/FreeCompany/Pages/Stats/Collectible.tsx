@@ -17,12 +17,12 @@ export const Collectible = ({ data, showOwners }: CollectibleProps) => {
   } = useFreeCompany();
 
   const { Count, Owners } = data;
-  const { Name, Icon } = data.CollectibleData;
+  const { Name, Icon } = data.Data;
 
   const percentage = Math.floor((Count / ActiveMemberCount) * 100);
   const dataValue = `${Count} (${percentage}%)`;
 
-  if (!data.CollectibleData) return <SimpleLoading />;
+  if (!data.Data) return <SimpleLoading />;
 
   return (
     <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">

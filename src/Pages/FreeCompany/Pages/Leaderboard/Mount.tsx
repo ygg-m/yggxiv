@@ -1,3 +1,5 @@
+import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
+import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { v4 as uuidv4 } from "uuid";
 import { MedalIcon, TrophyIcon } from "../../../../Assets/Images/UI";
 import { useStats } from "../../../../Contexts/StatsContext";
@@ -5,10 +7,14 @@ import { CharacterData } from "../../../../Types";
 
 export const Mount = () => {
   const { getMountLeaderboard } = useStats();
-
   const placement = getMountLeaderboard();
 
+  const { loadStats, fetchProgress } = useFreeCompany();
+  if (!loadStats) return <FetchProgress value={fetchProgress} />;
+
   const FirstPlace = () => {
+    if (placement.FirstPlace === undefined) return null;
+
     const {
       Mounts,
       Character: { Name, Portrait },
@@ -39,10 +45,13 @@ export const Mount = () => {
   };
 
   const SecondPlace = () => {
+    if (placement.SecondPlace === undefined) return null;
+
     const {
       Mounts,
       Character: { Name, Portrait },
     } = placement.SecondPlace;
+
     return (
       <article className="order-1 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[430px] sm:w-52">
         <div className="grid justify-center px-4 pb-2 text-silver">
@@ -68,32 +77,36 @@ export const Mount = () => {
   };
 
   const ThirdPlace = () => {
-    const {
-      Mounts,
-      Character: { Name, Portrait },
-    } = placement.ThirdPlace;
-    return (
-      <article className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52">
-        <div className="grid justify-center px-4 pb-2 text-bronze">
-          <span className="text-center text-lg font-extrabold ">
-            3<span className="font-normal">rd</span>
-          </span>
-          <MedalIcon className="h-9 w-9" />
-        </div>
+    if (placement.ThirdPlace === undefined) return null;
+    else {
+      const {
+        Mounts,
+        Character: { Name, Portrait },
+      } = placement.ThirdPlace;
 
-        <div className="relative h-full justify-center">
-          <img
-            src={Portrait}
-            alt={Name}
-            className="h-full rounded-xl object-cover outline outline-1 outline-bronze duration-300"
-          />
-          <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-bronze bg-neutral bg-opacity-90 px-2 pb-2">
-            <h3 className="text-xl">{Name}</h3>
-            <h3 className="text-2xl font-bold text-gold">{Mounts.length}</h3>
+      return (
+        <article className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52">
+          <div className="grid justify-center px-4 pb-2 text-bronze">
+            <span className="text-center text-lg font-extrabold ">
+              3<span className="font-normal">rd</span>
+            </span>
+            <MedalIcon className="h-9 w-9" />
           </div>
-        </div>
-      </article>
-    );
+
+          <div className="relative h-full justify-center">
+            <img
+              src={Portrait}
+              alt={Name}
+              className="h-full rounded-xl object-cover outline outline-1 outline-bronze duration-300"
+            />
+            <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-bronze bg-neutral bg-opacity-90 px-2 pb-2">
+              <h3 className="text-xl">{Name}</h3>
+              <h3 className="text-2xl font-bold text-gold">{Mounts.length}</h3>
+            </div>
+          </div>
+        </article>
+      );
+    }
   };
 
   const Table = () => {

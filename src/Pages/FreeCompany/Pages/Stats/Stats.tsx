@@ -5,7 +5,8 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Tabs } from "./Tabs";
 
 export const Stats = () => {
-  const { MembersFullData, membersFetchLoad, fetchProgress } = useFreeCompany();
+  const { MembersFullData, fetchProgress, loadStats } =
+    useFreeCompany();
   const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0 || null;
 
   const location = useLocation();
@@ -22,8 +23,7 @@ export const Stats = () => {
   ];
   const isInDefault = !paths.includes(currentPath);
 
-  if (isMemberDataEmpty || membersFetchLoad)
-    return <FetchProgress value={fetchProgress} />;
+  if (!loadStats) return <FetchProgress value={fetchProgress} />;
 
   return (
     <StatsProvider>

@@ -31,6 +31,7 @@ type FreeCompanyContextType = {
   fetchProgress: number;
   setMembersFullData: any;
   MemberList: MembersListTypes[];
+  loadStats: boolean;
 };
 
 const FreeCompanyContext = createContext<FreeCompanyContextType>({
@@ -84,6 +85,7 @@ const FreeCompanyContext = createContext<FreeCompanyContextType>({
   fetchProgress: 0,
   setMembersFullData: () => {},
   MemberList: [],
+  loadStats: false,
 });
 
 export const useFreeCompany = () => useContext(FreeCompanyContext);
@@ -382,7 +384,13 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   // Fetch
   const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
   const [membersFetchLoad, setMembersFetchLoad] = useState<boolean>(false);
+  const [memberDataEmpty, setMemberDataEmpty] = useState<boolean>(false);
+  const [loadStats, setLoadStats] = useState<boolean>(false);
   const [fetchProgress, setFetchProgress] = useState(0);
+
+  useEffect(() => {
+    setLoadStats(membersFetchLoad || memberDataEmpty ? false : true);
+  }, [membersFetchLoad, memberDataEmpty]);
 
   async function searchFreeCompany() {
     setBaseFetchLoad(true);
@@ -442,6 +450,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
     fetchProgress,
     setMembersFullData,
     MemberList,
+    loadStats,
   };
 
   return (

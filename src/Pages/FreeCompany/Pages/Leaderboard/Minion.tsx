@@ -9,27 +9,29 @@ export const Minion = () => {
   const placement = getMinionLeaderboard();
 
   const FirstPlace = () => {
+    if (placement.FirstPlace === undefined) return null;
+
     const {
       Minions,
       Character: { Name, Portrait },
     } = placement.FirstPlace;
 
     return (
-      <article className="-order-1 sm:order-2 gap-3 sm:w-64 p-2 sm:h-[530px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
-        <div className="px-4 grid justify-center text-gold pb-2">
-          <span className="font-extrabold text-lg text-center ">
+      <article className="-order-1 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[530px] sm:w-64">
+        <div className="grid justify-center px-4 pb-2 text-gold">
+          <span className="text-center text-lg font-extrabold ">
             1<span className="font-normal">rst</span>
           </span>
           <TrophyIcon className="h-12 w-12" />
         </div>
 
-        <div className="relative justify-center w-full h-96 sm:h-full overflow-hidden rounded-xl outline-1 outline outline-gold ">
+        <div className="relative h-96 w-full justify-center overflow-hidden rounded-xl outline outline-1 outline-gold sm:h-full ">
           <img
             src={Portrait}
             alt={Name}
-            className="object-cover w-full sm:h-full duration-300"
+            className="w-full object-cover duration-300 sm:h-full"
           />
-          <div className="grid pb-2 absolute bottom-0 w-full bg-neutral bg-opacity-90 rounded-xl border-t border-t-gold px-2">
+          <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-gold bg-neutral bg-opacity-90 px-2 pb-2">
             <h3 className="text-2xl">{Name}</h3>
             <h3 className="text-4xl font-bold text-gold">{Minions.length}</h3>
           </div>
@@ -39,26 +41,28 @@ export const Minion = () => {
   };
 
   const SecondPlace = () => {
+    if (placement.SecondPlace === undefined) return null;
+
     const {
       Minions,
       Character: { Name, Portrait },
     } = placement.SecondPlace;
     return (
-      <article className="order-1 self-end sm:order-2 gap-3 sm:w-52 p-2 sm:h-[430px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
-        <div className="px-4 grid justify-center text-silver pb-2">
-          <span className="font-extrabold text-lg text-center ">
+      <article className="order-1 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[430px] sm:w-52">
+        <div className="grid justify-center px-4 pb-2 text-silver">
+          <span className="text-center text-lg font-extrabold ">
             2<span className="font-normal">nd</span>
           </span>
           <MedalIcon className="h-12 w-12" />
         </div>
 
-        <div className="relative justify-center h-full">
+        <div className="relative h-full justify-center">
           <img
             src={Portrait}
             alt={Name}
-            className="rounded-xl object-cover outline-1 outline outline-silver h-full duration-300"
+            className="h-full rounded-xl object-cover outline outline-1 outline-silver duration-300"
           />
-          <div className="grid pb-2 absolute bottom-0 w-full bg-neutral bg-opacity-90 rounded-xl border-t border-t-silver px-2">
+          <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-silver bg-neutral bg-opacity-90 px-2 pb-2">
             <h3 className="text-xl">{Name}</h3>
             <h3 className="text-2xl font-bold text-gold">{Minions.length}</h3>
           </div>
@@ -68,26 +72,28 @@ export const Minion = () => {
   };
 
   const ThirdPlace = () => {
+    if (placement.ThirdPlace === undefined) return null;
+
     const {
       Minions,
       Character: { Name, Portrait },
     } = placement.ThirdPlace;
     return (
-      <article className="order-3 self-end sm:order-2 gap-3 sm:w-52 p-2 sm:h-[380px] text-center cursor-pointer flex flex-col justify-center rounded-lg items-center hover:bg-base-300 duration-300">
-        <div className="px-4 grid justify-center text-bronze pb-2">
-          <span className="font-extrabold text-lg text-center ">
+      <article className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52">
+        <div className="grid justify-center px-4 pb-2 text-bronze">
+          <span className="text-center text-lg font-extrabold ">
             3<span className="font-normal">rd</span>
           </span>
           <MedalIcon className="h-9 w-9" />
         </div>
 
-        <div className="relative justify-center h-full">
+        <div className="relative h-full justify-center">
           <img
             src={Portrait}
             alt={Name}
-            className="rounded-xl object-cover outline-1 outline outline-bronze h-full duration-300"
+            className="h-full rounded-xl object-cover outline outline-1 outline-bronze duration-300"
           />
-          <div className="grid pb-2 absolute bottom-0 w-full bg-neutral bg-opacity-90 rounded-xl border-t border-t-bronze px-2">
+          <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-bronze bg-neutral bg-opacity-90 px-2 pb-2">
             <h3 className="text-xl">{Name}</h3>
             <h3 className="text-2xl font-bold text-gold">{Minions.length}</h3>
           </div>
@@ -98,7 +104,7 @@ export const Minion = () => {
 
   const Table = () => {
     return (
-      <div className="grid rounded-lg bg-base-300 w-full max-w-[672px] outline outline-base-100">
+      <div className="grid w-full max-w-[672px] rounded-lg bg-base-300 outline outline-base-100">
         {placement.EveryoneElse.map((member: CharacterData, index: number) => {
           const {
             Minions,
@@ -107,8 +113,8 @@ export const Minion = () => {
 
           return (
             <div key={uuidv4()}>
-              <article className="cursor-pointer sm:justify-between flex flex-row p-4 gap-4 items-center hover:bg-base-100 duration-300 hover:border-transparent">
-                <div className="flex items-center gap-4 flex-row w-24">
+              <article className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-300 hover:border-transparent hover:bg-base-100 sm:justify-between">
+                <div className="flex w-24 flex-row items-center gap-4">
                   <span className="w-8 text-center sm:text-left">
                     {index + 4}º
                   </span>
@@ -118,9 +124,9 @@ export const Minion = () => {
                     className="mask mask-squircle h-12 w-12"
                   />
                 </div>
-                <div className="flex sm:w-full flex-col sm:flex-row justify-between">
+                <div className="flex flex-col justify-between sm:w-full sm:flex-row">
                   <span className="text-lg">{Name}</span>
-                  <span className="text-lg text-gold font-bold">
+                  <span className="text-lg font-bold text-gold">
                     {Minions?.length || 0}
                   </span>
                 </div>
@@ -138,7 +144,7 @@ export const Minion = () => {
 
   return (
     <section>
-      <div className="flex w-full justify-center mb-4 pb-12 gap-2 flex-col sm:flex-row">
+      <div className="mb-4 flex w-full flex-col justify-center gap-2 pb-12 sm:flex-row">
         <SecondPlace />
         <FirstPlace />
         <ThirdPlace />

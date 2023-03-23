@@ -17,6 +17,12 @@ const JobData = ({ data }: JobProps) => {
   const { LvMax, Lv80, Lv70, Lv60, Lv50, Lv30 } = data;
   const { Job, Role, ImageSrc } = data.jobData;
 
+  // bg-dps
+  // bg-tank
+  // bg-healer
+  // bg-crafter
+  // bg-gatherer
+
   return (
     <div className="grid gap-2 rounded-lg bg-base-300 p-4">
       <div className="grid justify-center gap-2 p-4">

@@ -286,7 +286,7 @@ export interface CollectibleTypes {
   Count: number;
   MainStory: boolean;
   Premium: boolean;
-  CollectibleData: CollectibleData;
+  Data: CollectibleData;
   Owners: CharacterData[];
 }
 

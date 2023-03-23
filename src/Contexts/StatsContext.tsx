@@ -272,7 +272,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         Count: number;
         MainStory: boolean;
         Premium: boolean;
-        CollectibleData: CollectibleData;
+        Data: CollectibleData;
         Owners: CharacterData[];
       };
     } = {};
@@ -344,7 +344,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
       character.Mounts.forEach((mount) => {
         const mountName = mount.Name.toLowerCase();
-        const CollectibleData = mounts.filter(
+        const Data = mounts.filter(
           (e: CollectibleData) => e.Name.toLowerCase() === mountName
         )[0];
 
@@ -353,7 +353,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
             Count: 0,
             MainStory: false,
             Premium: false,
-            CollectibleData,
+            Data,
             Owners: [],
           };
         }
@@ -372,14 +372,11 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     });
 
     const countsArray = Object.entries(mountCount).map(
-      ([
-        mountName,
-        { Count, MainStory, Premium, CollectibleData, Owners },
-      ]) => ({
+      ([mountName, { Count, MainStory, Premium, Data, Owners }]) => ({
         Count: Count,
         MainStory: MainStory,
         Premium: Premium,
-        CollectibleData,
+        Data,
         Owners,
       })
     );
@@ -393,7 +390,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         Count: number;
         MainStory: boolean;
         Premium: boolean;
-        CollectibleData: CollectibleData;
+        Data: CollectibleData;
         Owners: CharacterData[];
       };
     } = {};
@@ -492,7 +489,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
       character.Minions.forEach((minion) => {
         const minionName = minion.Name.toLowerCase();
-        const CollectibleData = minions.filter(
+        const Data = minions.filter(
           (e: CollectibleData) => e.Name.toLowerCase() === minionName
         )[0];
 
@@ -501,7 +498,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
             Count: 0,
             MainStory: false,
             Premium: false,
-            CollectibleData,
+            Data,
             Owners: [],
           };
         }
@@ -521,14 +518,11 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
     });
 
     const countsArray = Object.entries(mountCount).map(
-      ([
-        minionName,
-        { Count, MainStory, Premium, CollectibleData, Owners },
-      ]) => ({
+      ([minionName, { Count, MainStory, Premium, Data, Owners }]) => ({
         Count: Count,
         MainStory: MainStory,
         Premium: Premium,
-        CollectibleData,
+        Data,
         Owners,
       })
     );

@@ -168,13 +168,23 @@ export async function getMounts(): Promise<CollectibleData[]> {
     IconHD: string;
   }
 
-  return data.Results.map((mount: MountData) => {
+  interface ResultType {
+    ID: number;
+    Name: string;
+    Icon: string;
+  }
+
+  const result = data.Results.map((mount: MountData) => {
     return {
       ID: mount.ID,
       Name: mount.Name,
       Icon: mount.IconHD,
     };
-  });
+  }).filter((m: ResultType) => m.Icon !== "");
+
+  console.log(result);
+
+  return result;
 }
 
 export async function getMinions(): Promise<CollectibleData[]> {
