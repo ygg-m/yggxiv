@@ -5,9 +5,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Tabs } from "./Tabs";
 
 export const Stats = () => {
-  const { MembersFullData, fetchProgress, loadStats } =
-    useFreeCompany();
-  const isMemberDataEmpty = MembersFullData[0]?.Character?.ID === 0 || null;
+  const { MembersFullData, fetchProgress, loadStats } = useFreeCompany();
 
   const location = useLocation();
   const currentPath = location.pathname.split("/").reverse()[0];

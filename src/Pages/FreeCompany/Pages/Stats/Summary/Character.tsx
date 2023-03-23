@@ -2,6 +2,9 @@ import { ChevronRightIcon, FemaleIcon, MaleIcon } from "@/Assets/Images/UI";
 import { useStats } from "@/Contexts/StatsContext";
 import { raceData } from "@/Types";
 import { Link, useLocation } from "react-router-dom";
+
+import "chart.js/auto";
+import { Chart } from "react-chartjs-2";
 import { v4 as uuidv4 } from "uuid";
 import { ShowData } from "../ShowData";
 import { Genders } from "./Genders";

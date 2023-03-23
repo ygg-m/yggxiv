@@ -10,16 +10,19 @@ import {
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
-import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
+import { ErrorPage, FreeCompany, Home } from "./Pages";
 import {
   Achievement,
   Minion,
   Mount,
 } from "./Pages/FreeCompany/Pages/Leaderboard/index";
 import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/Full/AchievementStats";
-import { Job } from "./Pages/FreeCompany/Pages/Stats/Full/Job";
-import { MinionStats } from "./Pages/FreeCompany/Pages/Stats/Full/MinionStats";
-import { MountStats } from "./Pages/FreeCompany/Pages/Stats/Full/MountStats";
+import {
+  Character,
+  Job,
+  MinionStats,
+  MountStats,
+} from "./Pages/FreeCompany/Pages/Stats/Full/index";
 import { Summary } from "./Pages/FreeCompany/Pages/Stats/Summary/Summary";
 import reportWebVitals from "./reportWebVitals";
 import "./Styles/index.css";
