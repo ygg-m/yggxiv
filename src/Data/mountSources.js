@@ -235,6 +235,27 @@ export const mountSources = [
     ],
   },
   {
+    Source: "PvP",
+    List: [
+      "logistics node",
+      "fylgja",
+      "dreadnaught",
+      "prototype roader",
+      "magitek hyperconveyor",
+      "menoetius",
+      "epimetheus",
+      "maxima roader",
+      "magna roader",
+      "magitek sky armor",
+      "prototype conveyor",
+      "magitek conveyor",
+      "lone faehound",
+      "pack faehound",
+      "pack hellhound",
+      "lone hellhound",
+    ],
+  },
+  {
     Source: "Quest",
     List: [
       "anden iii",
