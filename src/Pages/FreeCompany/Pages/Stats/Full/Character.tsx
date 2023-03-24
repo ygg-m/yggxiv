@@ -43,6 +43,9 @@ const RaceChart = ({ data }: { data: raceData[] }) => {
           display: true,
           color: "#222731",
         },
+        ticks: {
+          stepSize: 1,
+        },
       },
       x: {
         stacked: true,

@@ -11,11 +11,8 @@ interface ChartProps {
 
 export const Job = () => {
   const { popularJobs } = useStats();
-
   const [data, setData] = useState(popularJobs);
-
   const [filter, setFilter] = useState(popularJobs);
-
   const [RoleFilter, setRoleFilter] = useState<string[]>([
     "Tank",
     "Healer",
@@ -24,7 +21,6 @@ export const Job = () => {
     "Crafter",
   ]);
   const [RoleTabIndex, setRoleTabIndex] = useState<number>(0);
-
   const [LevelFilter, setLevelFilter] = useState<string>("LvMax");
   const [LevelTabIndex, setLevelTabIndex] = useState<number>(0);
 
@@ -215,6 +211,9 @@ export const Job = () => {
             display: true,
             color: "#222731",
           },
+          ticks: {
+            stepSize: 1,
+          },
         },
         x: {
           stacked: true,
@@ -241,8 +240,6 @@ export const Job = () => {
   const level = parseInt(LevelFilter.substring(LevelFilter.length - 2));
   const isNumber = !isNaN(level);
   const isLvl30 = level === 30;
-
-  console.log(isNumber);
 
   return (
     <div className="mt-4 grid gap-8">
