@@ -124,7 +124,6 @@ const GenderChart = ({ data }: GenderProps) => {
 
 export const Character = () => {
   const { popularRaces, popularGender } = useStats();
-  console.log(popularGender);
   return (
     <div className="grid gap-16 p-8">
       <RaceChart data={popularRaces} />

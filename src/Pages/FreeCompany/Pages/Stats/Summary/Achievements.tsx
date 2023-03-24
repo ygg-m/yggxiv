@@ -127,7 +127,7 @@ const RarestAchievements = ({ data }: RareAchievementProps) => {
 
   if (filter.length === 0)
     return (
-      <div className="grid gap-2">
+      <div className="grid min-h-[364px] gap-2">
         <div className="grid gap-6 md:grid-cols-3">
           <Achievement key={uuidv4()} data={emptyAchieve} />
         </div>
@@ -135,7 +135,7 @@ const RarestAchievements = ({ data }: RareAchievementProps) => {
     );
 
   return (
-    <div className="grid gap-2">
+    <div className="grid min-h-[364px] gap-2">
       <div className="grid gap-6 md:grid-cols-3">
         {top3.map((achieve) => (
           <Achievement key={uuidv4()} data={achieve} showOwners />
@@ -165,7 +165,6 @@ export const Achievements = () => {
       Name: "Battle",
       Click: (index: number) => {
         setTabIndex(index);
-        console.log(rareAchievement);
         setFilter(rareAchievement.filter((ac) => ac.Data.Group === "Battle"));
       },
     },
