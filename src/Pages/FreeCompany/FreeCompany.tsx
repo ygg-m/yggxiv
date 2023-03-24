@@ -12,7 +12,7 @@ export const FreeCompany = () => {
 
   const location = useLocation();
   const currentPath = location.pathname.split("/").reverse()[0];
-  const currentPage = location.pathname.split("/").reverse()[2];
+  const currentPage = location.pathname.split("/").reverse()[1];
   const paths = ["Info", "Members", "Leaderboard", "Stats"];
   const isInDefault =
     !paths.includes(currentPath) && currentPage === "FreeCompany";
