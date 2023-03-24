@@ -5,13 +5,8 @@ import { useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
 import { v4 as uuidv4 } from "uuid";
 
-interface ChartProps {
-  data: jobData[];
-}
-
 export const Job = () => {
   const { popularJobs } = useStats();
-  const [data, setData] = useState(popularJobs);
   const [filter, setFilter] = useState(popularJobs);
   const [RoleFilter, setRoleFilter] = useState<string[]>([
     "Tank",
@@ -158,6 +153,10 @@ export const Job = () => {
       </div>
     );
   };
+
+  interface ChartProps {
+    data: jobData[];
+  }
 
   const ShowChart = ({ data }: ChartProps) => {
     const NameList = data.map((job) => {

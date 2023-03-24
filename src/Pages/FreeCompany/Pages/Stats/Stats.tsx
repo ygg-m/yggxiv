@@ -25,7 +25,7 @@ export const Stats = () => {
 
   return (
     <StatsProvider>
-      <section className="grid min-h-[calc(100vh-448px)] pb-8">
+      <section className="flex flex-col min-h-[calc(100vh-448px)] pb-8">
         <Tabs />
         <Outlet />
         {isInDefault && <Navigate to="Summary" />}

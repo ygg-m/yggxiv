@@ -1,9 +1,6 @@
-import { achievements } from "@/Data/achievements";
 import axios from "axios";
 import pLimit from "p-limit";
 import {
-  AchievementData,
-  AchievementList,
   CharacterData,
   CollectibleData,
   FreeCompanyData,
