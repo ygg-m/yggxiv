@@ -89,7 +89,8 @@ const GenderChart = ({ data }: GenderProps) => {
     datasets: [
       {
         backgroundColor: ["#eec643", "#5c0099"],
-        borderColor: "#2A303C",
+        borderColor: "#222731",
+        borderWidth: 4,
         data: data.map((gender) => gender.Count),
       },
     ],
