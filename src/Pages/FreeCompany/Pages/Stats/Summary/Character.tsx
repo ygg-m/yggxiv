@@ -91,7 +91,7 @@ const Race = ({ data }: RaceProps) => {
 
   return (
     <div className="grid gap-4 rounded-lg bg-base-200 p-4 pt-6 duration-300 hover:bg-base-300">
-      <div className="grid justify-center gap-2">
+      <div className="grid place-items-center gap-2">
         <div className="tooltip" data-tip={CharName}>
           <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />
         </div>
@@ -125,7 +125,7 @@ const Races = ({ data }: RacesProps) => {
           See full List <ChevronRightIcon className="w-2" />
         </Link>
       </div>
-      <div className="grid gap-2 md:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
         {top3.map((race) => (
           <Race key={uuidv4()} data={race} />
         ))}

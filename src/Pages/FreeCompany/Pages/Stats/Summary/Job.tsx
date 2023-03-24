@@ -115,7 +115,7 @@ const Jobs = ({ data }: JobsProps) => {
           See full List <ChevronRightIcon className="w-2" />
         </Link>
       </div>
-      <div className="grid gap-2 md:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
         {top3.map((job: jobData) => (
           <JobData key={uuidv4()} data={job} />
         ))}

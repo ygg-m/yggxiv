@@ -7,9 +7,14 @@ import { ShowData } from "./ShowData";
 interface CollectibleProps {
   data: CollectibleTypes;
   showOwners?: boolean;
+  showCount?: boolean;
 }
 
-export const Collectible = ({ data, showOwners }: CollectibleProps) => {
+export const Collectible = ({
+  data,
+  showOwners,
+  showCount,
+}: CollectibleProps) => {
   const {
     freeCompany: {
       FreeCompany: { ActiveMemberCount },
@@ -24,9 +29,50 @@ export const Collectible = ({ data, showOwners }: CollectibleProps) => {
 
   if (!data.Data) return <SimpleLoading />;
 
+  const MultipleOwners = () => {
+    return (
+      <div className="grid rounded-lg bg-neutral px-4 py-2">
+        <span>Owners</span>
+        <div className="grid grid-cols-3 place-items-center sm:grid-cols-8 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+          {Owners.map((owner) => {
+            const { Name, Avatar } = owner.Character;
+            return (
+              <div
+                className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
+                data-tip={Name}
+                key={uuidv4()}
+              >
+                <img
+                  src={Avatar}
+                  alt={Name}
+                  className="mask mask-squircle w-10"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const SingleOwner = () => {
+    const { Name, Avatar } = Owners[0].Character;
+
+    return (
+      <div className="flex flex-col items-center">
+        <div className="divider m-0 mb-2"></div>
+        <span className="opacity-70">Owner</span>
+        <div className="grid cursor-pointer place-items-center gap-2 rounded-lg bg-transparent p-2 duration-200 hover:bg-neutral">
+          <img src={Avatar} alt={Name} className="mask mask-squircle w-16" />
+          <span className="text-center">{Name}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-200 hover:bg-base-300">
-      <div className="grid place-items-center justify-center gap-2 p-4">
+    <div className="grid gap-4 rounded-lg bg-base-200 p-4 pt-6 duration-300 hover:bg-base-300">
+      <div className="grid place-items-center justify-center gap-2">
         <img
           src={`https://xivapi.com/${Icon}`}
           alt={Name}
@@ -35,33 +81,20 @@ export const Collectible = ({ data, showOwners }: CollectibleProps) => {
         <h4 className="text-center text-lg capitalize">{Name}</h4>
       </div>
 
-      <div className="grid items-center rounded-lg bg-neutral px-4 py-2">
-        <ShowData name="Owned" strValue={dataValue} />
-      </div>
-
-      {showOwners && (
-        <div className="grid rounded-lg bg-neutral px-4 py-2">
-          <span>Owners</span>
-          <div className="flex flex-wrap">
-            {Owners.map((owner) => {
-              const { Name, Avatar } = owner.Character;
-              return (
-                <div
-                  className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
-                  data-tip={Name}
-                  key={uuidv4()}
-                >
-                  <img
-                    src={Avatar}
-                    alt={Name}
-                    className="mask mask-squircle w-10"
-                  />
-                </div>
-              );
-            })}
-          </div>
+      {showCount && (
+        <div className="grid place-items-center">
+          <span className="text-5xl font-bold text-primary">{Count}</span>
+          <span className="opacity-70">owners ({percentage}%)</span>
         </div>
       )}
+
+      {showOwners ? (
+        Owners.length > 1 ? (
+          <MultipleOwners />
+        ) : (
+          <SingleOwner />
+        )
+      ) : null}
     </div>
   );
 };

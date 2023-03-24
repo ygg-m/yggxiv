@@ -12,9 +12,7 @@ interface CollectibleProps {
 
 const PopularMinions = ({ data }: CollectibleProps) => {
   const filter = data.filter((minion) => minion.MainStory !== true);
-  const MSQFilter = data.filter((minion) => minion.MainStory === true);
   const top3 = filter.slice(0, 3);
-  const [showMSQ, setShowMSQ] = useState<boolean>(false);
 
   const location = useLocation();
   const currentFC = location.pathname.split("/")[2];
@@ -29,30 +27,9 @@ const PopularMinions = ({ data }: CollectibleProps) => {
         </Link>
       </div>
 
-      <button className="btn w-fit gap-2" onClick={() => setShowMSQ(!showMSQ)}>
-        {showMSQ ? (
-          <>
-            <MinusIcon className="w-4" /> Hide Main Story Quest Minions
-          </>
-        ) : (
-          <>
-            <PlusIcon className="w-4" />
-            Show Main Story Quest Minions
-          </>
-        )}
-      </button>
-
-      {showMSQ && (
-        <div className="grid gap-2 rounded-lg bg-base-300 p-4 md:grid-cols-3">
-          {MSQFilter.map((minion) => {
-            return <Collectible key={uuidv4()} data={minion} />;
-          })}
-        </div>
-      )}
-
-      <div className="grid gap-2 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         {top3.map((minion) => {
-          return <Collectible key={uuidv4()} data={minion} />;
+          return <Collectible key={uuidv4()} data={minion} showCount />;
         })}
       </div>
     </div>
@@ -84,7 +61,7 @@ const RarestMinions = ({ data }: CollectibleProps) => {
       </div>
 
       <button
-        className="btn w-fit gap-2"
+        className="btn-secondary btn w-fit gap-2"
         onClick={() => setShowSingle(!showSingle)}
       >
         {showSingle ? (
@@ -100,15 +77,17 @@ const RarestMinions = ({ data }: CollectibleProps) => {
       </button>
 
       {showSingle && (
-        <div className="grid gap-2 rounded-lg bg-base-300 p-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {filterSingleOwner.map((minion) => {
             return <Collectible key={uuidv4()} data={minion} showOwners />;
           })}
         </div>
       )}
-      <div className="grid gap-2 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         {top3.map((minion) => {
-          return <Collectible key={uuidv4()} data={minion} showOwners />;
+          return (
+            <Collectible key={uuidv4()} data={minion} showOwners showCount />
+          );
         })}
       </div>
     </div>
@@ -121,6 +100,9 @@ export const Minion = () => {
   return (
     <div className="rounded-lg bg-base-100 p-8">
       <h2 className="text-3xl font-bold">Minion</h2>
+      <span className="opacity-70">
+        Main Story Quest Minions doesn't count to the Top 3.
+      </span>
       <div className="divider"></div>
       <PopularMinions data={popularMinion} />
       <div className="divider"></div>
