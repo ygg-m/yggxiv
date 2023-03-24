@@ -1,3 +1,4 @@
+import { mountSources } from "@/Data/mountSources";
 import axios from "axios";
 import pLimit from "p-limit";
 import {
@@ -172,14 +173,17 @@ export async function getMounts(): Promise<CollectibleData[]> {
   }
 
   const result = data.Results.map((mount: MountData) => {
+    const sources = mountSources.filter((source) =>
+      source.List.includes(mount.Name.toLowerCase())
+    );
+
     return {
       ID: mount.ID,
       Name: mount.Name,
       Icon: mount.IconHD,
+      Sources: sources,
     };
   }).filter((m: ResultType) => m.Icon !== "");
-
-  console.log(result);
 
   return result;
 }
@@ -200,6 +204,7 @@ export async function getMinions(): Promise<CollectibleData[]> {
       ID: mount.ID,
       Name: mount.Name,
       Icon: mount.IconHD,
+      Source: [],
     };
   });
 }
