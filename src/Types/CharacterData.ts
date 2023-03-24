@@ -280,7 +280,7 @@ export interface CollectibleData {
   ID: number;
   Icon: string;
   Name: string;
-  Source: string[];
+  Sources: string[];
 }
 
 export interface CollectibleTypes {
