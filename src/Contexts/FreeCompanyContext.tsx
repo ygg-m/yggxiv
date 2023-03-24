@@ -384,13 +384,13 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   // Fetch
   const [baseFetchLoad, setBaseFetchLoad] = useState<boolean>(false);
   const [membersFetchLoad, setMembersFetchLoad] = useState<boolean>(false);
-  const [memberDataEmpty, setMemberDataEmpty] = useState<boolean>(false);
+  const [isMemberDataDiff, setMemberDataDiff] = useState<boolean>(false);
   const [loadStats, setLoadStats] = useState<boolean>(false);
   const [fetchProgress, setFetchProgress] = useState(0);
 
   useEffect(() => {
-    setLoadStats(membersFetchLoad || memberDataEmpty ? false : true);
-  }, [membersFetchLoad, memberDataEmpty]);
+    setLoadStats(membersFetchLoad || isMemberDataDiff ? false : true);
+  }, [membersFetchLoad, isMemberDataDiff]);
 
   async function searchFreeCompany() {
     setBaseFetchLoad(true);
@@ -424,8 +424,10 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   useEffect(() => {
     const isMemberDataEmpty =
       MembersFullData[0]?.Character?.ID === 0 || MembersFullData.length === 0;
+    const isMemberDataDifferent =
+      MembersFullData[0].Character.FreeCompanyId !== fcId;
 
-    if (isMemberDataEmpty) fetchMembersData();
+    if (isMemberDataEmpty || isMemberDataDifferent) fetchMembersData();
 
     setRankList(getRanks(MemberList));
     saveFreeCompany();
