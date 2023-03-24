@@ -1,9 +1,11 @@
 import { ChevronRightIcon } from "@/Assets/Images/UI";
+import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { useStats } from "@/Contexts/StatsContext";
 import { jobData } from "@/Types";
+import "chart.js/auto";
+import { Chart } from "react-chartjs-2";
 import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { ShowData } from "../ShowData";
 
 interface JobProps {
   data: jobData;
@@ -16,6 +18,57 @@ interface JobsProps {
 const JobData = ({ data }: JobProps) => {
   const { LvMax, Lv80, Lv70, Lv60, Lv50, Lv30 } = data;
   const { Job, Role, ImageSrc } = data.jobData;
+  const {
+    freeCompany: {
+      FreeCompany: { ActiveMemberCount },
+    },
+  } = useFreeCompany();
+
+  const percentage = Math.floor((LvMax / ActiveMemberCount) * 100);
+
+  const chartData = {
+    labels: ["Max Level", "Lv80+", "Lv70+", "Lv60+", "Lv50+", "Lv30+"],
+    datasets: [
+      {
+        backgroundColor: [
+          "#eec643",
+          "#743333",
+          "#743333",
+          "#743333",
+          "#743333",
+          "#743333",
+        ],
+        borderColor: "#222731",
+        borderWidth: 4,
+        data: [LvMax, Lv80, Lv70, Lv60, Lv50, Lv30],
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      y: {
+        grid: {
+          display: true,
+          color: "#222731",
+        },
+        ticks: {
+          beginAtZero: false,
+          display: false,
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
 
   // bg-dps
   // bg-tank
@@ -24,8 +77,8 @@ const JobData = ({ data }: JobProps) => {
   // bg-gatherer
 
   return (
-    <div className="grid gap-2 rounded-lg bg-base-300 p-4">
-      <div className="grid justify-center gap-2 p-4">
+    <div className="grid gap-4 rounded-lg bg-base-200 p-4 pt-6 duration-300 hover:bg-base-300">
+      <div className="grid justify-center gap-2">
         <img
           src={ImageSrc}
           alt={Job}
@@ -34,15 +87,14 @@ const JobData = ({ data }: JobProps) => {
         <h4 className="text-center text-lg">{Job}</h4>
       </div>
 
-      <div className="rounded-lg bg-neutral px-4 py-2">
-        <ShowData name="Max Level" value={LvMax} />
+      <div className="grid place-items-center">
+        <span className="text-5xl font-bold text-primary">{LvMax}</span>
+        <span className="opacity-70">
+          characters at Max Level. ({percentage}%)
+        </span>
       </div>
-      <div className="rounded-lg bg-neutral px-4 py-2">
-        <ShowData name="Level 80+" value={Lv80} />
-        <ShowData name="Level 70+" value={Lv70} />
-        <ShowData name="Level 60+" value={Lv60} />
-        <ShowData name="Level 50+" value={Lv50} />
-        <ShowData name="Level 30+" value={Lv30} />
+      <div className="rounded-lg bg-neutral px-4 py-2 py-3">
+        <Chart type="bar" data={chartData} options={options} />
       </div>
     </div>
   );

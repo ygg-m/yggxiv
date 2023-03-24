@@ -82,7 +82,6 @@ interface GenderProps {
 }
 
 const GenderChart = ({ data }: GenderProps) => {
-  console.log(data);
   const treatedData = {
     labels: ["Male", "Female"],
     indexAxis: "y",
@@ -99,6 +98,10 @@ const GenderChart = ({ data }: GenderProps) => {
   const options = {
     scales: {
       y: {
+        ticks: {
+          beginAtZero: false,
+          display: false,
+        },
         beginAtZero: true,
       },
     },
