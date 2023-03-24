@@ -173,9 +173,9 @@ export async function getMounts(): Promise<CollectibleData[]> {
   }
 
   const result = data.Results.map((mount: MountData) => {
-    const sources = mountSources.filter((source) =>
-      source.List.includes(mount.Name.toLowerCase())
-    );
+    const sources = mountSources
+      .filter((source) => source.List.includes(mount.Name.toLowerCase()))
+      .map((source) => source.Source);
 
     return {
       ID: mount.ID,
