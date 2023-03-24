@@ -1,4 +1,5 @@
 import { FemaleIcon, MaleIcon } from "@/Assets/Images/UI";
+import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { useStats } from "@/Contexts/StatsContext";
 import { raceData } from "@/Types";
 import "chart.js/auto";
@@ -22,7 +23,7 @@ const RaceChart = ({ data }: { data: raceData[] }) => {
         borderColor: "#2A303C",
         borderWidth: 3,
         data: data.map((race) => race.Race.Male),
-        stack: "0",
+        stack: "Race Gender",
       },
       {
         label: "Female",
@@ -30,7 +31,7 @@ const RaceChart = ({ data }: { data: raceData[] }) => {
         borderColor: "#2A303C",
         borderWidth: 3,
         data: data.map((race) => race.Race.Female),
-        stack: "0",
+        stack: "Race Gender",
       },
     ],
   };
@@ -125,12 +126,112 @@ const GenderChart = ({ data }: GenderProps) => {
   );
 };
 
+interface RaceProps {
+  data: raceData;
+}
+
+const Race = ({ data }: RaceProps) => {
+  const {
+    freeCompany: {
+      FreeCompany: { ActiveMemberCount },
+    },
+  } = useFreeCompany();
+
+  const { Race, Tribe1, Tribe2, memberList } = data;
+
+  const { Name, Tribes: TribeData } = data.raceData;
+
+  const { Avatar, Name: CharName } =
+    memberList[Math.floor(Math.random() * memberList.length)].Character;
+
+  const chartData = {
+    labels: ["Total", TribeData.Tribe1.Name, TribeData.Tribe2.Name],
+    datasets: [
+      {
+        label: "Total",
+        backgroundColor: ["#2A303C"],
+        borderColor: "#222731",
+        borderWidth: 4,
+        data: [Race.Count, Tribe1.Count, Tribe2.Count],
+        stack: "Total",
+      },
+      {
+        label: "Male",
+        backgroundColor: "#eec643",
+        borderColor: "#2A303C",
+        borderWidth: 3,
+        data: [Race.Male, Tribe1.Male, Tribe2.Male],
+        stack: "Gender",
+      },
+      {
+        label: "Female",
+        backgroundColor: "#5c0099",
+        borderColor: "#2A303C",
+        borderWidth: 3,
+        data: [Race.Female, Tribe1.Female, Tribe2.Female],
+        stack: "Gender",
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      y: {
+        grid: {
+          display: true,
+          color: "#222731",
+        },
+        ticks: {
+          beginAtZero: false,
+          display: true,
+          stepSize: 1,
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+    // plugins: {
+    //   legend: {
+    //     display: false,
+    //   },
+    // },
+  };
+
+  return (
+    <div className="flex min-h-[300px] items-center gap-4 rounded-lg bg-base-200 p-4 pl-6 duration-300 hover:bg-base-300">
+      <div className="flex flex-col place-items-center gap-2">
+        <div className="tooltip" data-tip={CharName}>
+          <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />
+        </div>
+        <h4 className="text-center text-lg">{Name}</h4>
+      </div>
+
+      <div className="w-full rounded-lg bg-neutral px-4 py-2">
+        <Chart type="bar" data={chartData} options={options} />
+      </div>
+    </div>
+  );
+};
+
 export const Character = () => {
   const { popularRaces, popularGender } = useStats();
+
+  const HyurFilter = popularRaces.filter(
+    (race) => race.raceData.Name === "Hyur"
+  );
+
   return (
     <div className="grid gap-16 p-8">
       <RaceChart data={popularRaces} />
       <GenderChart data={popularGender} />
+      <div className="grid grid-cols-2 gap-4">
+        {popularRaces.map((race) => (
+          <Race data={race} />
+        ))}
+      </div>
     </div>
   );
 };
