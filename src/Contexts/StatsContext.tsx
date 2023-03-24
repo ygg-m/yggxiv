@@ -164,6 +164,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         classId: number;
         jobData: {
           Job: string;
+          Tag: string;
           ImageSrc: string;
           Role: string;
           Position?: string;

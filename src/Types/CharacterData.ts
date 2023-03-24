@@ -251,11 +251,13 @@ export interface jobData {
   classId: number;
   jobData: {
     Job: string;
+    Tag: string;
     Role: string;
     Position?: string;
     ImageSrc: string;
     SVG?: object;
   };
+  [key: string]: any;
 }
 
 export interface raceData {
