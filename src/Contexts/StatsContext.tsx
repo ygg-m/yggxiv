@@ -81,11 +81,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   function getPopularRaces() {
     const raceCount: {
       [raceName: string]: {
-        RaceCount: number;
-        TribeCount_1: number;
-        TribeCount_2: number;
-        MaleCount: number;
-        FemaleCount: number;
+        Race: { Count: number; Male: number; Female: number };
+        Tribe1: { Count: number; Male: number; Female: number };
+        Tribe2: { Count: number; Male: number; Female: number };
         raceData: {
           ID: number;
           Icon: string;
@@ -107,11 +105,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
       if (!raceCount[raceID]) {
         raceCount[raceID] = {
-          RaceCount: 0,
-          TribeCount_1: 0,
-          TribeCount_2: 0,
-          MaleCount: 0,
-          FemaleCount: 0,
+          Race: { Count: 0, Male: 0, Female: 0 },
+          Tribe1: { Count: 0, Male: 0, Female: 0 },
+          Tribe2: { Count: 0, Male: 0, Female: 0 },
           raceData,
           memberList: [],
         };
@@ -128,37 +124,31 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
       const isMale = gender === 1;
       const isFemale = gender === 2;
 
-      if (isMale) raceCount[raceID].MaleCount++;
-      if (isFemale) raceCount[raceID].FemaleCount++;
-      if (isRace) raceCount[raceID].RaceCount++;
-      if (isTribe1) raceCount[raceID].TribeCount_1++;
-      if (isTribe2) raceCount[raceID].TribeCount_2++;
+      if (isRace) raceCount[raceID].Race.Count++;
+
+      if (isMale) raceCount[raceID].Race.Male++;
+      if (isFemale) raceCount[raceID].Race.Female++;
+
+      if (isTribe1) raceCount[raceID].Tribe1.Count++;
+      if (isTribe2) raceCount[raceID].Tribe2.Count++;
+
+      if (isTribe1 && isMale) raceCount[raceID].Tribe1.Male++;
+      if (isTribe1 && isFemale) raceCount[raceID].Tribe1.Female++;
+      if (isTribe2 && isMale) raceCount[raceID].Tribe2.Male++;
+      if (isTribe2 && isFemale) raceCount[raceID].Tribe2.Female++;
     });
 
     const countsArray = Object.entries(raceCount).map(
-      ([
-        raceName,
-        {
-          RaceCount,
-          MaleCount,
-          FemaleCount,
-          TribeCount_1,
-          TribeCount_2,
-          raceData,
-          memberList,
-        },
-      ]) => ({
-        RaceCount: RaceCount,
-        TribeCount_1: TribeCount_1,
-        TribeCount_2: TribeCount_2,
-        MaleCount: MaleCount,
-        FemaleCount: FemaleCount,
+      ([raceName, { Race, Tribe1, Tribe2, raceData, memberList }]) => ({
+        Race: Race,
+        Tribe1: Tribe1,
+        Tribe2: Tribe2,
         raceData,
         memberList: memberList,
       })
     );
 
-    return countsArray.sort((a, b) => b.RaceCount - a.RaceCount);
+    return countsArray.sort((a, b) => b.Race.Count - a.Race.Count);
   }
 
   // Jobs

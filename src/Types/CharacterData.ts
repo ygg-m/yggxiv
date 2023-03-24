@@ -259,11 +259,9 @@ export interface jobData {
 }
 
 export interface raceData {
-  RaceCount: number;
-  TribeCount_1: number;
-  TribeCount_2: number;
-  MaleCount: number;
-  FemaleCount: number;
+  Race: { Count: number; Male: number; Female: number };
+  Tribe1: { Count: number; Male: number; Female: number };
+  Tribe2: { Count: number; Male: number; Female: number };
   raceData: {
     ID: number;
     Icon: string;

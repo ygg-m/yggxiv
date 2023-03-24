@@ -87,10 +87,10 @@ const JobData = ({ data }: JobProps) => {
         <h4 className="text-center text-lg">{Job}</h4>
       </div>
 
-      <div className="grid place-items-center">
+      <div className="grid place-items-center pb-2">
         <span className="text-5xl font-bold text-primary">{LvMax}</span>
         <span className="opacity-70">
-          characters at Max Level. ({percentage}%)
+          characters at Max Level ({percentage}%)
         </span>
       </div>
       <div className="rounded-lg bg-neutral px-4 py-2 py-3">
