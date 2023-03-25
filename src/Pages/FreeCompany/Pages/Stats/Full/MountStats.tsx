@@ -273,10 +273,10 @@ export const MountStats = () => {
   }, [query, sourceFilter, filterRarest]);
 
   return (
-    <div className="grid">
+    <div className="flex flex-col">
       <div className="mt-4 flex w-full justify-between">
         <div className="flex gap-2">
-          <div className="tabs tabs-boxed flex items-center px-2">
+          <div className="tabs tabs-boxed">
             {Tabs.map((tab, index) => (
               <button
                 className={`tab ${index === tabIndex ? "tab-active" : ""}`}
@@ -288,7 +288,7 @@ export const MountStats = () => {
             ))}
           </div>
 
-          <div className="tabs tabs-boxed flex items-center px-2">
+          <div className="tabs tabs-boxed">
             <Link
               to="Popular"
               className={`tab ${!filterRarest ? "tab-active" : ""}`}
@@ -309,7 +309,7 @@ export const MountStats = () => {
             type="text"
             placeholder="Search by Name"
             onChange={(e) => setQuery(e.target.value)}
-            className="input-bordered input"
+            className="input-bordered input h-[40px]"
           />
         </div>
       </div>
