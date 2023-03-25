@@ -3,8 +3,9 @@ import { useStats } from "@/Contexts/StatsContext";
 import { reverseArray } from "@/Helpers/reverseArray";
 import { CollectibleData, CollectibleTypes } from "@/Types";
 import "chart.js/auto";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-chartjs-2";
+import { Link, useLocation } from "react-router-dom";
 
 interface CollectibleList {
   data: CollectibleTypes[];
@@ -19,13 +20,19 @@ function capitalizeText(str: string) {
 }
 
 export const MountStats = () => {
+  const location = useLocation();
+  const currentPath = location.pathname.split("/").reverse()[0];
+
   const { popularMount } = useStats();
   const [filter, setFilter] = useState<CollectibleTypes[]>(popularMount);
   const [sourceFilter, setSourceFilter] = useState<string[]>([]);
   const [query, setQuery] = useState<string>("");
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [sourceTabIndex, setSourceTabIndex] = useState<number>(0);
-  const [filterRarest, setFilterRarest] = useState<boolean>(false);
+  const filterRarest = useMemo<boolean>(
+    () => (currentPath === "Rarest" ? true : false),
+    [currentPath]
+  );
 
   const ShowChart = ({ data }: CollectibleList) => {
     const NameList = data.map((Collectible) =>
@@ -275,22 +282,18 @@ export const MountStats = () => {
           </div>
 
           <div className="tabs tabs-boxed flex items-center px-2">
-            <button
+            <Link
+              to="Popular"
               className={`tab ${!filterRarest ? "tab-active" : ""}`}
-              onClick={() => {
-                setFilterRarest(false);
-              }}
             >
               Popular
-            </button>
-            <button
+            </Link>
+            <Link
+              to="Rarest"
               className={`tab ${filterRarest ? "tab-active" : ""}`}
-              onClick={() => {
-                setFilterRarest(true);
-              }}
             >
               Rarest
-            </button>
+            </Link>
           </div>
         </div>
         <div className="form-control">
