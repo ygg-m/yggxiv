@@ -1,5 +1,6 @@
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { useStats } from "@/Contexts/StatsContext";
+import { reverseArray } from "@/Helpers/reverseArray";
 import { CollectibleData, CollectibleTypes } from "@/Types";
 import "chart.js/auto";
 import { useEffect, useState } from "react";
@@ -138,12 +139,19 @@ export const MountStats = () => {
             })}
           </div>
 
-          <h2 className="flex items-center gap-2 text-3xl font-bold text-primary">
-            {Count}
+          <div className="grid place-items-center">
+            <h2 className="flex items-center gap-2 text-3xl font-bold text-primary">
+              {Count}
+            </h2>
             <span className="text-lg font-normal text-neutral-content">
               {Count === 1 ? "Owner" : "Owners"}
             </span>
-          </h2>
+            <h3 className="opacity-80">
+              (
+              {percentage >= 1 ? Math.floor(percentage) : percentage.toFixed(1)}
+              %)
+            </h3>
+          </div>
         </div>
       </div>
     );
@@ -226,14 +234,6 @@ export const MountStats = () => {
         sourceFilter.includes(source)
       ).find((el) => el === true)
     );
-  }
-
-  function reverseArray(arr: CollectibleTypes[]) {
-    const reversed = [];
-    for (let i = arr.length - 1; i >= 0; i--) {
-      reversed.push(arr[i]);
-    }
-    return reversed;
   }
 
   function filterList(arr: CollectibleTypes[]) {
