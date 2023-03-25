@@ -6,6 +6,7 @@ import "chart.js/auto";
 import { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-chartjs-2";
 import { Link, useLocation } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 interface CollectibleList {
   data: CollectibleTypes[];
@@ -35,6 +36,10 @@ export const MountStats = () => {
   );
 
   const ShowChart = ({ data }: CollectibleList) => {
+    data.forEach((el) => {
+      if (typeof el.Data.Name === "undefined") console.log(el);
+    });
+
     const NameList = data.map((Collectible) =>
       capitalizeText(Collectible.Data.Name)
     );
@@ -135,6 +140,7 @@ export const MountStats = () => {
                 <div
                   className="tooltip rounded-lg bg-transparent p-2 duration-300 hover:bg-base-200"
                   data-tip={Name}
+                  key={uuidv4()}
                 >
                   <img
                     src={Avatar}
@@ -168,7 +174,7 @@ export const MountStats = () => {
     return (
       <div className="mt-4 grid gap-4">
         {filter.map((Collectible) => (
-          <CollectibleCard data={Collectible} />
+          <CollectibleCard key={uuidv4()} data={Collectible} />
         ))}
       </div>
     );
@@ -237,9 +243,9 @@ export const MountStats = () => {
 
   function filterBySource(data: CollectibleTypes[]) {
     return data.filter((Collectible) =>
-      Collectible.Data.Sources.map((source) =>
-        sourceFilter.includes(source)
-      ).find((el) => el === true)
+      Collectible.Data.FFXIVCollectData.Sources.find((el) =>
+        sourceFilter.includes(el.type)
+      )
     );
   }
 
@@ -275,6 +281,7 @@ export const MountStats = () => {
               <button
                 className={`tab ${index === tabIndex ? "tab-active" : ""}`}
                 onClick={() => tab.Click(index)}
+                key={uuidv4()}
               >
                 {tab.Name}
               </button>
@@ -311,6 +318,7 @@ export const MountStats = () => {
           <button
             className={`tab ${index === sourceTabIndex ? "tab-active" : ""}`}
             onClick={() => tab.Click(index)}
+            key={uuidv4()}
           >
             {tab.Name}
           </button>
