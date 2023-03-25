@@ -4,6 +4,7 @@ import { useStats } from "@/Contexts/StatsContext";
 import { raceData } from "@/Types";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
+import { v4 as uuidv4 } from "uuid";
 
 const RaceChart = ({ data }: { data: raceData[] }) => {
   const treatedData = {
@@ -69,7 +70,7 @@ const RaceChart = ({ data }: { data: raceData[] }) => {
       <Chart type="bar" data={treatedData} options={options} />
       <div className="ml-6 hidden justify-between px-4 sm:flex md:px-2 xl:px-6 2xl:px-10">
         {RaceList.map((Character) => (
-          <div className="tooltip" data-tip={Character.Name}>
+          <div className="tooltip" data-tip={Character.Name} key={uuidv4()}>
             <img
               src={Character.Avatar}
               className="mask mask-squircle w-8 sm:w-12 md:w-16 lg:w-24"
@@ -229,7 +230,7 @@ export const Character = () => {
       <GenderChart data={popularGender} />
       <div className="grid grid-cols-2 gap-4">
         {popularRaces.map((race) => (
-          <Race data={race} />
+          <Race key={uuidv4()} data={race} />
         ))}
       </div>
     </div>
