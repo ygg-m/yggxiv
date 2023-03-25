@@ -11,6 +11,7 @@ import {
   MembersListTypes,
   Pagination,
 } from "../Types/index";
+import { CollectData, getFFCollectMounts } from "./ffxivcollectapi";
 
 const limit = pLimit(2);
 
@@ -157,7 +158,9 @@ export async function getCharacterList(
 
 export async function getMounts(): Promise<CollectibleData[]> {
   const url = "https://xivapi.com/Mount?columns=ID,IconHD,Name&limit=3000";
+  const FFCollectMountData = await getFFCollectMounts();
   const response = await axios.get(url);
+
   const data = response.data;
 
   interface MountData {
@@ -170,20 +173,25 @@ export async function getMounts(): Promise<CollectibleData[]> {
     ID: number;
     Name: string;
     Icon: string;
+    FFXIVCollectData: CollectData;
   }
 
   const result = data.Results.map((mount: MountData) => {
-    const sources = mountSources
-      .filter((source) => source.List.includes(mount.Name.toLowerCase()))
-      .map((source) => source.Source);
+    const FFXIVCollectData = FFCollectMountData.find(
+      (data) => data.Id === mount.ID
+    );
 
     return {
       ID: mount.ID,
       Name: mount.Name,
       Icon: mount.IconHD,
-      Sources: sources,
+      FFXIVCollectData: FFXIVCollectData,
     };
-  }).filter((m: ResultType) => m.Icon !== "");
+  }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");
+
+  result.forEach((el: ResultType) => {
+    if (typeof el.FFXIVCollectData.Sources === "undefined") console.log(el);
+  });
 
   return result;
 }
