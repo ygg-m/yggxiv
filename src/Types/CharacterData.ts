@@ -1,3 +1,4 @@
+import { CollectData } from "@/Helpers/ffxivcollectapi";
 import { FreeCompanyData, MembersListTypes } from "./FreeCompanyData";
 import { AchievementData } from "./GameData";
 
@@ -280,7 +281,7 @@ export interface CollectibleData {
   ID: number;
   Icon: string;
   Name: string;
-  Sources: string[];
+  FFXIVCollectData: CollectData;
 }
 
 export interface CollectibleTypes {
