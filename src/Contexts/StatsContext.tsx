@@ -5,13 +5,11 @@ import { useGameData } from "./GameDataContext";
 
 import {
   AchievementData,
-  AchievementList,
   AchievementsTypes,
   CharacterData,
   CollectibleData,
   CollectibleTypes,
   jobData,
-  LeaderBoardType,
   raceData,
 } from "../Types";
 import { useFreeCompany } from "./FreeCompanyContext";
