@@ -212,7 +212,10 @@ export const MountStats = () => {
 
       const Modal = () => (
         <>
-          <label htmlFor={`MountModal-${index}`} className="btn-secondary btn">
+          <label
+            htmlFor={`MountModal-${index}`}
+            className="duration mx-4 w-16 cursor-pointer rounded-lg bg-base-100 p-2 text-center text-sm hover:bg-base-300"
+          >
             See all
           </label>
 
@@ -232,7 +235,7 @@ export const MountStats = () => {
             </div>
             <label
               htmlFor={`MountModal-${index}`}
-              className="btn-sm btn-circle btn fixed right-2 top-2"
+              className="btn-secondary btn-circle btn-lg btn fixed right-2 top-2"
             >
               ✕
             </label>
