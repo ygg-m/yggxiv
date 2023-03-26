@@ -28,7 +28,8 @@ export const MountStats = () => {
   const { popularMount } = useStats();
   const [filter, setFilter] = useState<CollectibleTypes[]>(popularMount);
   const [sourceFilter, setSourceFilter] = useState<string[]>([]);
-  const [query, setQuery] = useState<string>("");
+  const [collectibleQuery, setCollectibleQuery] = useState<string>("");
+  const [characterQuery, setCharacterQuery] = useState<string>("");
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [sourceTabIndex, setSourceTabIndex] = useState<number>(0);
   const filterRarest = useMemo<boolean>(
@@ -210,38 +211,51 @@ export const MountStats = () => {
         );
       };
 
-      const Modal = () => (
-        <>
+      const Modal = () => {
+        const SeeAllButton = () => (
           <label
             htmlFor={`MountModal-${index}`}
             className="duration mx-4 w-16 cursor-pointer rounded-lg bg-base-100 p-2 text-center text-sm hover:bg-base-300"
           >
             See all
           </label>
+        );
 
-          <input
-            type="checkbox"
-            id={`MountModal-${index}`}
-            className="modal-toggle"
-          />
-
-          <div className="modal">
-            <div className="modal-box">
-              <div className="grid grid-cols-4 items-center gap-2">
-                {Owners.map((Owner) => (
-                  <OwnerCard key={uuidv4()} data={Owner} />
-                ))}
-              </div>
-            </div>
-            <label
-              htmlFor={`MountModal-${index}`}
-              className="btn-secondary btn-circle btn-lg btn fixed right-2 top-2"
-            >
-              ✕
-            </label>
+        const OwnerList = () => (
+          <div className="grid grid-cols-4 items-center gap-2">
+            {Owners.map((Owner) => (
+              <OwnerCard key={uuidv4()} data={Owner} />
+            ))}
           </div>
-        </>
-      );
+        );
+
+        const CloseButton = () => (
+          <label
+            htmlFor={`MountModal-${index}`}
+            className="btn-secondary btn-circle btn-lg btn fixed right-2 top-2"
+          >
+            ✕
+          </label>
+        );
+
+        return (
+          <>
+            <SeeAllButton />
+            <input
+              type="checkbox"
+              id={`MountModal-${index}`}
+              className="modal-toggle"
+            />
+
+            <div className="modal">
+              <div className="modal-box">
+                <OwnerList />
+              </div>
+              <CloseButton />
+            </div>
+          </>
+        );
+      };
 
       return (
         <div
@@ -368,9 +382,23 @@ export const MountStats = () => {
     },
   ];
 
-  function filterByQuery(data: CollectibleTypes[]) {
+  function filterByCollectQuery(data: CollectibleTypes[]) {
     return data.filter((Collectible) =>
-      Collectible.Data.Name.toLowerCase().includes(query.toLowerCase())
+      Collectible.Data.Name.toLowerCase().includes(
+        collectibleQuery.toLowerCase()
+      )
+    );
+  }
+
+  function filterByCharQuery(data: CollectibleTypes[]) {
+    if (characterQuery.length === 0) return data;
+
+    return data.filter((Collectible) =>
+      Collectible.Owners.some((owner) =>
+        owner.Character.Name.toLowerCase().includes(
+          characterQuery.toLowerCase()
+        )
+      )
     );
   }
 
@@ -383,18 +411,20 @@ export const MountStats = () => {
   }
 
   function filterList(arr: CollectibleTypes[]) {
-    const isQueryEmpty = query.length === 0;
+    const isQueryEmpty = collectibleQuery.length === 0;
     const isSourceEmpty = sourceFilter.length === 0;
 
-    const queryResult = filterByQuery(arr);
-    const sourceResult = filterBySource(arr);
+    const queryResult = filterByCharQuery(filterByCollectQuery(arr));
+    const sourceResult = filterByCharQuery(filterBySource(arr));
+
+    console.log(queryResult);
 
     const QueryOnly = !isQueryEmpty && isSourceEmpty;
     const SourceOnly = isQueryEmpty && !isSourceEmpty;
     const QueryAndSource = !isQueryEmpty && !isSourceEmpty;
 
     if (QueryOnly) return queryResult;
-    if (QueryAndSource) return filterByQuery(sourceResult);
+    if (QueryAndSource) return filterByCollectQuery(sourceResult);
     if (SourceOnly) return sourceResult;
     else return arr;
   }
@@ -403,7 +433,7 @@ export const MountStats = () => {
     const reverse = reverseArray(popularMount);
     if (filterRarest) setFilter(filterList(reverse));
     else setFilter(filterList(popularMount));
-  }, [query, sourceFilter, filterRarest]);
+  }, [collectibleQuery, characterQuery, sourceFilter, filterRarest]);
 
   return (
     <div className="flex flex-col">
@@ -445,20 +475,20 @@ export const MountStats = () => {
         <div className="flex gap-2">
           <div className="form-control -order-1 sm:order-1">
             <input
-              value={query}
+              value={characterQuery}
               type="text"
               placeholder="Search Character"
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => setCharacterQuery(e.target.value)}
               className="input-bordered input h-[40px]"
             />
           </div>
 
           <div className="form-control -order-1 sm:order-1">
             <input
-              value={query}
+              value={collectibleQuery}
               type="text"
               placeholder="Seach Mount"
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => setCollectibleQuery(e.target.value)}
               className="input-bordered input h-[40px]"
             />
           </div>
