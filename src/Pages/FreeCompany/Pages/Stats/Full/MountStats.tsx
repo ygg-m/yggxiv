@@ -417,8 +417,6 @@ export const MountStats = () => {
     const queryResult = filterByCharQuery(filterByCollectQuery(arr));
     const sourceResult = filterByCharQuery(filterBySource(arr));
 
-    console.log(queryResult);
-
     const QueryOnly = !isQueryEmpty && isSourceEmpty;
     const SourceOnly = isQueryEmpty && !isSourceEmpty;
     const QueryAndSource = !isQueryEmpty && !isSourceEmpty;
