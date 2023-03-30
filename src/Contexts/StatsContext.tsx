@@ -7,6 +7,7 @@ import {
   AchievementData,
   AchievementsTypes,
   CharacterData,
+  CharCardData,
   CollectibleData,
   CollectibleTypes,
   jobData,
@@ -262,7 +263,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         MainStory: boolean;
         Premium: boolean;
         Data: CollectibleData;
-        Owners: CharacterData[];
+        Owners: CharCardData[];
       };
     } = {};
 
@@ -336,6 +337,12 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         const Data = mounts.filter(
           (e: CollectibleData) => e.Name.toLowerCase() === mountName
         )[0];
+        const charData = {
+          Name: character.Character.Name,
+          Avatar: character.Character.Avatar,
+          Portrait: character.Character.Portrait,
+          ID: character.Character.ID,
+        };
 
         if (!mountCount[mountName]) {
           mountCount[mountName] = {
@@ -350,7 +357,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         mountCount[mountName].Count++;
         mountCount[mountName].Owners = [
           ...mountCount[mountName].Owners,
-          character,
+          charData,
         ];
 
         if (MainStorys.includes(mountName))
@@ -380,7 +387,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         MainStory: boolean;
         Premium: boolean;
         Data: CollectibleData;
-        Owners: CharacterData[];
+        Owners: CharCardData[];
       };
     } = {};
 
@@ -481,6 +488,12 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         const Data = minions.filter(
           (e: CollectibleData) => e.Name.toLowerCase() === minionName
         )[0];
+        const charData = {
+          Name: character.Character.Name,
+          Avatar: character.Character.Avatar,
+          Portrait: character.Character.Portrait,
+          ID: character.Character.ID,
+        };
 
         if (!mountCount[minionName]) {
           mountCount[minionName] = {
@@ -495,7 +508,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         mountCount[minionName].Count++;
         mountCount[minionName].Owners = [
           ...mountCount[minionName].Owners,
-          character,
+          charData,
         ];
 
         if (MainStorys.includes(minionName))
