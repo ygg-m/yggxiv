@@ -2,7 +2,7 @@ import { SimpleLoading } from "@/Components/LoadingComponents/SimpleLoading";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { CollectibleTypes } from "@/Types";
 import { v4 as uuidv4 } from "uuid";
-import { ShowData } from "./ShowData";
+import { ShowData } from "../Pages/Stats/ShowData";
 
 interface CollectibleProps {
   data: CollectibleTypes;
@@ -35,7 +35,7 @@ export const Collectible = ({
         <span>Owners</span>
         <div className="grid grid-cols-3 place-items-center sm:grid-cols-8 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
           {Owners.map((owner) => {
-            const { Name, Avatar } = owner.Character;
+            const { Name, Avatar } = owner;
             return (
               <div
                 className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
@@ -56,7 +56,7 @@ export const Collectible = ({
   };
 
   const SingleOwner = () => {
-    const { Name, Avatar } = Owners[0].Character;
+    const { Name, Avatar } = Owners[0];
 
     return (
       <div className="flex flex-col items-center">

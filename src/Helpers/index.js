@@ -1,3 +1,4 @@
+export { capitalizeText } from "./capitalizeText";
 export { formatNumber } from "./formatNumber";
 export { getRanks } from "./getFreeCompanyRanks";
 export { loadFromLocalStorage, saveToLocalStorage } from "./localStorage";

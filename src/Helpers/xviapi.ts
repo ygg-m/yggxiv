@@ -11,7 +11,11 @@ import {
   MembersListTypes,
   Pagination,
 } from "../Types/index";
-import { CollectData, getFFCollectMounts } from "./ffxivcollectapi";
+import {
+  CollectData,
+  getFFCollectMinion,
+  getFFCollectMounts,
+} from "./ffxivcollectapi";
 
 const limit = pLimit(2);
 
@@ -159,8 +163,8 @@ export async function getCharacterList(
 export async function getMounts(): Promise<CollectibleData[]> {
   const url = "https://xivapi.com/Mount?columns=ID,IconHD,Name&limit=3000";
   const FFCollectMountData = await getFFCollectMounts();
-  const response = await axios.get(url);
 
+  const response = await axios.get(url);
   const data = response.data;
 
   interface MountData {
@@ -198,23 +202,42 @@ export async function getMounts(): Promise<CollectibleData[]> {
 
 export async function getMinions(): Promise<CollectibleData[]> {
   const url = "https://xivapi.com/Companion?columns=ID,IconHD,Name&limit=3000";
+  const FFCollectMinionData = await getFFCollectMinion();
+
   const response = await axios.get(url);
   const data = response.data;
 
-  interface MountData {
+  interface MinionData {
     ID: number;
     Name: string;
     IconHD: string;
   }
 
-  return data.Results.map((mount: MountData) => {
+  interface ResultType {
+    ID: number;
+    Name: string;
+    Icon: string;
+    FFXIVCollectData: CollectData;
+  }
+
+  const result = data.Results.map((minion: MinionData) => {
+    const FFXIVCollectData = FFCollectMinionData.find(
+      (data) => data.Id === minion.ID
+    );
+
     return {
-      ID: mount.ID,
-      Name: mount.Name,
-      Icon: mount.IconHD,
-      Source: [],
+      ID: minion.ID,
+      Name: minion.Name,
+      Icon: minion.IconHD,
+      FFXIVCollectData: FFXIVCollectData,
     };
+  }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");
+
+  result.forEach((el: ResultType) => {
+    if (typeof el.FFXIVCollectData.Sources === "undefined") console.log(el);
   });
+
+  return result;
 }
 
 export async function getAchievements() {

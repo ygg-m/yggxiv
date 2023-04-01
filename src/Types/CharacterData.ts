@@ -15,6 +15,13 @@ export interface CharacterData {
   PvPTeam: PvPTeam;
 }
 
+export interface CharCardData {
+  Name: string;
+  Avatar: string;
+  Portrait: string;
+  ID: number;
+}
+
 interface Achievements {
   List: AchievementList[];
   Points: number;
@@ -289,7 +296,7 @@ export interface CollectibleTypes {
   MainStory: boolean;
   Premium: boolean;
   Data: CollectibleData;
-  Owners: CharacterData[];
+  Owners: CharCardData[];
 }
 
 export interface AchievementsTypes {

@@ -54,3 +54,22 @@ export async function getFFCollectMounts(): Promise<CollectData[]> {
 
   return result;
 }
+
+export async function getFFCollectMinion(): Promise<CollectData[]> {
+  const url = "https://ffxivcollect.com/api/minions/";
+  const response = await axios.get(url);
+  const data = response.data;
+
+  const result = data.results.map((mount: MountData) => {
+    return {
+      Id: mount.id,
+      Patch: mount.patch,
+      Seats: mount.seats,
+      Tradeable: mount.tradeable,
+      Owned: mount.owned,
+      Sources: mount.sources,
+    };
+  });
+
+  return result;
+}

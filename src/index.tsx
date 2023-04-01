@@ -10,6 +10,7 @@ import {
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
+import { StatsProvider } from "./Contexts/StatsContext";
 import { ErrorPage, FreeCompany, Home } from "./Pages";
 import {
   Achievement,
@@ -17,6 +18,7 @@ import {
   Mount,
 } from "./Pages/FreeCompany/Pages/Leaderboard/index";
 import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/Full/AchievementStats";
+import { CollectibleStats } from "./Pages/FreeCompany/Pages/Stats/Full/CollectibleStats";
 import {
   Character,
   Job,
@@ -54,8 +56,12 @@ const router = createHashRouter([
         ],
       },
       {
-        path: "Stats",
-        element: <Stats />,
+        path: "Stats/*",
+        element: (
+          <StatsProvider>
+            <Stats />
+          </StatsProvider>
+        ),
         children: [
           { path: "Summary", element: <Summary /> },
           { path: "Character", element: <Character /> },
@@ -107,7 +113,7 @@ root.render(
   <React.StrictMode>
     <GameDataProvider>
       <SearchProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} fallbackElement={<ErrorPage />} />
       </SearchProvider>
     </GameDataProvider>
   </React.StrictMode>

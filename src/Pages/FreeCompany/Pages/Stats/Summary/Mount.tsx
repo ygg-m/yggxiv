@@ -4,7 +4,7 @@ import { CollectibleData, CollectibleTypes } from "@/Types";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { Collectible } from "../Collectible";
+import { Collectible } from "../../../Components/Collectible";
 
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
