@@ -19,13 +19,7 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const filter = useMemo(
-    () =>
-      filterList(
-        data,
-        characterQuery,
-        collectibleQuery,
-        sourceFilter
-      ).reverse(),
+    () => filterList(data, characterQuery, collectibleQuery, sourceFilter),
     [collectibleQuery, characterQuery, sourceFilter, data]
   );
 
