@@ -21,6 +21,10 @@ export const Footer = () => {
           using{" "}
           <a href="https://xivapi.com/" className="link">
             XIVAPI
+          </a>{" "}
+          and{" "}
+          <a href="https://ffxivcollect.com/" className="link">
+            FFXIV Collect
           </a>
         </p>
       </div>
