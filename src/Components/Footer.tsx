@@ -5,11 +5,14 @@ import {
   PaypalIcon,
   TwitterIcon,
 } from "../Assets/Images/UI";
+
+import YggDrasilBerry from "@/Assets/Images/UI/yggdrasilberry.png";
+
 export const Footer = () => {
   return (
     <footer className="footer items-center justify-center gap-2 bg-neutral p-4 px-8 text-neutral-content md:justify-between">
       <div className="grid-flow-col items-center">
-        <img src="https://www.divine-pride.net/img/items/item/iRO/607" alt="" />
+        <img src={YggDrasilBerry} alt="YggDrasil Berry" />
         <p>
           Website by{" "}
           <a href="https://linktr.ee/yggm" className="link">
