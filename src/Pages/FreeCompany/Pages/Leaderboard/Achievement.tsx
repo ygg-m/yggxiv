@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { MedalIcon, TrophyIcon } from "../../../../Assets/Images/UI";
 import { useStats } from "../../../../Contexts/StatsContext";
@@ -14,11 +15,14 @@ export const Achievement = () => {
 
     const {
       Achievements: { Points },
-      Character: { Name, Portrait },
+      Character: { Name, Portrait, ID },
     } = placement.FirstPlace;
 
     return (
-      <article className="-order-1 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[530px] sm:w-64">
+      <Link
+        to={`/Character/${ID}`}
+        className="-order-1 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[530px] sm:w-64"
+      >
         <div className="grid justify-center px-4 pb-2 text-gold">
           <span className="text-center text-lg font-extrabold ">
             1<span className="font-normal">rst</span>
@@ -39,7 +43,7 @@ export const Achievement = () => {
             </h3>
           </div>
         </div>
-      </article>
+      </Link>
     );
   };
 
@@ -48,10 +52,13 @@ export const Achievement = () => {
 
     const {
       Achievements: { Points },
-      Character: { Name, Portrait },
+      Character: { Name, Portrait, ID },
     } = placement.SecondPlace;
     return (
-      <article className="order-1 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[430px] sm:w-52">
+      <Link
+        to={`/Character/${ID}`}
+        className="order-1 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[430px] sm:w-52"
+      >
         <div className="grid justify-center px-4 pb-2 text-silver">
           <span className="text-center text-lg font-extrabold ">
             2<span className="font-normal">nd</span>
@@ -72,7 +79,7 @@ export const Achievement = () => {
             </h3>
           </div>
         </div>
-      </article>
+      </Link>
     );
   };
 
@@ -81,10 +88,13 @@ export const Achievement = () => {
 
     const {
       Achievements: { Points },
-      Character: { Name, Portrait },
+      Character: { Name, Portrait, ID },
     } = placement.ThirdPlace;
     return (
-      <article className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52">
+      <Link
+        to={`/Character/${ID}`}
+        className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52"
+      >
         <div className="grid justify-center px-4 pb-2 text-bronze">
           <span className="text-center text-lg font-extrabold ">
             3<span className="font-normal">rd</span>
@@ -105,7 +115,7 @@ export const Achievement = () => {
             </h3>
           </div>
         </div>
-      </article>
+      </Link>
     );
   };
 
@@ -115,12 +125,15 @@ export const Achievement = () => {
         {placement.EveryoneElse.map((member: CharacterData, index: number) => {
           const {
             Achievements: { Points },
-            Character: { Name, Avatar },
+            Character: { Name, Avatar, ID },
           } = member;
 
           return (
             <div key={uuidv4()}>
-              <article className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-300 hover:border-transparent hover:bg-base-100 sm:justify-between">
+              <Link
+                to={`/Character/${ID}`}
+                className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-300 hover:border-transparent hover:bg-base-100 sm:justify-between"
+              >
                 <div className="flex w-24 flex-row items-center gap-4">
                   <span className="w-8 text-center sm:text-left">
                     {index + 4}º
@@ -137,7 +150,7 @@ export const Achievement = () => {
                     {formatNumber(Points)}
                   </span>
                 </div>
-              </article>
+              </Link>
               {placement.EveryoneElse[index] !==
                 placement.EveryoneElse[placement.EveryoneElse.length - 1] && (
                 <div className="divider m-0 h-0"></div>
