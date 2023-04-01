@@ -61,7 +61,7 @@ const RarestMinions = ({ data }: CollectibleProps) => {
       </div>
 
       <button
-        className="btn-secondary btn w-fit gap-2"
+        className="btn w-fit gap-2"
         onClick={() => setShowSingle(!showSingle)}
       >
         {showSingle ? (
