@@ -124,7 +124,7 @@ const RarestAchievements = ({ data }: RareAchievementProps) => {
       Group: "Legacy",
       Category: "Legacy",
       Icon: "/img-misc/lodestone/blog_avatar.jpg",
-      Description: "Looks like NO ONE got ANY achievement in this Category...",
+      Description: "Looks like no one got any achievement in this Category.",
     },
     Owners: [],
   };
