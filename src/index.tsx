@@ -7,11 +7,20 @@ import {
   Members,
   Stats,
 } from "./Components/FreeCompany";
+import { CharacterProvider } from "./Contexts/CharacterContext";
 import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
 import { StatsProvider } from "./Contexts/StatsContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
+import {
+  CharAchievements,
+  CharCollection,
+  CharGear,
+  CharInfo,
+  CharJobs,
+  CharStats,
+} from "./Pages/Character/Tabs";
 import {
   Achievement,
   Minion,
@@ -95,7 +104,19 @@ const router = createHashRouter([
   },
   {
     path: "/Character/:charId",
-    element: <Character />,
+    element: (
+      <CharacterProvider>
+        <Character />
+      </CharacterProvider>
+    ),
+    children: [
+      { path: "Info", element: <CharInfo /> },
+      { path: "Collection", element: <CharCollection /> },
+      { path: "Achievements", element: <CharAchievements /> },
+      { path: "Stats", element: <CharStats /> },
+      { path: "Jobs", element: <CharJobs /> },
+      { path: "Gear", element: <CharGear /> },
+    ],
   },
 ]);
 
