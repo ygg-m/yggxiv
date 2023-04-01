@@ -1,3 +1,4 @@
+import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { useStats } from "@/Contexts/StatsContext";
 import { reverseArray } from "@/Helpers/reverseArray";
 import { AchievementList } from "@/Pages/FreeCompany/Components/AchievementList";
@@ -7,6 +8,7 @@ import { useLocation } from "react-router-dom";
 export const AchievementStats = () => {
   const isRarest = useLocation().pathname.split("/").reverse()[0] === "Rarest";
   const { rareAchievement } = useStats();
+  const { MembersFullData } = useFreeCompany();
 
   const reverse = useMemo(
     () => reverseArray(rareAchievement),
@@ -17,5 +19,10 @@ export const AchievementStats = () => {
     [rareAchievement, isRarest]
   );
 
-  return <AchievementList data={data} />;
+  let publicCount: number = 0;
+  MembersFullData.forEach(
+    (member) => member.Achievements.List.length > 0 && publicCount++
+  );
+
+  return <AchievementList data={data} publicCount={publicCount} />;
 };

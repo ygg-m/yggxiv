@@ -6,9 +6,10 @@ import { AchieveItem } from "./AchieveItem";
 interface ListProps {
   data: AchievementsTypes[];
   query: string;
+  publicCount: number;
 }
 
-export const AchieveList = ({ data, query }: ListProps) => {
+export const AchieveList = ({ data, query, publicCount }: ListProps) => {
   const [indexes, setIndexes] = useState(10);
   const list = useMemo(() => data.slice(0, indexes), [data, indexes]);
 
@@ -26,7 +27,7 @@ export const AchieveList = ({ data, query }: ListProps) => {
             Count{" "}
             <span
               className="tooltip select-none px-2"
-              data-tip="Counting 50 characters who made their Achievements Public."
+              data-tip={`Counting ${publicCount} characters who made their Achievements Public.`}
             >
               ?
             </span>
@@ -43,6 +44,7 @@ export const AchieveList = ({ data, query }: ListProps) => {
               data={Collectible}
               index={index}
               query={query}
+              publicCount={publicCount}
             />
           ))}
         </div>

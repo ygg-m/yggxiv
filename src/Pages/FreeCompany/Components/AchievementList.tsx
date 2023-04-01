@@ -5,7 +5,13 @@ import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { filterList } from "../Pages/Stats/Helpers/achievementFilters";
 
-export const AchievementList = ({ data }: { data: AchievementsTypes[] }) => {
+export const AchievementList = ({
+  data,
+  publicCount,
+}: {
+  data: AchievementsTypes[];
+  publicCount: number;
+}) => {
   const isRarest = useLocation().pathname.split("/").reverse()[0] === "Rarest";
 
   const [sourceFilter, setSourceFilter] = useState<string>("");
@@ -154,7 +160,11 @@ export const AchievementList = ({ data }: { data: AchievementsTypes[] }) => {
         </div>
       </div>
       <SourceNav />
-      <AchieveList data={filter} query={characterQuery} />
+      <AchieveList
+        data={filter}
+        query={characterQuery}
+        publicCount={publicCount}
+      />
     </div>
   );
 };

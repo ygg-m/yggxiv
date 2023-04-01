@@ -8,6 +8,7 @@ interface AchieveItemProps {
   data: AchievementsTypes;
   index: number;
   query: string;
+  publicCount: number;
 }
 
 const Placement = ({ Index }: { Index: number }) => (
@@ -24,13 +25,14 @@ const IconContainer = ({ Name, Icon }: { Name: string; Icon: string }) => (
   </div>
 );
 
-const Counter = ({ Count }: { Count: number }) => {
-  const {
-    freeCompany: {
-      FreeCompany: { ActiveMemberCount },
-    },
-  } = useFreeCompany();
-  const percentage = (Count / ActiveMemberCount) * 100;
+const Counter = ({
+  Count,
+  publicCount,
+}: {
+  Count: number;
+  publicCount: number;
+}) => {
+  const percentage = (Count / publicCount) * 100;
 
   return (
     <div
@@ -74,7 +76,12 @@ const OwnersButton = ({
   </div>
 );
 
-export const AchieveItem = ({ data, index, query }: AchieveItemProps) => {
+export const AchieveItem = ({
+  data,
+  index,
+  query,
+  publicCount,
+}: AchieveItemProps) => {
   const { Count, Owners } = data;
   const { Name, Icon, Description } = data.Data;
   const [showOwner, setShowOwner] = useState<boolean>(false);
@@ -84,7 +91,7 @@ export const AchieveItem = ({ data, index, query }: AchieveItemProps) => {
       <div className="grid grid-cols-[2rem_3rem_4rem_.4fr_1fr_140px] grid-rows-1 gap-2">
         <Placement Index={index} />
         <IconContainer Name={Name} Icon={Icon} />
-        <Counter Count={Count} />
+        <Counter Count={Count} publicCount={publicCount} />
         <NameContainer name={Name} />
         <DescriptionContainer desc={Description} />
         <OwnersButton
