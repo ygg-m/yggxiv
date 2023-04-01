@@ -1,6 +1,7 @@
 import { SimpleLoading } from "@/Components/LoadingComponents/SimpleLoading";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { CollectibleTypes } from "@/Types";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ShowData } from "../Pages/Stats/ShowData";
 
@@ -35,9 +36,10 @@ export const Collectible = ({
         <span>Owners</span>
         <div className="grid grid-cols-3 place-items-center sm:grid-cols-8 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
           {Owners.map((owner) => {
-            const { Name, Avatar } = owner;
+            const { Name, Avatar, ID } = owner;
             return (
-              <div
+              <Link
+                to={`/Character/${ID}`}
                 className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
                 data-tip={Name}
                 key={uuidv4()}
@@ -47,7 +49,7 @@ export const Collectible = ({
                   alt={Name}
                   className="mask mask-squircle w-10"
                 />
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -56,16 +58,19 @@ export const Collectible = ({
   };
 
   const SingleOwner = () => {
-    const { Name, Avatar } = Owners[0];
+    const { Name, Avatar, ID } = Owners[0];
 
     return (
       <div className="flex flex-col items-center">
         <div className="divider m-0 mb-2"></div>
         <span className="opacity-70">Owner</span>
-        <div className="grid cursor-pointer place-items-center gap-2 rounded-lg bg-transparent p-2 duration-200 hover:bg-neutral">
+        <Link
+          to={`/Character/${ID}`}
+          className="grid cursor-pointer place-items-center gap-2 rounded-lg bg-transparent p-2 duration-200 hover:bg-neutral"
+        >
           <img src={Avatar} alt={Name} className="mask mask-squircle w-16" />
           <span className="text-center">{Name}</span>
-        </div>
+        </Link>
       </div>
     );
   };
