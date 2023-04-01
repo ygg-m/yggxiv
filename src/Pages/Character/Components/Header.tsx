@@ -1,20 +1,28 @@
-import { CharacterData } from "@/Types";
+import { TreatedCharData } from "@/Types";
 
-export const Header = ({ char }: { char: CharacterData }) => {
-  const { Avatar, Name, Server, DC } = char.Character;
+export const Header = ({ char }: { char: TreatedCharData }) => {
+  const ProfilePic = () => {
+    const { Avatar, Name } = char.Profile;
 
-  const ProfilePic = () => (
-    <div className="relative -mt-16 h-32 w-32 overflow-hidden rounded-xl shadow-2xl outline outline-1 outline-neutral-500">
-      <img src={Avatar} alt={Name} className="h-full w-full" />
-    </div>
-  );
+    return (
+      <div className="relative -mt-16 h-32 w-32 overflow-hidden rounded-xl shadow-2xl outline outline-1 outline-neutral-500">
+        <img src={Avatar} alt={Name} className="h-full w-full" />
+      </div>
+    );
+  };
 
-  const ProfileName = () => (
-    <h1 className="flex items-center gap-4 text-5xl font-bold">{Name}</h1>
-  );
+  const ProfileName = () => {
+    const { Name } = char.Profile;
+    return (
+      <h1 className="flex items-center gap-4 text-5xl font-bold">{Name}</h1>
+    );
+  };
 
   const ProfileServer = () => {
-    const DataCenter = DC.replace("]", "");
+    const {
+      DataCenter: { Name, Server },
+    } = char.Data;
+    const DataCenter = Name.replace("]", "");
     return (
       <div className="flex items-center gap-2 md:mt-4">
         <div className="badge badge-md bg-neutral-800 py-3">{DataCenter}</div>

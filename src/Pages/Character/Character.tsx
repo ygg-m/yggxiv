@@ -1,3 +1,4 @@
+import { Footer } from "@/Components";
 import { useCharacter } from "@/Contexts/CharacterContext";
 import { Outlet } from "react-router-dom";
 import { Banner } from "./Components/Banner";
@@ -7,7 +8,7 @@ import { Navigator } from "./Navigartor";
 export const Character = () => {
   const { char } = useCharacter();
 
-  if (char.Character.ID === 0)
+  if (char.Data.ID === 0)
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <button className="loading btn">Getting Character Info</button>
@@ -22,6 +23,7 @@ export const Character = () => {
         <Navigator />
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };

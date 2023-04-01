@@ -6,6 +6,7 @@ export {
   CollectibleTypes,
   jobData,
   raceData,
+  TreatedCharData,
 } from "./CharacterData";
 export {
   FreeCompanyData,

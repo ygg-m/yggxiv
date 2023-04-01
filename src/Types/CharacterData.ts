@@ -2,6 +2,167 @@ import { CollectData } from "@/Helpers/ffxivcollectapi";
 import { FreeCompanyData, MembersListTypes } from "./FreeCompanyData";
 import { AchievementData } from "./GameData";
 
+interface TreatedGearData {
+  ID: number;
+  Name: number; // TODO: solve Name
+  Glamour: number; // TODO: solve Data
+  Materia: number[]; // TODO: solve Name
+}
+
+export interface TreatedCharData {
+  Data: {
+    ID: number;
+    Name: string;
+    DataCenter: {
+      Name: string;
+      Server: string;
+    };
+  };
+  Profile: {
+    Name: string;
+    Bio: string;
+    Gender: number; // TODO: solve Name
+    Title: {
+      Show: boolean;
+      Name: number; // TODO: solve Name
+    };
+    Avatar: string;
+    Portrait: string;
+    StarterCity: number; // TODO: solve Name
+    Race: {
+      Name: number; // TODO: solve Name
+      Tribe: number; // TODO: solve Name
+    };
+    Astro: {
+      Nameday: string; // TODO: solve Name
+      Guardian: number; // TODO: solve Name
+    };
+  };
+  GrandCompany: {
+    Name: number; // TODO: solve Name
+  };
+  FreeCompany: {
+    ID: string;
+    Name: string;
+  };
+  ActiveStats: {
+    Job: number; // TODO: solve Name
+    Attributes: {
+      Base: {
+        Strength: number;
+        Dexterity: number;
+        Vitality: number;
+        Intelligence: number;
+        Mind: number;
+      };
+      Offensive: {
+        CriticalHitRate: number;
+        DirectHitRate: number;
+        Determination: number;
+      };
+      Defensive: {
+        Defense: number;
+        MagicDefense: number;
+      };
+      Physical: {
+        AttackPower: number;
+        SkillSpeed: number;
+      };
+      Mental: {
+        AttackMagicPotency: number;
+        HealingMagicPotency: number;
+        SpellSpeed: number;
+      };
+      Role: {
+        Tenacity: number;
+        Piety: number;
+      };
+    };
+    Gear: {
+      Hands: {
+        MainHand: TreatedGearData;
+      };
+      Accessories: {
+        Necklace: TreatedGearData;
+        Earrings: TreatedGearData;
+        Bracelet: TreatedGearData;
+        Ring1: TreatedGearData;
+        Ring2: TreatedGearData;
+        SoulCrystal: TreatedGearData;
+      };
+      Body: {
+        Head: TreatedGearData;
+        Chest: TreatedGearData;
+        Hands: TreatedGearData;
+        Legs: TreatedGearData;
+        Feet: TreatedGearData;
+      };
+    };
+  };
+  Achievements: {
+    List: AchievementList[];
+    Points: number;
+    Public: boolean;
+  };
+  Collection: {
+    Mounts: Collectible[];
+    Minions: Collectible[];
+  };
+  Jobs: {
+    Bozjan: ClassJobsBozjan;
+    Elemental: ClassJobsElemental;
+    Battle: {
+      Tanks: {
+        Paladin: ClassJobs;
+        Warrior: ClassJobs;
+        DarkKnight: ClassJobs;
+        Gunbreaker: ClassJobs;
+      };
+      Healers: {
+        WhiteMage: ClassJobs;
+        Scholar: ClassJobs;
+        Astrologian: ClassJobs;
+        Sage: ClassJobs;
+      };
+      Melee: {
+        Monk: ClassJobs;
+        Dragoon: ClassJobs;
+        Ninja: ClassJobs;
+        Samurai: ClassJobs;
+        Reaper: ClassJobs;
+      };
+      RangedPhys: {
+        Bard: ClassJobs;
+        Machinist: ClassJobs;
+        Dancer: ClassJobs;
+      };
+      RangedMagic: {
+        BlackMage: ClassJobs;
+        Summoner: ClassJobs;
+        RedMage: ClassJobs;
+        BlueMage: ClassJobs;
+      };
+    };
+    CraftGather: {
+      Craft: {
+        Carpenter: ClassJobs;
+        Blacksmith: ClassJobs;
+        Armorer: ClassJobs;
+        Goldsmith: ClassJobs;
+        Leatherworker: ClassJobs;
+        Weaver: ClassJobs;
+        Alchemist: ClassJobs;
+        Culinarian: ClassJobs;
+      };
+      Gather: {
+        Miner: ClassJobs;
+        Botanist: ClassJobs;
+        Fisher: ClassJobs;
+      };
+    };
+  };
+}
+
 export interface CharacterData {
   Achievements: Achievements;
   AchievementsPublic: boolean;
@@ -81,7 +242,7 @@ interface ClassJobs {
   ExpLevel: number;
   ExpLevelMax: number;
   ExpLevelTogo: number;
-  IsSpecialised: false;
+  IsSpecialised: boolean;
   JobID: number;
   Level: number;
   Name: string;
