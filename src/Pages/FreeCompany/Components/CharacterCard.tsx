@@ -17,15 +17,15 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <Link to={`/Character/${ID}`}>
-      <article className="flex gap-4 p-6 bg-base-300 rounded-lg hover:bg-base-100 hover:text-rose-200 duration-300 cursor-pointer">
+      <article className="hover:text-rose-200 flex cursor-pointer gap-4 rounded-lg bg-base-300 p-6 duration-300 hover:bg-base-100">
         <img
           src={Avatar}
           alt={`Profile Picture from ${Name}`}
-          className="h-16 w-16 rounded-full"
+          className="mask mask-squircle h-16 w-16"
         />
-        <div className="flex flex-col gap-2 justify-center">
+        <div className="flex flex-col justify-center gap-2">
           <span className="font-bold">{Name}</span>
-          <span className="flex gap-2 items-center">
+          <span className="flex items-center gap-2">
             <img src={RankIcon} alt={"Rank Icon"} />
             {Rank}
           </span>
