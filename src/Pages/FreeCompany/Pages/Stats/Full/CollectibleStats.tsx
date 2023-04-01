@@ -156,7 +156,6 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
         </div>
       </div>
       <SourceNav />
-
       {Tabs[tabIndex].Content}
     </div>
   );
