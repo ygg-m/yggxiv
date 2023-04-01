@@ -56,7 +56,7 @@ export const Item = ({ data, index, query }: CollectibleItemListProps) => {
 
   return (
     <div className="grid gap-2 border-b border-neutral-700 bg-neutral py-1 duration-300 hover:bg-base-100">
-      <div className="grid grid-cols-[2rem_3rem_4rem_.25fr_1fr] grid-rows-1 gap-2">
+      <div className="grid grid-cols-[2rem_3rem_4rem_1fr_140px] grid-rows-1 gap-2">
         <Placement Index={index} />
         <Icon Name={name} Icon={cIcon} />
         <Counter Count={Count} />

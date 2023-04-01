@@ -19,7 +19,7 @@ export const List = ({ data, query }: ListProps) => {
   return (
     <div className="mt-2 grid gap-4 rounded-t-lg">
       <div className="rounded-lg outline outline-1 outline-neutral-700">
-        <div className="grid grid-cols-[2rem_3rem_4rem_.25fr_1fr] grid-rows-1 gap-2 border-b border-neutral-700 py-2">
+        <div className="grid grid-cols-[2rem_3rem_4rem_1fr_140px] grid-rows-1 gap-2 border-b border-neutral-700 py-2">
           <div className="col-span-1 grid place-items-center opacity-70">#</div>
           <div className="col-span-1 text-sm opacity-70"></div>
           <div className="col-span-1 text-sm opacity-70">Count</div>
