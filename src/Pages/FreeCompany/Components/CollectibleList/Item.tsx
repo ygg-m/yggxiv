@@ -52,14 +52,26 @@ const Name = ({ name }: { name: string }) => (
 export const Item = ({ data, index, query }: CollectibleItemListProps) => {
   const { Count, Owners } = data;
   const { Name: name, Icon: cIcon } = data.Data;
+  const [showOwner, setShowOwner] = useState<boolean>(false);
 
   return (
-    <div className="grid grid-cols-[2rem_3rem_4rem_.25fr_1fr] grid-rows-1 gap-2 border-b border-neutral-700 bg-neutral py-1 duration-300 hover:bg-base-100">
-      <Placement Index={index} />
-      <Icon Name={name} Icon={cIcon} />
-      <Counter Count={Count} />
-      <Name name={name} />
-      <OwnerList List={Owners} query={query} index={index} />
+    <div className="grid gap-2 border-b border-neutral-700 bg-neutral py-1 duration-300 hover:bg-base-100">
+      <div className="grid grid-cols-[2rem_3rem_4rem_.25fr_1fr] grid-rows-1 gap-2">
+        <Placement Index={index} />
+        <Icon Name={name} Icon={cIcon} />
+        <Counter Count={Count} />
+        <Name name={name} />
+        <button className="btn w-fit" onClick={() => setShowOwner(!showOwner)}>
+          {showOwner
+            ? Owners.length > 1
+              ? "Hide Owners"
+              : "Hide Owner"
+            : Owners.length > 1
+            ? "Show Owners"
+            : "Show Owner"}
+        </button>
+      </div>
+      <OwnerList List={Owners} query={query} showOwner={showOwner} />
     </div>
   );
 };
