@@ -11,8 +11,14 @@ export const FreeCompany = () => {
   const { fcId } = useParams();
 
   const location = useLocation();
-  const currentPath = location.pathname.split("/").reverse()[0];
-  const currentPage = location.pathname.split("/").reverse()[1];
+  const currentPath = location.pathname
+    .split("/")
+    .filter((e) => e !== "")
+    .reverse()[0];
+  const currentPage = location.pathname
+    .split("/")
+    .filter((e) => e !== "")
+    .reverse()[1];
   const paths = ["Info", "Members", "Leaderboard", "Stats"];
   const isInDefault =
     !paths.includes(currentPath) && currentPage === "FreeCompany";
