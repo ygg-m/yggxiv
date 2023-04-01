@@ -12,9 +12,13 @@ export const Header = ({ char }: { char: TreatedCharData }) => {
   };
 
   const ProfileName = () => {
-    const { Name } = char.Profile;
+    const { Name, Title } = char.Profile;
+
     return (
-      <h1 className="flex items-center gap-4 text-5xl font-bold">{Name}</h1>
+      <div className="grid">
+        <h1 className="flex items-center gap-4 text-5xl font-bold">{Name}</h1>
+        {Title.Name.length > 0 ? <span>{Title.Name}</span> : null}
+      </div>
     );
   };
 

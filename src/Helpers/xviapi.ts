@@ -281,3 +281,12 @@ export async function getAchievements() {
 
   return result;
 }
+
+export async function getTitle(id: number) {
+  const url = `https://xivapi.com/title/${id}`;
+  const response = await axios.get(url);
+
+  const data = response.data;
+
+  return data;
+}

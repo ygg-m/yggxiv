@@ -21,10 +21,10 @@ export interface TreatedCharData {
   Profile: {
     Name: string;
     Bio: string;
-    Gender: number; // TODO: solve Name
+    Gender: string; // TODO: solve Name
     Title: {
       Show: boolean;
-      Name: number; // TODO: solve Name
+      Name: string; // TODO: solve Name
     };
     Avatar: string;
     Portrait: string;
@@ -40,10 +40,13 @@ export interface TreatedCharData {
   };
   GrandCompany: {
     Name: number; // TODO: solve Name
+    Rank: number; // TODO: solve Name
   };
   FreeCompany: {
     ID: string;
     Name: string;
+    Tag: string;
+    Crest: string[];
   };
   ActiveStats: {
     Job: number; // TODO: solve Name

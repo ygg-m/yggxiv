@@ -1,4 +1,5 @@
 import { getCharacter } from "@/Helpers";
+import { getTitle } from "@/Helpers/xviapi";
 import { CharacterData, TreatedCharData } from "@/Types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -21,10 +22,10 @@ const CharacterContext = createContext<CharacterContextType>({
     Profile: {
       Name: "",
       Bio: "",
-      Gender: 0, // TODO: solve Name
+      Gender: "",
       Title: {
         Show: false,
-        Name: 0, // TODO: solve Name
+        Name: "", // TODO: solve Name
       },
       Avatar: "",
       Portrait: "",
@@ -40,10 +41,13 @@ const CharacterContext = createContext<CharacterContextType>({
     },
     GrandCompany: {
       Name: 0, // TODO: solve Name
+      Rank: 0, // TODO: solve Name
     },
     FreeCompany: {
       ID: "",
       Name: "",
+      Tag: "",
+      Crest: [],
     },
     ActiveStats: {
       Job: 0, // TODO: solve Name
@@ -645,7 +649,6 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
   children,
 }) => {
   const { charId } = useParams();
-  const { MembersFullData } = useFreeCompany();
 
   const CharacterID = parseInt(charId || "0");
 
@@ -661,10 +664,10 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     Profile: {
       Name: "",
       Bio: "",
-      Gender: 0, // TODO: solve Name
+      Gender: "",
       Title: {
         Show: false,
-        Name: 0, // TODO: solve Name
+        Name: "", // TODO: solve Name
       },
       Avatar: "",
       Portrait: "",
@@ -680,10 +683,13 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     },
     GrandCompany: {
       Name: 0, // TODO: solve Name
+      Rank: 0, // TODO: solve Name
     },
     FreeCompany: {
       ID: "",
       Name: "",
+      Tag: "",
+      Crest: [],
     },
     ActiveStats: {
       Job: 0, // TODO: solve Name
@@ -1276,11 +1282,13 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     },
   });
 
-  function getMember() {
-    const fcMember = MembersFullData.find(
-      (member) => member.Character.ID === CharacterID
-    );
-    if (fcMember) return fcMember;
+  function getGender(id: number) {
+    return id === 1 ? "Male" : "Female";
+  }
+
+  async function fetchTitle(id: number) {
+    const data = await getTitle(id);
+    return data.Name;
   }
 
   async function fetchCharacter() {
@@ -1306,10 +1314,10 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Profile: {
         Name: fetch.Character.Name,
         Bio: fetch.Character.Bio,
-        Gender: fetch.Character.Gender, // TODO: solve Name
+        Gender: getGender(fetch.Character.Gender), // TODO: solve Name
         Title: {
           Show: fetch.Character.TitleTop,
-          Name: fetch.Character.Title, // TODO: solve Name
+          Name: await fetchTitle(fetch.Character.Title), // TODO: solve Name
         },
         Avatar: fetch.Character.Avatar,
         Portrait: fetch.Character.Portrait,
@@ -1325,10 +1333,13 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       },
       GrandCompany: {
         Name: fetch.Character.GrandCompany.NameID, // TODO: solve Name
+        Rank: fetch.Character.GrandCompany.RankID, // TODO: solve Name
       },
       FreeCompany: {
         ID: fetch.Character.FreeCompanyId,
         Name: fetch.Character.FreeCompanyName,
+        Tag: fetch.FreeCompany.Tag,
+        Crest: fetch.FreeCompany.Crest,
       },
       ActiveStats: {
         Job: fetch.Character.GearSet.JobID, // TODO: solve Name
@@ -1404,10 +1415,10 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
               Materia: fetch.Character.GearSet.Gear.Ring2.Materia, // TODO: solve Name
             },
             SoulCrystal: {
-              ID: fetch.Character.GearSet.Gear.SoulCrystal.ID,
-              Name: fetch.Character.GearSet.Gear.SoulCrystal.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.SoulCrystal.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.SoulCrystal.Materia, // TODO: solve Name
+              ID: fetch.Character.GearSet.Gear.SoulCrystal?.ID,
+              Name: fetch.Character.GearSet.Gear.SoulCrystal?.ID, // TODO: solve Name
+              Glamour: fetch.Character.GearSet.Gear.SoulCrystal?.Mirage, // TODO: solve Data
+              Materia: fetch.Character.GearSet.Gear.SoulCrystal?.Materia, // TODO: solve Name
             },
           },
           Body: {
