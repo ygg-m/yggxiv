@@ -54,7 +54,7 @@ const RarestMinions = ({ data }: CollectibleProps) => {
   return (
     <div className="grid gap-2">
       <div className="flex justify-between">
-        <h2 className="text-2xl">Rarest Mounts</h2>
+        <h2 className="text-2xl">Rarest Minions</h2>
         <Link to={FullViewPath} className="btn-primary btn gap-2">
           See full List <ChevronRightIcon className="w-2" />
         </Link>
