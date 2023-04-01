@@ -119,11 +119,8 @@ export const Achievement = () => {
           } = member;
 
           return (
-            <>
-              <article
-                key={uuidv4()}
-                className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-300 hover:border-transparent hover:bg-base-100 sm:justify-between"
-              >
+            <div key={uuidv4()}>
+              <article className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-300 hover:border-transparent hover:bg-base-100 sm:justify-between">
                 <div className="flex w-24 flex-row items-center gap-4">
                   <span className="w-8 text-center sm:text-left">
                     {index + 4}º
@@ -145,7 +142,7 @@ export const Achievement = () => {
                 placement.EveryoneElse[placement.EveryoneElse.length - 1] && (
                 <div className="divider m-0 h-0"></div>
               )}
-            </>
+            </div>
           );
         })}
       </div>
