@@ -217,7 +217,7 @@ const Race = ({ data }: RaceProps) => {
   );
 };
 
-export const Character = () => {
+export const CharacterStats = () => {
   const { popularRaces, popularGender } = useStats();
 
   const HyurFilter = popularRaces.filter(

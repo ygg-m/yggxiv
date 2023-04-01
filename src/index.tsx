@@ -11,7 +11,7 @@ import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
 import { GameDataProvider } from "./Contexts/GameDataContext";
 import { SearchProvider } from "./Contexts/SearchContext";
 import { StatsProvider } from "./Contexts/StatsContext";
-import { ErrorPage, FreeCompany, Home } from "./Pages";
+import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import {
   Achievement,
   Minion,
@@ -19,7 +19,7 @@ import {
 } from "./Pages/FreeCompany/Pages/Leaderboard/index";
 import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/Full/AchievementStats";
 import {
-  Character,
+  CharacterStats,
   Job,
   MinionStats,
   MountStats,
@@ -63,7 +63,7 @@ const router = createHashRouter([
         ),
         children: [
           { path: "Summary", element: <Summary /> },
-          { path: "Character", element: <Character /> },
+          { path: "Character", element: <CharacterStats /> },
           { path: "Job", element: <Job /> },
           {
             path: "Mount",
