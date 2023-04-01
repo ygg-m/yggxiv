@@ -52,7 +52,7 @@ export const AchieveList = ({ data, query, publicCount }: ListProps) => {
 
       {data.length > indexes ? (
         <button
-          className="btn-secondary btn w-full"
+          className="btn-primary btn w-full"
           onClick={() => setIndexes(indexes + 10)}
         >
           Show More
