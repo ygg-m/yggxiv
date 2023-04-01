@@ -1,3 +1,4 @@
+import { shuffleArray } from "@/Helpers";
 import { CharCardData } from "@/Types";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -12,7 +13,11 @@ export const OwnerList = ({
   index: number;
 }) => {
   const [indexes, setIndexes] = useState(0);
-  const list = useMemo(() => List.slice(0, indexes), [List, indexes]);
+  const shuffledList = shuffleArray(List);
+  const list = useMemo(
+    () => shuffledList.slice(0, indexes),
+    [shuffledList, indexes]
+  );
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

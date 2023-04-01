@@ -155,7 +155,7 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
             <input
               value={collectibleQuery}
               type="text"
-              placeholder="Seach Mount"
+              placeholder="Seach Collectible"
               onChange={(e) => setCollectibleQuery(e.target.value)}
               className="input-bordered input h-[40px]"
             />
