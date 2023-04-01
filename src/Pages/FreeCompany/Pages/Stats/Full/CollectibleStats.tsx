@@ -130,7 +130,7 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
     <div className="flex flex-col">
       <div className="mt-4 flex w-full flex-col justify-between gap-2 sm:flex-row">
         <div className="flex gap-2">
-          <TabNav />
+          {/* <TabNav /> */}
           <RareNav />
         </div>
         <div className="flex gap-2">
