@@ -38,7 +38,7 @@ const Achievement = ({ data, showOwners, showCount }: AchievementProps) => {
         <span>Owners</span>
         <div className="grid grid-cols-3 place-items-center sm:grid-cols-8 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
           {Owners.map((owner) => {
-            const { Name, Avatar } = owner.Character;
+            const { Name, Avatar } = owner;
             return (
               <div
                 className="tooltip cursor-pointer rounded-lg p-2 duration-200 hover:bg-base-300"
@@ -59,7 +59,7 @@ const Achievement = ({ data, showOwners, showCount }: AchievementProps) => {
   };
 
   const SingleOwner = () => {
-    const { Name, Avatar } = Owners[0].Character;
+    const { Name, Avatar } = Owners[0];
 
     return (
       <div className="flex flex-col items-center">

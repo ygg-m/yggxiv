@@ -537,7 +537,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
       [achievID: string]: {
         Count: number;
         Data: AchievementData;
-        Owners: CharacterData[];
+        Owners: CharCardData[];
       };
     } = {};
 
@@ -549,6 +549,12 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         const Data = achievements.find(
           (e: CollectibleData) => e.ID === achievID
         );
+        const charData = {
+          Name: character.Character.Name,
+          Avatar: character.Character.Avatar,
+          Portrait: character.Character.Portrait,
+          ID: character.Character.ID,
+        };
 
         if (!achievCount[achievID]) {
           achievCount[achievID] = {
@@ -561,7 +567,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
         achievCount[achievID].Count++;
         achievCount[achievID].Owners = [
           ...achievCount[achievID].Owners,
-          character,
+          charData,
         ];
       });
     });

@@ -1,6 +1,6 @@
 import { useStats } from "@/Contexts/StatsContext";
 import { reverseArray } from "@/Helpers/reverseArray";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { CollectibleStats } from "./CollectibleStats";
 

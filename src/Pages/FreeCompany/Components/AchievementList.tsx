@@ -1,97 +1,96 @@
-import { CollectibleChart } from "@/Pages/FreeCompany/Components/CollectibleList/Chart";
-import { List } from "@/Pages/FreeCompany/Components/CollectibleList/List";
-import { CollectibleTypes } from "@/Types";
+import { AchieveList } from "@/Pages/FreeCompany/Components/CollectibleList/AchieveList";
+import { AchievementsTypes } from "@/Types";
 import { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { filterList } from "../Helpers/collectibleFilters";
+import { filterList } from "../Pages/Stats/Helpers/achievementFilters";
 
-export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
+export const AchievementList = ({ data }: { data: AchievementsTypes[] }) => {
   const isRarest = useLocation().pathname.split("/").reverse()[0] === "Rarest";
 
-  const [sourceFilter, setSourceFilter] = useState<string[]>([]);
+  const [sourceFilter, setSourceFilter] = useState<string>("");
   const [sourceTabIndex, setSourceTabIndex] = useState<number>(0);
 
   const [collectibleQuery, setCollectibleQuery] = useState<string>("");
   const [characterQuery, setCharacterQuery] = useState<string>("");
-
-  const [tabIndex, setTabIndex] = useState<number>(0);
 
   const filter = useMemo(
     () => filterList(data, characterQuery, collectibleQuery, sourceFilter),
     [collectibleQuery, characterQuery, sourceFilter, data]
   );
 
-  const Tabs = [
-    {
-      Name: "Cards",
-      Click: (index: number) => {
-        setTabIndex(index);
-      },
-      Content: <List data={filter} query={characterQuery} />,
-    },
-    {
-      Name: "Chart",
-      Click: (index: number) => {
-        setTabIndex(index);
-      },
-      Content: <CollectibleChart data={filter} />,
-    },
-  ];
-
   const SourceTabs = [
     {
       Name: "All",
       Click: (index: number) => {
         setSourceTabIndex(index);
-        setSourceFilter([]);
+        setSourceFilter("");
       },
     },
     {
-      Name: "Quest",
+      Name: "Battle",
       Click: (index: number) => {
         setSourceTabIndex(index);
-        setSourceFilter(["Quest"]);
+        setSourceFilter("Battle");
       },
     },
     {
-      Name: "Premium",
+      Name: "PvP",
       Click: (index: number) => {
         setSourceTabIndex(index);
-        setSourceFilter(["Premium"]);
+        setSourceFilter("PvP");
       },
     },
     {
-      Name: "Trial",
+      Name: "Character",
       Click: (index: number) => {
         setSourceTabIndex(index);
-        setSourceFilter(["Trial"]);
+        setSourceFilter("Character");
       },
     },
     {
-      Name: "Raid",
+      Name: "Items",
       Click: (index: number) => {
         setSourceTabIndex(index);
-        setSourceFilter(["Raid"]);
+        setSourceFilter("Items");
+      },
+    },
+    {
+      Name: "Crafting & Gathering",
+      Click: (index: number) => {
+        setSourceTabIndex(index);
+        setSourceFilter("Crafting & Gathering");
+      },
+    },
+    {
+      Name: "Quests",
+      Click: (index: number) => {
+        setSourceTabIndex(index);
+        setSourceFilter("Quests");
+      },
+    },
+    {
+      Name: "Exploration",
+      Click: (index: number) => {
+        setSourceTabIndex(index);
+        setSourceFilter("Exploration");
+      },
+    },
+    {
+      Name: "Grand Company",
+      Click: (index: number) => {
+        setSourceTabIndex(index);
+        setSourceFilter("Grand Company");
+      },
+    },
+    {
+      Name: "Legacy",
+      Click: (index: number) => {
+        setSourceTabIndex(index);
+        setSourceFilter("Legacy");
       },
     },
   ];
-
-  const TabNav = () => (
-    <div className="tabs tabs-boxed w-full sm:w-fit">
-      {Tabs.map((tab, index) => (
-        <button
-          className={`tab w-1/2 sm:w-fit ${
-            index === tabIndex ? "tab-active" : ""
-          }`}
-          onClick={() => tab.Click(index)}
-          key={uuidv4()}
-        >
-          {tab.Name}
-        </button>
-      ))}
-    </div>
-  );
 
   const RareNav = () => (
     <div className="tabs tabs-boxed w-full sm:w-fit">
@@ -130,7 +129,6 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
     <div className="flex flex-col">
       <div className="mt-4 flex w-full flex-col justify-between gap-2 sm:flex-row">
         <div className="flex gap-2">
-          <TabNav />
           <RareNav />
         </div>
         <div className="flex gap-2">
@@ -148,7 +146,7 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
             <input
               value={collectibleQuery}
               type="text"
-              placeholder="Seach Collectible"
+              placeholder="Seach Achievement"
               onChange={(e) => setCollectibleQuery(e.target.value)}
               className="input-bordered input h-[40px]"
             />
@@ -156,8 +154,7 @@ export const CollectibleStats = ({ data }: { data: CollectibleTypes[] }) => {
         </div>
       </div>
       <SourceNav />
-
-      {Tabs[tabIndex].Content}
+      <AchieveList data={filter} query={characterQuery} />
     </div>
   );
 };

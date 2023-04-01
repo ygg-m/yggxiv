@@ -13,6 +13,7 @@ import {
 } from "../Types/index";
 import {
   CollectData,
+  getFFCollectAchievements,
   getFFCollectMinion,
   getFFCollectMounts,
 } from "./ffxivcollectapi";
@@ -245,6 +246,7 @@ export async function getAchievements() {
     "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name&limit=3000",
     "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name&limit=3000&Page=2",
   ];
+  const FFCollectAchieveData = await getFFCollectAchievements();
 
   const fetch = await Promise.all(
     urls.map((url) =>
@@ -259,6 +261,10 @@ export async function getAchievements() {
   const List = [...fetch[0], ...fetch[1]];
 
   const result = List.map((achievData) => {
+    const FFXIVCollectData = FFCollectAchieveData.find(
+      (data) => data.Id === achievData.ID
+    );
+
     const Group = achievData.AchievementCategory.AchievementKind.Name;
     const Category = achievData.AchievementCategory.Name;
 
@@ -269,6 +275,7 @@ export async function getAchievements() {
       Category: Category,
       Icon: achievData.IconHD,
       Description: achievData.Description,
+      FFXIVCollectData: FFXIVCollectData,
     };
   });
 

@@ -18,7 +18,6 @@ import {
   Mount,
 } from "./Pages/FreeCompany/Pages/Leaderboard/index";
 import { AchievementStats } from "./Pages/FreeCompany/Pages/Stats/Full/AchievementStats";
-import { CollectibleStats } from "./Pages/FreeCompany/Pages/Stats/Full/CollectibleStats";
 import {
   Character,
   Job,
@@ -86,14 +85,8 @@ const router = createHashRouter([
             path: "Achievement",
             element: <AchievementStats />,
             children: [
-              { path: "Battle", element: <AchievementStats /> },
-              { path: "PvP", element: <AchievementStats /> },
-              { path: "Character", element: <AchievementStats /> },
-              { path: "Craft&Gather", element: <AchievementStats /> },
-              { path: "Quests", element: <AchievementStats /> },
-              { path: "Exploration", element: <AchievementStats /> },
-              { path: "Grand Company", element: <AchievementStats /> },
-              { path: "Legacy", element: <AchievementStats /> },
+              { path: "Popular", element: <AchievementStats /> },
+              { path: "Rarest", element: <AchievementStats /> },
             ],
           },
         ],

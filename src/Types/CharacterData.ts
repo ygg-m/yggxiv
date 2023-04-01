@@ -302,5 +302,5 @@ export interface CollectibleTypes {
 export interface AchievementsTypes {
   Count: number;
   Data: AchievementData;
-  Owners: CharacterData[];
+  Owners: CharCardData[];
 }
