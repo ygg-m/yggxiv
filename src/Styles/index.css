@@ -31,6 +31,8 @@ code {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4e5666;
+  border-color: #171717;
+  border-width: 1px;
   border-radius: 1rem;
   transition: 200ms;
 }
