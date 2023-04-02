@@ -27,7 +27,7 @@ export const Stats = () => {
 
   return (
     <StatsProvider>
-      <section className="flex min-h-[calc(100vh-448px)] flex-col pb-8">
+      <section className="flex  flex-col pb-8">
         <Tabs isDefaultPath={isDefaultPath} />
         <Outlet />
         {isDefaultPath ? <Summary /> : null}

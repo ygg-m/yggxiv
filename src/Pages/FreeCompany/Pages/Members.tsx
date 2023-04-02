@@ -137,7 +137,7 @@ export const Members = () => {
   };
 
   return (
-    <section className="flex min-h-[calc(100vh-448px)] flex-col gap-4 pb-8">
+    <section className="flex  flex-col gap-4 pb-8">
       <nav className="navbar grid h-fit rounded-lg bg-base-100">
         <div className="flex justify-between">
           <FilterButton />

@@ -20,15 +20,15 @@ export const MainInfo = () => {
   const BasicInfo = () => {
     const Info = () => {
       return (
-        <section className="flex flex-col basis-1/2 bg-base-300 rounded-lg p-6">
+        <section className="flex basis-1/2 flex-col rounded-lg bg-base-300 p-6">
           <div className="flex flex-col">
-            <div className="text-sm opacity-60 italic">Name (Tag)</div>
+            <div className="text-sm italic opacity-60">Name (Tag)</div>
             <div>{`${Name} (${Tag})`}</div>
           </div>
           <div className="divider"></div>
 
           <div className="flex flex-col">
-            <div className="text-sm opacity-60 italic">Formed in</div>
+            <div className="text-sm italic opacity-60">Formed in</div>
             <div>
               {FormedDate} - {FormedTime}
             </div>
@@ -49,7 +49,7 @@ export const MainInfo = () => {
       const AlliedGC = parseAlliedGC(Reputation);
 
       return (
-        <section className="flex flex-col basis-1/2 bg-base-300 rounded-lg p-6">
+        <section className="flex basis-1/2 flex-col rounded-lg bg-base-300 p-6">
           <div className="flex flex-col">
             <div className="text-sm opacity-60">Allied Grand Company</div>
             <div className="flex gap-2">
@@ -75,7 +75,7 @@ export const MainInfo = () => {
     };
 
     return (
-      <article className="grid md:grid-cols-2 p-4 gap-4 bg-base-100 rounded-b-lg rounded-tr-lg">
+      <article className="grid gap-4 rounded-b-lg rounded-tr-lg bg-base-100 p-4 md:grid-cols-2">
         <span className="col-span-2 p-4 text-center">{Slogan}</span>
         <Info />
         <Ranks />
@@ -90,27 +90,27 @@ export const MainInfo = () => {
     const { Size, City, Plot, Ward } = parseEstatePlot(rawPlot);
 
     return (
-      <section className="grid md:grid-cols-2 bg-base-100 rounded-lg p-4 gap-4">
-        <div className="flex flex-col gap-4 basis-1/2 p-2">
+      <section className="grid gap-4 rounded-lg bg-base-100 p-4 md:grid-cols-2">
+        <div className="flex basis-1/2 flex-col gap-4 p-2">
           <h3 className="text-3xl font-bold">
             {Name} <span className="badge badge-md -translate-y-1">{Size}</span>
           </h3>
           <h5 className="">{Greeting}</h5>
         </div>
 
-        <div className="flex bg-base-300 rounded-lg basis-1/2 justify-between">
-          <div className="flex flex-col items-center justify-center py-4 px-8 basis-full">
-            <div className="text-sm opacity-60 italic">City</div>
+        <div className="flex basis-1/2 justify-between rounded-lg bg-base-300">
+          <div className="flex basis-full flex-col items-center justify-center py-4 px-8">
+            <div className="text-sm italic opacity-60">City</div>
             <div className="text-lg font-bold">{City}</div>
           </div>
-          <div className="divider divider-horizontal m-0 after:border-2 before:border-2 before:border-base-100 after:border-base-100"></div>
-          <div className="flex flex-col items-center justify-center py-4 px-8 basis-full">
-            <div className="text-sm opacity-60 italic">Ward</div>
+          <div className="divider divider-horizontal m-0 before:border-2 before:border-base-100 after:border-2 after:border-base-100"></div>
+          <div className="flex basis-full flex-col items-center justify-center py-4 px-8">
+            <div className="text-sm italic opacity-60">Ward</div>
             <div className="text-lg font-bold">{Ward}</div>
           </div>
-          <div className="divider divider-horizontal m-0 after:border-2 before:border-2 before:border-base-100 after:border-base-100"></div>
-          <div className="flex flex-col items-center justify-center p-4 basis-full">
-            <div className="text-sm opacity-60 italic">Plot</div>
+          <div className="divider divider-horizontal m-0 before:border-2 before:border-base-100 after:border-2 after:border-base-100"></div>
+          <div className="flex basis-full flex-col items-center justify-center p-4">
+            <div className="text-sm italic opacity-60">Plot</div>
             <div className="text-lg font-bold">{Plot}</div>
           </div>
         </div>
@@ -122,7 +122,7 @@ export const MainInfo = () => {
     const Staffs = parseStaff(Members) as MembersListTypes[];
 
     return (
-      <section className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+      <section className="grid gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Staffs.map((member) => {
           const { Avatar, ID, Name, Rank, RankIcon } = member;
           return (
@@ -141,7 +141,7 @@ export const MainInfo = () => {
   };
 
   return (
-    <section className="grid gap-4 pb-8 min-h-[calc(100vh-448px)]">
+    <section className="grid  gap-4 pb-8">
       <BasicInfo />
       <Estate />
       <Staff />

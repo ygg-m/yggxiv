@@ -25,7 +25,7 @@ export const Leaderboard = () => {
 
   return (
     <StatsProvider>
-      <section className="grid min-h-[calc(100vh-448px)] gap-4 pb-8">
+      <section className="grid  gap-4 pb-8">
         <Tabs isDefaultPath={isDefaultPath} />
         <Outlet />
         {isDefaultPath ? <Mount /> : null}

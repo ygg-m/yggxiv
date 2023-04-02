@@ -48,16 +48,18 @@ export const FreeCompany = () => {
     );
 
   return (
-    <div className="flex min-h-screen w-screen flex-col items-center bg-neutral-900">
-      <CoverImage />
-      <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
-        <Header FreeCompany={FreeCompany} />
-        <Navigator
-          isDefaultPath={isDefaultPath}
-          MemberCount={ActiveMemberCount}
-        />
-        <Outlet />
-        {isDefaultPath ? <MainInfo /> : null}
+    <div className="flex min-h-screen w-screen flex-col items-center justify-between bg-neutral-900">
+      <div>
+        <CoverImage />
+        <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
+          <Header FreeCompany={FreeCompany} />
+          <Navigator
+            isDefaultPath={isDefaultPath}
+            MemberCount={ActiveMemberCount}
+          />
+          <Outlet />
+          {isDefaultPath ? <MainInfo /> : null}
+        </div>
       </div>
       <Footer />
     </div>
