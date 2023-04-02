@@ -1,5 +1,6 @@
 import { useGameData } from "@/Contexts/GameDataContext";
 import { CollectibleData } from "@/Types";
+import { v4 as uuid } from "uuid";
 
 interface Props {
   data: {
@@ -34,6 +35,7 @@ export const CollectibleInfo = ({ data }: Props) => {
           {List.map((mount) => (
             <div
               className="tooltip w-12"
+              key={uuid()}
               data-tip={`${mount.Name} - ${mount.FFXIVCollectData.Owned}% Owned Globally`}
             >
               <img
@@ -73,6 +75,7 @@ export const CollectibleInfo = ({ data }: Props) => {
           {List.map((mount) => (
             <div
               className="tooltip w-12"
+              key={uuid()}
               data-tip={`${mount.Name} - ${mount.FFXIVCollectData.Owned}% Owned Globally`}
             >
               <img
