@@ -22,7 +22,7 @@ export const CharJobs = () => {
 
   const BattleJobs = () => {
     return (
-      <article className="grid gap-4 md:grid-cols-2">
+      <article className="grid place-items-center gap-4 md:grid-cols-2">
         <JobList data={Battle.Tanks} />
         <JobList data={Battle.Healers} />
         <JobList data={Battle.Melee} />
@@ -34,7 +34,7 @@ export const CharJobs = () => {
 
   const CraftGatherJobs = () => {
     return (
-      <article className="grid gap-4 md:grid-cols-2">
+      <article className="grid place-items-center gap-4 md:grid-cols-2">
         <JobList data={CraftGather.Craft} />
         <JobList data={CraftGather.Gather} />
       </article>
@@ -42,7 +42,7 @@ export const CharJobs = () => {
   };
 
   return (
-    <article className="flex flex-col gap-4">
+    <article className="mb-8 flex flex-col gap-4">
       <SpecialJobs />
       <BattleJobs />
       <CraftGatherJobs />
