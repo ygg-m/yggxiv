@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
   const InfoBio = () => {
     const { Bio } = data.Profile;
+    const isBioEmpty = Bio === "" || Bio === "-";
 
-    return (
+    return !isBioEmpty ? (
       <div className="h-fit w-full rounded-lg bg-base-200 p-4 text-center duration-300 hover:bg-base-300">
         {Bio}
       </div>
-    );
+    ) : null;
   };
 
   const RaceInfo = () => {
@@ -112,12 +113,12 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
       <InfoBio />
 
       <div className="grid w-full gap-4 md:grid-cols-2">
-        <div className="grid gap-2 rounded-lg lg:grid-cols-2">
+        <div className="grid gap-2 rounded-lg xl:grid-cols-2">
           <RaceInfo />
           <NamedayInfo />
         </div>
 
-        <div className="grid gap-2 rounded-lg lg:grid-cols-2">
+        <div className="grid gap-2 rounded-lg xl:grid-cols-2">
           <GrandCompanyInfo />
           <FreeCompanyInfo />
         </div>

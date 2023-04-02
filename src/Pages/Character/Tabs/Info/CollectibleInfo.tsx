@@ -31,7 +31,7 @@ export const CollectibleInfo = ({ data }: Props) => {
           </span>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-2">
+        <div className="grid grid-cols-4 place-items-center justify-between gap-2 sm:grid-cols-10 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-10">
           {List.map((mount) => (
             <div
               className="tooltip w-12"
@@ -71,7 +71,7 @@ export const CollectibleInfo = ({ data }: Props) => {
           </span>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-2">
+        <div className="grid grid-cols-4 place-items-center gap-2 sm:grid-cols-10 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-10">
           {List.map((mount) => (
             <div
               className="tooltip w-12"
