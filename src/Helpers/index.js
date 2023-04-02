@@ -1,6 +1,7 @@
 export { capitalizeText } from "./capitalizeText";
 export { formatNumber } from "./formatNumber";
 export { getRanks } from "./getFreeCompanyRanks";
+export { getRandomString } from "./getRandomString";
 export { loadFromLocalStorage, saveToLocalStorage } from "./localStorage";
 export { parseAlliedGC } from "./parseAlliedGrandCompany";
 export { parseDate } from "./parseDate";

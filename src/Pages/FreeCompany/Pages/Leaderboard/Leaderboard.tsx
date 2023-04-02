@@ -1,12 +1,13 @@
 import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { StatsProvider } from "@/Contexts/StatsContext";
+import { userLoadingPhrases } from "@/Data/loadingPhrases";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Mount } from "./Mount";
 import { Tabs } from "./Tabs";
 
 export const Leaderboard = () => {
-  const { fetchProgress, loadStats } = useFreeCompany();
+  const { loadStats } = useFreeCompany();
 
   const isDefaultPath = /Leaderboard/.test(
     useLocation()
@@ -15,7 +16,7 @@ export const Leaderboard = () => {
       .reverse()[0]
   );
 
-  if (!loadStats) return <FetchProgress value={fetchProgress} />;
+  if (!loadStats) return <FetchProgress arr={userLoadingPhrases} />;
 
   return (
     <StatsProvider>

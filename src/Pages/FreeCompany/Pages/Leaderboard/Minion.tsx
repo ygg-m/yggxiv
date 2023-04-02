@@ -1,17 +1,19 @@
+import { MedalIcon, TrophyIcon } from "@/Assets/Images/UI";
 import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
+import { useStats } from "@/Contexts/StatsContext";
+import { userLoadingPhrases } from "@/Data/loadingPhrases";
+import { CharacterData } from "@/Types";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { MedalIcon, TrophyIcon } from "../../../../Assets/Images/UI";
-import { useStats } from "../../../../Contexts/StatsContext";
-import { CharacterData } from "../../../../Types";
 
 export const Minion = () => {
   const { getMinionLeaderboard } = useStats();
   const placement = getMinionLeaderboard();
 
-  const { loadStats, fetchProgress } = useFreeCompany();
-  if (!loadStats || !placement) return <FetchProgress value={fetchProgress} />;
+  const { loadStats } = useFreeCompany();
+  if (!loadStats || !placement)
+    return <FetchProgress arr={userLoadingPhrases} />;
 
   const FirstPlace = () => {
     if (placement.FirstPlace === undefined) return null;

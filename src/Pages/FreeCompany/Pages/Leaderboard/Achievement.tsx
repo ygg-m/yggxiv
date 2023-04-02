@@ -2,6 +2,7 @@ import { MedalIcon, TrophyIcon } from "@/Assets/Images/UI";
 import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { useStats } from "@/Contexts/StatsContext";
+import { userLoadingPhrases } from "@/Data/loadingPhrases";
 import { formatNumber } from "@/Helpers";
 import { CharacterData } from "@/Types";
 import { Link } from "react-router-dom";
@@ -12,7 +13,7 @@ export const Achievement = () => {
   const placement = getAchievementLeaderboard();
 
   const { loadStats, fetchProgress } = useFreeCompany();
-  if (!loadStats || !placement) return <FetchProgress value={fetchProgress} />;
+  if (!loadStats || !placement) return <FetchProgress arr={userLoadingPhrases} />;
 
   const FirstPlace = () => {
     if (placement.FirstPlace === undefined) return null;

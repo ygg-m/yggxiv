@@ -1,12 +1,13 @@
 import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { StatsProvider } from "@/Contexts/StatsContext";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { userLoadingPhrases } from "@/Data/loadingPhrases";
+import { Outlet, useLocation } from "react-router-dom";
 import { Summary } from "./Summary/Summary";
 import { Tabs } from "./Tabs";
 
 export const Stats = () => {
-  const { MembersFullData, fetchProgress, loadStats } = useFreeCompany();
+  const { MembersFullData, loadStats } = useFreeCompany();
 
   const isMembersValid = MembersFullData[0].Character.ID !== 0;
 
@@ -18,7 +19,7 @@ export const Stats = () => {
   );
 
   if (!loadStats || !isMembersValid)
-    return <FetchProgress value={fetchProgress} />;
+    return <FetchProgress arr={userLoadingPhrases} />;
 
   return (
     <StatsProvider>
