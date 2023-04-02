@@ -1,13 +1,15 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
-import { Bozjan } from "./Bozjan";
-import { Crafters } from "./Crafters";
-import { Elemental } from "./Elemental";
-import { Gatherers } from "./Gatherers";
-import { Healers } from "./Healers";
-import { Melee } from "./Melee";
-import { RangedMagic } from "./RangedMagic";
-import { RangedPhys } from "./RangedPhys";
-import { Tanks } from "./Tanks";
+import {
+  Bozjan,
+  Crafters,
+  Elemental,
+  Gatherers,
+  Healers,
+  Melee,
+  RangedMagic,
+  RangedPhys,
+  Tanks,
+} from "./";
 
 export const CharJobs = () => {
   const { char } = useCharacter();
