@@ -1,18 +1,20 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    colors: {
-      gold: "#FFD700",
-      silver: "#COCOCO",
-      bronze: "#CD7F32",
-      tank: "#3e51b1",
-      healer: "#3c672f",
-      dps: "#743333",
-      gatherer: "#a28838",
-      crafter: "#6748ad",
+    extend: {
+      colors: {
+        gold: "#FFD700",
+        silver: "#COCOCO",
+        bronze: "#CD7F32",
+        tank: "#3e51b1",
+        healer: "#3c672f",
+        dps: "#743333",
+        gatherer: "#a28838",
+        crafter: "#6748ad",
+      },
     },
-    extend: {},
   },
   daisyui: {
     themes: [
