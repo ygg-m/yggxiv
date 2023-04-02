@@ -1,15 +1,5 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
-import {
-  Bozjan,
-  Crafters,
-  Elemental,
-  Gatherers,
-  Healers,
-  Melee,
-  RangedMagic,
-  RangedPhys,
-  Tanks,
-} from "./";
+import { Bozjan, Elemental, JobList } from "./";
 
 // bg-tank
 // bg-healer
@@ -23,7 +13,7 @@ export const CharJobs = () => {
 
   const SpecialJobs = () => {
     return BozData || ElData ? (
-      <section className="flex gap-4 rounded-lg bg-base-100 p-4">
+      <section className="flex flex-col gap-4 rounded-lg bg-base-100 p-4 md:flex-row">
         <Bozjan data={BozData} />
         <Elemental data={ElData} />
       </section>
@@ -32,21 +22,21 @@ export const CharJobs = () => {
 
   const BattleJobs = () => {
     return (
-      <article className="grid md:grid-cols-2">
-        <Tanks data={Battle.Tanks} />
-        <Healers data={Battle.Healers} />
-        <Melee data={Battle.Melee} />
-        <RangedPhys data={Battle.RangedPhys} />
-        <RangedMagic data={Battle.RangedMagic} />
+      <article className="grid gap-4 md:grid-cols-2">
+        <JobList data={Battle.Tanks} />
+        <JobList data={Battle.Healers} />
+        <JobList data={Battle.Melee} />
+        <JobList data={Battle.RangedPhys} />
+        <JobList data={Battle.RangedMagic} />
       </article>
     );
   };
 
   const CraftGatherJobs = () => {
     return (
-      <article>
-        <Crafters data={CraftGather.Craft} />
-        <Gatherers data={CraftGather.Gather} />
+      <article className="grid gap-4 md:grid-cols-2">
+        <JobList data={CraftGather.Craft} />
+        <JobList data={CraftGather.Gather} />
       </article>
     );
   };

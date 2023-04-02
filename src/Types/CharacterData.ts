@@ -126,53 +126,15 @@ export interface TreatedCharData {
     Bozjan: ClassJobsBozjan;
     Elemental: ClassJobsElemental;
     Battle: {
-      Tanks: {
-        Paladin: TreatedJobData;
-        Warrior: ClassJobs;
-        DarkKnight: ClassJobs;
-        Gunbreaker: ClassJobs;
-      };
-      Healers: {
-        WhiteMage: ClassJobs;
-        Scholar: ClassJobs;
-        Astrologian: ClassJobs;
-        Sage: ClassJobs;
-      };
-      Melee: {
-        Monk: ClassJobs;
-        Dragoon: ClassJobs;
-        Ninja: ClassJobs;
-        Samurai: ClassJobs;
-        Reaper: ClassJobs;
-      };
-      RangedPhys: {
-        Bard: ClassJobs;
-        Machinist: ClassJobs;
-        Dancer: ClassJobs;
-      };
-      RangedMagic: {
-        BlackMage: ClassJobs;
-        Summoner: ClassJobs;
-        RedMage: ClassJobs;
-        BlueMage: ClassJobs;
-      };
+      Tanks: TreatedJobData[];
+      Healers: TreatedJobData[];
+      Melee: TreatedJobData[];
+      RangedPhys: TreatedJobData[];
+      RangedMagic: TreatedJobData[];
     };
     CraftGather: {
-      Craft: {
-        Carpenter: ClassJobs;
-        Blacksmith: ClassJobs;
-        Armorer: ClassJobs;
-        Goldsmith: ClassJobs;
-        Leatherworker: ClassJobs;
-        Weaver: ClassJobs;
-        Alchemist: ClassJobs;
-        Culinarian: ClassJobs;
-      };
-      Gather: {
-        Miner: ClassJobs;
-        Botanist: ClassJobs;
-        Fisher: ClassJobs;
-      };
+      Craft: TreatedJobData[];
+      Gather: TreatedJobData[];
     };
   };
 }
