@@ -7,6 +7,7 @@ import {
 } from "../Assets/Images/UI";
 
 import YggDrasilBerry from "@/Assets/Images/UI/yggdrasilberry.png";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -18,6 +19,9 @@ export const Footer = () => {
           <a href="https://linktr.ee/yggm" className="link">
             Ygor Goulart
           </a>{" "}
+          (<Link to="/Character/29518378" className="link">
+            Ygg Lart
+          </Link>){" "}
           using{" "}
           <a href="https://xivapi.com/" className="link">
             XIVAPI
