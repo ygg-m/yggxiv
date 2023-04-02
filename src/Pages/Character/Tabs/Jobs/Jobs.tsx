@@ -11,6 +11,12 @@ import {
   Tanks,
 } from "./";
 
+// bg-tank
+// bg-healer
+// bg-dps
+// bg-gatherer
+// bg-crafter
+
 export const CharJobs = () => {
   const { char } = useCharacter();
   const { Battle, CraftGather, Bozjan: BozData, Elemental: ElData } = char.Jobs;

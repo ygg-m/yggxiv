@@ -9,6 +9,18 @@ interface TreatedGearData {
   Materia: number[]; // TODO: solve Name
 }
 
+export interface TreatedJobData {
+  ID: number;
+  Name: string;
+  Tag: string;
+  Role: string;
+  Position?: string;
+  Image: string;
+  Exp: number;
+  ExpMax: number;
+  Level: number;
+}
+
 export interface TreatedCharData {
   Data: {
     ID: number;
@@ -115,7 +127,7 @@ export interface TreatedCharData {
     Elemental: ClassJobsElemental;
     Battle: {
       Tanks: {
-        Paladin: ClassJobs;
+        Paladin: TreatedJobData;
         Warrior: ClassJobs;
         DarkKnight: ClassJobs;
         Gunbreaker: ClassJobs;

@@ -11,6 +11,7 @@ export {
   jobData,
   raceData,
   TreatedCharData,
+  TreatedJobData,
 } from "./CharacterData";
 export {
   FreeCompanyData,

@@ -126,6 +126,7 @@ export const jobs = [
     SVG: <Paladin />,
   },
   {
+    ID: 19,
     Job: "Paladin",
     Tag: "PLD",
     Role: "Tank",

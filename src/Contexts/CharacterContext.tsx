@@ -1,9 +1,16 @@
 import { grandCompanies } from "@/Data/grandCompanies";
 import { guardianDeities } from "@/Data/guardianDeities";
+import { jobs } from "@/Data/jobs";
 import { races } from "@/Data/races";
 import { getCharacter } from "@/Helpers";
 import { getCity, getTitle } from "@/Helpers/xviapi";
-import { Collectible, CollectibleData, TreatedCharData } from "@/Types";
+import {
+  ClassJobs,
+  Collectible,
+  CollectibleData,
+  TreatedCharData,
+  TreatedJobData,
+} from "@/Types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGameData } from "./GameDataContext";
@@ -197,18 +204,15 @@ const CharacterContext = createContext<CharacterContextType>({
       Battle: {
         Tanks: {
           Paladin: {
-            ClassID: 0,
-            ExpLevel: 0,
-            ExpLevelMax: 0,
-            ExpLevelTogo: 0,
-            IsSpecialised: false,
-            JobID: 0,
-            Level: 0,
+            ID: 0,
             Name: "",
-            UnlockedState: {
-              ID: 0,
-              Name: "",
-            },
+            Tag: "",
+            Role: "",
+            Position: "",
+            Image: "",
+            Exp: 0,
+            ExpMax: 0,
+            Level: 0,
           },
           Warrior: {
             ClassID: 0,
@@ -846,18 +850,15 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Battle: {
         Tanks: {
           Paladin: {
-            ClassID: 0,
-            ExpLevel: 0,
-            ExpLevelMax: 0,
-            ExpLevelTogo: 0,
-            IsSpecialised: false,
-            JobID: 0,
-            Level: 0,
+            ID: 0,
             Name: "",
-            UnlockedState: {
-              ID: 0,
-              Name: "",
-            },
+            Tag: "",
+            Role: "",
+            Position: "",
+            Image: "",
+            Exp: 0,
+            ExpMax: 0,
+            Level: 0,
           },
           Warrior: {
             ClassID: 0,
@@ -1419,6 +1420,35 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     return data;
   }
 
+  function getJobData(job: ClassJobs): TreatedJobData {
+    const JobData = jobs.find((e) => e.ID === job.UnlockedState.ID);
+    const empty = {
+      ID: 0,
+      Name: "",
+      Tag: "",
+      Role: "",
+      Position: "",
+      Image: "",
+      Exp: 0,
+      ExpMax: 0,
+      Level: 0,
+    };
+    const result = {
+      ID: job.UnlockedState.ID,
+      Name: job.UnlockedState.Name,
+      Tag: JobData?.Tag || "",
+      Role: JobData?.Role || "",
+      Position: JobData?.Position || "",
+      Image: JobData?.ImageSrc || "",
+      Exp: job.ExpLevel,
+      ExpMax: job.ExpLevelMax,
+      Level: job.Level,
+    };
+
+    if (JobData) return result;
+    else return empty;
+  }
+
   async function fetchCharacter() {
     const fetch = await getCharacter(
       CharacterID,
@@ -1598,7 +1628,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Elemental: fetch.Character.ClassJobsElemental,
         Battle: {
           Tanks: {
-            Paladin: fetch.Character.ClassJobs[0],
+            Paladin: getJobData(fetch.Character.ClassJobs[0]),
             Warrior: fetch.Character.ClassJobs[1],
             DarkKnight: fetch.Character.ClassJobs[2],
             Gunbreaker: fetch.Character.ClassJobs[3],
