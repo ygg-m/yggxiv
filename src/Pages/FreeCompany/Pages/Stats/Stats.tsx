@@ -1,11 +1,13 @@
 import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
-import { StatsProvider, useStats } from "@/Contexts/StatsContext";
+import { StatsProvider } from "@/Contexts/StatsContext";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Tabs } from "./Tabs";
 
 export const Stats = () => {
   const { MembersFullData, fetchProgress, loadStats } = useFreeCompany();
+
+  const isMembersValid = MembersFullData[0].Character.ID !== 0;
 
   const location = useLocation();
   const currentPath = location.pathname.split("/").reverse()[0];
@@ -21,7 +23,8 @@ export const Stats = () => {
   ];
   const isInDefault = !paths.includes(currentPath);
 
-  if (!loadStats) return <FetchProgress value={fetchProgress} />;
+  if (!loadStats || !isMembersValid)
+    return <FetchProgress value={fetchProgress} />;
 
   return (
     <StatsProvider>

@@ -1,14 +1,18 @@
+import { MedalIcon, TrophyIcon } from "@/Assets/Images/UI";
+import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
+import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
+import { useStats } from "@/Contexts/StatsContext";
+import { formatNumber } from "@/Helpers";
+import { CharacterData } from "@/Types";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { MedalIcon, TrophyIcon } from "../../../../Assets/Images/UI";
-import { useStats } from "../../../../Contexts/StatsContext";
-import { formatNumber } from "../../../../Helpers";
-import { CharacterData } from "../../../../Types";
 
 export const Achievement = () => {
   const { getAchievementLeaderboard } = useStats();
-
   const placement = getAchievementLeaderboard();
+
+  const { loadStats, fetchProgress } = useFreeCompany();
+  if (!loadStats || !placement) return <FetchProgress value={fetchProgress} />;
 
   const FirstPlace = () => {
     if (placement.FirstPlace === undefined) return null;

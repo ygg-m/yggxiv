@@ -49,6 +49,8 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   const { MembersFullData } = useFreeCompany();
   const { mounts, minions, achievements } = useGameData();
 
+  const isMembersValid = MembersFullData[0].Character.ID !== 0;
+
   // Character
   const popularRaces = useMemo(() => getPopularRaces(), [MembersFullData]);
   const popularGender = useMemo(() => getPopularGenders(), [MembersFullData]);
@@ -78,6 +80,8 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   // Stats
   // Race
   function getPopularRaces() {
+    if (!isMembersValid) return [];
+
     const raceCount: {
       [raceName: string]: {
         Race: { Count: number; Male: number; Female: number };
@@ -152,6 +156,8 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Jobs
   function getPopularJobs() {
+    if (!isMembersValid) return [];
+
     const jobCount: {
       [className: string]: {
         LvMax: number;
@@ -227,6 +233,8 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Gender
   function getPopularGenders() {
+    if (!isMembersValid) return [];
+
     const genderCount: {
       [raceName: string]: {
         Count: number;
@@ -257,6 +265,8 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Collectibles
   function getPopularMounts() {
+    if (!isMembersValid || mounts.length < 1) return [];
+
     const mountCount: {
       [mountName: string]: {
         Count: number;
@@ -381,6 +391,7 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   }
 
   function getPopularMinions() {
+    if (!isMembersValid || minions.length < 1) return [];
     const mountCount: {
       [minionName: string]: {
         Count: number;
@@ -533,6 +544,8 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   }
 
   function getRareAchievements() {
+    if (!isMembersValid || achievements.length < 1) return [];
+
     const achievCount: {
       [achievID: string]: {
         Count: number;
@@ -585,12 +598,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
 
   // Leaderboard
   // Mount
-  function getMountLeaderboard(): {
-    FirstPlace: CharacterData;
-    SecondPlace: CharacterData;
-    ThirdPlace: CharacterData;
-    EveryoneElse: CharacterData[];
-  } {
+  function getMountLeaderboard() {
+    if (!isMembersValid || mounts.length < 1) return null;
+
     const sortedMembers = MembersFullData.sort(
       (a, b) =>
         (b.Mounts ? b.Mounts.length : 0) - (a.Mounts ? a.Mounts.length : 0)
@@ -605,12 +615,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   }
 
   // Minion
-  function getMinionLeaderboard(): {
-    FirstPlace: CharacterData;
-    SecondPlace: CharacterData;
-    ThirdPlace: CharacterData;
-    EveryoneElse: CharacterData[];
-  } {
+  function getMinionLeaderboard() {
+    if (!isMembersValid || minions.length < 1) return null;
+
     const sortedMembers = MembersFullData.sort(
       (a, b) =>
         (b.Minions ? b.Minions.length : 0) - (a.Minions ? a.Minions.length : 0)
@@ -625,12 +632,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
   }
 
   // Achievement
-  function getAchievementLeaderboard(): {
-    FirstPlace: CharacterData;
-    SecondPlace: CharacterData;
-    ThirdPlace: CharacterData;
-    EveryoneElse: CharacterData[];
-  } {
+  function getAchievementLeaderboard() {
+    if (!isMembersValid || achievements.length < 1) return null;
+
     const sortedMembers = MembersFullData.sort((a, b) => {
       if (a.Achievements.Points || b.Achievements.Points)
         return b.Achievements.Points - a.Achievements.Points;

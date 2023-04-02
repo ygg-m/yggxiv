@@ -409,11 +409,12 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
   async function fetchMembersData() {
     setMembersFetchLoad(true);
     const result = (await getCharacterList(MemberList, (progress) => {
-      setFetchProgress(Math.trunc(progress));
+      // setFetchProgress(Math.trunc(progress));
+
+      if (progress === 100) setMembersFetchLoad(false);
       // Update progress bar
     })) as CharacterData[];
     setMembersFullData(result);
-    setMembersFetchLoad(false);
   }
 
   // Rank List
@@ -424,8 +425,13 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
       MembersFullData[0]?.Character?.ID === 0 || MembersFullData.length === 0;
     const isMemberDataDifferent =
       MembersFullData[0]?.Character?.FreeCompanyId !== fcId;
+    const gotFreeCompany = freeCompany.FreeCompany.ID !== "";
 
-    if (isMemberDataEmpty || isMemberDataDifferent) fetchMembersData();
+    if (
+      (isMemberDataEmpty && gotFreeCompany) ||
+      (isMemberDataDifferent && gotFreeCompany)
+    )
+      fetchMembersData();
 
     setRankList(getRanks(MemberList));
     saveFreeCompany();

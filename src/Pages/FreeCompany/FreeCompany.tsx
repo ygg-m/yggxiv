@@ -12,7 +12,10 @@ export const FreeCompany = () => {
   const { fcId } = useParams();
 
   const isDefaultLocation = /^\d+$/.test(
-    useLocation().pathname.split("/").reverse()[0]
+    useLocation()
+      .pathname.split("/")
+      .filter((e) => e !== "")
+      .reverse()[0]
   );
 
   const isFCDataEmpty = freeCompany.FreeCompany.ID === "0";

@@ -11,7 +11,7 @@ export const Mount = () => {
   const placement = getMountLeaderboard();
 
   const { loadStats, fetchProgress } = useFreeCompany();
-  if (!loadStats) return <FetchProgress value={fetchProgress} />;
+  if (!loadStats || !placement) return <FetchProgress value={fetchProgress} />;
 
   const FirstPlace = () => {
     if (placement.FirstPlace === undefined) return null;
