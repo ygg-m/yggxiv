@@ -2,9 +2,28 @@ import { CollectData } from "@/Helpers/ffxivcollectapi";
 import { FreeCompanyData, MembersListTypes } from "./FreeCompanyData";
 import { AchievementData, CityData } from "./GameData";
 
+interface ItemFetchData {
+  ID: number;
+  Name: string;
+  Icon: string;
+  EquipLevel: number;
+  ItemLevel: number;
+  MateriaSlots: number;
+}
+
+export interface ItemData {
+  ID: number;
+  Name: string;
+  Icon: string;
+  MateriaSlots: number;
+  EquipLevel: number;
+  ItemLevel: number;
+  MateriaEquipped: ItemFetchData[];
+  Glamour: ItemFetchData;
+}
+
 interface TreatedGearData {
   ID: number;
-  Name: number; // TODO: solve Name
   Glamour: number; // TODO: solve Data
   Materia: number[]; // TODO: solve Name
 }
@@ -97,7 +116,7 @@ export interface TreatedCharData {
         MainHand: TreatedGearData;
       };
       Accessories: {
-        Necklace: TreatedGearData;
+        Necklace: ItemData;
         Earrings: TreatedGearData;
         Bracelet: TreatedGearData;
         Ring1: TreatedGearData;

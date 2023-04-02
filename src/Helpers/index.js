@@ -14,4 +14,5 @@ export {
   getCharacterList,
   getFreeCompanies,
   getFreeCompany,
+  getItem,
 } from "./xviapi";

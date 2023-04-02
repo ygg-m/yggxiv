@@ -3,7 +3,7 @@ import { guardianDeities } from "@/Data/guardianDeities";
 import { jobs } from "@/Data/jobs";
 import { races } from "@/Data/races";
 import { getCharacter } from "@/Helpers";
-import { getCity, getTitle } from "@/Helpers/xviapi";
+import { getCity, getItem, getTitle } from "@/Helpers/xviapi";
 import {
   ClassJobs,
   Collectible,
@@ -102,7 +102,6 @@ const CharacterContext = createContext<CharacterContextType>({
         Hands: {
           MainHand: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
@@ -110,37 +109,43 @@ const CharacterContext = createContext<CharacterContextType>({
         Accessories: {
           Necklace: {
             ID: 0,
-            Name: 0, // TODO: solve Name
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Earrings: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Bracelet: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Ring1: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Ring2: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           SoulCrystal: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
@@ -148,31 +153,26 @@ const CharacterContext = createContext<CharacterContextType>({
         Body: {
           Head: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Chest: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Hands: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Legs: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Feet: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
@@ -310,7 +310,6 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Hands: {
           MainHand: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
@@ -318,37 +317,43 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Accessories: {
           Necklace: {
             ID: 0,
-            Name: 0, // TODO: solve Name
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Earrings: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Bracelet: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Ring1: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Ring2: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           SoulCrystal: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
@@ -356,31 +361,26 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Body: {
           Head: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Chest: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Hands: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Legs: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
           Feet: {
             ID: 0,
-            Name: 0, // TODO: solve Name
             Glamour: 0, // TODO: solve Data
             Materia: [], // TODO: solve Name
           },
@@ -577,6 +577,26 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     else return empty;
   }
 
+  async function getGear(id: number, glamID: number, materiaList: number[]) {
+    const gear = await getItem(id);
+    const glamour = await getItem(glamID);
+    const materia = await Promise.all(
+      materiaList.map(async (mater) => await getItem(mater))
+    );
+    const result = {
+      ID: gear.ID,
+      Name: gear.Name,
+      Icon: gear.Icon,
+      MateriaSlots: gear.MateriaSlots,
+      EquipLevel: gear.EquipLevel,
+      ItemLevel: gear.ItemLevel,
+      MateriaEquipped: materia,
+      Glamour: glamour,
+    };
+
+    return result;
+  }
+
   async function fetchCharacter() {
     const fetch = await getCharacter(
       CharacterID,
@@ -671,39 +691,33 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
             },
           },
           Accessories: {
-            Necklace: {
-              ID: fetch.Character.GearSet.Gear.Necklace.ID,
-              Name: fetch.Character.GearSet.Gear.Necklace.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.Necklace.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Necklace.Materia, // TODO: solve Name
-            },
+            Necklace: await getGear(
+              fetch.Character.GearSet.Gear.Necklace.ID,
+              fetch.Character.GearSet.Gear.Necklace.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.Necklace.Materia // TODO: solve Name
+            ),
             Earrings: {
               ID: fetch.Character.GearSet.Gear.Earrings.ID,
-              Name: fetch.Character.GearSet.Gear.Earrings.ID, // TODO: solve Name
               Glamour: fetch.Character.GearSet.Gear.Earrings.Mirage, // TODO: solve Data
               Materia: fetch.Character.GearSet.Gear.Earrings.Materia, // TODO: solve Name
             },
             Bracelet: {
               ID: fetch.Character.GearSet.Gear.Bracelets.ID,
-              Name: fetch.Character.GearSet.Gear.Bracelets.ID, // TODO: solve Name
               Glamour: fetch.Character.GearSet.Gear.Bracelets.Mirage, // TODO: solve Data
               Materia: fetch.Character.GearSet.Gear.Bracelets.Materia, // TODO: solve Name
             },
             Ring1: {
               ID: fetch.Character.GearSet.Gear.Ring1.ID,
-              Name: fetch.Character.GearSet.Gear.Ring1.ID, // TODO: solve Name
               Glamour: fetch.Character.GearSet.Gear.Ring1.Mirage, // TODO: solve Data
               Materia: fetch.Character.GearSet.Gear.Ring1.Materia, // TODO: solve Name
             },
             Ring2: {
               ID: fetch.Character.GearSet.Gear.Ring2.ID,
-              Name: fetch.Character.GearSet.Gear.Ring2.ID, // TODO: solve Name
               Glamour: fetch.Character.GearSet.Gear.Ring2.Mirage, // TODO: solve Data
               Materia: fetch.Character.GearSet.Gear.Ring2.Materia, // TODO: solve Name
             },
             SoulCrystal: {
               ID: fetch.Character.GearSet.Gear.SoulCrystal?.ID,
-              Name: fetch.Character.GearSet.Gear.SoulCrystal?.ID, // TODO: solve Name
               Glamour: fetch.Character.GearSet.Gear.SoulCrystal?.Mirage, // TODO: solve Data
               Materia: fetch.Character.GearSet.Gear.SoulCrystal?.Materia, // TODO: solve Name
             },
