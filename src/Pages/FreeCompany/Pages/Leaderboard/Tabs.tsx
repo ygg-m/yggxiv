@@ -15,10 +15,21 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
   </NavLink>
 );
 
-export const Tabs = () => {
+export const Tabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
   return (
     <nav className="tabs tabs-boxed grid h-fit rounded-lg bg-base-100 p-2 md:grid-cols-3">
-      <Tab path="Mount" name="Mount" />
+      <NavLink
+        to="Mount"
+        key={uuidv4()}
+        className={({ isActive }) =>
+          isActive || isDefaultPath
+            ? "tab tab-lifted tab-active tab-lg duration-300"
+            : "tab tab-lifted tab-lg duration-300"
+        }
+      >
+        Mount
+      </NavLink>
+
       <Tab path="Minion" name="Minion" />
       <Tab path="Achievement" name="Achievement" />
     </nav>
