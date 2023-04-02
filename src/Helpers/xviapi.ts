@@ -304,3 +304,19 @@ export async function getCity(id: number) {
     Name: data.Name,
   };
 }
+
+export async function getItem(id: number) {
+  const url = `https://xivapi.com/Item/${id}?columns=IconHD,Name,MateriaSlotCount,LevelEquip,LevelItem,ID`;
+  const response = await axios.get(url);
+
+  const data = response.data;
+
+  return {
+    ID: data.ID,
+    Name: data.Name,
+    Icon: `https://xivapi.com/${data.IconHD}`,
+    EquipLevel: data.LevelEquip,
+    ItemLevel: data.LevelItem,
+    MateriaSlots: data.MateriaSlotCount,
+  };
+}
