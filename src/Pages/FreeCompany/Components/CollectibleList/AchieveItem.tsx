@@ -17,11 +17,7 @@ const Placement = ({ Index }: { Index: number }) => (
 
 const IconContainer = ({ Name, Icon }: { Name: string; Icon: string }) => (
   <div className="col-span-1 grid place-items-center">
-    <img
-      src={`http://xivapi.com${Icon}`}
-      alt={Name}
-      className="mask mask-squircle w-12"
-    />
+    <img src={Icon} alt={Name} className="mask mask-squircle w-12" />
   </div>
 );
 

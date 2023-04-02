@@ -274,7 +274,7 @@ export async function getAchievements() {
       Name: achievData.Name,
       Group: Group,
       Category: Category,
-      Icon: achievData.IconHD,
+      Icon: `http://xivapi.com/${achievData.IconHD}`,
       Description: achievData.Description,
       FFXIVCollectData: FFXIVCollectData,
     };
