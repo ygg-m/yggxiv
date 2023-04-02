@@ -19,7 +19,7 @@ export const Tabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
   return (
     <nav className="tabs tabs-boxed grid h-fit rounded-lg bg-base-100 p-2 sm:grid-cols-3 md:grid-cols-6">
       <NavLink
-        to="Summaty"
+        to="Summary"
         key={uuidv4()}
         className={({ isActive }) =>
           isActive || isDefaultPath
@@ -27,7 +27,7 @@ export const Tabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
             : "tab tab-lifted tab-lg duration-300"
         }
       >
-        Summaty
+        Summary
       </NavLink>
 
       <Tab path="Character" name="Character" />
