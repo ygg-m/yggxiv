@@ -21,11 +21,9 @@ export const FetchProgress = ({ arr }: { arr: string[] }) => {
   );
 
   return (
-    <section className="grid min-h-[calc(100vh-448px)] gap-4 pb-8">
-      <nav className="navbar grid h-fit place-items-center gap-3 rounded-lg bg-base-100 p-4">
-        <Spinner />
-        {phrase}
-      </nav>
+    <section className="grid h-full w-full place-items-center gap-4 p-8">
+      <Spinner />
+      {phrase}
     </section>
   );
 };
