@@ -4,6 +4,8 @@ import { ClassJobsBozjan } from "@/Types";
 export const Bozjan = ({ data }: { data: ClassJobsBozjan }) => {
   const { Level, Mettle, Name } = data;
 
+  const isMaxLevel = Level === 25;
+
   const Image = () => (
     <img
       src="https://xivapi.com/i/065000/065081_hr1.png"
@@ -18,15 +20,24 @@ export const Bozjan = ({ data }: { data: ClassJobsBozjan }) => {
     </div>
   );
 
+  const ShowLevel = () =>
+    isMaxLevel ? (
+      <span className="font-bold text-primary">{Level}</span>
+    ) : (
+      <span>{Level}</span>
+    );
+
   return data ? (
     <article className="flex w-full items-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
       <Image />
 
       <div className="grid">
-        <span className="opacity-70">Bozjan</span>
+        <span className={`opacity-70 ${isMaxLevel ? "text-primary" : ""}`}>
+          Bozjan
+        </span>
 
         <div>
-          <span className="opacity-70">{Name}:</span> {Level}
+          <span className="opacity-70">{Name}:</span> <ShowLevel />
         </div>
 
         {Mettle ? <ShowMettle /> : null}

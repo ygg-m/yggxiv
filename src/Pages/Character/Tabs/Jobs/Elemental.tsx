@@ -3,6 +3,7 @@ import { ClassJobsElemental } from "@/Types";
 
 export const Elemental = ({ data }: { data: ClassJobsElemental }) => {
   const { Level, Name, ExpLevelTogo } = data;
+  const isMaxLevel = Level === 60;
 
   const Image = () => (
     <img
@@ -19,15 +20,24 @@ export const Elemental = ({ data }: { data: ClassJobsElemental }) => {
     </div>
   );
 
+  const ShowLevel = () =>
+    isMaxLevel ? (
+      <span className="font-bold text-primary">{Level}</span>
+    ) : (
+      <span>{Level}</span>
+    );
+
   return data ? (
     <article className="flex w-full items-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
       <Image />
 
       <div className="grid">
-        <span className="opacity-70">Eurekan</span>
+        <span className={`opacity-70 ${isMaxLevel ? "text-primary" : ""}`}>
+          Eurekan
+        </span>
 
         <div>
-          <span className="opacity-70">{Name}:</span> {Level}
+          <span className="opacity-70">{Name}:</span> <ShowLevel />
         </div>
 
         {ExpLevelTogo ? <ExpToNextLevel /> : null}
