@@ -30,6 +30,7 @@ import {
 
 export const jobs = [
   {
+    ID: 14,
     Job: "Alchemist",
     Tag: "ALC",
     Role: "Crafter",
@@ -37,6 +38,7 @@ export const jobs = [
     SVG: <Alchemist />,
   },
   {
+    ID: 10,
     Job: "Armorer",
     Tag: "ARM",
     Role: "Crafter",
@@ -44,6 +46,7 @@ export const jobs = [
     SVG: <Armorer />,
   },
   {
+    ID: 9,
     Job: "Blacksmith",
     Tag: "BLS",
     Role: "Crafter",
@@ -51,6 +54,7 @@ export const jobs = [
     SVG: <Blacksmith />,
   },
   {
+    ID: 8,
     Job: "Carpenter",
     Tag: "CRP",
     Role: "Crafter",
@@ -58,6 +62,7 @@ export const jobs = [
     SVG: <Carpenter />,
   },
   {
+    ID: 15,
     Job: "Culinarian",
     Tag: "CUL",
     Role: "Crafter",
@@ -65,6 +70,7 @@ export const jobs = [
     SVG: <Culinarian />,
   },
   {
+    ID: 11,
     Job: "Goldsmith",
     Tag: "GLD",
     Role: "Crafter",
@@ -72,6 +78,7 @@ export const jobs = [
     SVG: <Goldsmith />,
   },
   {
+    ID: 12,
     Job: "Leatherworker",
     Tag: "LTH",
     Role: "Crafter",
@@ -79,6 +86,7 @@ export const jobs = [
     SVG: <Leatherworker />,
   },
   {
+    ID: 13,
     Job: "Weaver",
     Tag: "WVR",
     Role: "Crafter",
@@ -86,6 +94,7 @@ export const jobs = [
     SVG: <Weaver />,
   },
   {
+    ID: 17,
     Job: "Botanist",
     Tag: "BTN",
     Role: "Gatherer",
@@ -93,6 +102,7 @@ export const jobs = [
     SVG: <Botanist />,
   },
   {
+    ID: 18,
     Job: "Fisher",
     Tag: "FSH",
     Role: "Gatherer",
@@ -100,11 +110,20 @@ export const jobs = [
     SVG: <Fisher />,
   },
   {
+    ID: 16,
     Job: "Miner",
     Tag: "MIN",
     Role: "Gatherer",
     ImageSrc: "https://xivapi.com/cj/1/miner.png",
     SVG: <Miner />,
+  },
+  {
+    ID: 1,
+    Job: "Gladiator",
+    Tag: "GLD",
+    Role: "Tank",
+    ImageSrc: "https://xivapi.com/cj/1/gladiator.png",
+    SVG: <Paladin />,
   },
   {
     Job: "Paladin",
@@ -114,6 +133,15 @@ export const jobs = [
     SVG: <Paladin />,
   },
   {
+    ID: 3,
+    Job: "Marauder",
+    Tag: "MRD",
+    Role: "Tank",
+    ImageSrc: "https://xivapi.com/cj/1/marauder.png",
+    SVG: <Warrior />,
+  },
+  {
+    ID: 21,
     Job: "Warrior",
     Tag: "WAR",
     Role: "Tank",
@@ -121,6 +149,7 @@ export const jobs = [
     SVG: <Warrior />,
   },
   {
+    ID: 32,
     Job: "Dark Knight",
     Tag: "DRK",
     Role: "Tank",
@@ -128,6 +157,7 @@ export const jobs = [
     SVG: <DarkKnight />,
   },
   {
+    ID: 37,
     Job: "Gunbreaker",
     Tag: "GNB",
     Role: "Tank",
@@ -135,6 +165,15 @@ export const jobs = [
     // TODO SVG: <Gunbreaker />,
   },
   {
+    ID: 6,
+    Job: "Conjurer",
+    Tag: "CNJ",
+    Role: "Healer",
+    ImageSrc: "https://xivapi.com/cj/1/conjurer.png",
+    SVG: <WhiteMage />,
+  },
+  {
+    ID: 24,
     Job: "White Mage",
     Tag: "WHM",
     Role: "Healer",
@@ -142,6 +181,7 @@ export const jobs = [
     SVG: <WhiteMage />,
   },
   {
+    ID: 28,
     Job: "Scholar",
     Tag: "SCH",
     Role: "Healer",
@@ -149,6 +189,7 @@ export const jobs = [
     SVG: <Scholar />,
   },
   {
+    ID: 33,
     Job: "Astrologian",
     Tag: "AST",
     Role: "Healer",
@@ -156,6 +197,7 @@ export const jobs = [
     SVG: <Astrologian />,
   },
   {
+    ID: 40,
     Job: "Sage",
     Tag: "SGE",
     Role: "Healer",
@@ -163,14 +205,16 @@ export const jobs = [
     // TODO SVG: <Sage />,
   },
   {
-    Job: "Dragoon",
-    Tag: "DRG",
+    ID: 2,
+    Job: "Pugilist",
+    Tag: "PGL",
     Role: "DPS",
     Position: "Melee",
-    ImageSrc: "https://xivapi.com/cj/1/dragoon.png",
-    SVG: <Dragoon />,
+    ImageSrc: "https://xivapi.com/cj/1/pugilist.png",
+    // TODO SVG: <Monk />,
   },
   {
+    ID: 20,
     Job: "Monk",
     Tag: "MNK",
     Role: "DPS",
@@ -179,6 +223,34 @@ export const jobs = [
     SVG: <Monk />,
   },
   {
+    ID: 4,
+    Job: "Lancer",
+    Tag: "LNC",
+    Role: "DPS",
+    Position: "Melee",
+    ImageSrc: "https://xivapi.com/cj/1/lancer.png",
+    // TODO SVG: <Monk />,
+  },
+  {
+    ID: 22,
+    Job: "Dragoon",
+    Tag: "DRG",
+    Role: "DPS",
+    Position: "Melee",
+    ImageSrc: "https://xivapi.com/cj/1/dragoon.png",
+    SVG: <Dragoon />,
+  },
+  {
+    ID: 29,
+    Job: "Rogue",
+    Tag: "ROG",
+    Role: "DPS",
+    Position: "Melee",
+    ImageSrc: "https://xivapi.com/cj/1/rogue.png",
+    SVG: <Ninja />,
+  },
+  {
+    ID: 30,
     Job: "Ninja",
     Tag: "NIN",
     Role: "DPS",
@@ -187,6 +259,7 @@ export const jobs = [
     SVG: <Ninja />,
   },
   {
+    ID: 34,
     Job: "Samurai",
     Tag: "SAM",
     Role: "DPS",
@@ -195,6 +268,7 @@ export const jobs = [
     SVG: <Samurai />,
   },
   {
+    ID: 39,
     Job: "Reaper",
     Tag: "RPR",
     Role: "DPS",
@@ -203,6 +277,16 @@ export const jobs = [
     // TODO SVG: <Reaper />,
   },
   {
+    ID: 5,
+    Job: "Archer",
+    Tag: "ARC",
+    Role: "DPS",
+    Position: "Ranged",
+    ImageSrc: "https://xivapi.com/cj/1/archer.png",
+    //TODO SVG: <Bard />,
+  },
+  {
+    ID: 23,
     Job: "Bard",
     Tag: "BRD",
     Role: "DPS",
@@ -211,6 +295,7 @@ export const jobs = [
     SVG: <Bard />,
   },
   {
+    ID: 31,
     Job: "Machinist",
     Tag: "MCH",
     Role: "DPS",
@@ -219,6 +304,7 @@ export const jobs = [
     SVG: <Machinist />,
   },
   {
+    ID: 38,
     Job: "Dancer",
     Tag: "DNC",
     Role: "DPS",
@@ -227,6 +313,16 @@ export const jobs = [
     // TODO SVG: <Dancer />,
   },
   {
+    ID: 7,
+    Job: "Thaumaturge",
+    Tag: "THM",
+    Role: "DPS",
+    Position: "Caster",
+    ImageSrc: "https://xivapi.com/cj/1/thaumaturge.png",
+    SVG: <BlackMage />,
+  },
+  {
+    ID: 25,
     Job: "Black Mage",
     Tag: "BLM",
     Role: "DPS",
@@ -235,6 +331,16 @@ export const jobs = [
     SVG: <BlackMage />,
   },
   {
+    ID: 26,
+    Job: "Arcanist",
+    Tag: "ACN",
+    Role: "DPS",
+    Position: "Caster",
+    ImageSrc: "https://xivapi.com/cj/1/arcanist.png",
+    // TODO SVG: <Summoner />,
+  },
+  {
+    ID: 27,
     Job: "Summoner",
     Tag: "SMN",
     Role: "DPS",
@@ -243,6 +349,7 @@ export const jobs = [
     SVG: <Summoner />,
   },
   {
+    ID: 35,
     Job: "Red Mage",
     Tag: "RDM",
     Role: "DPS",
@@ -251,6 +358,7 @@ export const jobs = [
     SVG: <RedMage />,
   },
   {
+    ID: 36,
     Job: "Blue Mage",
     Tag: "BLU",
     Role: "DPS",
