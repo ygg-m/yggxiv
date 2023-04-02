@@ -8,6 +8,7 @@ export {
   Collectible,
   CollectibleData,
   CollectibleTypes,
+  ItemFetchData,
   jobData,
   raceData,
   TreatedCharData,

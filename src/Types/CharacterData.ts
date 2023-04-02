@@ -2,7 +2,7 @@ import { CollectData } from "@/Helpers/ffxivcollectapi";
 import { FreeCompanyData, MembersListTypes } from "./FreeCompanyData";
 import { AchievementData, CityData } from "./GameData";
 
-interface ItemFetchData {
+export interface ItemFetchData {
   ID: number;
   Name: string;
   Icon: string;
