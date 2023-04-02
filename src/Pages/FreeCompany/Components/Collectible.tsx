@@ -79,7 +79,7 @@ export const Collectible = ({
     <div className="grid gap-4 rounded-lg bg-base-200 p-4 pt-6 duration-300 hover:bg-base-300">
       <div className="grid place-items-center justify-center gap-2">
         <img
-          src={`https://xivapi.com/${Icon}`}
+          src={Icon}
           alt={Name}
           className="mask mask-squircle w-24"
         />

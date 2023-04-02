@@ -83,11 +83,7 @@ const Achievement = ({ data, showOwners, showCount }: AchievementProps) => {
         className="tooltip grid place-items-center justify-center gap-2 p-4"
         data-tip={Description}
       >
-        <img
-          src={`https://xivapi.com/${Icon}`}
-          alt={Name}
-          className="mask mask-squircle w-24"
-        />
+        <img src={Icon} alt={Name} className="mask mask-squircle w-24" />
         <h4 className="text-center text-lg capitalize">{Name}</h4>
       </div>
 
