@@ -12,8 +12,9 @@ export const Achievement = () => {
   const { getAchievementLeaderboard } = useStats();
   const placement = getAchievementLeaderboard();
 
-  const { loadStats, fetchProgress } = useFreeCompany();
-  if (!loadStats || !placement) return <FetchProgress arr={userLoadingPhrases} />;
+  const { loadStats } = useFreeCompany();
+  if (!loadStats || !placement)
+    return <FetchProgress arr={userLoadingPhrases} />;
 
   const FirstPlace = () => {
     if (placement.FirstPlace === undefined) return null;

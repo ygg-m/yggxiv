@@ -19,7 +19,11 @@ export const Stats = () => {
   );
 
   if (!loadStats || !isMembersValid)
-    return <FetchProgress arr={userLoadingPhrases} />;
+    return (
+      <div className="rounded-lg bg-base-100">
+        <FetchProgress arr={userLoadingPhrases} />
+      </div>
+    );
 
   return (
     <StatsProvider>

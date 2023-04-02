@@ -2,7 +2,7 @@ import { FetchProgress } from "@/Components/LoadingComponents/FetchProgress";
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { StatsProvider } from "@/Contexts/StatsContext";
 import { userLoadingPhrases } from "@/Data/loadingPhrases";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Mount } from "./Mount";
 import { Tabs } from "./Tabs";
 
@@ -16,7 +16,12 @@ export const Leaderboard = () => {
       .reverse()[0]
   );
 
-  if (!loadStats) return <FetchProgress arr={userLoadingPhrases} />;
+  if (!loadStats)
+    return (
+      <div className="rounded-lg bg-base-100">
+        <FetchProgress arr={userLoadingPhrases} />
+      </div>
+    );
 
   return (
     <StatsProvider>
