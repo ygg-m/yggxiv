@@ -11,6 +11,7 @@ import {
   MembersListTypes,
   Pagination,
 } from "../Types/index";
+import { capitalizeText } from "./capitalizeText";
 import {
   CollectData,
   getFFCollectAchievements,
@@ -188,8 +189,8 @@ export async function getMounts(): Promise<CollectibleData[]> {
 
     return {
       ID: mount.ID,
-      Name: mount.Name,
-      Icon: mount.IconHD,
+      Name: capitalizeText(mount.Name),
+      Icon: `http://xivapi.com/${mount.IconHD}`,
       FFXIVCollectData: FFXIVCollectData,
     };
   }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");
@@ -228,8 +229,8 @@ export async function getMinions(): Promise<CollectibleData[]> {
 
     return {
       ID: minion.ID,
-      Name: minion.Name,
-      Icon: minion.IconHD,
+      Name: capitalizeText(minion.Name),
+      Icon: `http://xivapi.com/${minion.IconHD}`,
       FFXIVCollectData: FFXIVCollectData,
     };
   }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");

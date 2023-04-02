@@ -3,9 +3,10 @@ import { guardianDeities } from "@/Data/guardianDeities";
 import { races } from "@/Data/races";
 import { getCharacter } from "@/Helpers";
 import { getCity, getTitle } from "@/Helpers/xviapi";
-import { TreatedCharData } from "@/Types";
+import { Collectible, CollectibleData, TreatedCharData } from "@/Types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useGameData } from "./GameDataContext";
 
 type CharacterContextType = {
   char: TreatedCharData;
@@ -657,6 +658,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
   children,
 }) => {
   const { charId } = useParams();
+  const { mounts, minions } = useGameData();
 
   const CharacterID = parseInt(charId || "0");
 
@@ -1397,6 +1399,26 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     else return empty;
   }
 
+  function getMountData(arr: Collectible[]) {
+    const data = arr.map((e) =>
+      mounts.find(
+        (a: CollectibleData) => a.Name.toLowerCase() === e.Name.toLowerCase()
+      )
+    );
+
+    return data;
+  }
+
+  function getMinionData(arr: Collectible[]) {
+    const data = arr.map((e) =>
+      minions.find(
+        (a: CollectibleData) => a.Name.toLowerCase() === e.Name.toLowerCase()
+      )
+    );
+
+    return data;
+  }
+
   async function fetchCharacter() {
     const fetch = await getCharacter(
       CharacterID,
@@ -1568,8 +1590,8 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Public: fetch.AchievementsPublic,
       },
       Collection: {
-        Mounts: fetch.Mounts,
-        Minions: fetch.Minions,
+        Mounts: getMountData(fetch.Mounts),
+        Minions: getMinionData(fetch.Minions),
       },
       Jobs: {
         Bozjan: fetch.Character.ClassJobsBozjan,

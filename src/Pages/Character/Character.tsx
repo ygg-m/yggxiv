@@ -16,12 +16,14 @@ export const Character = () => {
     );
 
   return (
-    <div className="flex min-h-screen w-screen flex-col items-center bg-neutral-900">
-      <Banner />
-      <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
-        <Header char={char} />
-        <Navigator />
-        <Outlet />
+    <div className="flex min-h-screen w-screen flex-col items-center justify-between bg-neutral-900">
+      <div>
+        <Banner />
+        <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
+          <Header char={char} />
+          <Navigator />
+          <Outlet />
+        </div>
       </div>
       <Footer />
     </div>

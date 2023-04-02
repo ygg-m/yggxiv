@@ -107,8 +107,8 @@ export interface TreatedCharData {
     Public: boolean;
   };
   Collection: {
-    Mounts: Collectible[];
-    Minions: Collectible[];
+    Mounts: CollectibleData[];
+    Minions: CollectibleData[];
   };
   Jobs: {
     Bozjan: ClassJobsBozjan;

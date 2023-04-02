@@ -58,7 +58,7 @@ export interface CollectData {
   Patch: string;
   Seats: string;
   Tradeable: boolean;
-  Owned: string;
+  Owned: number;
   Sources: SourceData[];
 }
 
@@ -73,7 +73,7 @@ export async function getFFCollectMounts(): Promise<CollectData[]> {
       Patch: mount.patch,
       Seats: mount.seats,
       Tradeable: mount.tradeable,
-      Owned: mount.owned,
+      Owned: parseInt(mount.owned),
       Sources: mount.sources,
     };
   });
@@ -92,7 +92,7 @@ export async function getFFCollectMinion(): Promise<CollectData[]> {
       Patch: mount.patch,
       Seats: mount.seats,
       Tradeable: mount.tradeable,
-      Owned: mount.owned,
+      Owned: parseInt(mount.owned),
       Sources: mount.sources,
     };
   });
