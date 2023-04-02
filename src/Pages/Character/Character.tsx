@@ -1,12 +1,20 @@
 import { Footer } from "@/Components";
 import { useCharacter } from "@/Contexts/CharacterContext";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Banner } from "./Components/Banner";
 import { Header } from "./Components/Header";
 import { Navigator } from "./Navigartor";
+import { CharInfo } from "./Tabs";
 
 export const Character = () => {
   const { char } = useCharacter();
+
+  const isDefaultPath = /^\d+$/.test(
+    useLocation()
+      .pathname.split("/")
+      .filter((e) => e !== "")
+      .reverse()[0]
+  );
 
   if (char.Data.ID === 0)
     return (
@@ -21,8 +29,9 @@ export const Character = () => {
         <Banner />
         <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
           <Header char={char} />
-          <Navigator />
+          <Navigator isDefaultPath={isDefaultPath} />
           <Outlet />
+          {isDefaultPath ? <CharInfo /> : null}
         </div>
       </div>
       <Footer />
