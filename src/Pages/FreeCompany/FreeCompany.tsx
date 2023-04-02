@@ -11,7 +11,7 @@ export const FreeCompany = () => {
 
   const { fcId } = useParams();
 
-  const isDefaultLocation = /^\d+$/.test(
+  const isDefaultPath = /^\d+$/.test(
     useLocation()
       .pathname.split("/")
       .filter((e) => e !== "")
@@ -52,9 +52,12 @@ export const FreeCompany = () => {
       <CoverImage />
       <div className="flex w-screen max-w-screen-2xl flex-col px-2 pr-4 sm:px-8">
         <Header FreeCompany={FreeCompany} />
-        <Navigator MemberCount={ActiveMemberCount} />
+        <Navigator
+          isDefaultPath={isDefaultPath}
+          MemberCount={ActiveMemberCount}
+        />
         <Outlet />
-        {isDefaultLocation ? <MainInfo /> : null}
+        {isDefaultPath ? <MainInfo /> : null}
       </div>
       <Footer />
     </div>

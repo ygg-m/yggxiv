@@ -7,8 +7,8 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
     key={uuidv4()}
     className={({ isActive }) =>
       isActive
-        ? "tab-lifted tab tab-active tab-lg duration-300"
-        : "tab-lifted tab tab-lg duration-300"
+        ? "tab tab-lifted tab-active tab-lg duration-300"
+        : "tab tab-lifted tab-lg duration-300"
     }
   >
     {name}
@@ -17,13 +17,11 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
 
 interface NavigatorProps {
   MemberCount: number;
+  isDefaultPath: boolean;
 }
 
-export const Navigator = ({ MemberCount }: NavigatorProps) => {
+export const Navigator = ({ MemberCount, isDefaultPath }: NavigatorProps) => {
   const MemberCountStr = `Members (${MemberCount})`;
-  const isDefaultLocation = /^\d+$/.test(
-    useLocation().pathname.split("/").reverse()[0]
-  );
 
   return (
     <nav className="flex">
@@ -32,9 +30,9 @@ export const Navigator = ({ MemberCount }: NavigatorProps) => {
           to="Info"
           key={uuidv4()}
           className={({ isActive }) =>
-            isActive || isDefaultLocation
-              ? "tab-lifted tab tab-active tab-lg duration-300"
-              : "tab-lifted tab tab-lg duration-300"
+            isActive || isDefaultPath
+              ? "tab tab-lifted tab-active tab-lg duration-300"
+              : "tab tab-lifted tab-lg duration-300"
           }
         >
           Info
