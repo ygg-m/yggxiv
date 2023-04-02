@@ -7,10 +7,7 @@ import {
   Members,
   Stats,
 } from "./Components/FreeCompany";
-import { CharacterProvider } from "./Contexts/CharacterContext";
-import { FreeCompanyProvider } from "./Contexts/FreeCompanyContext";
-import { GameDataProvider } from "./Contexts/GameDataContext";
-import { SearchProvider } from "./Contexts/SearchContext";
+
 import { StatsProvider } from "./Contexts/StatsContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import {
@@ -42,80 +39,74 @@ const router = createHashRouter([
     path: "/",
     element: <Home />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/FreeCompany/:fcId/*",
-    element: (
-      <FreeCompanyProvider>
-        <FreeCompany />
-      </FreeCompanyProvider>
-    ),
-    errorElement: <ErrorPage />,
     children: [
-      { path: "Info", element: <MainInfo /> },
-      { path: "Members", element: <Members /> },
       {
-        path: "Leaderboard",
-        element: <Leaderboard />,
+        path: "FreeCompany/:fcId/*",
+        element: <FreeCompany />,
+        errorElement: <ErrorPage />,
         children: [
-          { path: "Mount", element: <Mount /> },
-          { path: "Minion", element: <Minion /> },
-          { path: "Achievement", element: <Achievement /> },
+          { path: "Info", element: <MainInfo /> },
+          { path: "Members", element: <Members /> },
+          {
+            path: "Leaderboard",
+            element: <Leaderboard />,
+            children: [
+              { path: "Mount", element: <Mount /> },
+              { path: "Minion", element: <Minion /> },
+              { path: "Achievement", element: <Achievement /> },
+            ],
+          },
+          {
+            path: "Stats/*",
+            element: (
+              <StatsProvider>
+                <Stats />
+              </StatsProvider>
+            ),
+            children: [
+              { path: "Summary", element: <Summary /> },
+              { path: "Character", element: <CharacterStats /> },
+              { path: "Job", element: <Job /> },
+              {
+                path: "Mount",
+                element: <MountStats />,
+                children: [
+                  { path: "Popular", element: <MountStats /> },
+                  { path: "Rarest", element: <MountStats /> },
+                ],
+              },
+              {
+                path: "Minion",
+                element: <MinionStats />,
+                children: [
+                  { path: "Popular", element: <MinionStats /> },
+                  { path: "Rarest", element: <MinionStats /> },
+                ],
+              },
+              {
+                path: "Achievement",
+                element: <AchievementStats />,
+                children: [
+                  { path: "Popular", element: <AchievementStats /> },
+                  { path: "Rarest", element: <AchievementStats /> },
+                ],
+              },
+            ],
+          },
         ],
       },
       {
-        path: "Stats/*",
-        element: (
-          <StatsProvider>
-            <Stats />
-          </StatsProvider>
-        ),
+        path: "Character/:charId",
+        element: <Character />,
         children: [
-          { path: "Summary", element: <Summary /> },
-          { path: "Character", element: <CharacterStats /> },
-          { path: "Job", element: <Job /> },
-          {
-            path: "Mount",
-            element: <MountStats />,
-            children: [
-              { path: "Popular", element: <MountStats /> },
-              { path: "Rarest", element: <MountStats /> },
-            ],
-          },
-          {
-            path: "Minion",
-            element: <MinionStats />,
-            children: [
-              { path: "Popular", element: <MinionStats /> },
-              { path: "Rarest", element: <MinionStats /> },
-            ],
-          },
-          {
-            path: "Achievement",
-            element: <AchievementStats />,
-            children: [
-              { path: "Popular", element: <AchievementStats /> },
-              { path: "Rarest", element: <AchievementStats /> },
-            ],
-          },
+          { path: "Info", element: <CharInfo /> },
+          { path: "Collection", element: <CharCollection /> },
+          { path: "Achievements", element: <CharAchievements /> },
+          { path: "Stats", element: <CharStats /> },
+          { path: "Jobs", element: <CharJobs /> },
+          { path: "Gear", element: <CharGear /> },
         ],
       },
-    ],
-  },
-  {
-    path: "/Character/:charId",
-    element: (
-      <CharacterProvider>
-        <Character />
-      </CharacterProvider>
-    ),
-    children: [
-      { path: "Info", element: <CharInfo /> },
-      { path: "Collection", element: <CharCollection /> },
-      { path: "Achievements", element: <CharAchievements /> },
-      { path: "Stats", element: <CharStats /> },
-      { path: "Jobs", element: <CharJobs /> },
-      { path: "Gear", element: <CharGear /> },
     ],
   },
 ]);
@@ -125,11 +116,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <GameDataProvider>
-      <SearchProvider>
-        <RouterProvider router={router} fallbackElement={<ErrorPage />} />
-      </SearchProvider>
-    </GameDataProvider>
+    <RouterProvider router={router} fallbackElement={<ErrorPage />} />
   </React.StrictMode>
 );
 
