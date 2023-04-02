@@ -239,7 +239,7 @@ interface ActiveClassJob {
   };
 }
 
-interface ClassJobs {
+export interface ClassJobs {
   ClassID: number;
   ExpLevel: number;
   ExpLevelMax: number;
@@ -254,13 +254,13 @@ interface ClassJobs {
   };
 }
 
-interface ClassJobsBozjan {
+export interface ClassJobsBozjan {
   Level: number;
   Mettle: number;
   Name: string;
 }
 
-interface ClassJobsElemental {
+export interface ClassJobsElemental {
   ExpLevel: number;
   ExpLevelMax: number;
   ExpLevelTogo: number;
