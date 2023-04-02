@@ -112,16 +112,11 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     <article className="flex flex-col gap-4 rounded-b-lg rounded-tr-lg bg-base-100 p-4">
       <InfoBio />
 
-      <div className="grid w-full gap-4 md:grid-cols-2">
-        <div className="grid gap-2 rounded-lg xl:grid-cols-2">
-          <RaceInfo />
-          <NamedayInfo />
-        </div>
-
-        <div className="grid gap-2 rounded-lg xl:grid-cols-2">
-          <GrandCompanyInfo />
-          <FreeCompanyInfo />
-        </div>
+      <div className="grid w-full gap-2 md:grid-cols-2">
+        <RaceInfo />
+        <NamedayInfo />
+        <GrandCompanyInfo />
+        <FreeCompanyInfo />
       </div>
     </article>
   );
