@@ -1,6 +1,6 @@
 import { Footer } from "@/Components";
 import { useCharacter } from "@/Contexts/CharacterContext";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import { Banner } from "./Components/Banner";
 import { Header } from "./Components/Header";
 import { Navigator } from "./Navigartor";
@@ -8,6 +8,8 @@ import { CharInfo } from "./Tabs";
 
 export const Character = () => {
   const { char } = useCharacter();
+  const { charId } = useParams();
+  const CharID = charId || "";
 
   const isDefaultPath = /^\d+$/.test(
     useLocation()
@@ -16,7 +18,10 @@ export const Character = () => {
       .reverse()[0]
   );
 
-  if (char.Data.ID === 0)
+  const charIsEmpty = char.Data.ID === 0;
+  const charIsDiff = char.Data.ID !== parseInt(CharID);
+
+  if (charIsEmpty || charIsDiff)
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <button className="loading btn">Getting Character Info</button>

@@ -545,7 +545,11 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
   }
 
   function getJobData(job: ClassJobs): TreatedJobData {
-    const JobData = jobs.find((e) => e.ID === job.UnlockedState.ID);
+    const JobData = jobs.find((e) => {
+      return job.UnlockedState.ID
+        ? e.ID === job.UnlockedState.ID
+        : e.ID === job.JobID;
+    });
     const empty = {
       ID: 0,
       Name: "",
@@ -558,7 +562,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Level: 0,
     };
     const result = {
-      ID: job.UnlockedState.ID,
+      ID: job.UnlockedState.ID || job.JobID,
       Name: job.UnlockedState.Name,
       Tag: JobData?.Tag || "",
       Role: JobData?.Role || "",
