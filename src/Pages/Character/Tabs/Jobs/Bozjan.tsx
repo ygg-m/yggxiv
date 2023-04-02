@@ -1,3 +1,4 @@
+import { formatNumber } from "@/Helpers";
 import { ClassJobsBozjan } from "@/Types";
 
 export const Bozjan = ({ data }: { data: ClassJobsBozjan }) => {
@@ -13,7 +14,7 @@ export const Bozjan = ({ data }: { data: ClassJobsBozjan }) => {
 
   const ShowMettle = () => (
     <div>
-      <span className="opacity-70">Mettle:</span> {Mettle}
+      <span className="opacity-70">Mettle:</span> {formatNumber(Mettle)}
     </div>
   );
 

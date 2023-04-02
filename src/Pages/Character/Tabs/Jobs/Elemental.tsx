@@ -1,3 +1,4 @@
+import { formatNumber } from "@/Helpers";
 import { ClassJobsElemental } from "@/Types";
 
 export const Elemental = ({ data }: { data: ClassJobsElemental }) => {
@@ -13,7 +14,8 @@ export const Elemental = ({ data }: { data: ClassJobsElemental }) => {
 
   const ExpToNextLevel = () => (
     <div>
-      <span className="opacity-70">Exp to Next:</span> {ExpLevelTogo}
+      <span className="opacity-70">Exp to Next:</span>{" "}
+      {formatNumber(ExpLevelTogo)}
     </div>
   );
 
