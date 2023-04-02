@@ -20,10 +20,13 @@ export const CollectibleInfo = ({ data }: Props) => {
     return (
       <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-300 hover:bg-base-100">
         <div className="flex justify-between">
-          <span>Rarest Mounts</span>
+          <span className="opacity-70">Rarest Mounts</span>
           <span>
-            {Mounts.length} / {mounts.length} (
-            {Math.floor((Mounts.length / mounts.length) * 100)}%)
+            {Mounts.length}{" "}
+            <span className="opacity-70">
+              / {mounts.length} (
+              {Math.floor((Mounts.length / mounts.length) * 100)}%)
+            </span>
           </span>
         </div>
 
@@ -58,8 +61,11 @@ export const CollectibleInfo = ({ data }: Props) => {
         <div className="flex justify-between">
           <span>Rarest Minions</span>
           <span>
-            {Minions.length} / {minions.length} (
-            {Math.floor((Minions.length / minions.length) * 100)}%)
+            {Minions.length}{" "}
+            <span className="opacity-70">
+              / {minions.length} (
+              {Math.floor((Minions.length / minions.length) * 100)}%)
+            </span>
           </span>
         </div>
 
