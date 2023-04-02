@@ -1,6 +1,6 @@
 import { CollectData } from "@/Helpers/ffxivcollectapi";
 import { FreeCompanyData, MembersListTypes } from "./FreeCompanyData";
-import { AchievementData } from "./GameData";
+import { AchievementData, CityData } from "./GameData";
 
 interface TreatedGearData {
   ID: number;
@@ -13,6 +13,7 @@ export interface TreatedCharData {
   Data: {
     ID: number;
     Name: string;
+    LastLogin: Date;
     DataCenter: {
       Name: string;
       Server: string;
@@ -21,26 +22,24 @@ export interface TreatedCharData {
   Profile: {
     Name: string;
     Bio: string;
-    Gender: string; // TODO: solve Name
-    Title: {
-      Show: boolean;
-      Name: string; // TODO: solve Name
-    };
+    Gender: string;
+    Title: string;
     Avatar: string;
     Portrait: string;
-    StarterCity: number; // TODO: solve Name
+    StarterCity: CityData;
     Race: {
-      Name: number; // TODO: solve Name
-      Tribe: number; // TODO: solve Name
+      Name: string;
+      Tribe: string;
     };
     Astro: {
-      Nameday: string; // TODO: solve Name
-      Guardian: number; // TODO: solve Name
+      Nameday: { Simple: string; Full: string };
+      Guardian: { ID: number; Name: string; Icon: string };
     };
   };
   GrandCompany: {
-    Name: number; // TODO: solve Name
-    Rank: number; // TODO: solve Name
+    Name: string;
+    Icon: string;
+    Rank: { Name: string; Icon: string }; // TODO: solve Name
   };
   FreeCompany: {
     ID: string;
@@ -214,7 +213,7 @@ interface Character {
   Lang: any;
   Name: string;
   Nameday: string;
-  ParseData: number;
+  ParseDate: number;
   Portrait: string;
   PvPTeamId: string;
   Race: number;
@@ -388,7 +387,7 @@ interface GrandCompany {
   RankID: number;
 }
 
-interface Collectible {
+export interface Collectible {
   Icon: string;
   Name: string;
 }

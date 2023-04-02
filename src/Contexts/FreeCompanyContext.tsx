@@ -303,7 +303,7 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
           Lang: null,
           Name: "",
           Nameday: "",
-          ParseData: 0,
+          ParseDate: 0,
           Portrait: "",
           PvPTeamId: "",
           Race: 0,

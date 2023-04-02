@@ -290,3 +290,16 @@ export async function getTitle(id: number) {
 
   return data;
 }
+
+export async function getCity(id: number) {
+  const url = `https://xivapi.com/Town/${id}?columns=ID,Name,IconHD`;
+  const response = await axios.get(url);
+
+  const data = response.data;
+
+  return {
+    ID: data.ID,
+    Icon: `https://xivapi.com/${data.IconHD}`,
+    Name: data.Name,
+  };
+}

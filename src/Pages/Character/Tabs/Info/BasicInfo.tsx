@@ -19,7 +19,7 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     } = data.Profile;
 
     return (
-      <div className="grid rounded-lg p-4 duration-300 hover:bg-base-300">
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
         <div className="flex items-center gap-2">
           <span className="opacity-70">Race:</span> {Name}
         </div>
@@ -40,30 +40,43 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     } = data.Profile;
 
     return (
-      <div className="grid rounded-lg p-4 duration-300 hover:bg-base-300">
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
         <div className="flex items-center gap-2">
-          <span className="opacity-70">Birthday:</span> {Nameday}
+          <span className="opacity-70">Birthday:</span>{" "}
+          <span className="tooltip" data-tip={Nameday.Full}>
+            {Nameday.Simple}
+          </span>
         </div>
+
         <div className="flex items-center gap-2">
-          <span className="opacity-70">Guardian:</span> {Guardian}
+          <span className="opacity-70">Guardian:</span>{" "}
+          <img src={Guardian.Icon} alt={Guardian.Name} className="w-6" />{" "}
+          {Guardian.Name}
         </div>
+
         <div className="flex items-center gap-2">
-          <span className="opacity-70">Starter City:</span> {StarterCity}
+          <span className="opacity-70">Starter City:</span>{" "}
+          <img src={StarterCity.Icon} alt={StarterCity.Name} className="w-6" />
+          {StarterCity.Name}
         </div>
       </div>
     );
   };
 
   const GrandCompanyInfo = () => {
-    const { Name, Rank } = data.GrandCompany;
+    const { Name, Icon, Rank } = data.GrandCompany;
 
     return (
-      <div className="grid rounded-lg p-4 duration-300 hover:bg-base-300">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
+        <img src={Icon} alt={Name} className="h-12 w-12" />
+        <div className="grid">
           <span className="opacity-70">Grand Company</span>
+          <div className="flex items-center gap-2">{Name}</div>
+          <div className="flex items-center gap-2">
+            <img src={Rank.Icon} alt={Rank.Name} className="w-6" />
+            {Rank.Name}
+          </div>
         </div>
-        <div className="flex items-center gap-2">{Name}</div>
-        <div className="flex items-center gap-2">{Rank}</div>
       </div>
     );
   };
@@ -74,13 +87,14 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     return (
       <Link
         to={`/FreeCompany/${ID}`}
-        className="flex items-center gap-4 rounded-lg p-4 duration-300 hover:bg-neutral"
+        className="flex items-center justify-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-neutral"
       >
         <div className="mask mask-squircle relative h-12 w-12">
           <img src={Crest[0]} alt={Name} className="absolute" />
           <img src={Crest[1]} alt={Name} className="absolute" />
           <img src={Crest[2]} alt={Name} className="absolute" />
         </div>
+
         <div className="grid">
           <div className="flex items-center gap-2">
             <span className="opacity-70">Free Company</span>
@@ -98,12 +112,12 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
       <InfoBio />
 
       <div className="grid w-full gap-4 md:grid-cols-2">
-        <div className="grid rounded-lg bg-base-200 md:grid-cols-2">
+        <div className="grid gap-2 rounded-lg md:grid-cols-2">
           <RaceInfo />
           <NamedayInfo />
         </div>
 
-        <div className="grid rounded-lg bg-base-200 md:grid-cols-2">
+        <div className="grid gap-2 rounded-lg md:grid-cols-2">
           <GrandCompanyInfo />
           <FreeCompanyInfo />
         </div>

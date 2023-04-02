@@ -2,6 +2,7 @@ export {
   AchievementsTypes,
   CharacterData,
   CharCardData,
+  Collectible,
   CollectibleData,
   CollectibleTypes,
   jobData,

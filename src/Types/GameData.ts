@@ -23,3 +23,9 @@ export interface AchievementCount {
     }[];
   }[];
 }
+
+export interface CityData {
+  ID: number;
+  Icon: string;
+  Name: string;
+}

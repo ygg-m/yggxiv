@@ -16,8 +16,8 @@ export const Header = ({ char }: { char: TreatedCharData }) => {
 
     return (
       <div className="grid">
-        <h1 className="flex items-center gap-4 text-5xl font-bold">{Name}</h1>
-        {Title.Name.length > 0 ? <span>{Title.Name}</span> : null}
+        <h1 className="flex items-center gap-4 text-4xl font-bold">{Name}</h1>
+        {Title.length > 0 ? <span className="text-lg">{Title}</span> : null}
       </div>
     );
   };
@@ -38,7 +38,7 @@ export const Header = ({ char }: { char: TreatedCharData }) => {
   };
 
   return (
-    <header className="mb-8 flex w-full max-w-screen-2xl flex-col items-center gap-4 md:flex-row md:gap-8">
+    <header className="mb-8 flex w-full max-w-screen-2xl flex-col items-center gap-4 py-4 md:flex-row md:gap-8">
       <ProfilePic />
       <ProfileName />
       <ProfileServer />

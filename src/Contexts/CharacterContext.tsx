@@ -1,9 +1,11 @@
+import { grandCompanies } from "@/Data/grandCompanies";
+import { guardianDeities } from "@/Data/guardianDeities";
+import { races } from "@/Data/races";
 import { getCharacter } from "@/Helpers";
-import { getTitle } from "@/Helpers/xviapi";
-import { CharacterData, TreatedCharData } from "@/Types";
+import { getCity, getTitle } from "@/Helpers/xviapi";
+import { TreatedCharData } from "@/Types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useFreeCompany } from "./FreeCompanyContext";
 
 type CharacterContextType = {
   char: TreatedCharData;
@@ -14,6 +16,7 @@ const CharacterContext = createContext<CharacterContextType>({
     Data: {
       ID: 0,
       Name: "",
+      LastLogin: new Date(),
       DataCenter: {
         Name: "",
         Server: "",
@@ -23,25 +26,30 @@ const CharacterContext = createContext<CharacterContextType>({
       Name: "",
       Bio: "",
       Gender: "",
-      Title: {
-        Show: false,
-        Name: "", // TODO: solve Name
-      },
+      Title: "",
       Avatar: "",
       Portrait: "",
-      StarterCity: 0, // TODO: solve Name
+      StarterCity: {
+        ID: 0,
+        Icon: "",
+        Name: "",
+      },
       Race: {
-        Name: 0, // TODO: solve Name
-        Tribe: 0, // TODO: solve Name
+        Name: "",
+        Tribe: "",
       },
       Astro: {
-        Nameday: "", // TODO: solve Name
-        Guardian: 0, // TODO: solve Name
+        Nameday: { Simple: "", Full: "" },
+        Guardian: { ID: 0, Name: "", Icon: "" },
       },
     },
     GrandCompany: {
-      Name: 0, // TODO: solve Name
-      Rank: 0, // TODO: solve Name
+      Name: "",
+      Icon: "",
+      Rank: {
+        Name: "",
+        Icon: "",
+      },
     },
     FreeCompany: {
       ID: "",
@@ -656,6 +664,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     Data: {
       ID: 0,
       Name: "",
+      LastLogin: new Date(),
       DataCenter: {
         Name: "",
         Server: "",
@@ -665,25 +674,30 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Name: "",
       Bio: "",
       Gender: "",
-      Title: {
-        Show: false,
-        Name: "", // TODO: solve Name
-      },
+      Title: "",
       Avatar: "",
       Portrait: "",
-      StarterCity: 0, // TODO: solve Name
+      StarterCity: {
+        ID: 0,
+        Icon: "",
+        Name: "",
+      },
       Race: {
-        Name: 0, // TODO: solve Name
-        Tribe: 0, // TODO: solve Name
+        Name: "",
+        Tribe: "",
       },
       Astro: {
-        Nameday: "", // TODO: solve Name
-        Guardian: 0, // TODO: solve Name
+        Nameday: { Simple: "", Full: "" },
+        Guardian: { ID: 0, Name: "", Icon: "" },
       },
     },
     GrandCompany: {
-      Name: 0, // TODO: solve Name
-      Rank: 0, // TODO: solve Name
+      Name: "",
+      Icon: "",
+      Rank: {
+        Name: "",
+        Icon: "",
+      },
     },
     FreeCompany: {
       ID: "",
@@ -1282,6 +1296,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     },
   });
 
+  // Get char Basic Info
   function getGender(id: number) {
     return id === 1 ? "Male" : "Female";
   }
@@ -1289,6 +1304,97 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
   async function fetchTitle(id: number) {
     const data = await getTitle(id);
     return data.Name;
+  }
+
+  async function fetchCity(id: number) {
+    const data = await getCity(id);
+    return data;
+  }
+
+  function getRace(id: number) {
+    const data = races.find((e) => e.ID === id);
+    return data?.Name || "";
+  }
+
+  function getTribe(id: number) {
+    const data1 = races.find((e) => e.Tribes.Tribe1.ID === id);
+    const data2 = races.find((e) => e.Tribes.Tribe2.ID === id);
+
+    if (data1) return data1?.Tribes.Tribe1.Name;
+    if (data2) return data2?.Tribes.Tribe2.Name;
+    else return "";
+  }
+
+  function convertEorzeanDateToDDMM(dateString: string) {
+    // Define a mapping of Eorzean month names to their corresponding numbers
+    const monthMap: { [monthName: string]: number } = {
+      "1st Astral Moon": 1,
+      "1st Umbral Moon": 2,
+      "2nd Astral Moon": 3,
+      "2nd Umbral Moon": 4,
+      "3rd Astral Moon": 5,
+      "3rd Umbral Moon": 6,
+      "4th Astral Moon": 7,
+      "4th Umbral Moon": 8,
+      "5th Astral Moon": 9,
+      "5th Umbral Moon": 10,
+      "6th Astral Moon": 11,
+      "6th Umbral Moon": 12,
+    };
+
+    // Split the input string into an array of words
+    const words = dateString.split(" ");
+
+    // Extract the ordinal and monthName values from the words array
+    const ordinal = words[0];
+    const monthName = words.slice(4).join(" ");
+
+    // Convert the ordinal to a number
+    const day = parseInt(ordinal);
+
+    // Convert the month name to its corresponding number using the monthMap
+    const month = monthMap[monthName];
+
+    // Calculate the day of the month based on the ordinal
+    const dayOfMonth = ((day - 1) % 32) + 1;
+
+    // Format the month and day as two-digit strings
+    const monthString = month.toString().padStart(2, "0");
+    const dayString = dayOfMonth.toString().padStart(2, "0");
+
+    // Return the date in DD/MM format
+    return `${dayString}/${monthString}`;
+  }
+
+  function getGuardianDeity(id: number) {
+    const data = guardianDeities.find((e) => e.ID === id);
+    const empty = { ID: 0, Name: "", Icon: "" };
+
+    return data || empty;
+  }
+
+  function getGrandCompany(id: number, rankId: number) {
+    const data = grandCompanies.find((e) => e.ID === id);
+    const rank = data?.Ranks.find((e) => e.ID === rankId);
+    const empty = {
+      Name: "",
+      Icon: "",
+      Rank: {
+        Name: "",
+        Icon: "",
+      },
+    };
+
+    if (data && rank)
+      return {
+        Name: data.Name,
+        Icon: data.Icon,
+        Rank: {
+          Name: rank.Name,
+          Icon: rank.Icon,
+        },
+      };
+    else return empty;
   }
 
   async function fetchCharacter() {
@@ -1306,6 +1412,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Data: {
         ID: fetch.Character.ID,
         Name: fetch.Character.Name,
+        LastLogin: new Date(fetch.Character.ParseDate * 1000),
         DataCenter: {
           Name: fetch.Character.DC,
           Server: fetch.Character.Server,
@@ -1314,27 +1421,27 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Profile: {
         Name: fetch.Character.Name,
         Bio: fetch.Character.Bio,
-        Gender: getGender(fetch.Character.Gender), // TODO: solve Name
-        Title: {
-          Show: fetch.Character.TitleTop,
-          Name: await fetchTitle(fetch.Character.Title), // TODO: solve Name
-        },
+        Gender: getGender(fetch.Character.Gender),
+        Title: await fetchTitle(fetch.Character.Title),
         Avatar: fetch.Character.Avatar,
         Portrait: fetch.Character.Portrait,
-        StarterCity: fetch.Character.Town, // TODO: solve Name
+        StarterCity: await fetchCity(fetch.Character.Town),
         Race: {
-          Name: fetch.Character.Race, // TODO: solve Name
-          Tribe: fetch.Character.Tribe, // TODO: solve Name
+          Name: getRace(fetch.Character.Race),
+          Tribe: getTribe(fetch.Character.Tribe),
         },
         Astro: {
-          Nameday: fetch.Character.Nameday, // TODO: solve Name
-          Guardian: fetch.Character.GuardianDeity, // TODO: solve Name
+          Nameday: {
+            Simple: convertEorzeanDateToDDMM(fetch.Character.Nameday),
+            Full: fetch.Character.Nameday,
+          },
+          Guardian: getGuardianDeity(fetch.Character.GuardianDeity),
         },
       },
-      GrandCompany: {
-        Name: fetch.Character.GrandCompany.NameID, // TODO: solve Name
-        Rank: fetch.Character.GrandCompany.RankID, // TODO: solve Name
-      },
+      GrandCompany: getGrandCompany(
+        fetch.Character.GrandCompany.NameID,
+        fetch.Character.GrandCompany.RankID
+      ),
       FreeCompany: {
         ID: fetch.Character.FreeCompanyId,
         Name: fetch.Character.FreeCompanyName,
