@@ -20,3 +20,21 @@ export const userLoadingPhrases = [
   "The Blue Mage is still trying to learn how to cast Ultima... it's a work in progress.",
   "Our Gunbreaker is busy reloading their bullets... we'll be ready soon!",
 ];
+
+export const fcLoadingPhrases = [
+  "Unleashing Bahamut... please wait while we give the world some time to end.",
+  "We're summoning Ifrit, Ramuh, and Shiva for a dance-off... it might take a while.",
+  "The Free Company is currently undergoing an epic cutscene... grab some popcorn!",
+  "Please wait while we perform maintenance on our servers... our Chocobos need to rest too.",
+  "The page is currently undergoing a summoning ritual... we'll be back soon with some powerful magic!",
+  "Our servers are currently communicating with the planet's lifestream... please wait for the connection to be established.",
+  "Summoning Chocobos... Please wait.",
+  "We're gathering mana crystals to power up the page. It might take a while...",
+  "If you see a Cactuar, please tell them we need their help to speed up the loading.",
+  "Ygg XIV: Where the load times are as long as the data.",
+  "Commencing countdown, engines on... oh wait, wrong page.",
+  "Don't worry, we'll load the page just as soon as we finish this epic summoning ritual.",
+  "Loading... because even magical spells need time to cast.",
+  "Please be patient, the page is downloading the courage and bravery needed to embark on this Free Company.",
+  "Sorry for the delay, our Chocobo ran out of stamina.",
+];
