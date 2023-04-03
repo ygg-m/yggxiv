@@ -102,6 +102,7 @@ export const GearSet = () => {
         <div className="grid gap-2">
           <GearPiece data={Gear.Accessories.SoulCrystal} />
         </div>
+
         <div className="grid gap-2">
           <GearPiece data={Gear.Hands.MainHand} />
           <div className="h-10 w-10 sm:h-16 sm:w-16" />
@@ -111,7 +112,9 @@ export const GearSet = () => {
           <GearPiece data={Gear.Body.Feet} />
         </div>
       </div>
+
       <PortraitArea />
+
       <div className="flex flex-col justify-end gap-2">
         <GearPiece data={Gear.Hands.OffHand} />
         <GearPiece data={Gear.Accessories.Necklace} />
