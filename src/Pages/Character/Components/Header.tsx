@@ -30,7 +30,7 @@ export const Header = ({ char }: { char: TreatedCharData }) => {
     return (
       <div className="flex items-center gap-2 md:mt-4">
         <div className="badge badge-md bg-neutral-800 py-3">{DataCenter}</div>
-        <div className="text-rose-200 badge-primary badge badge-md py-3">
+        <div className="badge-primary badge badge-md py-3">
           {Server}
         </div>
       </div>

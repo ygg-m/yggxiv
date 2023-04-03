@@ -62,7 +62,7 @@ export const SearchFreeCompany = () => {
             <h3 className="italic text-sm text-neutral-500">ID: {ID}</h3>
             <div className="flex gap-2">
               <div className="py-3 badge badge-md">{DataCenter}</div>
-              <div className="py-3 badge badge-md badge-primary text-rose-200">
+              <div className="py-3 badge badge-md badge-primary">
                 {Server}
               </div>
             </div>
