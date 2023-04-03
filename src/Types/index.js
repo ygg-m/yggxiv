@@ -11,6 +11,7 @@ export {
   ItemFetchData,
   jobData,
   raceData,
+  SimpleJobData,
   TreatedCharData,
   TreatedJobData,
 } from "./CharacterData";

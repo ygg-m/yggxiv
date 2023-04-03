@@ -22,12 +22,6 @@ export interface ItemData {
   Glamour: ItemFetchData | null;
 }
 
-interface TreatedGearData {
-  ID: number;
-  Glamour: number;
-  Materia: number[];
-}
-
 export interface TreatedJobData {
   ID: number;
   Name: string;
@@ -79,7 +73,7 @@ export interface TreatedCharData {
     Crest: string[];
   };
   ActiveStats: {
-    Job: number; // TODO: solve Name
+    Job: TreatedJobData;
     Attributes: {
       Base: {
         Strength: number;

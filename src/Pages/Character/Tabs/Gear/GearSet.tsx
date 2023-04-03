@@ -34,16 +34,23 @@ export const GearSet = () => {
   const PortraitArea = () => {
     const { Portrait, Name } = useCharacter().char.Profile;
 
-    const ShowJob = () => (
-      <div className="flex items-center gap-2 text-lg">
-        <img
-          src="https://xivapi.com/cj/1/blackmage.png"
-          alt="Black Mage"
-          className="mask mask-squircle h-12 w-12 bg-dps p-2"
-        />
-        <span className="font-bold text-primary">Black Mage</span> Level 90
-      </div>
-    );
+    const ShowJob = () => {
+      const { Name, Image, Level } = useCharacter().char.ActiveStats.Job;
+
+      return (
+        <div className="flex items-center gap-2 text-lg">
+          <img
+            src={Image}
+            alt={Name}
+            className="mask mask-squircle h-12 w-12 bg-dps p-2"
+          />
+          <div className="grid">
+            <span className="font-bold text-primary">{Name}</span>
+            <span className="text-sm">Level {Level}</span>
+          </div>
+        </div>
+      );
+    };
 
     return (
       <div className="grid gap-4 px-4">

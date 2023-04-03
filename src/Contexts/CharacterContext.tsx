@@ -66,7 +66,16 @@ const CharacterContext = createContext<CharacterContextType>({
       Crest: [],
     },
     ActiveStats: {
-      Job: 0, // TODO: solve Name
+      Job: {
+        ID: 0,
+        Name: "",
+        Tag: "",
+        Role: "",
+        Image: "",
+        Exp: 0,
+        ExpMax: 0,
+        Level: 0,
+      },
       Attributes: {
         Base: {
           Strength: 0,
@@ -423,7 +432,16 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       Crest: [],
     },
     ActiveStats: {
-      Job: 0, // TODO: solve Name
+      Job: {
+        ID: 0,
+        Name: "",
+        Tag: "",
+        Role: "",
+        Image: "",
+        Exp: 0,
+        ExpMax: 0,
+        Level: 0,
+      },
       Attributes: {
         Base: {
           Strength: 0,
@@ -875,6 +893,26 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     else return empty;
   }
 
+  function getJobFromID(id: number, jobList: ClassJobs[]) {
+    const findJob = jobList.find((e) => e.UnlockedState.ID === id);
+    const empty = {
+      ID: 0,
+      Name: "",
+      Tag: "",
+      Role: "",
+      Position: "",
+      Image: "",
+      Exp: 0,
+      ExpMax: 0,
+      Level: 0,
+    };
+    if (!findJob) return empty;
+
+    const jobData = getJobData(findJob);
+
+    return jobData;
+  }
+
   async function getGear(
     id: number | undefined,
     glamID: number | undefined,
@@ -966,7 +1004,10 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Crest: fetch.FreeCompany.Crest,
       },
       ActiveStats: {
-        Job: fetch.Character.GearSet.JobID, // TODO: solve Name
+        Job: getJobFromID(
+          fetch.Character.GearSet.JobID,
+          fetch.Character.ClassJobs
+        ),
         Attributes: {
           Base: {
             Strength: fetch.Character.GearSet.Attributes[1],
@@ -1002,8 +1043,8 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
           Hands: {
             MainHand: await getGear(
               fetch.Character.GearSet.Gear.MainHand?.ID,
-              fetch.Character.GearSet.Gear.MainHand?.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.MainHand?.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.MainHand?.Mirage,
+              fetch.Character.GearSet.Gear.MainHand?.Materia
             ),
             OffHand: await getGear(
               fetch.Character.GearSet.Gear.OffHand?.ID,
@@ -1046,28 +1087,28 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
           Body: {
             Head: await getGear(
               fetch.Character.GearSet.Gear.Head?.ID,
-              fetch.Character.GearSet.Gear.Head?.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.Head?.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.Head?.Mirage,
+              fetch.Character.GearSet.Gear.Head?.Materia
             ),
             Chest: await getGear(
               fetch.Character.GearSet.Gear.Body?.ID,
-              fetch.Character.GearSet.Gear.Body?.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.Body?.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.Body?.Mirage,
+              fetch.Character.GearSet.Gear.Body?.Materia
             ),
             Hands: await getGear(
               fetch.Character.GearSet.Gear.Hands?.ID,
-              fetch.Character.GearSet.Gear.Hands?.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.Hands?.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.Hands?.Mirage,
+              fetch.Character.GearSet.Gear.Hands?.Materia
             ),
             Legs: await getGear(
               fetch.Character.GearSet.Gear.Legs?.ID,
-              fetch.Character.GearSet.Gear.Legs?.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.Legs?.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.Legs?.Mirage,
+              fetch.Character.GearSet.Gear.Legs?.Materia
             ),
             Feet: await getGear(
               fetch.Character.GearSet.Gear.Feet?.ID,
-              fetch.Character.GearSet.Gear.Feet?.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.Feet?.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.Feet?.Mirage,
+              fetch.Character.GearSet.Gear.Feet?.Materia
             ),
           },
         },
