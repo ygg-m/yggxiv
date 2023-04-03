@@ -44,8 +44,16 @@ const Materias = ({
   equipped,
 }: {
   slots: number;
-  equipped: ItemFetchData[];
+  equipped: ItemFetchData[] | null;
 }) => {
+  if (!equipped)
+    return (
+      <div className="grid gap-2">
+        <span className="relative opacity-70">Materia</span>
+        <div className="grid gap-1">{CreateMateriaSlots(slots, [])}</div>
+      </div>
+    );
+
   return (
     <div className="grid gap-2">
       <span className="relative opacity-70">Materia</span>
@@ -126,15 +134,19 @@ export const GearTooltip = ({ data }: { data: ItemData }) => {
 
       <div className="divider m-0 h-fit"></div>
 
-      {MateriaEquipped ? (
-        <Materias slots={MateriaSlots} equipped={MateriaEquipped} />
+      {MateriaEquipped || MateriaSlots ? (
+        <>
+          <Materias slots={MateriaSlots} equipped={MateriaEquipped} />
+          <div className="divider m-0 h-fit"></div>
+        </>
       ) : null}
 
-      <div className="divider m-0 h-fit"></div>
-
-      {Glamour ? <ShowGlamour data={data.Glamour} /> : null}
-
-      <div className="divider m-0 h-fit"></div>
+      {Glamour ? (
+        <>
+          <ShowGlamour data={data.Glamour} />
+          <div className="divider m-0 h-fit"></div>
+        </>
+      ) : null}
 
       <div className="grid gap-2">
         <a
