@@ -6,6 +6,30 @@ import { GearTooltip } from "./Tooltip";
 export const GearSet = () => {
   const { Gear } = useCharacter().char.ActiveStats;
 
+  const getItemLevel = () => {
+    const LevelList = [
+      Gear.Hands.MainHand?.ItemLevel,
+      Gear.Hands.OffHand?.ItemLevel,
+      Gear.Body.Head?.ItemLevel,
+      Gear.Body.Chest?.ItemLevel,
+      Gear.Body.Hands?.ItemLevel,
+      Gear.Body.Feet?.ItemLevel,
+      Gear.Accessories.Necklace?.ItemLevel,
+      Gear.Accessories.Earrings?.ItemLevel,
+      Gear.Accessories.Bracelet?.ItemLevel,
+      Gear.Accessories.Ring1?.ItemLevel,
+      Gear.Accessories.Ring2?.ItemLevel,
+    ].filter((e) => e !== undefined);
+
+    let sum: number = 0;
+
+    for (const level of LevelList) if (level) sum += level;
+
+    const result = sum / LevelList.length;
+
+    return result;
+  };
+
   const GearPiece = ({ data }: { data: ItemData | undefined }) => {
     const [showTooltip, setShowTooltip] = useState(false);
 
@@ -38,15 +62,23 @@ export const GearSet = () => {
       const { Name, Image, Level } = useCharacter().char.ActiveStats.Job;
 
       return (
-        <div className="flex items-center gap-2 text-lg">
-          <img
-            src={Image}
-            alt={Name}
-            className="mask mask-squircle h-12 w-12 bg-dps p-2"
-          />
-          <div className="grid">
-            <span className="font-bold text-primary">{Name}</span>
-            <span className="text-sm">Level {Level}</span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <img
+              src={Image}
+              alt={Name}
+              className="mask mask-squircle h-12 w-12 bg-dps p-2"
+            />
+            <div className="grid">
+              <span className="text-lg font-bold text-primary">{Name}</span>
+              <span className="text-sm">Level {Level}</span>
+            </div>
+          </div>
+          <div className="grid text-right">
+            <span className="text-sm opacity-70">Item Level</span>
+            <span className="text-xl font-bold text-primary">
+              {getItemLevel()}
+            </span>
           </div>
         </div>
       );
