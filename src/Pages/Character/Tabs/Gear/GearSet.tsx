@@ -25,7 +25,7 @@ export const GearSet = () => {
 
     for (const level of LevelList) if (level) sum += level;
 
-    const result = sum / LevelList.length;
+    const result = Math.floor(sum / LevelList.length);
 
     return result;
   };
@@ -35,21 +35,21 @@ export const GearSet = () => {
 
     if (!data)
       return (
-        <div className="h-16 w-16 rounded-lg bg-slate-600 shadow-inner outline outline-1 outline-slate-700" />
+        <div className="h-16 w-16 rounded-lg bg-slate-700 shadow-inner outline outline-1 outline-slate-600" />
       );
 
     const { Name, Icon } = data;
 
     return (
       <div
-        className="relative h-16 w-16 rounded-lg outline outline-1 outline-slate-700"
+        className="relative h-16 w-16 rounded-lg outline outline-1 outline-slate-600"
         onMouseOver={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         onClick={() => {
           setShowTooltip(true);
         }}
       >
-        <img src={Icon} alt={Name} className="h-full w-full" />
+        <img src={Icon} alt={Name} className="h-full w-full rounded-lg" />
         {showTooltip ? <GearTooltip data={data} /> : null}
       </div>
     );
@@ -87,7 +87,11 @@ export const GearSet = () => {
     return (
       <div className="grid gap-4 px-4">
         <ShowJob />
-        <img src={Portrait} alt={Name} className="max-h-[600px] rounded-lg" />
+        <img
+          src={Portrait}
+          alt={Name}
+          className="max-h-[600px] rounded-lg outline outline-1 outline-slate-600"
+        />
       </div>
     );
   };
