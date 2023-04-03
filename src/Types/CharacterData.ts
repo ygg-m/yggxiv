@@ -18,14 +18,14 @@ export interface ItemData {
   MateriaSlots: number;
   EquipLevel: number;
   ItemLevel: number;
-  MateriaEquipped: ItemFetchData[];
-  Glamour: ItemFetchData;
+  MateriaEquipped: ItemFetchData[] | null;
+  Glamour: ItemFetchData | null;
 }
 
 interface TreatedGearData {
   ID: number;
-  Glamour: number; // TODO: solve Data
-  Materia: number[]; // TODO: solve Name
+  Glamour: number;
+  Materia: number[];
 }
 
 export interface TreatedJobData {
@@ -113,22 +113,23 @@ export interface TreatedCharData {
     };
     Gear: {
       Hands: {
-        MainHand: TreatedGearData;
+        MainHand?: ItemData;
+        OffHand?: ItemData;
       };
       Accessories: {
-        Necklace: ItemData;
-        Earrings: TreatedGearData;
-        Bracelet: TreatedGearData;
-        Ring1: TreatedGearData;
-        Ring2: TreatedGearData;
-        SoulCrystal: TreatedGearData;
+        Necklace?: ItemData;
+        Earrings?: ItemData;
+        Bracelet?: ItemData;
+        Ring1?: ItemData;
+        Ring2?: ItemData;
+        SoulCrystal?: ItemData;
       };
       Body: {
-        Head: TreatedGearData;
-        Chest: TreatedGearData;
-        Hands: TreatedGearData;
-        Legs: TreatedGearData;
-        Feet: TreatedGearData;
+        Head?: ItemData;
+        Chest?: ItemData;
+        Hands?: ItemData;
+        Legs?: ItemData;
+        Feet?: ItemData;
       };
     };
   };
@@ -285,84 +286,91 @@ interface GearSet {
   };
   ClassID: number;
   Gear: {
-    Body: {
+    Body?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Bracelets: {
+    Bracelets?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Earrings: {
+    Earrings?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Feet: {
+    Feet?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Hands: {
+    Hands?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Head: {
+    Head?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Legs: {
+    Legs?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    MainHand: {
+    MainHand?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Necklace: {
+    OffHand?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Ring1: {
+    Necklace?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    Ring2: {
+    Ring1?: {
       Creator: number;
       Dye: number;
       ID: number;
       Materia: number[];
       Mirage: number;
     };
-    SoulCrystal: {
+    Ring2?: {
+      Creator: number;
+      Dye: number;
+      ID: number;
+      Materia: number[];
+      Mirage: number;
+    };
+    SoulCrystal?: {
       Creator: number;
       Dye: number;
       ID: number;

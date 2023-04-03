@@ -1,5 +1,6 @@
 import { ItemData, ItemFetchData } from "@/Types/CharacterData";
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const CreateMateriaSlots = (slots: number, equipped: ItemFetchData[]) => {
   const elements = [];
@@ -50,7 +51,7 @@ const Materias = ({
       <span className="relative opacity-70">Materia</span>
       <div className="grid gap-1">
         {equipped.map((materia) => (
-          <MateriaSlot data={materia} />
+          <MateriaSlot data={materia} key={uuid()} />
         ))}
         {CreateMateriaSlots(slots, equipped)}
       </div>
@@ -83,13 +84,15 @@ const ItemsLevels = ({
 const ItemTooltip = ({ data }: { data: ItemFetchData }) => {
   const { Name } = data;
   return (
-    <div className="absolute bottom-[50%] left-[50%] z-10 grid w-60 gap-2 rounded-lg bg-base-300 p-3 text-sm shadow-md outline outline-1 outline-slate-700">
+    <div className="absolute bottom-[60%] left-[60%] z-10 grid w-60 gap-2 rounded-lg bg-base-300 p-3 text-sm shadow-md outline outline-1 outline-slate-700">
       {Name}
     </div>
   );
 };
 
-const ShowGlamour = ({ data }: { data: ItemFetchData }) => {
+const ShowGlamour = ({ data }: { data: ItemFetchData | null }) => {
+  if (!data) return null;
+
   const { Icon, Name } = data;
   return (
     <div className="grid gap-2">
@@ -103,11 +106,18 @@ const ShowGlamour = ({ data }: { data: ItemFetchData }) => {
 };
 
 export const GearTooltip = ({ data }: { data: ItemData }) => {
-  const { ID, Name, ItemLevel, EquipLevel, MateriaSlots, MateriaEquipped } =
-    data;
+  const {
+    ID,
+    Name,
+    ItemLevel,
+    EquipLevel,
+    MateriaSlots,
+    MateriaEquipped,
+    Glamour,
+  } = data;
 
   return (
-    <div className="absolute bottom-[50%] left-[50%] z-10 grid w-60 gap-2 rounded-lg bg-neutral p-3 text-sm shadow-md outline outline-1 outline-slate-700">
+    <div className="absolute bottom-[20%] left-[80%] z-10 grid w-60 gap-2 rounded-lg bg-neutral p-3 text-sm shadow-md outline outline-1 outline-slate-700">
       <span>{Name}</span>
 
       <div className="divider m-0 h-fit"></div>
@@ -116,11 +126,13 @@ export const GearTooltip = ({ data }: { data: ItemData }) => {
 
       <div className="divider m-0 h-fit"></div>
 
-      <Materias slots={MateriaSlots} equipped={MateriaEquipped} />
+      {MateriaEquipped ? (
+        <Materias slots={MateriaSlots} equipped={MateriaEquipped} />
+      ) : null}
 
       <div className="divider m-0 h-fit"></div>
 
-      <ShowGlamour data={data.Glamour} />
+      {Glamour ? <ShowGlamour data={data.Glamour} /> : null}
 
       <div className="divider m-0 h-fit"></div>
 

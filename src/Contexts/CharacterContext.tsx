@@ -102,8 +102,37 @@ const CharacterContext = createContext<CharacterContextType>({
         Hands: {
           MainHand: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
+          },
+          OffHand: {
+            ID: 0,
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
         },
         Accessories: {
@@ -126,55 +155,175 @@ const CharacterContext = createContext<CharacterContextType>({
           },
           Earrings: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Bracelet: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Ring1: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Ring2: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           SoulCrystal: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
         },
         Body: {
           Head: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Chest: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Hands: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Legs: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Feet: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
         },
       },
@@ -310,8 +459,37 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Hands: {
           MainHand: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
+          },
+          OffHand: {
+            ID: 0,
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
         },
         Accessories: {
@@ -334,55 +512,175 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
           },
           Earrings: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Bracelet: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Ring1: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Ring2: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           SoulCrystal: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
         },
         Body: {
           Head: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Chest: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Hands: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Legs: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
           Feet: {
             ID: 0,
-            Glamour: 0, // TODO: solve Data
-            Materia: [], // TODO: solve Name
+            Name: "",
+            Icon: "",
+            MateriaSlots: 0,
+            EquipLevel: 0,
+            ItemLevel: 0,
+            MateriaEquipped: [],
+            Glamour: {
+              ID: 0,
+              Name: "",
+              Icon: "",
+              MateriaSlots: 0,
+              EquipLevel: 0,
+              ItemLevel: 0,
+            },
           },
         },
       },
@@ -577,12 +875,26 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     else return empty;
   }
 
-  async function getGear(id: number, glamID: number, materiaList: number[]) {
+  async function getGear(
+    id: number | undefined,
+    glamID: number | undefined,
+    materiaList: number[] | undefined
+  ) {
+    const empty = {
+      ID: 0,
+      Name: "",
+      Icon: "",
+      MateriaSlots: [],
+      EquipLevel: 0,
+      ItemLevel: 0,
+      MateriaEquipped: null,
+      Glamour: null,
+    };
+
+    if (!id) return undefined;
+
     const gear = await getItem(id);
-    const glamour = await getItem(glamID);
-    const materia = await Promise.all(
-      materiaList.map(async (mater) => await getItem(mater))
-    );
+
     const result = {
       ID: gear.ID,
       Name: gear.Name,
@@ -590,8 +902,13 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
       MateriaSlots: gear.MateriaSlots,
       EquipLevel: gear.EquipLevel,
       ItemLevel: gear.ItemLevel,
-      MateriaEquipped: materia,
-      Glamour: glamour,
+      MateriaEquipped:
+        materiaList && materiaList.length > 0
+          ? await Promise.all(
+              materiaList.map(async (mater) => await getItem(mater))
+            )
+          : null,
+      Glamour: glamID ? await getItem(glamID) : null,
     };
 
     return result;
@@ -683,76 +1000,75 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         },
         Gear: {
           Hands: {
-            MainHand: {
-              ID: fetch.Character.GearSet.Gear.MainHand.ID,
-              Name: fetch.Character.GearSet.Gear.MainHand.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.MainHand.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.MainHand.Materia, // TODO: solve Name
-            },
+            MainHand: await getGear(
+              fetch.Character.GearSet.Gear.MainHand?.ID,
+              fetch.Character.GearSet.Gear.MainHand?.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.MainHand?.Materia // TODO: solve Name
+            ),
+            OffHand: await getGear(
+              fetch.Character.GearSet.Gear.OffHand?.ID,
+              fetch.Character.GearSet.Gear.OffHand?.Mirage,
+              fetch.Character.GearSet.Gear.OffHand?.Materia
+            ),
           },
           Accessories: {
             Necklace: await getGear(
-              fetch.Character.GearSet.Gear.Necklace.ID,
-              fetch.Character.GearSet.Gear.Necklace.Mirage, // TODO: solve Data
-              fetch.Character.GearSet.Gear.Necklace.Materia // TODO: solve Name
+              fetch.Character.GearSet.Gear.Necklace?.ID,
+              fetch.Character.GearSet.Gear.Necklace?.Mirage,
+              fetch.Character.GearSet.Gear.Necklace?.Materia
             ),
-            Earrings: {
-              ID: fetch.Character.GearSet.Gear.Earrings.ID,
-              Glamour: fetch.Character.GearSet.Gear.Earrings.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Earrings.Materia, // TODO: solve Name
-            },
-            Bracelet: {
-              ID: fetch.Character.GearSet.Gear.Bracelets.ID,
-              Glamour: fetch.Character.GearSet.Gear.Bracelets.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Bracelets.Materia, // TODO: solve Name
-            },
-            Ring1: {
-              ID: fetch.Character.GearSet.Gear.Ring1.ID,
-              Glamour: fetch.Character.GearSet.Gear.Ring1.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Ring1.Materia, // TODO: solve Name
-            },
-            Ring2: {
-              ID: fetch.Character.GearSet.Gear.Ring2.ID,
-              Glamour: fetch.Character.GearSet.Gear.Ring2.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Ring2.Materia, // TODO: solve Name
-            },
-            SoulCrystal: {
-              ID: fetch.Character.GearSet.Gear.SoulCrystal?.ID,
-              Glamour: fetch.Character.GearSet.Gear.SoulCrystal?.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.SoulCrystal?.Materia, // TODO: solve Name
-            },
+            Earrings: await getGear(
+              fetch.Character.GearSet.Gear.Earrings?.ID,
+              fetch.Character.GearSet.Gear.Earrings?.Mirage,
+              fetch.Character.GearSet.Gear.Earrings?.Materia
+            ),
+            Bracelet: await getGear(
+              fetch.Character.GearSet.Gear.Bracelets?.ID,
+              fetch.Character.GearSet.Gear.Bracelets?.Mirage,
+              fetch.Character.GearSet.Gear.Bracelets?.Materia
+            ),
+            Ring1: await getGear(
+              fetch.Character.GearSet.Gear.Ring1?.ID,
+              fetch.Character.GearSet.Gear.Ring1?.Mirage,
+              fetch.Character.GearSet.Gear.Ring1?.Materia
+            ),
+            Ring2: await getGear(
+              fetch.Character.GearSet.Gear.Ring2?.ID,
+              fetch.Character.GearSet.Gear.Ring2?.Mirage,
+              fetch.Character.GearSet.Gear.Ring2?.Materia
+            ),
+            SoulCrystal: await getGear(
+              fetch.Character.GearSet.Gear.SoulCrystal?.ID,
+              fetch.Character.GearSet.Gear.SoulCrystal?.Mirage,
+              fetch.Character.GearSet.Gear.SoulCrystal?.Materia
+            ),
           },
           Body: {
-            Head: {
-              ID: fetch.Character.GearSet.Gear.Head.ID,
-              Name: fetch.Character.GearSet.Gear.Head.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.Head.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Head.Materia, // TODO: solve Name
-            },
-            Chest: {
-              ID: fetch.Character.GearSet.Gear.Body.ID,
-              Name: fetch.Character.GearSet.Gear.Body.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.Body.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Body.Materia, // TODO: solve Name
-            },
-            Hands: {
-              ID: fetch.Character.GearSet.Gear.Hands.ID,
-              Name: fetch.Character.GearSet.Gear.Hands.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.Hands.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Hands.Materia, // TODO: solve Name
-            },
-            Legs: {
-              ID: fetch.Character.GearSet.Gear.Legs.ID,
-              Name: fetch.Character.GearSet.Gear.Legs.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.Legs.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Legs.Materia, // TODO: solve Name
-            },
-            Feet: {
-              ID: fetch.Character.GearSet.Gear.Feet.ID,
-              Name: fetch.Character.GearSet.Gear.Feet.ID, // TODO: solve Name
-              Glamour: fetch.Character.GearSet.Gear.Feet.Mirage, // TODO: solve Data
-              Materia: fetch.Character.GearSet.Gear.Feet.Materia, // TODO: solve Name
-            },
+            Head: await getGear(
+              fetch.Character.GearSet.Gear.Head?.ID,
+              fetch.Character.GearSet.Gear.Head?.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.Head?.Materia // TODO: solve Name
+            ),
+            Chest: await getGear(
+              fetch.Character.GearSet.Gear.Body?.ID,
+              fetch.Character.GearSet.Gear.Body?.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.Body?.Materia // TODO: solve Name
+            ),
+            Hands: await getGear(
+              fetch.Character.GearSet.Gear.Hands?.ID,
+              fetch.Character.GearSet.Gear.Hands?.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.Hands?.Materia // TODO: solve Name
+            ),
+            Legs: await getGear(
+              fetch.Character.GearSet.Gear.Legs?.ID,
+              fetch.Character.GearSet.Gear.Legs?.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.Legs?.Materia // TODO: solve Name
+            ),
+            Feet: await getGear(
+              fetch.Character.GearSet.Gear.Feet?.ID,
+              fetch.Character.GearSet.Gear.Feet?.Mirage, // TODO: solve Data
+              fetch.Character.GearSet.Gear.Feet?.Materia // TODO: solve Name
+            ),
           },
         },
       },
