@@ -35,14 +35,14 @@ export const GearSet = () => {
 
     if (!data)
       return (
-        <div className="h-16 w-16 rounded-lg bg-slate-700 shadow-inner outline outline-1 outline-slate-600" />
+        <div className="h-10 w-10 rounded-lg bg-slate-700 shadow-inner outline outline-1 outline-slate-600 sm:h-16 sm:w-16" />
       );
 
     const { Name, Icon } = data;
 
     return (
       <div
-        className="relative h-16 w-16 rounded-lg outline outline-1 outline-slate-600"
+        className="relative h-10 w-10 rounded-lg outline outline-1 outline-slate-600 sm:h-16 sm:w-16"
         onMouseOver={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         onClick={() => {
@@ -62,7 +62,7 @@ export const GearSet = () => {
       const { Name, Image, Level } = useCharacter().char.ActiveStats.Job;
 
       return (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between">
           <div className="flex items-center gap-2">
             <img
               src={Image}
@@ -90,7 +90,7 @@ export const GearSet = () => {
         <img
           src={Portrait}
           alt={Name}
-          className="max-h-[600px] rounded-lg outline outline-1 outline-slate-600"
+          className="max-h-[700px] rounded-lg outline outline-1 outline-slate-600"
         />
       </div>
     );
@@ -104,7 +104,7 @@ export const GearSet = () => {
         </div>
         <div className="grid gap-2">
           <GearPiece data={Gear.Hands.MainHand} />
-          <div className="h-16 w-16" />
+          <div className="h-10 w-10 sm:h-16 sm:w-16" />
           <GearPiece data={Gear.Body.Head} />
           <GearPiece data={Gear.Body.Chest} />
           <GearPiece data={Gear.Body.Hands} />
