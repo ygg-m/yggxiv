@@ -1,4 +1,4 @@
-const levelModifiers = [
+export const levelModifiers = [
   {
     Level: 1,
     Main: 20,
