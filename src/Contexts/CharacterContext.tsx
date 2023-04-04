@@ -106,6 +106,14 @@ const CharacterContext = createContext<CharacterContextType>({
           Tenacity: 0,
           Piety: 0,
         },
+        Craft: {
+          Craftsmanship: 0,
+          Control: 0,
+        },
+        Gather: {
+          Gathering: 0,
+          Perception: 0,
+        },
       },
       Gear: {
         Hands: {
@@ -471,6 +479,14 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         Role: {
           Tenacity: 0,
           Piety: 0,
+        },
+        Craft: {
+          Craftsmanship: 0,
+          Control: 0,
+        },
+        Gather: {
+          Gathering: 0,
+          Perception: 0,
         },
       },
       Gear: {
@@ -1037,6 +1053,14 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
           Role: {
             Tenacity: fetch.Character.GearSet.Attributes[19],
             Piety: fetch.Character.GearSet.Attributes[6],
+          },
+          Craft: {
+            Craftsmanship: fetch.Character.GearSet.Attributes[70],
+            Control: fetch.Character.GearSet.Attributes[71],
+          },
+          Gather: {
+            Gathering: fetch.Character.GearSet.Attributes[72],
+            Perception: fetch.Character.GearSet.Attributes[73],
           },
         },
         Gear: {

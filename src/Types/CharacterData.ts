@@ -104,6 +104,14 @@ export interface TreatedCharData {
         Tenacity: number;
         Piety: number;
       };
+      Craft: {
+        Craftsmanship: number;
+        Control: number;
+      };
+      Gather: {
+        Gathering: number;
+        Perception: number;
+      };
     };
     Gear: {
       Hands: {
@@ -277,6 +285,10 @@ interface GearSet {
     "44": number;
     "45": number;
     "46": number;
+    "70": number;
+    "71": number;
+    "72": number;
+    "73": number;
   };
   ClassID: number;
   Gear: {

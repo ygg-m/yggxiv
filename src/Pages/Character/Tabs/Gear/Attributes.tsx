@@ -2,7 +2,7 @@ import { useCharacter } from "@/Contexts/CharacterContext";
 import { levelModifiers } from "@/Data/levelModifiers";
 
 export const Attributes = () => {
-  const { Base, Offensive, Defensive, Physical, Mental, Role } =
+  const { Base, Offensive, Defensive, Physical, Mental, Role, Craft, Gather } =
     useCharacter().char.ActiveStats.Attributes;
   const { Level } = useCharacter().char.ActiveStats.Job;
 
@@ -209,6 +209,34 @@ export const Attributes = () => {
     </div>
   );
 
+  const CraftAtt = () => (
+    <div className="flex w-full flex-col gap-2">
+      <div className="w-full border-b border-slate-600 pb-2 text-lg">Craft</div>
+      <div className="grid gap-4">
+        <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
+          <Attribute name="Craftsmanship" value={Craft.Craftsmanship} />
+          <div className="h-[1px] w-full bg-slate-700"></div>
+          <Attribute name="Control" value={Craft.Control} />
+        </div>
+      </div>
+    </div>
+  );
+
+  const GatherAtt = () => (
+    <div className="flex w-full flex-col gap-2">
+      <div className="w-full border-b border-slate-600 pb-2 text-lg">
+        Gathering
+      </div>
+      <div className="grid gap-4">
+        <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
+          <Attribute name="Gathering" value={Gather.Gathering} />
+          <div className="h-[1px] w-full bg-slate-700"></div>
+          <Attribute name="Perception" value={Gather.Perception} />
+        </div>
+      </div>
+    </div>
+  );
+
   const RoleAtt = () => (
     <div className="grid gap-2">
       <div className="border-b border-slate-600 pb-2 text-lg">Role</div>
@@ -238,11 +266,11 @@ export const Attributes = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-8">
-          <PhysicalAtt />
-          <MentalAtt />
+          {Mental.AttackMagicPotency ? <MentalAtt /> : <PhysicalAtt />}
+          {Craft.Craftsmanship ? <CraftAtt /> : null}
+          {Gather.Gathering ? <GatherAtt /> : null}
+          {Role.Tenacity ? <RoleAtt /> : null}
         </div>
-
-        <RoleAtt />
       </div>
     </section>
   );

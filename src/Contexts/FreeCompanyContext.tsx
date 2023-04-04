@@ -204,6 +204,10 @@ export const FreeCompanyProvider: React.FC<FreeCompanyProviderProps> = ({
               "44": 0,
               "45": 0,
               "46": 0,
+              "70": 0,
+              "71": 0,
+              "72": 0,
+              "73": 0,
             },
             ClassID: 0,
             Gear: {
