@@ -1,47 +1,55 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
+import { levelModifiers } from "@/Data/levelModifiers";
 
 export const Attributes = () => {
   const { Base, Offensive, Defensive, Physical, Mental, Role } =
     useCharacter().char.ActiveStats.Attributes;
+  const { Level } = useCharacter().char.ActiveStats.Job;
+
+  const { Sub, Main, Div } = levelModifiers.find((e) => e.Level === Level) || {
+    Level: 90,
+    Main: 390,
+    Sub: 400,
+    Div: 1900,
+  };
 
   function getCritRate() {
     const Crit = Offensive.CriticalHitRate;
 
-    const result = Math.floor((200 * (Crit - 400)) / 1900 + 50) / 10;
+    const result = Math.floor((200 * (Crit - Sub)) / Div + 50) / 10;
 
     return result < 5 ? `5%` : `${result}%`;
-  } // TODO : add level calc
+  }
 
   function getCritDamage() {
     const Crit = Offensive.CriticalHitRate;
 
-    const calc = Math.floor((200 * (Crit - 400)) / 1900 + 1400) / 1000;
+    const calc = Math.floor((200 * (Crit - Sub)) / Div + 1400) / 1000;
     const result = parseFloat((calc * 100 - 100).toFixed(2));
 
     return result < 40 ? `+${40}%` : `+${result}%`;
-  } // TODO : add level calc
-
+  }
   function getDirectHitChance() {
     const DH = Offensive.DirectHitRate;
 
-    const result = Math.floor((550 * (DH - 400)) / 1900) / 10;
+    const result = Math.floor((550 * (DH - Sub)) / Div) / 10;
 
     return result > 100 ? `${100}%` : result < 0 ? `${0}%` : `${result}%`;
-  } // TODO : add level calc
+  }
 
   function getDeterminationDamage() {
     const Det = Offensive.Determination;
 
-    const calc = Math.floor((130 * (Det - 390)) / 1900 + 1000) / 1000;
+    const calc = Math.floor((130 * (Det - Main)) / Div + 1000) / 1000;
     const result = parseFloat((calc * 100 - 100).toFixed(2));
 
     return result > 100 ? `+${100}%` : result < 0 ? `+${0}%` : `+${result}%`;
-  } // TODO : add level calc
+  }
 
   function getTenacityDamage() {
     const Ten = Role.Tenacity;
 
-    const calc = Math.floor((100 * (Ten - 400)) / 1900 + 1000) / 1000;
+    const calc = Math.floor((100 * (Ten - Sub)) / Div + 1000) / 1000;
     const result = calc * 100 - 100;
 
     return result < 1 ? "+1%" : `+${result}%`;
@@ -59,7 +67,7 @@ export const Attributes = () => {
     const Speed = Physical.SkillSpeed;
 
     const result =
-      Math.floor(2.5 * (1000 - (130 * (Speed - 400)) / 1900) * 10) / 10000;
+      Math.floor(2.5 * (1000 - (130 * (Speed - Sub)) / Div) * 10) / 10000;
 
     return `${result.toFixed(2)}s`;
   }
@@ -68,7 +76,7 @@ export const Attributes = () => {
     const Speed = Mental.SpellSpeed;
 
     const result =
-      Math.floor(2.5 * (1000 - (130 * (Speed - 400)) / 1900) * 10) / 10000;
+      Math.floor(2.5 * (1000 - (130 * (Speed - Sub)) / Div) * 10) / 10000;
 
     return `${result.toFixed(2)}s`;
   }
