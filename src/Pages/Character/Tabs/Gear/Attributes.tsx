@@ -56,7 +56,8 @@ export const Attributes = () => {
   function getSkillSpeed250GCD() {
     const Speed = Physical.SkillSpeed;
 
-=    const result = Math.floor(2.50 *(1000-(130*(Speed-400)/1900))*10)/10000;
+    const result =
+      Math.floor(2.5 * (1000 - (130 * (Speed - 400)) / 1900) * 10) / 10000;
 
     return result;
   }
