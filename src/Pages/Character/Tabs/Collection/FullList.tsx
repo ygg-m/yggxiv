@@ -47,7 +47,7 @@ export const Item = ({ Data, Obtained }: ItemProps) => {
       <h4 className="text-center">{Name}</h4>
     </div>
   ) : (
-    <div className="grid place-items-center gap-2 rounded-lg bg-base-300 p-2 opacity-30  duration-300 hover:bg-base-100 hover:opacity-70">
+    <div className="grid place-items-center gap-2 rounded-lg bg-base-300 p-2 opacity-30  duration-100 hover:bg-base-100 hover:opacity-70">
       <img src={Portrait} alt={Name} className="grayscale-50" />
       <h4 className="text-center">{Name}</h4>
     </div>

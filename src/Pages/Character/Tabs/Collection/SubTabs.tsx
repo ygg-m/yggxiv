@@ -7,8 +7,8 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
     key={uuid()}
     className={({ isActive }) =>
       isActive
-        ? "tab-active tab duration-300"
-        : "tab tabs-boxed bg-transparent duration-300 hover:bg-base-200"
+        ? "tab-active tab duration-100"
+        : "tab tabs-boxed bg-transparent duration-100 hover:bg-base-200"
     }
   >
     {name}
@@ -23,8 +23,8 @@ export const SubTabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
         key={uuid()}
         className={({ isActive }) =>
           isActive || isDefaultPath
-            ? "tab-active tab tab-lifted duration-300"
-            : "tab tab-lifted duration-300"
+            ? "tab-active tab tab-lifted duration-100"
+            : "tab tab-lifted duration-100"
         }
       >
         Mounts

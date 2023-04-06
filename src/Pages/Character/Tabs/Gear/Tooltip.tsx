@@ -151,7 +151,7 @@ export const GearTooltip = ({ data }: { data: ItemData }) => {
       <div className="grid gap-2">
         <a
           href={`https://www.garlandtools.org/db/#item/${ID}`}
-          className="w-full rounded-lg bg-base-100 p-1 text-center duration-300 hover:bg-primary-focus hover:text-neutral"
+          className="w-full rounded-lg bg-base-100 p-1 text-center duration-100 hover:bg-primary-focus hover:text-neutral"
         >
           See in Garland Tools
         </a>

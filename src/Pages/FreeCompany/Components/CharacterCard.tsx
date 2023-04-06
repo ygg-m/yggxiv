@@ -17,7 +17,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <Link to={`/Character/${ID}`}>
-      <article className="flex cursor-pointer gap-4 rounded-lg bg-base-300 p-6 duration-300 hover:bg-base-100">
+      <article className="flex cursor-pointer gap-4 rounded-lg bg-base-300 p-6 duration-100 hover:bg-base-100">
         <img
           src={Avatar}
           alt={`Profile Picture from ${Name}`}

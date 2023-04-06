@@ -29,7 +29,7 @@ const Counter = ({ Count }: { Count: number }) => {
 
   return (
     <div
-      className="tooltip col-span-1 grid cursor-default place-items-center rounded-lg text-primary duration-300 hover:bg-base-300"
+      className="tooltip col-span-1 grid cursor-default place-items-center rounded-lg text-primary duration-100 hover:bg-base-300"
       data-tip={`${
         percentage > 1 ? Math.floor(percentage) : percentage.toFixed(1)
       }%`}
@@ -49,7 +49,7 @@ export const Item = ({ data, index, query }: CollectibleItemListProps) => {
   const [showOwner, setShowOwner] = useState<boolean>(false);
 
   return (
-    <div className="grid gap-2 border-b border-neutral-700 bg-neutral py-1 duration-300 hover:bg-base-100">
+    <div className="grid gap-2 border-b border-neutral-700 bg-neutral py-1 duration-100 hover:bg-base-100">
       <div className="grid grid-cols-[2rem_3rem_4rem_1fr_140px] grid-rows-1 gap-2">
         <Placement Index={index} />
         <Icon Name={name} Icon={cIcon} />

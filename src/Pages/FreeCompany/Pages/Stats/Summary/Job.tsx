@@ -77,7 +77,7 @@ const JobData = ({ data }: JobProps) => {
   // bg-gatherer
 
   return (
-    <div className="grid gap-4 rounded-lg bg-base-200 p-4 pt-6 duration-300 hover:bg-base-300">
+    <div className="grid gap-4 rounded-lg bg-base-200 p-4 pt-6 duration-100 hover:bg-base-300">
       <div className="grid justify-center gap-2">
         <img
           src={ImageSrc}

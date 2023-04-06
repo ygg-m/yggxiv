@@ -83,7 +83,7 @@ export const Members = () => {
   const FilterContent = () => {
     return (
       <div
-        className={`duration-300 ${
+        className={`duration-100 ${
           filterMemberOpen ? "visible mt-4 h-fit px-2" : "invisible h-0"
         }`}
       >

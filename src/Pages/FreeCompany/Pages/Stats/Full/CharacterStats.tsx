@@ -202,7 +202,7 @@ const Race = ({ data }: RaceProps) => {
   };
 
   return (
-    <div className="flex min-h-[300px] items-center gap-4 rounded-lg bg-base-200 p-4 pl-6 duration-300 hover:bg-base-300">
+    <div className="flex min-h-[300px] items-center gap-4 rounded-lg bg-base-200 p-4 pl-6 duration-100 hover:bg-base-300">
       <div className="flex flex-col place-items-center gap-2">
         <div className="tooltip" data-tip={CharName}>
           <img src={Avatar} alt={Name} className="mask mask-squircle w-24" />

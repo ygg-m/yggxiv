@@ -91,7 +91,7 @@ export const Attributes = () => {
 
   const Attribute = ({ name, value }: { name: string; value: number }) => {
     return (
-      <div className="flex items-center justify-between gap-2 rounded-lg bg-base-200 px-3 py-1 duration-300 hover:bg-base-300 hover:text-accent">
+      <div className="flex items-center justify-between gap-2 rounded-lg bg-base-200 px-3 py-1 duration-100 hover:bg-base-300 hover:text-accent">
         <span className="w-fit opacity-70">{name}</span>
         <span className="">{value}</span>
       </div>
@@ -100,7 +100,7 @@ export const Attributes = () => {
 
   const SubAttribute = ({ name, value }: { name: string; value: string }) => {
     return (
-      <div className="flex items-center justify-between gap-2 rounded-lg bg-base-200 px-3 py-1 text-sm duration-300 hover:bg-base-300 hover:text-accent">
+      <div className="flex items-center justify-between gap-2 rounded-lg bg-base-200 px-3 py-1 text-sm duration-100 hover:bg-base-300 hover:text-accent">
         <span className="w-fit opacity-70">{name}</span>
         <span className="">{value}</span>
       </div>

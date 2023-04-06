@@ -27,7 +27,7 @@ export const Achievement = () => {
     return (
       <Link
         to={`/Character/${ID}`}
-        className="-order-1 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[530px] sm:w-64"
+        className="-order-1 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg p-2 text-center duration-100 hover:bg-base-300 sm:order-2 sm:h-[530px] sm:w-64"
       >
         <div className="grid justify-center px-4 pb-2 text-gold">
           <span className="text-center text-lg font-extrabold ">
@@ -40,7 +40,7 @@ export const Achievement = () => {
           <img
             src={Portrait}
             alt={Name}
-            className="w-full object-cover duration-300 sm:h-full"
+            className="w-full object-cover duration-100 sm:h-full"
           />
           <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-gold bg-neutral bg-opacity-90 px-2 pb-2">
             <h3 className="text-2xl">{Name}</h3>
@@ -63,7 +63,7 @@ export const Achievement = () => {
     return (
       <Link
         to={`/Character/${ID}`}
-        className="order-1 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[430px] sm:w-52"
+        className="order-1 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-100 hover:bg-base-300 sm:order-2 sm:h-[430px] sm:w-52"
       >
         <div className="grid justify-center px-4 pb-2 text-silver">
           <span className="text-center text-lg font-extrabold ">
@@ -76,7 +76,7 @@ export const Achievement = () => {
           <img
             src={Portrait}
             alt={Name}
-            className="h-full rounded-xl object-cover outline outline-1 outline-silver duration-300"
+            className="h-full rounded-xl object-cover outline outline-1 outline-silver duration-100"
           />
           <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-silver bg-neutral bg-opacity-90 px-2 pb-2">
             <h3 className="text-xl">{Name}</h3>
@@ -99,7 +99,7 @@ export const Achievement = () => {
     return (
       <Link
         to={`/Character/${ID}`}
-        className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-300 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52"
+        className="order-3 flex cursor-pointer flex-col items-center justify-center gap-3 self-end rounded-lg p-2 text-center duration-100 hover:bg-base-300 sm:order-2 sm:h-[380px] sm:w-52"
       >
         <div className="grid justify-center px-4 pb-2 text-bronze">
           <span className="text-center text-lg font-extrabold ">
@@ -112,7 +112,7 @@ export const Achievement = () => {
           <img
             src={Portrait}
             alt={Name}
-            className="h-full rounded-xl object-cover outline outline-1 outline-bronze duration-300"
+            className="h-full rounded-xl object-cover outline outline-1 outline-bronze duration-100"
           />
           <div className="absolute bottom-0 grid w-full rounded-xl border-t border-t-bronze bg-neutral bg-opacity-90 px-2 pb-2">
             <h3 className="text-xl">{Name}</h3>
@@ -138,7 +138,7 @@ export const Achievement = () => {
             <div key={uuidv4()}>
               <Link
                 to={`/Character/${ID}`}
-                className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-300 hover:border-transparent hover:bg-base-100 sm:justify-between"
+                className="flex cursor-pointer flex-row items-center gap-4 p-4 duration-100 hover:border-transparent hover:bg-base-100 sm:justify-between"
               >
                 <div className="flex w-24 flex-row items-center gap-4">
                   <span className="w-8 text-center sm:text-left">

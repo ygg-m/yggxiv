@@ -7,8 +7,8 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
     key={uuidv4()}
     className={({ isActive }) =>
       isActive
-        ? "tab tab-lifted tab-active tab-lg duration-300"
-        : "tab tab-lifted tab-lg duration-300"
+        ? "tab-active tab tab-lifted tab-lg duration-100"
+        : "tab tab-lifted tab-lg duration-100"
     }
   >
     {name}
@@ -24,8 +24,8 @@ export const Navigator = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
           key={uuidv4()}
           className={({ isActive }) =>
             isActive || isDefaultPath
-              ? "tab tab-lifted tab-active tab-lg duration-300"
-              : "tab tab-lifted tab-lg duration-300"
+              ? "tab-active tab tab-lifted tab-lg duration-100"
+              : "tab tab-lifted tab-lg duration-100"
           }
         >
           Info

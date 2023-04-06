@@ -19,7 +19,7 @@ export const CollectibleInfo = ({ data }: Props) => {
     ).slice(0, 10);
 
     return (
-      <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-300 hover:bg-base-100">
+      <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-100 hover:bg-base-100">
         <div className="flex justify-between">
           <span className="opacity-70">Rarest Mounts</span>
           <span>
@@ -59,7 +59,7 @@ export const CollectibleInfo = ({ data }: Props) => {
     ).slice(0, 10);
 
     return (
-      <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-300 hover:bg-base-100">
+      <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-100 hover:bg-base-100">
         <div className="flex justify-between">
           <span>Rarest Minions</span>
           <span>

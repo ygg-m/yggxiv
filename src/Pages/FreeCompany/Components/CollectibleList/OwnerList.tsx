@@ -19,7 +19,7 @@ export const OwnerList = ({
     return (
       <Link
         to={`/Character/${ID}`}
-        className={`tooltip z-10 w-12 rounded-lg p-1 duration-300 hover:bg-neutral ${
+        className={`tooltip z-10 w-12 rounded-lg p-1 duration-100 hover:bg-neutral ${
           queryOwner ? "bg-primary text-neutral hover:text-neutral-content" : ""
         }`}
         data-tip={Name}

@@ -28,7 +28,7 @@ export const Bozjan = ({ data }: { data: ClassJobsBozjan }) => {
     );
 
   return data ? (
-    <article className="flex w-full items-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
+    <article className="flex w-full items-center gap-4 rounded-lg bg-base-200 p-4 duration-100 hover:bg-base-300">
       <Image />
 
       <div className="grid">

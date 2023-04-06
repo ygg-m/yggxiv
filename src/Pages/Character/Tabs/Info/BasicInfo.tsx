@@ -7,7 +7,7 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     const isBioEmpty = Bio === "" || Bio === "-";
 
     return !isBioEmpty ? (
-      <div className="h-fit w-full rounded-lg bg-base-200 p-4 text-center duration-300 hover:bg-base-300">
+      <div className="h-fit w-full rounded-lg bg-base-200 p-4 text-center duration-100 hover:bg-base-300">
         {Bio}
       </div>
     ) : null;
@@ -20,7 +20,7 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     } = data.Profile;
 
     return (
-      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-100 hover:bg-base-300">
         <div className="flex items-center gap-2">
           <span className="opacity-70">Race:</span> {Name}
         </div>
@@ -41,7 +41,7 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     } = data.Profile;
 
     return (
-      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
+      <div className="grid gap-2 rounded-lg bg-base-200 p-4 duration-100 hover:bg-base-300">
         <div className="flex items-center gap-2">
           <span className="opacity-70">Birthday:</span>{" "}
           <span className="tooltip" data-tip={Nameday.Full}>
@@ -68,7 +68,7 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     const { Name, Icon, Rank } = data.GrandCompany;
 
     return (
-      <div className="flex items-center justify-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-base-300">
+      <div className="flex items-center justify-center gap-4 rounded-lg bg-base-200 p-4 duration-100 hover:bg-base-300">
         <img src={Icon} alt={Name} className="h-12 w-12" />
         <div className="grid">
           <span className="opacity-70">Grand Company</span>
@@ -88,7 +88,7 @@ export const BasicInfo = ({ data }: { data: TreatedCharData }) => {
     return (
       <Link
         to={`/FreeCompany/${ID}`}
-        className="flex items-center justify-center gap-4 rounded-lg bg-base-200 p-4 duration-300 hover:bg-neutral"
+        className="flex items-center justify-center gap-4 rounded-lg bg-base-200 p-4 duration-100 hover:bg-neutral"
       >
         <div className="mask mask-squircle relative h-12 w-12">
           <img src={Crest[0]} alt={Name} className="absolute" />
