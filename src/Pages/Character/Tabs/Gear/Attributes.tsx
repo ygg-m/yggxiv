@@ -81,6 +81,14 @@ export const Attributes = () => {
     return `${result.toFixed(2)}s`;
   }
 
+  function getMPRegen() {
+    const Piety = Role.Piety;
+
+    const result = Math.floor((Piety - 340) / 22);
+
+    return result > 0 ? `+ ${result} MP/tick` : "+0 MP/tick";
+  }
+
   const Attribute = ({ name, value }: { name: string; value: number }) => {
     return (
       <div className="flex items-center justify-between gap-2 rounded-lg bg-base-200 px-3 py-1 duration-300 hover:bg-base-300 hover:text-accent">
@@ -238,9 +246,9 @@ export const Attributes = () => {
   );
 
   const RoleAtt = () => (
-    <div className="grid gap-2">
+    <div className="flex flex-col gap-2">
       <div className="border-b border-slate-600 pb-2 text-lg">Role</div>
-      <div className="grid grid-cols-2 items-start gap-4">
+      <div className="grid items-start gap-4">
         <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
           <Attribute name="Tenacity" value={Role.Tenacity} />
           <SubAttribute name="Damage Increase" value={getTenacityDamage()} />
@@ -248,6 +256,7 @@ export const Attributes = () => {
 
         <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
           <Attribute name="Piety" value={Role.Piety} />
+          <SubAttribute name="MP Regen" value={getMPRegen()} />
         </div>
       </div>
     </div>
