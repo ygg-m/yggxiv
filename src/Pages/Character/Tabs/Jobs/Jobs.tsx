@@ -7,7 +7,7 @@ import { Bozjan, Elemental, JobList } from "./";
 // bg-gatherer
 // bg-crafter
 
-export const CharJobs = () => {
+export const Jobs = () => {
   const { char } = useCharacter();
   const { Battle, CraftGather, Bozjan: BozData, Elemental: ElData } = char.Jobs;
 

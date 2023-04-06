@@ -2,7 +2,7 @@ import { useCharacter } from "@/Contexts/CharacterContext";
 import { BasicInfo } from "./BasicInfo";
 import { CollectibleInfo } from "./CollectibleInfo";
 
-export const CharInfo = () => {
+export const Info = () => {
   const { char } = useCharacter();
 
   return (

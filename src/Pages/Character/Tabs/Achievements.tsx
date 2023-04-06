@@ -1,3 +1,3 @@
-export const CharAchievements = () => {
+export const Achievements = () => {
   return <div>CharAchievements</div>;
 };

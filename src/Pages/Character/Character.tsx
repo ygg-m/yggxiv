@@ -4,7 +4,7 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import { Banner } from "./Components/Banner";
 import { Header } from "./Components/Header";
 import { Navigator } from "./Navigartor";
-import { CharInfo } from "./Tabs";
+import { CharInfo } from ".";
 
 export const Character = () => {
   const { char } = useCharacter();

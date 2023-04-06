@@ -13,11 +13,14 @@ import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import {
   CharAchievements,
   CharCollection,
+  CharCollectionContent,
+  CharCollectionExpansion,
+  CharCollectionFullList,
   CharGear,
   CharInfo,
   CharJobs,
   CharStats,
-} from "./Pages/Character/Tabs";
+} from "./Pages/Character";
 import {
   Achievement,
   Minion,
@@ -100,7 +103,15 @@ const router = createHashRouter([
         element: <Character />,
         children: [
           { path: "Info", element: <CharInfo /> },
-          { path: "Collection", element: <CharCollection /> },
+          {
+            path: "Collection",
+            element: <CharCollection />,
+            children: [
+              { path: "FullList", element: <CharCollectionFullList /> },
+              { path: "Expansion", element: <CharCollectionExpansion /> },
+              { path: "Content", element: <CharCollectionContent /> },
+            ],
+          },
           { path: "Achievements", element: <CharAchievements /> },
           { path: "Stats", element: <CharStats /> },
           { path: "Jobs", element: <CharJobs /> },
