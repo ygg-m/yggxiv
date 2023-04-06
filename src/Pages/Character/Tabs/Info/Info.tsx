@@ -4,6 +4,7 @@ import { CollectibleInfo } from "./CollectibleInfo";
 
 export const Info = () => {
   const { char } = useCharacter();
+  const { Mounts, Minions } = useCharacter().char.Collection;
 
   return (
     <section className="grid gap-4 pb-8">

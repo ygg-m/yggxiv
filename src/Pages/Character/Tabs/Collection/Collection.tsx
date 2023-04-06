@@ -11,7 +11,7 @@ export const Collection = () => {
   );
 
   return (
-    <section className="grid gap-2">
+    <section className="grid gap-2 mb-8">
       <Tabs isDefaultPath={isDefaultPath} />
       <Outlet />
       {isDefaultPath ? <FullList /> : null}

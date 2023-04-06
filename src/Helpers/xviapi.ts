@@ -236,7 +236,7 @@ export async function getMinions(): Promise<CollectibleData[]> {
       ID: minion.ID,
       Name: capitalizeText(minion.Name),
       Icon: `http://xivapi.com/${minion.IconHD}`,
-      Portrait: `http://xivapi.com/${minion.Icon}`,
+      Portrait: `http://xivapi.com${minion.Icon}`,
       FFXIVCollectData: FFXIVCollectData,
     };
   }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");

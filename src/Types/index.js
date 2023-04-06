@@ -2,6 +2,7 @@ export {
   AchievementsTypes,
   CharacterData,
   CharCardData,
+  CharCollectibleData,
   ClassJobs,
   ClassJobsBozjan,
   ClassJobsElemental,
