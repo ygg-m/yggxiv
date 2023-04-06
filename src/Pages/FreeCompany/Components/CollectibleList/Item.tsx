@@ -1,8 +1,6 @@
 import { useFreeCompany } from "@/Contexts/FreeCompanyContext";
 import { CollectibleTypes } from "@/Types";
-import { CharCardData } from "@/Types/index";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { v4 as uuid } from "uuid";
+import { useState } from "react";
 import { OwnerList } from "./OwnerList";
 
 interface CollectibleItemListProps {
