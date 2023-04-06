@@ -41,7 +41,7 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
     if (local[0].ID !== 0) setMounts(local);
     else {
       const data = await getMounts();
-      setMounts(data);
+      setMounts(data.filter((e) => e.Icon !== ""));
       saveData("MountsData", data);
     }
   }, []);
@@ -51,7 +51,7 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
     if (local[0].ID !== 0) setMinions(local);
     else {
       const data = await getMinions();
-      setMinions(data);
+      setMinions(data.filter((e) => e.Icon !== ""));
       saveData("MinionData", data);
     }
   }, []);

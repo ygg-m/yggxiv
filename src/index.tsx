@@ -16,6 +16,8 @@ import {
   CharCollectionContent,
   CharCollectionExpansion,
   CharCollectionFullList,
+  CharCollectionFullListMinions,
+  CharCollectionFullListMounts,
   CharGear,
   CharInfo,
   CharJobs,
@@ -107,7 +109,17 @@ const router = createHashRouter([
             path: "Collection",
             element: <CharCollection />,
             children: [
-              { path: "FullList", element: <CharCollectionFullList /> },
+              {
+                path: "FullList",
+                element: <CharCollectionFullList />,
+                children: [
+                  { path: "Mounts", element: <CharCollectionFullListMounts /> },
+                  {
+                    path: "Minions",
+                    element: <CharCollectionFullListMinions />,
+                  },
+                ],
+              },
               { path: "Expansion", element: <CharCollectionExpansion /> },
               { path: "Content", element: <CharCollectionContent /> },
             ],

@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { FullList } from "./FullList";
 import { Tabs } from "./Tabs";
 
 export const Collection = () => {
@@ -10,8 +11,10 @@ export const Collection = () => {
   );
 
   return (
-    <section>
+    <section className="grid gap-2">
       <Tabs isDefaultPath={isDefaultPath} />
+      <Outlet />
+      {isDefaultPath ? <FullList /> : null}
     </section>
   );
 };

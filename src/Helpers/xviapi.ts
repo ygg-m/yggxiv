@@ -1,4 +1,3 @@
-import { mountSources } from "@/Data/mountSources";
 import axios from "axios";
 import pLimit from "p-limit";
 import {
@@ -163,7 +162,7 @@ export async function getCharacterList(
 }
 
 export async function getMounts(): Promise<CollectibleData[]> {
-  const url = "https://xivapi.com/Mount?columns=ID,IconHD,Name&limit=3000";
+  const url = "https://xivapi.com/Mount?columns=ID,IconHD,Name,Icon&limit=3000";
   const FFCollectMountData = await getFFCollectMounts();
 
   const response = await axios.get(url);
@@ -173,12 +172,14 @@ export async function getMounts(): Promise<CollectibleData[]> {
     ID: number;
     Name: string;
     IconHD: string;
+    Icon: string;
   }
 
   interface ResultType {
     ID: number;
     Name: string;
     Icon: string;
+    Portrait: string;
     FFXIVCollectData: CollectData;
   }
 
@@ -191,6 +192,7 @@ export async function getMounts(): Promise<CollectibleData[]> {
       ID: mount.ID,
       Name: capitalizeText(mount.Name),
       Icon: `http://xivapi.com/${mount.IconHD}`,
+      Portrait: `http://xivapi.com${mount.Icon}`,
       FFXIVCollectData: FFXIVCollectData,
     };
   }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");
@@ -203,7 +205,8 @@ export async function getMounts(): Promise<CollectibleData[]> {
 }
 
 export async function getMinions(): Promise<CollectibleData[]> {
-  const url = "https://xivapi.com/Companion?columns=ID,IconHD,Name&limit=3000";
+  const url =
+    "https://xivapi.com/Companion?columns=ID,IconHD,Name,Icon&limit=3000";
   const FFCollectMinionData = await getFFCollectMinion();
 
   const response = await axios.get(url);
@@ -213,12 +216,14 @@ export async function getMinions(): Promise<CollectibleData[]> {
     ID: number;
     Name: string;
     IconHD: string;
+    Icon: string;
   }
 
   interface ResultType {
     ID: number;
     Name: string;
     Icon: string;
+    Portrait: string;
     FFXIVCollectData: CollectData;
   }
 
@@ -231,6 +236,7 @@ export async function getMinions(): Promise<CollectibleData[]> {
       ID: minion.ID,
       Name: capitalizeText(minion.Name),
       Icon: `http://xivapi.com/${minion.IconHD}`,
+      Portrait: `http://xivapi.com/${minion.Icon}`,
       FFXIVCollectData: FFXIVCollectData,
     };
   }).filter((m: ResultType) => typeof m.FFXIVCollectData !== "undefined");

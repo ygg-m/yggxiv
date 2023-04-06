@@ -457,6 +457,7 @@ export interface raceData {
 export interface CollectibleData {
   ID: number;
   Icon: string;
+  Portrait: string;
   Name: string;
   FFXIVCollectData: CollectData;
 }
