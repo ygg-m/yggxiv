@@ -187,7 +187,7 @@ export const MountList = () => {
         <Count />
         <div className="form-control">
           <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
-            <span className="label-text text-primary">Only Obtained</span>
+            <span className="label-text text-primary">Obtained Only</span>
             <input
               type="checkbox"
               className="checkbox-primary checkbox"
@@ -311,7 +311,7 @@ export const MinionList = () => {
         <Count />
         <div className="form-control">
           <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
-            <span className="label-text text-primary">Only Obtained</span>
+            <span className="label-text text-primary">Obtained Only</span>
             <input
               type="checkbox"
               className="checkbox-primary checkbox"
