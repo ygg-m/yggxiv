@@ -105,10 +105,10 @@ export const GearSet = () => {
 
         <div className="grid gap-2">
           <GearPiece data={Gear.Hands.MainHand} />
-          <div className="h-10 w-10 sm:h-16 sm:w-16" />
           <GearPiece data={Gear.Body.Head} />
           <GearPiece data={Gear.Body.Chest} />
           <GearPiece data={Gear.Body.Hands} />
+          <GearPiece data={Gear.Body.Legs} />
           <GearPiece data={Gear.Body.Feet} />
         </div>
       </div>
