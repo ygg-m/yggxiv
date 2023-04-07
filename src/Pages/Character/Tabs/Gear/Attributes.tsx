@@ -4,7 +4,7 @@ import { levelModifiers } from "@/Data/levelModifiers";
 export const Attributes = () => {
   const { Base, Offensive, Defensive, Physical, Mental, Role, Craft, Gather } =
     useCharacter().char.ActiveStats.Attributes;
-  const { Level } = useCharacter().char.ActiveStats.Job;
+  const { Level, Role: JobRole } = useCharacter().char.ActiveStats.Job;
 
   const { Sub, Main, Div } = levelModifiers.find((e) => e.Level === Level) || {
     Level: 90,
@@ -49,8 +49,8 @@ export const Attributes = () => {
   function getTenacityDamage() {
     const Ten = Role.Tenacity;
 
-    const calc = Math.floor((100 * (Ten - Sub)) / Div + 1000) / 1000;
-    const result = calc * 100 - 100;
+    const calc = ((100 * (Ten - Sub)) / Div + 1000) / 1000;
+    const result = Math.floor(calc * 100 - 100);
 
     return result < 1 ? "+1%" : `+${result}%`;
   }
@@ -249,15 +249,17 @@ export const Attributes = () => {
     <div className="flex flex-col gap-2">
       <div className="border-b border-slate-600 pb-2 text-lg">Role</div>
       <div className="grid items-start gap-4">
-        <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
-          <Attribute name="Tenacity" value={Role.Tenacity} />
-          <SubAttribute name="Damage Increase" value={getTenacityDamage()} />
-        </div>
-
-        <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
-          <Attribute name="Piety" value={Role.Piety} />
-          <SubAttribute name="MP Regen" value={getMPRegen()} />
-        </div>
+        {JobRole === "Tank" ? (
+          <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
+            <Attribute name="Tenacity" value={Role.Tenacity} />
+            <SubAttribute name="Damage Increase" value={getTenacityDamage()} />
+          </div>
+        ) : (
+          <div className="rounded-lg bg-base-200 outline outline-1 outline-slate-700">
+            <Attribute name="Piety" value={Role.Piety} />
+            <SubAttribute name="MP Regen" value={getMPRegen()} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -275,10 +277,14 @@ export const Attributes = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-8">
-          {Mental.AttackMagicPotency ? <MentalAtt /> : <PhysicalAtt />}
+          {Mental.AttackMagicPotency > Physical.AttackPower ? (
+            <MentalAtt />
+          ) : (
+            <PhysicalAtt />
+          )}
           {Craft.Craftsmanship ? <CraftAtt /> : null}
           {Gather.Gathering ? <GatherAtt /> : null}
-          {Role.Tenacity ? <RoleAtt /> : null}
+          {JobRole === "Tank" || JobRole === "Heale" ? <RoleAtt /> : null}
         </div>
       </div>
     </section>
