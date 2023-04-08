@@ -11,6 +11,7 @@ import {
   filterBySourceCheck,
   filterObtained,
   FullListCollectibleProps,
+  getSources,
 } from "./helpers";
 
 export const FullList = () => {
@@ -53,8 +54,8 @@ const SubTabs = ({
         key={uuid()}
         className={({ isActive }) =>
           isActive || isDefaultPath || isMainPath
-            ? "tab-active tab tab-lifted duration-100"
-            : "tab tab-lifted duration-100"
+            ? "tab-lifted tab tab-active duration-100"
+            : "tab-lifted tab duration-100"
         }
       >
         Mounts
@@ -64,8 +65,8 @@ const SubTabs = ({
         key={uuid()}
         className={({ isActive }) =>
           isActive
-            ? "tab-active tab tab-lifted duration-100"
-            : "tab tab-lifted duration-100"
+            ? "tab-lifted tab tab-active duration-100"
+            : "tab-lifted tab duration-100"
         }
       >
         Minions
@@ -80,6 +81,8 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
   const [listIndex, setListIndex] = useState(32);
   const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
   const [showOnlyObtained, setShowOnlyObtained] = useState<boolean>(true);
+
+  const sourceList = getSources(List);
 
   const list = useMemo<CollectibleTreatedData[]>(
     () =>
@@ -143,7 +146,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
 
   return (
     <article className="grid gap-2">
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Count />
 
         <div className="form-control">
@@ -159,13 +162,9 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
           </label>
         </div>
 
-        <Label Filter="Premium" />
-        <Label Filter="Limited" />
-        <Label Filter="Event" />
-        <Label Filter="Achievement" />
-        <Label Filter="PvP" />
-        <Label Filter="Trial" />
-        <Label Filter="Raid" />
+        {sourceList.map((source) => {
+          return <Label Filter={source} />;
+        })}
       </div>
 
       <CollectibleList

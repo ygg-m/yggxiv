@@ -163,13 +163,6 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
         {sourceList.map((source) => {
           return <Label Filter={source} />;
         })}
-        {/* <Label Filter="Premium" />
-        <Label Filter="Limited" />
-        <Label Filter="Event" />
-        <Label Filter="Achievement" />
-        <Label Filter="PvP" />
-        <Label Filter="Trial" />
-        <Label Filter="Raid" /> */}
       </>
     );
 
