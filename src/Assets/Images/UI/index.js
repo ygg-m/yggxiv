@@ -1,3 +1,4 @@
+export { ReactComponent as BehanceIcon } from "./behance.svg";
 export { ReactComponent as ChevronDownIcon } from "./chevron-down.svg";
 export { ReactComponent as ChevronRightIcon } from "./chevron-right.svg";
 export { ReactComponent as DiscordIcon } from "./discord.svg";
@@ -14,3 +15,4 @@ export { ReactComponent as SearchIcon } from "./Search.svg";
 export { ReactComponent as TrophyIcon } from "./trophy.svg";
 export { ReactComponent as TwitterIcon } from "./twitter.svg";
 export { ReactComponent as FemaleIcon } from "./venus.svg";
+export { ReactComponent as WebIcon } from "./web.svg";

@@ -1,9 +1,11 @@
 import {
+  BehanceIcon,
   DiscordIcon,
   GithubIcon,
   KofiIcon,
   PaypalIcon,
   TwitterIcon,
+  WebIcon,
 } from "../Assets/Images/UI";
 
 import YggDrasilBerry from "@/Assets/Images/UI/yggdrasilberry.png";
@@ -11,18 +13,17 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="footer items-center justify-center gap-2 bg-neutral p-4 px-8 text-neutral-content md:justify-between">
-      <div className="grid-flow-col items-center">
+    <footer className="footer bg-base-200 p-10 text-base-content">
+      <div className="flex items-center">
         <img src={YggDrasilBerry} alt="YggDrasil Berry" />
         <p>
-          Website by{" "}
-          <a href="https://linktr.ee/yggm" className="link">
-            Ygor Goulart
-          </a>{" "}
-          (<Link to="/Character/29518378" className="link">
+          <Link to="/Character/29518378" className="link-hover link-primary">
             Ygg Lart
-          </Link>){" "}
-          using{" "}
+          </Link>
+          <br />
+          Providing useful websites since 2022.
+          <br />
+          Ygg XIV made with{" "}
           <a href="https://xivapi.com/" className="link">
             XIVAPI
           </a>{" "}
@@ -30,41 +31,68 @@ export const Footer = () => {
           <a href="https://ffxivcollect.com/" className="link">
             FFXIV Collect
           </a>
+          .
         </p>
       </div>
-      <div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+      <div>
+        <span className="footer-title m-0">About Me</span>
         <a
-          href="https://github.com/ygg-m/yggxiv"
-          className="btn-square btn hover:bg-primary hover:text-neutral"
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+          href=""
         >
-          <GithubIcon className="h-8 w-8" />
-        </a>
-        <div className="divider divider-horizontal m-0"></div>
-        <a
-          href="https://twitter.com/yggm_"
-          className="btn-square btn hover:bg-primary hover:text-neutral"
-        >
-          <TwitterIcon className="h-8 w-8" />
+          <WebIcon className="h-4 w-4" />
+          Website
         </a>
         <a
-          href="https://discord.com/invite/ZapfK82Fjk"
-          className="btn-square btn hover:bg-primary hover:text-neutral"
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+          href=""
         >
-          <DiscordIcon className="h-8 w-8" />
-        </a>
-        <div className="divider divider-horizontal m-0"></div>
-        <a
-          href="https://ko-fi.com/yggm_"
-          className="btn-square btn hover:bg-primary hover:text-neutral"
-        >
-          <KofiIcon className="h-8 w-8" />
+          <GithubIcon className="h-4 w-4" />
+          GitHub
         </a>
         <a
-          href="https://www.paypal.com/donate/?business=3GPA48HHRS6Y6&no_recurring=0&item_name=Thank+you+so+much+for+your+kindness%21%0AYou%27re+helping+to+make+my+project+bright%21&currency_code=BRL"
-          className="btn-square btn hover:bg-primary hover:text-neutral"
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+          href=""
         >
-          <PaypalIcon className="h-8 w-8" />
+          <BehanceIcon className="h-4 w-4" />
+          Behance
         </a>
+        <a
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+          href=""
+        >
+          <DiscordIcon className="h-4 w-4" />
+          Discord
+        </a>
+      </div>
+      <div>
+        <span className="footer-title m-0">Support Me</span>
+        <a
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+          href=""
+        >
+          <PaypalIcon className="h-4 w-4" />
+          PayPal
+        </a>
+        <a
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+          href=""
+        >
+          <KofiIcon className="h-4 w-4" />
+          Ko-Fi
+        </a>
+      </div>
+      <div>
+        <span className="footer-title m-0">Social</span>
+        <div className="grid grid-flow-col gap-4">
+          <a
+            className="flex cursor-pointer items-center gap-2 rounded-lg p-1 px-2 duration-100 hover:bg-neutral hover:text-primary"
+            href=""
+          >
+            <TwitterIcon className="h-4 w-4" />
+            Twitter
+          </a>
+        </div>
       </div>
     </footer>
   );
