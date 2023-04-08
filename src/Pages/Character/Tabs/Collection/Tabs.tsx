@@ -23,8 +23,8 @@ export const Tabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
         key={uuidv4()}
         className={({ isActive }) =>
           isActive || isDefaultPath
-            ? "tab-active tab tab-lifted tab-lg duration-100"
-            : "tab tab-lifted tab-lg duration-100"
+            ? "tab-active tab tab-lg duration-100"
+            : "tab tab-lg duration-100"
         }
       >
         Full List
