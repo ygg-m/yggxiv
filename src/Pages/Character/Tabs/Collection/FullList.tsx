@@ -1,17 +1,17 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
 import { useGameData } from "@/Contexts/GameDataContext";
 import { scrollToTop } from "@/Helpers";
-import { CollectibleData } from "@/Types";
+import { CollectibleData, CollectibleTreatedData } from "@/Types";
 import { useMemo, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { CollectibleList } from "./CollectibleList";
-import { SubTabs } from "./SubTabs";
-
-interface CollectibleTreatedData {
-  Obtained: boolean;
-  Data: CollectibleData;
-}
+import {
+  emptyItem,
+  filterBySourceCheck,
+  filterObtained,
+  FullListCollectibleProps,
+} from "./helpers";
 
 export const FullList = () => {
   const isDefaultPath = /Collection/.test(
@@ -39,44 +39,40 @@ export const FullList = () => {
   );
 };
 
-function filterBySourceCheck(list: CollectibleTreatedData[], state: string[]) {
-  return state.length > 0
-    ? list.filter((mount: CollectibleTreatedData) =>
-        mount.Data.FFXIVCollectData.Sources.some((e) => state.includes(e.type))
-      )
-    : list;
-}
-
-function filterObtained(list: CollectibleTreatedData[]) {
-  return list.filter(
-    (mount: CollectibleTreatedData) => mount.Obtained === true
+const SubTabs = ({
+  isDefaultPath,
+  isMainPath,
+}: {
+  isDefaultPath: boolean;
+  isMainPath?: boolean;
+}) => {
+  return (
+    <nav className="tabs tabs-boxed grid h-fit w-fit rounded-lg bg-base-100 p-1 md:grid-cols-2">
+      <NavLink
+        to={isDefaultPath ? "FullList/Mounts" : "Mounts"}
+        key={uuid()}
+        className={({ isActive }) =>
+          isActive || isDefaultPath || isMainPath
+            ? "tab-active tab tab-lifted duration-100"
+            : "tab tab-lifted duration-100"
+        }
+      >
+        Mounts
+      </NavLink>
+      <NavLink
+        to={isDefaultPath ? "FullList/Minions" : "Minions"}
+        key={uuid()}
+        className={({ isActive }) =>
+          isActive
+            ? "tab-active tab tab-lifted duration-100"
+            : "tab tab-lifted duration-100"
+        }
+      >
+        Minions
+      </NavLink>
+    </nav>
   );
-}
-
-const emptyItem: CollectibleTreatedData[] = [
-  {
-    Obtained: false,
-    Data: {
-      ID: 0,
-      Icon: "",
-      Portrait: "",
-      Name: "",
-      FFXIVCollectData: {
-        Id: 0,
-        Patch: "",
-        Seats: "",
-        Tradeable: false,
-        Owned: 0,
-        Sources: [],
-      },
-    },
-  },
-];
-
-interface FullListCollectibleProps {
-  List: CollectibleTreatedData[];
-  FullList: CollectibleData[];
-}
+};
 
 const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
   const FalseList = !List[0]?.Data.Name || !FullList[0]?.Name;
@@ -174,6 +170,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
 
       <CollectibleList
         FilteredList={list.slice(0, listIndex)}
+        ListLength={list.length}
         Index={listIndex}
         setIndex={setListIndex}
       />

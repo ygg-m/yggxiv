@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 
 interface Props {
   FilteredList: CollectibleTreatedData[];
+  ListLength: number;
   Index: number;
   setIndex: Function;
 }
@@ -31,9 +32,14 @@ const Item = ({ Data, Obtained }: ItemProps) => {
   );
 };
 
-export const CollectibleList = ({ FilteredList, Index, setIndex }: Props) => {
+export const CollectibleList = ({
+  FilteredList,
+  ListLength,
+  Index,
+  setIndex,
+}: Props) => {
   return (
-    <>
+    <div className="grid gap-4">
       <div className="grid grid-cols-4 gap-2 lg:grid-cols-7 xl:grid-cols-8">
         {FilteredList.map((Collectible) => {
           const { Obtained, Data } = Collectible;
@@ -41,14 +47,14 @@ export const CollectibleList = ({ FilteredList, Index, setIndex }: Props) => {
         })}
       </div>
 
-      {FilteredList.length > Index ? (
+      {ListLength > Index ? (
         <button
-          className="btn-primary btn"
+          className="btn-primary btn w-full"
           onClick={() => setIndex(Index + 32)}
         >
           Show More
         </button>
       ) : null}
-    </>
+    </div>
   );
 };
