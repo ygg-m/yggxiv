@@ -136,7 +136,7 @@ export interface TreatedCharData {
     };
   };
   Achievements: {
-    List: AchievementList[];
+    List: TreatedAchievementData[];
     Points: number;
     Public: boolean;
   };
@@ -166,6 +166,12 @@ export interface CollectibleTreatedData {
   Data: CollectibleData;
 }
 
+export interface TreatedAchievementData {
+  Obtained: boolean;
+  Date: Date | undefined;
+  Data: AchievementData;
+}
+
 export interface CharacterData {
   Achievements: Achievements;
   AchievementsPublic: boolean;
@@ -191,7 +197,7 @@ interface Achievements {
   Points: number;
 }
 
-interface AchievementList {
+export interface AchievementList {
   Date: number;
   ID: number;
 }

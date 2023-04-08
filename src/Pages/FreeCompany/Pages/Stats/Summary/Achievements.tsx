@@ -121,6 +121,24 @@ const RarestAchievements = ({ data }: RareAchievementProps) => {
       Category: "Legacy",
       Icon: "/img-misc/lodestone/blog_avatar.jpg",
       Description: "Looks like no one got any achievement in this Category.",
+      FFXIVCollectData: {
+        Id: 0,
+        Patch: "",
+        Owned: "",
+        Reward: {
+          type: "",
+          name: "",
+          title: {
+            id: 0,
+            name: "",
+            female_name: "",
+            order: 0,
+            patch: "",
+            owned: "",
+            icon: "",
+          },
+        },
+      },
     },
     Owners: [],
   };

@@ -1,4 +1,4 @@
-export { Achievements as CharAchievements } from "./Tabs/Achievements";
+export { Achievements as CharAchievements } from "./Tabs/Achievements/Achievements";
 export { Collection as CharCollection } from "./Tabs/Collection/Collection";
 export { Content as CharCollectionContent } from "./Tabs/Collection/Content";
 export {
@@ -14,4 +14,4 @@ export {
 export { Gear as CharGear } from "./Tabs/Gear/Gear";
 export { Info as CharInfo } from "./Tabs/Info/Info";
 export { Jobs as CharJobs } from "./Tabs/Jobs/Jobs";
-export { Stats as CharStats } from "./Tabs/Stats";
+export { Stats as CharStats } from "./Tabs/Stats/Stats";

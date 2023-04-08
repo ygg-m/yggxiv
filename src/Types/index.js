@@ -12,6 +12,7 @@ export {
   ItemFetchData,
   jobData,
   raceData,
+  TreatedAchievementData,
   TreatedCharData,
   TreatedJobData,
 } from "./CharacterData";

@@ -5,6 +5,8 @@ import { races } from "@/Data/races";
 import { getCharacter } from "@/Helpers";
 import { getCity, getItem, getTitle } from "@/Helpers/xviapi";
 import {
+  AchievementData,
+  AchievementList,
   ClassJobs,
   Collectible,
   CollectibleData,
@@ -391,7 +393,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
   children,
 }) => {
   const { charId } = useParams();
-  const { mounts, minions } = useGameData();
+  const { mounts, minions, achievements } = useGameData();
 
   const CharacterID = parseInt(charId || "0");
 
@@ -871,25 +873,6 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     });
   }
 
-  function filterBySourceCheck(
-    list: CollectibleTreatedData[],
-    state: string[]
-  ) {
-    return state.length > 0
-      ? list.filter((mount: CollectibleTreatedData) =>
-          mount.Data.FFXIVCollectData.Sources.some((e) =>
-            state.includes(e.type)
-          )
-        )
-      : list;
-  }
-
-  function filterObtained(list: CollectibleTreatedData[]) {
-    return list.filter(
-      (mount: CollectibleTreatedData) => mount.Obtained === true
-    );
-  }
-
   function getMountData(arr: Collectible[]) {
     const data = arr.map(
       (e) =>
@@ -910,6 +893,31 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     );
 
     return createCollectibleList(data, minions);
+  }
+
+  function createAchievementList(ownedList: AchievementList[]) {
+    return achievements.map((e: AchievementData) => {
+      const data = ownedList.find((a) => a.ID === e.ID) as AchievementList;
+
+      const result = {
+        Obtained: ownedList.some((a) => a.ID === e.ID),
+        Date: new Date(data?.Date * 1000),
+        Data: e,
+      };
+
+      return result;
+    });
+  }
+
+  function getAchievements(arr: AchievementList[]) {
+    const data = arr.map(
+      (e) =>
+        achievements.find(
+          (a: CollectibleData) => a.ID === e.ID
+        ) as CollectibleData
+    );
+
+    return createAchievementList(data);
   }
 
   function getJobData(job: ClassJobs): TreatedJobData {
@@ -1174,7 +1182,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
         },
       },
       Achievements: {
-        List: fetch.Achievements.List,
+        List: getAchievements(fetch.Achievements.List),
         Points: fetch.Achievements.Points,
         Public: fetch.AchievementsPublic,
       },
