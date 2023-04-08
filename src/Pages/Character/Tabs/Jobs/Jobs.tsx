@@ -1,5 +1,5 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
-import { scrollToBottom } from "@/Helpers";
+import { scrollToTop } from "@/Helpers";
 import { Bozjan, Elemental, JobList } from "./";
 
 // bg-tank
@@ -12,7 +12,7 @@ export const Jobs = () => {
   const { char } = useCharacter();
   const { Battle, CraftGather, Bozjan: BozData, Elemental: ElData } = char.Jobs;
 
-  scrollToBottom();
+  scrollToTop(336);
 
   const SpecialJobs = () => {
     return BozData || ElData ? (
