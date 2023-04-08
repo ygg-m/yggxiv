@@ -49,3 +49,15 @@ export const emptyItem: CollectibleTreatedData[] = [
     },
   },
 ];
+
+export function getSources(list: CollectibleTreatedData[]) {
+  const uniqueSources = new Set<string>();
+
+  for (const collectible of list) {
+    for (const source of collectible.Data.FFXIVCollectData.Sources) {
+      uniqueSources.add(source.type);
+    }
+  }
+
+  return Array.from(uniqueSources);
+}

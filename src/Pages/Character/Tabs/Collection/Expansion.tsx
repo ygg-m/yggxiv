@@ -12,6 +12,7 @@ import {
   filterBySourceCheck,
   filterObtained,
   FullListCollectibleProps,
+  getSources,
 } from "./helpers";
 
 export const Expansion = () => {
@@ -90,6 +91,8 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
       [listIndex, checkedKeys, showOnlyObtained, FalseList]
     );
 
+    const sourceList = getSources(filterByPatch(List, Patch));
+
     if (FalseList) return null;
     const changeCheckFilter = async (
       event: React.ChangeEvent<HTMLInputElement>
@@ -157,13 +160,16 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
             />
           </label>
         </div>
-        <Label Filter="Premium" />
+        {sourceList.map((source) => {
+          return <Label Filter={source} />;
+        })}
+        {/* <Label Filter="Premium" />
         <Label Filter="Limited" />
         <Label Filter="Event" />
         <Label Filter="Achievement" />
         <Label Filter="PvP" />
         <Label Filter="Trial" />
-        <Label Filter="Raid" />
+        <Label Filter="Raid" /> */}
       </>
     );
 
@@ -179,7 +185,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
           </div>
 
           {showList ? (
-            <div className="flex flex-wrap gap-2 px-4 pb-4 ">
+            <div className="flex flex-wrap gap-2 px-4 pb-4">
               <Labels />
             </div>
           ) : null}
