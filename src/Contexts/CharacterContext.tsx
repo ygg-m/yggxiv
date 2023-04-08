@@ -1252,7 +1252,7 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
 
   useEffect(() => {
     if (charId) fetchCharacter();
-  }, [charId, mounts, minions]);
+  }, [charId, mounts, minions, achievements]);
 
   const value: CharacterContextType = { char };
   return (

@@ -38,3 +38,16 @@ export const fcLoadingPhrases = [
   "Please be patient, the page is downloading the courage and bravery needed to embark on this Free Company.",
   "Sorry for the delay, our Chocobo ran out of stamina.",
 ];
+
+export const achievLoadingPhrases = [
+  "We're getting your achievements faster than a Chocobo on caffeine!",
+  "Hold on tight, our Moogle messengers are working hard to gather your achievements.",
+  "Don't worry, our Lalafell miners are digging through the data as we speak.",
+  "Our Garlean spies are infiltrating the system to retrieve your achievements. Don't tell anyone!",
+  "Be patient, our Cactuar couriers are delivering your achievements as we speak.",
+  "Your achievements are being gathered by the infamous Eorzean ninja, so it may take a little longer than expected.",
+  "Our Tonberry scribes are carefully transcribing your achievements onto parchment. Don't worry, they won't stab you in the back... probably.",
+  "Your achievements are currently in transit on the back of a Behemoth. We hope it doesn't decide to stop for a nap!",
+  "Please wait while our Hrothgar hunters track down your achievements. They're pretty good at finding things... and eating them.",
+  "Our Carbuncle assistants are working hard to bring your achievements to you. They're small, but mighty!",
+];

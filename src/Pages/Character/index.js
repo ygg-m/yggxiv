@@ -1,4 +1,6 @@
 export { Achievements as CharAchievements } from "./Tabs/Achievements/Achievements";
+export { Expansion as CharAchievementsExpansion } from "./Tabs/Achievements/Expansion";
+export { FullList as CharAchievementsFullList } from "./Tabs/Achievements/FullList";
 export { Collection as CharCollection } from "./Tabs/Collection/Collection";
 export { Content as CharCollectionContent } from "./Tabs/Collection/Content";
 export {
