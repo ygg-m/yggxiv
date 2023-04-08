@@ -163,7 +163,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
         </div>
 
         {sourceList.map((source) => {
-          return <Label Filter={source} />;
+          return <Label key={uuid()} Filter={source} />;
         })}
       </div>
 
