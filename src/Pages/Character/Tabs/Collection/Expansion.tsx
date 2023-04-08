@@ -170,10 +170,12 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
       <article className="grid rounded-lg outline outline-1 outline-gray-700 duration-100 hover:outline-primary">
         <div className="relative z-0 grid rounded-lg before:absolute before:-z-10 before:h-full before:w-full before:rounded-lg before:bg-neutral before:bg-opacity-50">
           <div
-            className="flex w-full cursor-pointer flex-col justify-between p-4 text-white duration-100 hover:text-primary md:flex-row"
+            className="flex w-full gap-4 cursor-pointer flex-col justify-between p-4 text-white duration-100 hover:text-primary md:flex-row"
             onClick={() => setShowList(!showList)}
           >
-            <h1 className="h-fit text-6xl font-black uppercase">{Name}</h1>
+            <h1 className="h-fit text-2xl font-black uppercase sm:text-4xl md:text-5xl lg:text-6xl">
+              {Name}
+            </h1>
             <Count />
           </div>
 
