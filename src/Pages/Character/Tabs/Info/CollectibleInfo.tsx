@@ -1,21 +1,18 @@
 import { useGameData } from "@/Contexts/GameDataContext";
-import { CollectibleData } from "@/Types";
+import { CollectibleData, CollectibleTreatedData } from "@/Types";
 import { v4 as uuid } from "uuid";
 
 interface Props {
-  data: {
-    Mounts: CollectibleData[];
-    Minions: CollectibleData[];
-  };
+  Mounts: CollectibleTreatedData[];
+  Minions: CollectibleTreatedData[];
 }
 
-export const CollectibleInfo = ({ data }: Props) => {
+export const CollectibleInfo = ({ Mounts, Minions }: Props) => {
   const RarestMounts = () => {
-    const { Mounts } = data;
     const { mounts } = useGameData();
 
     const List = Mounts.sort(
-      (a, b) => a.FFXIVCollectData.Owned - b.FFXIVCollectData.Owned
+      (a, b) => a.Data.FFXIVCollectData.Owned - b.Data.FFXIVCollectData.Owned
     ).slice(0, 10);
 
     return (
@@ -36,11 +33,11 @@ export const CollectibleInfo = ({ data }: Props) => {
             <div
               className="tooltip w-12"
               key={uuid()}
-              data-tip={`${mount.Name} - ${mount.FFXIVCollectData.Owned}% Owned Globally`}
+              data-tip={`${mount.Data.Name} - ${mount.Data.FFXIVCollectData.Owned}% Owned Globally`}
             >
               <img
-                src={mount.Icon}
-                alt={mount.Name}
+                src={mount.Data.Icon}
+                alt={mount.Data.Name}
                 className="mask mask-squircle h-full w-full duration-200 hover:scale-125"
               />
             </div>
@@ -51,11 +48,10 @@ export const CollectibleInfo = ({ data }: Props) => {
   };
 
   const RarestMinions = () => {
-    const { Minions } = data;
     const { minions } = useGameData();
 
     const List = Minions.sort(
-      (a, b) => a.FFXIVCollectData.Owned - b.FFXIVCollectData.Owned
+      (a, b) => a.Data.FFXIVCollectData.Owned - b.Data.FFXIVCollectData.Owned
     ).slice(0, 10);
 
     return (
@@ -76,11 +72,11 @@ export const CollectibleInfo = ({ data }: Props) => {
             <div
               className="tooltip w-12"
               key={uuid()}
-              data-tip={`${mount.Name} - ${mount.FFXIVCollectData.Owned}% Owned Globally`}
+              data-tip={`${mount.Data.Name} - ${mount.Data.FFXIVCollectData.Owned}% Owned Globally`}
             >
               <img
-                src={mount.Icon}
-                alt={mount.Name}
+                src={mount.Data.Icon}
+                alt={mount.Data.Name}
                 className="mask mask-squircle h-full w-full duration-200 hover:scale-125"
               />
             </div>

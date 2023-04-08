@@ -8,6 +8,7 @@ import {
   ClassJobs,
   Collectible,
   CollectibleData,
+  CollectibleTreatedData,
   TreatedCharData,
   TreatedJobData,
 } from "@/Types";
@@ -856,24 +857,59 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     else return empty;
   }
 
+  function createCollectibleList(
+    ownedList: CollectibleData[],
+    fullList: CollectibleData[]
+  ): CollectibleTreatedData[] {
+    return fullList.map((e: CollectibleData) => {
+      return {
+        Obtained: ownedList.some(
+          (a) => a.Name.toLowerCase() === e.Name.toLowerCase()
+        ),
+        Data: e,
+      };
+    });
+  }
+
+  function filterBySourceCheck(
+    list: CollectibleTreatedData[],
+    state: string[]
+  ) {
+    return state.length > 0
+      ? list.filter((mount: CollectibleTreatedData) =>
+          mount.Data.FFXIVCollectData.Sources.some((e) =>
+            state.includes(e.type)
+          )
+        )
+      : list;
+  }
+
+  function filterObtained(list: CollectibleTreatedData[]) {
+    return list.filter(
+      (mount: CollectibleTreatedData) => mount.Obtained === true
+    );
+  }
+
   function getMountData(arr: Collectible[]) {
-    const data = arr.map((e) =>
-      mounts.find(
-        (a: CollectibleData) => a.Name.toLowerCase() === e.Name.toLowerCase()
-      )
+    const data = arr.map(
+      (e) =>
+        mounts.find(
+          (a: CollectibleData) => a.Name.toLowerCase() === e.Name.toLowerCase()
+        ) as CollectibleData
     );
 
-    return data;
+    return createCollectibleList(data, mounts);
   }
 
   function getMinionData(arr: Collectible[]) {
-    const data = arr.map((e) =>
-      minions.find(
-        (a: CollectibleData) => a.Name.toLowerCase() === e.Name.toLowerCase()
-      )
+    const data = arr.map(
+      (e) =>
+        minions.find(
+          (a: CollectibleData) => a.Name.toLowerCase() === e.Name.toLowerCase()
+        ) as CollectibleData
     );
 
-    return data;
+    return createCollectibleList(data, minions);
   }
 
   function getJobData(job: ClassJobs): TreatedJobData {

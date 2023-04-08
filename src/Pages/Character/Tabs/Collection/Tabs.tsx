@@ -17,7 +17,7 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
 
 export const Tabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
   return (
-    <nav className="tabs tabs-boxed grid h-fit rounded-lg bg-base-100 p-2 md:grid-cols-3">
+    <nav className="tabs tabs-boxed grid h-fit rounded-lg bg-base-100 p-2 md:grid-cols-2">
       <NavLink
         to="FullList"
         key={uuidv4()}
@@ -31,7 +31,6 @@ export const Tabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
       </NavLink>
 
       <Tab path="Expansion" name="Expansion" />
-      <Tab path="Content" name="Content" />
     </nav>
   );
 };

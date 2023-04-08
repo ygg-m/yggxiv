@@ -3,15 +3,15 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { getAchievements, getMinions, getMounts } from "../Helpers/xviapi";
 
 type GameDataContextType = {
-  mounts: any;
-  minions: any;
-  achievements: any;
+  mounts: CollectibleData[];
+  minions: CollectibleData[];
+  achievements: AchievementList[];
 };
 
 const GameDataContext = createContext<GameDataContextType>({
-  mounts: {},
-  minions: {},
-  achievements: {},
+  mounts: [],
+  minions: [],
+  achievements: [],
 });
 
 export const useGameData = () => useContext(GameDataContext);

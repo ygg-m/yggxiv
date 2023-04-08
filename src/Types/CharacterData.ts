@@ -141,8 +141,8 @@ export interface TreatedCharData {
     Public: boolean;
   };
   Collection: {
-    Mounts: CollectibleData[];
-    Minions: CollectibleData[];
+    Mounts: CollectibleTreatedData[];
+    Minions: CollectibleTreatedData[];
   };
   Jobs: {
     Bozjan: ClassJobsBozjan;
@@ -159,6 +159,11 @@ export interface TreatedCharData {
       Gather: TreatedJobData[];
     };
   };
+}
+
+export interface CollectibleTreatedData {
+  Obtained: boolean;
+  Data: CollectibleData;
 }
 
 export interface CharacterData {
