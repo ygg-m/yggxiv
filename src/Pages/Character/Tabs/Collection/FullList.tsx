@@ -1,5 +1,6 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
 import { useGameData } from "@/Contexts/GameDataContext";
+import { scrollToTop } from "@/Helpers";
 import { CollectibleData } from "@/Types";
 import { useMemo, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -12,20 +13,27 @@ interface CollectibleTreatedData {
 }
 
 export const FullList = () => {
-  const { Mounts, Minions } = useCharacter().char.Collection;
-
-  const isDefaultPath = /FullList|Collection/.test(
+  const isDefaultPath = /Collection/.test(
     useLocation()
       .pathname.split("/")
       .filter((e) => e !== "")
       .reverse()[0]
   );
 
+  const isMainPath = /FullList/.test(
+    useLocation()
+      .pathname.split("/")
+      .filter((e) => e !== "")
+      .reverse()[0]
+  );
+
+  scrollToTop(336);
+
   return (
     <section className="grid gap-2 rounded-t-lg">
-      <SubTabs isDefaultPath={isDefaultPath} />
+      <SubTabs isDefaultPath={isDefaultPath} isMainPath={isMainPath} />
       <Outlet />
-      {isDefaultPath ? <MountList /> : null}
+      {isDefaultPath || isMainPath ? <MountList /> : null}
     </section>
   );
 };

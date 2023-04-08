@@ -15,22 +15,37 @@ const Tab = ({ path, name }: { path: string; name: string }) => (
   </NavLink>
 );
 
-export const SubTabs = ({ isDefaultPath }: { isDefaultPath: boolean }) => {
+export const SubTabs = ({
+  isDefaultPath,
+  isMainPath,
+}: {
+  isDefaultPath: boolean;
+  isMainPath: boolean;
+}) => {
   return (
     <nav className="tabs tabs-boxed grid h-fit w-fit rounded-lg bg-base-100 p-1 md:grid-cols-2">
       <NavLink
-        to="Mounts"
+        to={isDefaultPath ? "FullList/Mounts" : "Mounts"}
         key={uuid()}
         className={({ isActive }) =>
-          isActive || isDefaultPath
+          isActive || isDefaultPath || isMainPath
             ? "tab-active tab tab-lifted duration-100"
             : "tab tab-lifted duration-100"
         }
       >
         Mounts
       </NavLink>
-
-      <Tab path="Minions" name="Minions" />
+      <NavLink
+        to={isDefaultPath ? "FullList/Minions" : "Minions"}
+        key={uuid()}
+        className={({ isActive }) =>
+          isActive
+            ? "tab-active tab tab-lifted duration-100"
+            : "tab tab-lifted duration-100"
+        }
+      >
+        Minions
+      </NavLink>
     </nav>
   );
 };

@@ -7,6 +7,7 @@ export { parseAlliedGC } from "./parseAlliedGrandCompany";
 export { parseDate } from "./parseDate";
 export { parseEstatePlot } from "./parseEstatePlot";
 export { parseStaff } from "./parseStaff";
+export { scrollToBottom, scrollToTop } from "./scrollTo";
 export { shuffleArray } from "./shuffleArray";
 export { throttle } from "./throttle";
 export {
