@@ -81,6 +81,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
   const [listIndex, setListIndex] = useState(32);
   const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
   const [showOnlyObtained, setShowOnlyObtained] = useState<boolean>(true);
+  const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
   const sourceList = getSources(List);
 
@@ -131,7 +132,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
 
   const Label = ({ Filter }: { Filter: string }) => (
     <div className="form-control">
-      <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
+      <label className="label cursor-pointer gap-2 rounded-lg px-3">
         <span className="label-text">{Filter}</span>
         <input
           type="checkbox"
@@ -162,9 +163,32 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
           </label>
         </div>
 
-        {sourceList.map((source) => {
-          return <Label key={uuid()} Filter={source} />;
-        })}
+        <div className="dropdown dropdown-hover">
+          <label
+            tabIndex={0}
+            className="flex cursor-pointer items-center gap-2 rounded-lg bg-base-100 p-2 px-4 capitalize duration-100 hover:bg-primary hover:text-neutral"
+            onClick={() => setOpenDropdown(!openDropdown)}
+          >
+            <svg
+              className="fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 512 512"
+            >
+              <path d="M0 416c0-17.7 14.3-32 32-32l54.7 0c12.3-28.3 40.5-48 73.3-48s61 19.7 73.3 48L480 384c17.7 0 32 14.3 32 32s-14.3 32-32 32l-246.7 0c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48L32 448c-17.7 0-32-14.3-32-32zm192 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM384 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm-32-80c32.8 0 61 19.7 73.3 48l54.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-54.7 0c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48L32 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l246.7 0c12.3-28.3 40.5-48 73.3-48zM192 64a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm73.3 0L480 64c17.7 0 32 14.3 32 32s-14.3 32-32 32l-214.7 0c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48L32 128C14.3 128 0 113.7 0 96S14.3 64 32 64l86.7 0C131 35.7 159.2 16 192 16s61 19.7 73.3 48z" />
+            </svg>
+            Filter by Sources
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu rounded-box max-h-[70vh] w-52 flex-nowrap overflow-auto bg-base-300 p-2 shadow outline outline-1 outline-gray-600"
+          >
+            {sourceList.map((source) => {
+              return <Label key={uuid()} Filter={source} />;
+            })}
+          </ul>
+        </div>
       </div>
 
       <CollectibleList

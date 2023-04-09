@@ -61,6 +61,130 @@ const Item = ({ data }: { data: TreatedAchievementData }) => {
   );
 };
 
+interface LabelProps {
+  Filter: string;
+  checkedKeys: string[];
+  setCheckedKeys: Function;
+}
+
+const Label = ({ Filter, checkedKeys, setCheckedKeys }: LabelProps) => {
+  const changeCheckFilter = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value, checked } = event.target;
+
+    if (checked) setCheckedKeys([...checkedKeys, value]);
+    else setCheckedKeys(checkedKeys.filter((key) => key !== value));
+  };
+
+  return (
+    <div className="form-control">
+      <label className="label cursor-pointer gap-2 rounded-lg px-3">
+        <span className="label-text">{Filter}</span>
+        <input
+          type="checkbox"
+          className="checkbox"
+          value={Filter}
+          checked={checkedKeys.includes(Filter)}
+          onChange={changeCheckFilter}
+        />
+      </label>
+    </div>
+  );
+};
+
+interface FiltersProps {
+  Group: string;
+  checkedKeys: string[];
+  setCheckedKeys: Function;
+  showOnlyObtained: boolean;
+  setShowOnlyObtained: Function;
+  showOnlyUnobtained: boolean;
+  setShowOnlyUnobtained: Function;
+}
+
+const Filters = ({
+  Group,
+  checkedKeys,
+  setCheckedKeys,
+  showOnlyObtained,
+  setShowOnlyObtained,
+  showOnlyUnobtained,
+  setShowOnlyUnobtained,
+}: FiltersProps) => {
+  const { List } = useCharacter().char.Achievements;
+
+  const Categories = getCategories(List.filter((e) => e.Data.Group === Group));
+
+  return (
+    <div className="flex flex-wrap gap-2 p-2">
+      <div className="form-control">
+        <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
+          <span className="label-text text-primary">Obtained Only</span>
+          <input
+            type="checkbox"
+            className="checkbox-primary checkbox"
+            value={"Obtained"}
+            checked={showOnlyObtained ? true : false}
+            onChange={() => {
+              setShowOnlyUnobtained(false);
+              setShowOnlyObtained(!showOnlyObtained);
+            }}
+          />
+        </label>
+      </div>
+      <div className="form-control">
+        <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
+          <span className="label-text text-primary">Unobtained Only</span>
+          <input
+            type="checkbox"
+            className="checkbox-primary checkbox"
+            value={"Obtained"}
+            checked={showOnlyUnobtained ? true : false}
+            onChange={() => {
+              setShowOnlyObtained(false);
+              setShowOnlyUnobtained(!showOnlyUnobtained);
+            }}
+          />
+        </label>
+      </div>
+
+      <div className="dropdown dropdown-hover">
+        <label
+          tabIndex={0}
+          className="flex cursor-pointer items-center gap-2 rounded-lg bg-base-100 p-2 px-4 duration-100 hover:bg-primary hover:text-neutral"
+        >
+          <svg
+            className="fill-current"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 512 512"
+          >
+            <path d="M0 416c0-17.7 14.3-32 32-32l54.7 0c12.3-28.3 40.5-48 73.3-48s61 19.7 73.3 48L480 384c17.7 0 32 14.3 32 32s-14.3 32-32 32l-246.7 0c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48L32 448c-17.7 0-32-14.3-32-32zm192 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM384 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm-32-80c32.8 0 61 19.7 73.3 48l54.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-54.7 0c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48L32 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l246.7 0c12.3-28.3 40.5-48 73.3-48zM192 64a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm73.3 0L480 64c17.7 0 32 14.3 32 32s-14.3 32-32 32l-214.7 0c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48L32 128C14.3 128 0 113.7 0 96S14.3 64 32 64l86.7 0C131 35.7 159.2 16 192 16s61 19.7 73.3 48z" />
+          </svg>
+          Filter by Category
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu rounded-box max-h-[70vh] w-52 flex-nowrap overflow-auto bg-base-300 p-2 shadow outline outline-1 outline-gray-600"
+        >
+          {Categories.map((source) => {
+            return (
+              <Label
+                key={uuid()}
+                Filter={source}
+                checkedKeys={checkedKeys}
+                setCheckedKeys={setCheckedKeys}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 const Group = ({ Name, List }: GroupProps) => {
   const obtainedList = List.filter((e) => e.Obtained === true);
   const percentage = Math.floor((obtainedList.length / List.length) * 100);
@@ -80,15 +204,6 @@ const Group = ({ Name, List }: GroupProps) => {
     [List, checkedKeys, showOnlyObtained, showOnlyUnobtained]
   );
 
-  const changeCheckFilter = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { value, checked } = event.target;
-
-    if (checked) setCheckedKeys([...checkedKeys, value]);
-    else setCheckedKeys(checkedKeys.filter((key) => key !== value));
-  };
-
   const Header = () => (
     <div
       className="flex w-full cursor-pointer justify-between rounded-lg bg-neutral p-4 duration-100 hover:bg-base-100"
@@ -105,70 +220,21 @@ const Group = ({ Name, List }: GroupProps) => {
     </div>
   );
 
-  const Label = ({ Filter }: { Filter: string }) => (
-    <div className="form-control">
-      <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
-        <span className="label-text">{Filter}</span>
-        <input
-          type="checkbox"
-          className="checkbox"
-          value={Filter}
-          checked={checkedKeys.includes(Filter)}
-          onChange={changeCheckFilter}
-        />
-      </label>
-    </div>
-  );
-
-  const Filters = () => {
-    const Categories = getCategories(List);
-
-    return (
-      <div className="flex flex-wrap gap-2 p-2">
-        <div className="form-control">
-          <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
-            <span className="label-text text-primary">Obtained Only</span>
-            <input
-              type="checkbox"
-              className="checkbox-primary checkbox"
-              value={"Obtained"}
-              checked={showOnlyObtained ? true : false}
-              onChange={() => {
-                setShowOnlyUnobtained(false);
-                setShowOnlyObtained(!showOnlyObtained);
-              }}
-            />
-          </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
-            <span className="label-text text-primary">Unobtained Only</span>
-            <input
-              type="checkbox"
-              className="checkbox-primary checkbox"
-              value={"Obtained"}
-              checked={showOnlyUnobtained ? true : false}
-              onChange={() => {
-                setShowOnlyObtained(false);
-                setShowOnlyUnobtained(!showOnlyUnobtained);
-              }}
-            />
-          </label>
-        </div>
-        {Categories.map((e) => (
-          <Label key={uuid()} Filter={e} />
-        ))}
-      </div>
-    );
-  };
-
   return (
     <article className="rounded-lg outline outline-1 outline-base-100">
       <Header />
 
       {showList && (
         <>
-          <Filters />
+          <Filters
+            Group={Name}
+            checkedKeys={checkedKeys}
+            setCheckedKeys={setCheckedKeys}
+            showOnlyObtained={showOnlyObtained}
+            setShowOnlyObtained={setShowOnlyObtained}
+            showOnlyUnobtained={showOnlyUnobtained}
+            setShowOnlyUnobtained={setShowOnlyUnobtained}
+          />
           <div className="grid grid-cols-[3rem_.4fr_1fr_5.1rem_4.2rem] items-center gap-4 p-2 text-sm text-gray-600">
             <div></div>
             <div>Name</div>
