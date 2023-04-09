@@ -19,12 +19,21 @@ export const Footer = () => {
           <div className="flex items-center gap-3">
             <img src={YggDrasilBerry} alt="YggDrasil Berry" />
             <p>
+              Ygor Goulart (
               <Link
                 to="/Character/29518378"
                 className="link-hover link-primary"
               >
                 Ygg Lart
+              </Link>{" "}
+              from{" "}
+              <Link
+                to="/FreeCompany/9234349560946608924"
+                className="link-hover link-primary"
+              >
+                Jiyuna Ika
               </Link>
+              )
               <br />
               Providing useful websites since 2022.
             </p>
