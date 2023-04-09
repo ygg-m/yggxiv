@@ -1,6 +1,7 @@
 import axios from "axios";
 import pLimit from "p-limit";
 import {
+  AchievementData,
   CharacterData,
   CollectibleData,
   FreeCompanyData,
@@ -248,10 +249,10 @@ export async function getMinions(): Promise<CollectibleData[]> {
   return result;
 }
 
-export async function getAchievements() {
+export async function getAchievements(): Promise<AchievementData[]> {
   const urls = [
-    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name&limit=3000",
-    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name&limit=3000&Page=2",
+    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name,Points&limit=3000",
+    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name,Points&limit=3000&Page=2",
   ];
   const FFCollectAchieveData = await getFFCollectAchievements();
 
@@ -270,7 +271,7 @@ export async function getAchievements() {
   const result = List.map((achievData) => {
     const FFXIVCollectData = FFCollectAchieveData.find(
       (data) => data.Id === achievData.ID
-    );
+    ) as CollectData;
 
     const Group = achievData.AchievementCategory.AchievementKind.Name;
     const Category = achievData.AchievementCategory.Name;
@@ -282,6 +283,7 @@ export async function getAchievements() {
       Category: Category,
       Icon: `http://xivapi.com/${achievData.IconHD}`,
       Description: achievData.Description,
+      Points: achievData.Points,
       FFXIVCollectData: FFXIVCollectData,
     };
   });

@@ -1,14 +1,5 @@
 import { CollectibleData } from "./CharacterData";
 
-export interface AchievementData {
-  ID: number;
-  Name: string;
-  Group: string;
-  Category: string;
-  Icon: string;
-  Description: string;
-}
-
 export interface AchievementCount {
   Count: number;
   Categories: {
@@ -31,11 +22,12 @@ export interface AchievementData {
   Category: string;
   Icon: string;
   Description: string;
+  Points: number;
   FFXIVCollectData: {
     Id: number;
     Patch: string;
-    Owned: string;
-    Reward: {
+    Owned: number;
+    Reward?: {
       type: string;
       name?: string;
       title?: {
@@ -49,6 +41,11 @@ export interface AchievementData {
       };
     };
   };
+}
+
+export interface AchievementListRaw {
+  ID: number;
+  Date: number;
 }
 
 export interface CityData {

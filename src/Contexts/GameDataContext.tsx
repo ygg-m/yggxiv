@@ -1,11 +1,11 @@
-import { AchievementList, CollectibleData } from "@/Types";
+import { AchievementData, CollectibleData } from "@/Types";
 import { createContext, useContext, useMemo, useState } from "react";
 import { getAchievements, getMinions, getMounts } from "../Helpers/xviapi";
 
 type GameDataContextType = {
   mounts: CollectibleData[];
   minions: CollectibleData[];
-  achievements: AchievementList[];
+  achievements: AchievementData[];
 };
 
 const GameDataContext = createContext<GameDataContextType>({
@@ -23,7 +23,7 @@ export const GameDataProvider: React.FC<GameDataContextProps> = ({
 }) => {
   const [mounts, setMounts] = useState<CollectibleData[]>([]);
   const [minions, setMinions] = useState<CollectibleData[]>([]);
-  const [achievements, setAchievements] = useState<AchievementList[]>([]);
+  const [achievements, setAchievements] = useState<AchievementData[]>([]);
 
   function saveData(name: string, data: CollectibleData[]) {
     const json = JSON.stringify(data);

@@ -101,7 +101,7 @@ export async function getFFCollectMinion(): Promise<CollectData[]> {
 }
 
 export async function getFFCollectAchievements(): Promise<CollectData[]> {
-  const url = "https://ffxivcollect.com/api/minions/";
+  const url = "https://ffxivcollect.com/api/achievements/";
   const response = await axios.get(url);
   const data = response.data;
 

@@ -12,8 +12,13 @@ import { StatsProvider } from "./Contexts/StatsContext";
 import { Character, ErrorPage, FreeCompany, Home } from "./Pages";
 import {
   CharAchievements,
+  CharAchievementsARR,
+  CharAchievementsEW,
   CharAchievementsExpansion,
   CharAchievementsFullList,
+  CharAchievementsHW,
+  CharAchievementsSB,
+  CharAchievementsSHB,
   CharCollection,
   CharCollectionContent,
   CharCollectionExpansion,
@@ -148,6 +153,13 @@ const router = createHashRouter([
               {
                 path: "Expansion",
                 element: <CharAchievementsExpansion />,
+                children: [
+                  { path: "ARR", element: <CharAchievementsARR /> },
+                  { path: "HW", element: <CharAchievementsHW /> },
+                  { path: "SB", element: <CharAchievementsSB /> },
+                  { path: "SHB", element: <CharAchievementsSHB /> },
+                  { path: "EW", element: <CharAchievementsEW /> },
+                ],
               },
             ],
           },

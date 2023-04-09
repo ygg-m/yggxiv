@@ -560,8 +560,9 @@ export const StatsProvider: React.FC<CharacterContextProps> = ({
       character.Achievements.List.forEach((achiev) => {
         const achievID = achiev.ID;
         const Data = achievements.find(
-          (e: CollectibleData) => e.ID === achievID
-        );
+          (e: AchievementData) => e.ID === achievID
+        ) as AchievementData;
+
         const charData = {
           Name: character.Character.Name,
           Avatar: character.Character.Avatar,

@@ -31,4 +31,4 @@ export {
   RankListTypes,
 } from "./FreeCompanyData";
 export { FreeCompanySearchResult, Pagination } from "./FreeCompanySearch";
-export { AchievementCount, AchievementData, AchievementList } from "./GameData";
+export { AchievementCount, AchievementData, AchievementListRaw } from "./GameData";

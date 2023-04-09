@@ -6,7 +6,7 @@ import { getCharacter } from "@/Helpers";
 import { getCity, getItem, getTitle } from "@/Helpers/xviapi";
 import {
   AchievementData,
-  AchievementList,
+  AchievementListRaw,
   ClassJobs,
   Collectible,
   CollectibleData,
@@ -895,29 +895,38 @@ export const CharacterProvider: React.FC<CharacterContextProps> = ({
     return createCollectibleList(data, minions);
   }
 
-  function createAchievementList(ownedList: AchievementList[]) {
-    return achievements.map((e: AchievementData) => {
-      const data = ownedList.find((a) => a.ID === e.ID) as AchievementList;
+  interface AchieveTransitionData {
+    Data: AchievementData;
+    Date: number;
+  }
+
+  function createAchievementList(ownedList: AchieveTransitionData[]) {
+    const result = achievements.map((e) => {
+      const data = ownedList.find(
+        (a) => a.Data.ID === e.ID
+      ) as AchieveTransitionData;
 
       const result = {
-        Obtained: ownedList.some((a) => a.ID === e.ID),
+        Obtained: ownedList.some((a) => a.Data.ID === e.ID),
         Date: new Date(data?.Date * 1000),
         Data: e,
       };
 
       return result;
     });
+
+    return result;
   }
 
-  function getAchievements(arr: AchievementList[]) {
-    const data = arr.map(
-      (e) =>
-        achievements.find(
-          (a: CollectibleData) => a.ID === e.ID
-        ) as CollectibleData
-    );
+  function getAchievements(arr: AchievementListRaw[]) {
+    const data = arr.map((e) => {
+      return {
+        Data: achievements.find((a) => a.ID === e.ID) as AchievementData,
+        Date: e.Date,
+      };
+    });
 
-    return createAchievementList(data);
+    return createAchievementList(data).filter((e) => e.Data.Group !== null);
   }
 
   function getJobData(job: ClassJobs): TreatedJobData {
