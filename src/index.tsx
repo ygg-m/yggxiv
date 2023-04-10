@@ -136,10 +136,36 @@ const router = createHashRouter([
                   {
                     path: "Mounts",
                     element: <CharCollectionExpansionMounts />,
+                    children: [
+                      {
+                        path: "ARealmReborn",
+                        element: <CharAchievementsARR />,
+                      },
+                      { path: "Heavensward", element: <CharAchievementsHW /> },
+                      { path: "Stormblood", element: <CharAchievementsSB /> },
+                      {
+                        path: "Shadowbringers",
+                        element: <CharAchievementsSHB />,
+                      },
+                      { path: "Endwalker", element: <CharAchievementsEW /> },
+                    ],
                   },
                   {
                     path: "Minions",
                     element: <CharCollectionExpansionMinions />,
+                    children: [
+                      {
+                        path: "ARealmReborn",
+                        element: <CharAchievementsARR />,
+                      },
+                      { path: "Heavensward", element: <CharAchievementsHW /> },
+                      { path: "Stormblood", element: <CharAchievementsSB /> },
+                      {
+                        path: "Shadowbringers",
+                        element: <CharAchievementsSHB />,
+                      },
+                      { path: "Endwalker", element: <CharAchievementsEW /> },
+                    ],
                   },
                 ],
               },
@@ -154,11 +180,11 @@ const router = createHashRouter([
                 path: "Expansion",
                 element: <CharAchievementsExpansion />,
                 children: [
-                  { path: "ARR", element: <CharAchievementsARR /> },
-                  { path: "HW", element: <CharAchievementsHW /> },
-                  { path: "SB", element: <CharAchievementsSB /> },
-                  { path: "SHB", element: <CharAchievementsSHB /> },
-                  { path: "EW", element: <CharAchievementsEW /> },
+                  { path: "ARealmReborn", element: <CharAchievementsARR /> },
+                  { path: "Heavensward", element: <CharAchievementsHW /> },
+                  { path: "Stormblood", element: <CharAchievementsSB /> },
+                  { path: "Shadowbringers", element: <CharAchievementsSHB /> },
+                  { path: "Endwalker", element: <CharAchievementsEW /> },
                 ],
               },
             ],
