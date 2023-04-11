@@ -1,9 +1,4 @@
-import {
-  AchievementData,
-  CollectibleData,
-  CollectibleTreatedData,
-  TreatedAchievementData,
-} from "@/Types";
+import { CollectibleTreatedData, TreatedAchievementData } from "@/Types";
 import { Link } from "react-router-dom";
 
 interface CardProps {

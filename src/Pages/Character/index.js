@@ -11,9 +11,14 @@ export { FullList as CharAchievementsFullList } from "./Tabs/Achievements/FullLi
 export { Collection as CharCollection } from "./Tabs/Collection/Collection";
 export { Content as CharCollectionContent } from "./Tabs/Collection/Content";
 export {
+  ARR as CharCollectionARR,
+  EW as CharCollectionEW,
   Expansion as CharCollectionExpansion,
+  HW as CharCollectionHW,
   MinionList as CharCollectionExpansionMinions,
   MountList as CharCollectionExpansionMounts,
+  SB as CharCollectionSB,
+  SHB as CharCollectionSHB,
 } from "./Tabs/Collection/Expansion";
 export {
   FullList as CharCollectionFullList,
