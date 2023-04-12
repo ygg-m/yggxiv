@@ -207,8 +207,6 @@ const ShowExpansion = ({
     )
   );
 
-  const sourceList = getSources(filterByPatch(List, Patch));
-
   if (FalseList) return null;
   const changeCheckFilter = async (
     event: React.ChangeEvent<HTMLInputElement>

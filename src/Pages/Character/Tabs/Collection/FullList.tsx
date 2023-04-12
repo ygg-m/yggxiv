@@ -1,7 +1,7 @@
 import { useCharacter } from "@/Contexts/CharacterContext";
 import { useGameData } from "@/Contexts/GameDataContext";
 import { scrollToTop } from "@/Helpers";
-import { CollectibleData, CollectibleTreatedData } from "@/Types";
+import { CollectibleTreatedData } from "@/Types";
 import { useMemo, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { v4 as uuid } from "uuid";
@@ -163,7 +163,7 @@ const FullListCollectible = ({ List, FullList }: FullListCollectibleProps) => {
           </label>
         </div>
 
-        <div className="dropdown dropdown-hover">
+        <div className="dropdown-hover dropdown">
           <label
             tabIndex={0}
             className="flex cursor-pointer items-center gap-2 rounded-lg bg-base-100 p-2 px-4 capitalize duration-100 hover:bg-primary hover:text-neutral"
