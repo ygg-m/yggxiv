@@ -140,6 +140,7 @@ const RarestAchievements = ({ data }: RareAchievementProps) => {
           },
         },
       },
+      ItemReward: undefined,
     },
     Owners: [],
   };

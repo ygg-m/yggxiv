@@ -41,6 +41,7 @@ export interface AchievementData {
       };
     };
   };
+  ItemReward: ItemData | undefined;
 }
 
 export interface AchievementListRaw {
@@ -52,4 +53,14 @@ export interface CityData {
   ID: number;
   Icon: string;
   Name: string;
+}
+
+interface ItemData {
+  ID: number;
+  Name: string;
+  Icon: string;
+  Description: string;
+  EquipLevel: number;
+  ItemLevel: number;
+  MateriaSlots: number[];
 }

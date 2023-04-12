@@ -18,6 +18,8 @@ const Item = ({ data }: { data: TreatedAchievementData }) => {
   const { Obtained, Date } = data;
   const { Name, Icon, Description, Points, FFXIVCollectData } = data.Data;
 
+  FFXIVCollectData.Reward && console.log(FFXIVCollectData.Reward);
+
   const ShowIcon = ({ Icon, Name }: { Icon: string; Name: string }) => (
     <div>
       <img
@@ -41,7 +43,7 @@ const Item = ({ data }: { data: TreatedAchievementData }) => {
   return (
     <div className="border-b border-base-100 duration-100">
       <div
-        className={`grid grid-cols-[3rem_.4fr_1fr_5.1rem_4.2rem] items-center gap-4 p-2 text-neutral-content ${
+        className={`grid grid-cols-[3rem_.4fr_1fr_3rem_5.1rem_4.2rem] items-center gap-4 p-2 text-neutral-content ${
           Obtained
             ? "hover:bg-base-300 hover:text-primary"
             : "opacity-30 hover:bg-neutral"
@@ -50,6 +52,7 @@ const Item = ({ data }: { data: TreatedAchievementData }) => {
         <ShowIcon Icon={Icon} Name={Name} />
         <div>{Name}</div>
         <div>{Description}</div>
+        {FFXIVCollectData.Reward ? <ShowIcon Icon={Icon} Name={Name} /> : <div className="w-16 h-16" />}
         {Obtained ? <ShowDate Date={Date} /> : <div />}
         <div className="grid text-right">
           <span>{Points} Points</span>

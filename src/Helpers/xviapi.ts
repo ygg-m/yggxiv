@@ -13,6 +13,7 @@ import {
 } from "../Types/index";
 import { capitalizeText } from "./capitalizeText";
 import {
+  AchieveData,
   CollectData,
   getFFCollectAchievements,
   getFFCollectMinion,
@@ -268,25 +269,33 @@ export async function getAchievements(): Promise<AchievementData[]> {
 
   const List = [...fetch[0], ...fetch[1]];
 
-  const result = List.map((achievData) => {
-    const FFXIVCollectData = FFCollectAchieveData.find(
-      (data) => data.Id === achievData.ID
-    ) as CollectData;
+  const result = await Promise.all(
+    List.map(async (achievData) => {
+      const FFXIVCollectData = FFCollectAchieveData.find(
+        (data) => data.Id === achievData.ID
+      ) as AchieveData;
 
-    const Group = achievData.AchievementCategory.AchievementKind.Name;
-    const Category = achievData.AchievementCategory.Name;
+      let ItemReward;
 
-    return {
-      ID: achievData.ID,
-      Name: achievData.Name,
-      Group: Group,
-      Category: Category,
-      Icon: `http://xivapi.com/${achievData.IconHD}`,
-      Description: achievData.Description,
-      Points: achievData.Points,
-      FFXIVCollectData: FFXIVCollectData,
-    };
-  });
+      if (FFXIVCollectData.Reward?.type === "Item")
+        ItemReward = await searchItem(FFXIVCollectData.Reward.name ?? "");
+
+      const Group = achievData.AchievementCategory.AchievementKind.Name;
+      const Category = achievData.AchievementCategory.Name;
+
+      return {
+        ID: achievData.ID,
+        Name: achievData.Name,
+        Group: Group,
+        Category: Category,
+        Icon: `http://xivapi.com/${achievData.IconHD}`,
+        Description: achievData.Description,
+        Points: achievData.Points,
+        FFXIVCollectData: FFXIVCollectData,
+        ItemReward: ItemReward,
+      };
+    })
+  );
 
   return result;
 }
@@ -323,6 +332,23 @@ export async function getItem(id: number) {
     ID: data.ID,
     Name: data.Name,
     Icon: `https://xivapi.com/${data.IconHD}`,
+    EquipLevel: data.LevelEquip,
+    ItemLevel: data.LevelItem,
+    MateriaSlots: data.MateriaSlotCount,
+  };
+}
+
+export async function searchItem(str: string) {
+  const url = `https://xivapi.com/search?indexes=Item&columns=IconHD,Name,MateriaSlotCount,LevelEquip,LevelItem,ID,Description&string=${str}`;
+  const response = await axios.get(url);
+
+  const data = response.data.Results[0];
+
+  return {
+    ID: data.ID,
+    Name: data.Name,
+    Icon: `https://xivapi.com/${data.IconHD}`,
+    Description: data.Description,
     EquipLevel: data.LevelEquip,
     ItemLevel: data.LevelItem,
     MateriaSlots: data.MateriaSlotCount,

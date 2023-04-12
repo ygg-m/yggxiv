@@ -62,6 +62,27 @@ export interface CollectData {
   Sources: SourceData[];
 }
 
+export interface AchieveData {
+  Id: number;
+  Patch: string;
+  Owned: number;
+  Reward:
+    | {
+        type: string;
+        name?: string;
+        title?: {
+          id: number;
+          name: string;
+          female_name: string;
+          order: number;
+          patch: string;
+          owned: string;
+          icon: string;
+        };
+      }
+    | undefined;
+}
+
 export async function getFFCollectMounts(): Promise<CollectData[]> {
   const url = "https://ffxivcollect.com/api/mounts/";
   const response = await axios.get(url);
@@ -100,7 +121,7 @@ export async function getFFCollectMinion(): Promise<CollectData[]> {
   return result;
 }
 
-export async function getFFCollectAchievements(): Promise<CollectData[]> {
+export async function getFFCollectAchievements(): Promise<AchieveData[]> {
   const url = "https://ffxivcollect.com/api/achievements/";
   const response = await axios.get(url);
   const data = response.data;
