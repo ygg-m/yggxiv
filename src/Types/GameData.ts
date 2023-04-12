@@ -1,4 +1,4 @@
-import { CollectibleData } from "./CharacterData";
+import { CollectibleData, ItemData } from "./CharacterData";
 
 export interface AchievementCount {
   Count: number;
@@ -53,14 +53,4 @@ export interface CityData {
   ID: number;
   Icon: string;
   Name: string;
-}
-
-interface ItemData {
-  ID: number;
-  Name: string;
-  Icon: string;
-  Description: string;
-  EquipLevel: number;
-  ItemLevel: number;
-  MateriaSlots: number[];
 }

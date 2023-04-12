@@ -44,3 +44,9 @@ export function filterUnobtained(list: TreatedAchievementData[]) {
     (achiev: TreatedAchievementData) => achiev.Obtained === false
   );
 }
+
+export function filterRewards(List: TreatedAchievementData[], Set: boolean) {
+  return Set
+    ? List.filter((achiev) => achiev.Data.ItemReward !== undefined)
+    : List;
+}

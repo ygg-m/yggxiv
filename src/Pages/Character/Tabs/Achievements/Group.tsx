@@ -2,9 +2,11 @@ import { useCharacter } from "@/Contexts/CharacterContext";
 import { TreatedAchievementData } from "@/Types";
 import { useMemo, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { Item } from "../../Components/Item";
 import {
   filterByCategoryCheck,
   filterObtained,
+  filterRewards,
   filterUnobtained,
   getCategories,
 } from "./helpers";
@@ -14,12 +16,10 @@ interface GroupProps {
   List: TreatedAchievementData[];
 }
 
-const Item = ({ data }: { data: TreatedAchievementData }) => {
+const Achiev = ({ data }: { data: TreatedAchievementData }) => {
   const { Obtained, Date } = data;
   const { Name, Icon, Description, Points, FFXIVCollectData, ItemReward } =
     data.Data;
-
-  ItemReward && console.log(ItemReward);
 
   const ShowIcon = ({ Icon, Name }: { Icon: string; Name: string }) => (
     <div>
@@ -45,16 +45,16 @@ const Item = ({ data }: { data: TreatedAchievementData }) => {
     <div className="border-b border-base-100 duration-100">
       <div
         className={`grid grid-cols-[3rem_.4fr_1fr_3rem_5.1rem_4.2rem] items-center gap-4 p-2 text-neutral-content ${
-          Obtained
-            ? "hover:bg-base-300 hover:text-primary"
-            : "opacity-30 hover:bg-neutral"
+          Obtained ? "hover:bg-base-300" : "opacity-30 hover:bg-neutral"
         }`}
       >
         <ShowIcon Icon={Icon} Name={Name} />
         <div>{Name}</div>
         <div>{Description}</div>
-        {FFXIVCollectData.Reward ? (
-          <ShowIcon Icon={Icon} Name={Name} />
+        {ItemReward ? (
+          <div className="h-12 w-12">
+            <Item data={ItemReward} />
+          </div>
         ) : (
           <div className="h-16 w-16" />
         )}
@@ -109,6 +109,8 @@ interface FiltersProps {
   setShowOnlyObtained: Function;
   showOnlyUnobtained: boolean;
   setShowOnlyUnobtained: Function;
+  showOnlyWithRewards: boolean;
+  setShowOnlyWithRewards: Function;
 }
 
 const Filters = ({
@@ -120,6 +122,8 @@ const Filters = ({
   setShowOnlyObtained,
   showOnlyUnobtained,
   setShowOnlyUnobtained,
+  showOnlyWithRewards,
+  setShowOnlyWithRewards,
 }: FiltersProps) => {
   const Categories = getCategories(List.filter((e) => e.Data.Group === Group));
 
@@ -188,6 +192,19 @@ const Filters = ({
           })}
         </ul>
       </div>
+
+      <div className="form-control">
+        <label className="label cursor-pointer gap-2 rounded-lg bg-base-300 px-3">
+          <span className="label-text">Has Item Reward</span>
+          <input
+            type="checkbox"
+            className="checkbox"
+            value={"Reward"}
+            checked={showOnlyWithRewards ? true : false}
+            onChange={() => setShowOnlyWithRewards(!showOnlyWithRewards)}
+          />
+        </label>
+      </div>
     </div>
   );
 };
@@ -200,15 +217,32 @@ export const Group = ({ Name, List }: GroupProps) => {
   const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
   const [showOnlyObtained, setShowOnlyObtained] = useState<boolean>(true);
   const [showOnlyUnobtained, setShowOnlyUnobtained] = useState<boolean>(false);
+  const [showOnlyWithRewards, setShowOnlyWithRewards] =
+    useState<boolean>(false);
 
   const list = useMemo(
     () =>
       showOnlyObtained
-        ? filterObtained(filterByCategoryCheck(List, checkedKeys))
+        ? filterRewards(
+            filterObtained(filterByCategoryCheck(List, checkedKeys)),
+            showOnlyWithRewards
+          )
         : showOnlyUnobtained
-        ? filterUnobtained(filterByCategoryCheck(List, checkedKeys))
-        : filterByCategoryCheck(List, checkedKeys),
-    [List, checkedKeys, showOnlyObtained, showOnlyUnobtained]
+        ? filterRewards(
+            filterUnobtained(filterByCategoryCheck(List, checkedKeys)),
+            showOnlyWithRewards
+          )
+        : filterRewards(
+            filterByCategoryCheck(List, checkedKeys),
+            showOnlyWithRewards
+          ),
+    [
+      List,
+      checkedKeys,
+      showOnlyObtained,
+      showOnlyUnobtained,
+      showOnlyWithRewards,
+    ]
   );
 
   const Header = () => (
@@ -242,6 +276,8 @@ export const Group = ({ Name, List }: GroupProps) => {
             setShowOnlyObtained={setShowOnlyObtained}
             showOnlyUnobtained={showOnlyUnobtained}
             setShowOnlyUnobtained={setShowOnlyUnobtained}
+            showOnlyWithRewards={showOnlyWithRewards}
+            setShowOnlyWithRewards={setShowOnlyWithRewards}
           />
           <div className="grid grid-cols-[3rem_.4fr_1fr_5.1rem_4.2rem] items-center gap-4 p-2 text-sm text-gray-600">
             <div></div>
@@ -253,9 +289,8 @@ export const Group = ({ Name, List }: GroupProps) => {
               <span>Owners</span>
             </div>
           </div>
-
           {list.map((e) => (
-            <Item key={uuid()} data={e} />
+            <Achiev key={uuid()} data={e} />
           ))}
         </>
       )}

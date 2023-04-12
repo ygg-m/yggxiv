@@ -354,5 +354,7 @@ export async function searchItem(str: string) {
     EquipLevel: data.LevelEquip,
     ItemLevel: data.LevelItem,
     MateriaSlots: data.MateriaSlotCount,
+    MateriaEquipped: null,
+    Glamour: null,
   };
 }
