@@ -11,9 +11,11 @@ export const CollectibleInfo = ({ Mounts, Minions }: Props) => {
   const RarestMounts = () => {
     const { mounts } = useGameData();
 
-    const List = Mounts.sort(
-      (a, b) => a.Data.FFXIVCollectData.Owned - b.Data.FFXIVCollectData.Owned
-    ).slice(0, 10);
+    const List = Mounts.filter((e) => e.Obtained === true)
+      .sort(
+        (a, b) => a.Data.FFXIVCollectData.Owned - b.Data.FFXIVCollectData.Owned
+      )
+      .slice(0, 10);
 
     return (
       <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-100 hover:bg-base-100">
@@ -50,9 +52,11 @@ export const CollectibleInfo = ({ Mounts, Minions }: Props) => {
   const RarestMinions = () => {
     const { minions } = useGameData();
 
-    const List = Minions.sort(
-      (a, b) => a.Data.FFXIVCollectData.Owned - b.Data.FFXIVCollectData.Owned
-    ).slice(0, 10);
+    const List = Minions.filter((e) => e.Obtained === true)
+      .sort(
+        (a, b) => a.Data.FFXIVCollectData.Owned - b.Data.FFXIVCollectData.Owned
+      )
+      .slice(0, 10);
 
     return (
       <article className="flex flex-col gap-4 rounded-lg rounded-b-lg bg-base-300 p-4 duration-100 hover:bg-base-100">
