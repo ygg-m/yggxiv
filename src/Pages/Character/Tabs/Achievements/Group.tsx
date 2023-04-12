@@ -16,9 +16,10 @@ interface GroupProps {
 
 const Item = ({ data }: { data: TreatedAchievementData }) => {
   const { Obtained, Date } = data;
-  const { Name, Icon, Description, Points, FFXIVCollectData } = data.Data;
+  const { Name, Icon, Description, Points, FFXIVCollectData, ItemReward } =
+    data.Data;
 
-  FFXIVCollectData.Reward && console.log(FFXIVCollectData.Reward);
+  ItemReward && console.log(ItemReward);
 
   const ShowIcon = ({ Icon, Name }: { Icon: string; Name: string }) => (
     <div>
@@ -52,7 +53,11 @@ const Item = ({ data }: { data: TreatedAchievementData }) => {
         <ShowIcon Icon={Icon} Name={Name} />
         <div>{Name}</div>
         <div>{Description}</div>
-        {FFXIVCollectData.Reward ? <ShowIcon Icon={Icon} Name={Name} /> : <div className="w-16 h-16" />}
+        {FFXIVCollectData.Reward ? (
+          <ShowIcon Icon={Icon} Name={Name} />
+        ) : (
+          <div className="h-16 w-16" />
+        )}
         {Obtained ? <ShowDate Date={Date} /> : <div />}
         <div className="grid text-right">
           <span>{Points} Points</span>

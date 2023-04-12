@@ -277,8 +277,10 @@ export async function getAchievements(): Promise<AchievementData[]> {
 
       let ItemReward;
 
-      if (FFXIVCollectData.Reward?.type === "Item")
-        ItemReward = await searchItem(FFXIVCollectData.Reward.name ?? "");
+      if (FFXIVCollectData?.Reward?.type === "Item")
+        ItemReward = limit(
+          async () => await searchItem(FFXIVCollectData.Reward?.name ?? "Gil")
+        );
 
       const Group = achievData.AchievementCategory.AchievementKind.Name;
       const Category = achievData.AchievementCategory.Name;
@@ -292,7 +294,7 @@ export async function getAchievements(): Promise<AchievementData[]> {
         Description: achievData.Description,
         Points: achievData.Points,
         FFXIVCollectData: FFXIVCollectData,
-        ItemReward: ItemReward,
+        ItemReward: await ItemReward,
       };
     })
   );
