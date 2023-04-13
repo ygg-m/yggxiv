@@ -1,4 +1,3 @@
-import { useCharacter } from "@/Contexts/CharacterContext";
 import { TreatedAchievementData } from "@/Types";
 import { useMemo, useState } from "react";
 import { v4 as uuid } from "uuid";
