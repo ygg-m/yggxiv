@@ -4,7 +4,7 @@ export function getGroups(list: TreatedAchievementData[]) {
   const newSet = new Set<string>();
 
   for (const achievement of list) {
-    newSet.add(achievement.Data.Group);
+    newSet.add(achievement.Data.Group ?? "No Group");
   }
 
   const result = Array.from(newSet);
@@ -16,7 +16,7 @@ export function getCategories(list: TreatedAchievementData[]) {
   const result = new Set<string>();
 
   for (const achievement of list) {
-    result.add(achievement.Data.Category);
+    result.add(achievement.Data.Category ?? "No Category");
   }
 
   return Array.from(result);
@@ -28,7 +28,7 @@ export function filterByCategoryCheck(
 ) {
   return state.length > 0
     ? list.filter((achiev: TreatedAchievementData) =>
-        state.includes(achiev.Data.Category)
+        state.includes(achiev.Data.Category ?? "No Category")
       )
     : list;
 }

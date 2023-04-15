@@ -17,7 +17,9 @@ export function filterByCharQuery(data: AchievementsTypes[], query: string) {
 }
 
 export function filterByType(data: AchievementsTypes[], filter: string) {
-  return data.filter((Collectible) => filter.includes(Collectible.Data.Group));
+  return data.filter((Collectible) =>
+    filter.includes(Collectible.Data.Group ?? "No Group")
+  );
 }
 
 export function filterList(

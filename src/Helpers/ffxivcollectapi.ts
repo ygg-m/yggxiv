@@ -1,3 +1,4 @@
+import { ffxivCollectAchieveData } from "@/Data/ffxivCollectAchieveData";
 import axios from "axios";
 
 interface SourceData {
@@ -34,7 +35,7 @@ interface FFAchievementData {
   points: number;
   order: number;
   patch: string;
-  owned: string;
+  owned: string | number;
   icon: string;
   category: { id: number; name: string };
   type: { id: number; name: string };
@@ -65,7 +66,7 @@ export interface CollectData {
 export interface AchieveData {
   Id: number;
   Patch: string;
-  Owned: number;
+  Owned: string | number;
   Reward:
     | {
         type: string;
@@ -122,11 +123,14 @@ export async function getFFCollectMinion(): Promise<CollectData[]> {
 }
 
 export async function getFFCollectAchievements(): Promise<AchieveData[]> {
-  const url = "https://ffxivcollect.com/api/achievements/";
-  const response = await axios.get(url);
-  const data = response.data;
+  // old fetch
+  // const url = "https://ffxivcollect.com/api/achievements/";
+  // const response = await axios.get(url);
+  // const data = response.data;
 
-  const result = data.results.map((achieve: FFAchievementData) => {
+  const data = ffxivCollectAchieveData.filter((e) => e.name !== "");
+
+  const result = data.map((achieve: FFAchievementData) => {
     return {
       Id: achieve.id,
       Patch: achieve.patch,

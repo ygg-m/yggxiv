@@ -1,3 +1,4 @@
+import { xivAchieveData } from "@/Data/xivAchieveData";
 import axios from "axios";
 import pLimit from "p-limit";
 import {
@@ -251,23 +252,26 @@ export async function getMinions(): Promise<CollectibleData[]> {
 }
 
 export async function getAchievements(): Promise<AchievementData[]> {
-  const urls = [
-    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name,Points&limit=3000",
-    "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name,Points&limit=3000&Page=2",
-  ];
+  // old fetch
+  // const urls = [
+  //   "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name,Points&limit=3000",
+  //   "https://xivapi.com/Achievement?columns=ID,IconHD,Name,Description,AchievementCategory.Name,AchievementCategory.AchievementKind.Name,Points&limit=3000&Page=2",
+  // ];
   const FFCollectAchieveData = await getFFCollectAchievements();
 
-  const fetch = await Promise.all(
-    urls.map((url) =>
-      limit(async () => {
-        const response = await axios.get(url);
-        const data = response.data.Results;
-        return data;
-      })
-    )
-  );
+  // const fetch = await Promise.all(
+  //   urls.map((url) =>
+  //     limit(async () => {
+  //       const response = await axios.get(url);
+  //       const data = response.data.Results;
+  //       return data;
+  //     })
+  //   )
+  // );
 
-  const List = [...fetch[0], ...fetch[1]];
+  // const List = [...fetch[0], ...fetch[1]];
+
+  const List = xivAchieveData.filter((e) => e.Name !== "");
 
   const result = await Promise.all(
     List.map(async (achievData) => {

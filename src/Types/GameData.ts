@@ -18,15 +18,15 @@ export interface AchievementCount {
 export interface AchievementData {
   ID: number;
   Name: string;
-  Group: string;
-  Category: string;
+  Group: string | null;
+  Category: string | null;
   Icon: string;
   Description: string;
   Points: number;
   FFXIVCollectData: {
     Id: number;
     Patch: string;
-    Owned: number;
+    Owned: number | string;
     Reward?: {
       type: string;
       name?: string;
