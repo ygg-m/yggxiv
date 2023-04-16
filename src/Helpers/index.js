@@ -1,5 +1,6 @@
 export { capitalizeText } from "./capitalizeText";
 export { formatNumber } from "./formatNumber";
+export { getDataFromPatch } from "./getDataFromPatch";
 export { getRanks } from "./getFreeCompanyRanks";
 export { getRandomString } from "./getRandomString";
 export { loadFromLocalStorage, saveToLocalStorage } from "./localStorage";
