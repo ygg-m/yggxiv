@@ -114,7 +114,7 @@ export const HeavenOnHighAchievements = [
 
 export const HeavenOnHighSoloAchievements = [{ ID: 2054 }, { ID: 2055 }];
 
-export const BlueMage = [
+export const BlueMageAchievements = [
   { ID: 2203 },
   { ID: 2203 },
   { ID: 2203 },
@@ -122,7 +122,7 @@ export const BlueMage = [
   { ID: 2449 },
 ];
 
-export const BlueMageFeats = [
+export const BlueMageFeatsAchievements = [
   { ID: 2209 },
   { ID: 2210 },
   { ID: 2211 },
@@ -159,9 +159,9 @@ export const EurekaAchievements = [
 
 export const BalesionArsenal = { ID: 2227 };
 
-export const ZodiacWeaponAchievements = [{ ID: 1054 }, { ID: 1081 }];
-
-export const AnimaWeaponAchievements = [
+export const RelicWeaponsAchievements = [
+  { ID: 1054 },
+  { ID: 1081 },
   { ID: 1708 },
   { ID: 1709 },
   { ID: 1710 },
@@ -175,9 +175,6 @@ export const AnimaWeaponAchievements = [
   { ID: 1718 },
   { ID: 1719 },
   { ID: 1720 },
-];
-
-export const EurekaWeaponAchievements = [
   { ID: 2212 },
   { ID: 2213 },
   { ID: 2214 },
@@ -193,9 +190,6 @@ export const EurekaWeaponAchievements = [
   { ID: 2224 },
   { ID: 2225 },
   { ID: 2226 },
-];
-
-export const ResistanceWeaponAchievements = [
   { ID: 2857 },
   { ID: 2858 },
   { ID: 2859 },
@@ -213,9 +207,6 @@ export const ResistanceWeaponAchievements = [
   { ID: 2871 },
   { ID: 2872 },
   { ID: 2873 },
-];
-
-export const MandervilleWeaponAchievements = [
   { ID: 3224 },
   { ID: 3225 },
   { ID: 3226 },
@@ -237,7 +228,7 @@ export const MandervilleWeaponAchievements = [
   { ID: 3242 },
 ];
 
-export const SkySteelToolsAchievements = [
+export const RelicToolsAchievements = [
   { ID: 2787 },
   { ID: 2788 },
   { ID: 2789 },
@@ -249,9 +240,6 @@ export const SkySteelToolsAchievements = [
   { ID: 2795 },
   { ID: 2796 },
   { ID: 2797 },
-];
-
-export const SplendorousToolsAchievements = [
   { ID: 3193 },
   { ID: 3194 },
   { ID: 3195 },
